@@ -1099,6 +1099,15 @@
           </div>
         </div>
 
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <div class="dialog-section-title" style="margin:0; padding-top:0; border-top:none;">Dados Adicionais</div>
+            <button type="button" class="btn btn-secondary" id="btn-add-dado-adicional"><span class="material-symbols-outlined">add</span><span>Adicionar Campo</span></button>
+          </div>
+          <p style="font-size:12px; color:var(--color-text-secondary); margin:0 0 12px;">Observações livres para complementar a proposta, além das opções padrão acima.</p>
+          <div id="proposta-dados-adicionais-list" style="display:flex; flex-direction:column; gap:10px;"></div>
+        </div>
+
         <div class="cfg-footer" style="justify-content:space-between;">
           <button type="button" class="btn btn-outline" id="btn-cancelar-proposta"><span class="material-symbols-outlined">close</span><span>Cancelar</span></button>
           <button type="button" class="btn btn-primary" id="btn-salvar-proposta"><span class="material-symbols-outlined">save</span><span>Salvar Proposta</span></button>
@@ -2303,6 +2312,7 @@
   var editingPropostaId = null;
   var currentPropostaPrintId = null;
   var propostaFormItens = [];
+  var propostaDadosAdicionais = [];
   var PROPOSTA_STATUS_LABELS = { pendente: 'Pendente', aprovada: 'Aprovada', rejeitada: 'Rejeitada' };
   var PROPOSTA_STATUS_CLASS = { pendente: 'warning', aprovada: 'success', rejeitada: 'danger' };
   var PROPOSTA_OBS_OPCOES = [
@@ -4220,6 +4230,7 @@
         return { descricao: it.descricao, qtde: it.qtde, meses: it.meses, valorUnit: it.valorUnit, mobDesob: it.mobDesob };
       });
       checks.forEach(function(c){ c.checked = (p.obs || []).indexOf(c.value) !== -1; });
+      propostaDadosAdicionais = (p.dadosAdicionais || []).slice();
     } else {
       document.getElementById('form-proposta').reset();
       document.getElementById('proposta-numero-display').value = gerarNumeroProposta();
@@ -4228,8 +4239,34 @@
       document.getElementById('proposta-dataEmissao').value = new Date().toISOString().slice(0, 10);
       propostaFormItens = [];
       checks.forEach(function(c){ c.checked = false; });
+      propostaDadosAdicionais = [];
     }
     renderPropostaItensTable();
+    renderDadosAdicionaisList();
+  }
+
+  function adicionarDadoAdicional(){
+    propostaDadosAdicionais.push('');
+    renderDadosAdicionaisList();
+  }
+
+  function removeDadoAdicional(idx){
+    propostaDadosAdicionais.splice(idx, 1);
+    renderDadosAdicionaisList();
+  }
+
+  function renderDadosAdicionaisList(){
+    var container = document.getElementById('proposta-dados-adicionais-list');
+    if (propostaDadosAdicionais.length === 0){
+      container.innerHTML = '<p style="font-size:12px; color:var(--color-text-secondary); margin:0;">Nenhum campo adicionado.</p>';
+      return;
+    }
+    container.innerHTML = propostaDadosAdicionais.map(function(texto, idx){
+      return '<div style="display:flex; gap:8px; align-items:center;" data-idx="' + idx + '">' +
+        '<input type="text" class="dado-adicional-input" data-idx="' + idx + '" value="' + (texto || '').replace(/"/g, '&quot;') + '" placeholder="Digite uma observação adicional..." style="flex:1; height:40px; padding:0 12px; border-radius:var(--radius); border:1px solid var(--color-border); background:var(--color-canvas); font-size:13px; color:var(--color-text);">' +
+        '<button type="button" class="icon-btn remove-dado-adicional-btn" data-idx="' + idx + '" title="Remover"><span class="material-symbols-outlined">delete</span></button>' +
+        '</div>';
+    }).join('');
   }
 
   function adicionarItemProposta(){
@@ -4307,6 +4344,7 @@
     var valorTotal = itens.reduce(function(s, it){ return s + it.total; }, 0);
     var obs = [];
     document.querySelectorAll('.proposta-obs-check').forEach(function(c){ if (c.checked) obs.push(c.value); });
+    var dadosAdicionais = propostaDadosAdicionais.map(function(t){ return (t || '').trim(); }).filter(function(t){ return t; });
 
     var record = {
       id: existing ? existing.id : gerarId('PR', seq),
@@ -4318,7 +4356,8 @@
       referencia: document.getElementById('proposta-referencia').value.trim(),
       valorTotal: valorTotal,
       status: existing ? existing.status : status,
-      obs: obs
+      obs: obs,
+      dadosAdicionais: dadosAdicionais
     };
 
     if (existing){
@@ -4382,6 +4421,9 @@
     var obsHtml = (p.obs && p.obs.length)
       ? '<ul style="margin:6px 0 0; padding-left:20px;">' + p.obs.map(function(o){ return '<li>' + o + '</li>'; }).join('') + '</ul>'
       : '<p style="margin:6px 0 0; color:var(--color-text-secondary);">Nenhuma observação selecionada.</p>';
+    var dadosAdicionaisHtml = (p.dadosAdicionais && p.dadosAdicionais.length)
+      ? '<div class="a4-section-title">Dados Adicionais</div><ul style="margin:6px 0 0; padding-left:20px;">' + p.dadosAdicionais.map(function(o){ return '<li>' + o + '</li>'; }).join('') + '</ul>'
+      : '';
     var destinoCidadeUf = (loc.endereco && loc.endereco.cidade) ? (loc.endereco.cidade + '/' + loc.endereco.uf) : '—';
 
     container.innerHTML =
@@ -4410,6 +4452,7 @@
 
         '<div class="a4-section-title">Observações</div>' +
         obsHtml +
+        dadosAdicionaisHtml +
 
         '<div class="a4-assinatura-data">' + gerarDataExtenso(p.dataEmissao) + '</div>' +
         '<div class="a4-assinaturas" style="grid-template-columns:1fr;">' +
@@ -5987,6 +6030,17 @@
     document.getElementById('proposta-itens-tbody').addEventListener('click', function(e){
       var btn = e.target.closest('.remove-item-btn');
       if (btn) removeItemProposta(parseInt(btn.dataset.idx, 10));
+    });
+
+    document.getElementById('btn-add-dado-adicional').addEventListener('click', adicionarDadoAdicional);
+    document.getElementById('proposta-dados-adicionais-list').addEventListener('input', function(e){
+      var idx = parseInt(e.target.dataset.idx, 10);
+      if (isNaN(idx) || !e.target.classList.contains('dado-adicional-input')) return;
+      propostaDadosAdicionais[idx] = e.target.value;
+    });
+    document.getElementById('proposta-dados-adicionais-list').addEventListener('click', function(e){
+      var btn = e.target.closest('.remove-dado-adicional-btn');
+      if (btn) removeDadoAdicional(parseInt(btn.dataset.idx, 10));
     });
 
     wireLocatarioCombobox('proposta-locatario-search', 'proposta-locatario-id', 'proposta-locatario-dropdown');
