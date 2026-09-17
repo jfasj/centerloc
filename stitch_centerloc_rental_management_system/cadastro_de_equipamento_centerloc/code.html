@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-fixed-variant":"#6b3a0a","primary-container":"#1a3a6e","outline-variant":"#c4c6d1","on-secondary-fixed-variant":"#743400","surface-bright":"#f6faff","tertiary-fixed-dim":"#ffb77e","background":"#f6faff","on-primary-fixed-variant":"#28467b","on-secondary":"#ffffff","on-secondary-fixed":"#321300","secondary-container":"#ff8934","primary-fixed-dim":"#adc7ff","on-tertiary-container":"#da965f","on-primary-fixed":"#001a41","on-secondary-container":"#662d00","inverse-on-surface":"#edf1f7","tertiary-fixed":"#ffdcc3","error-container":"#ffdad6","surface-container-lowest":"#ffffff","surface-container-high":"#e4e8ee","on-background":"#171c20","outline":"#747780","on-primary-container":"#89a5e0","tertiary-container":"#5d2f00","primary-fixed":"#d8e2ff","surface-container":"#eaeef4","surface-container-low":"#f0f4fa","primary":"#002453","error":"#ba1a1a","on-tertiary-fixed":"#2f1500","on-surface-variant":"#44474f","tertiary":"#3d1d00","on-tertiary":"#ffffff","secondary-fixed-dim":"#ffb68b","surface":"#f6faff","on-error":"#ffffff","on-surface":"#171c20","surface-variant":"#dfe3e9","surface-tint":"#415e94","surface-dim":"#d6dae0","on-error-container":"#93000a","on-primary":"#ffffff","inverse-surface":"#2c3136","secondary-fixed":"#ffdbc8","inverse-primary":"#adc7ff","secondary":"#994700","surface-container-highest":"#dfe3e9"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-normal":"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-lg":"1rem","sidebar-width":"260px","space-xl":"1.5rem","gutter-dense":"0.75rem","space-3xl":"2.5rem","space-2xl":"2rem","space-sm":"0.5rem","topbar-height":"64px","space-2xs":"0.125rem"},fontFamily:{"headline-lg":["Barlow Condensed"],"headline-md":["Barlow Condensed"],"body-md":["Inter"],"headline-sm":["Barlow Condensed"],"code-sm":["Inter"],"headline-xl":["Barlow Condensed"],"display-lg":["Barlow Condensed"],"label-md":["Inter"],"body-sm":["Inter"],"label-sm":["Inter"],"body-lg":["Inter"]},fontSize:{"headline-lg":["24px",{lineHeight:"28px",letterSpacing:"0.01em",fontWeight:"700"}],"headline-md":["20px",{lineHeight:"24px",letterSpacing:"0.01em",fontWeight:"700"}],"body-md":["14px",{lineHeight:"20px",letterSpacing:"0em",fontWeight:"400"}],"headline-sm":["16px",{lineHeight:"20px",letterSpacing:"0.02em",fontWeight:"700"}],"code-sm":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-xl":["32px",{lineHeight:"36px",letterSpacing:"0.02em",fontWeight:"800"}],"display-lg":["44px",{lineHeight:"48px",letterSpacing:"0.02em",fontWeight:"900"}],"label-md":["13px",{lineHeight:"18px",letterSpacing:"0.01em",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"400"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[240px] bg-primary-container text-on-primary z-50 flex flex-col justify-between overflow-y-auto border-r border-outline-variant/20 shadow-xl"><div class="flex flex-col"><div class="h-[52px] flex items-center px-space-md gap-space-sm border-b border-outline-variant/10 bg-primary"><div class="w-8 h-8 rounded bg-secondary flex items-center justify-center text-on-secondary font-headline-md text-headline-md tracking-wider shadow-sm">C</div><div class="flex flex-col"><div class="flex items-center gap-space-2xs"><span class="font-headline-md text-headline-md font-bold tracking-tight text-on-primary leading-none">CENTER</span><span class="font-headline-md text-headline-md font-bold tracking-tight text-secondary-container leading-none">LOC</span></div><span class="font-label-sm text-[9px] uppercase tracking-widest text-on-primary-container leading-none mt-space-2xs">Recife • PE</span></div></div><nav class="flex flex-col px-space-xs py-space-sm gap-space-2xs" data-active-classes="bg-secondary text-on-secondary font-bold shadow-sm"><div class="px-space-sm pt-space-xs pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Principal</div><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded transition-colors bg-secondary text-on-secondary font-bold shadow-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Dashboard</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Cadastros</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="locatarios" href="#"><span class="material-symbols-outlined text-[18px]">badge</span><span>Locatários</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="veiculos-equipamentos" href="#"><span class="material-symbols-outlined text-[18px]">precision_manufacturing</span><span>Veículos / Equip.</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="clientes-fornecedores" href="#"><span class="material-symbols-outlined text-[18px]">domain</span><span>Clientes / Forneced.</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Comercial</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="propostas" href="#"><span class="material-symbols-outlined text-[18px]">request_quote</span><span>Propostas</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contratos" href="#"><span class="material-symbols-outlined text-[18px]">history_edu</span><span>Contratos</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Fiscal</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="notas-de-debito" href="#"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Notas de Débito</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Financeiro</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-receber" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_down</span><span>Contas a Receber</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-pagar" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_up</span><span>Contas a Pagar</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="fluxo-de-caixa" href="#"><span class="material-symbols-outlined text-[18px]">account_balance</span><span>Fluxo de Caixa</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Sistema</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="configuracoes" href="#"><span class="material-symbols-outlined text-[18px]">settings</span><span>Configurações</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="relatorios" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span><span>Relatórios</span></a></nav></div><div class="p-space-sm border-t border-outline-variant/10 bg-primary/40 flex flex-col gap-space-2xs text-on-primary-container/60"><div class="font-code-sm text-[10px] tracking-tight">CNPJ: 12.299.005/0001-46</div><div class="flex items-center justify-between font-label-sm text-[9px] uppercase tracking-wider text-on-primary-container/50"><span>Suape Hub Ops</span><span>v3.4.2</span></div></div></aside><div class="pl-[240px]"><header class="fixed top-0 left-[240px] right-0 h-[52px] bg-surface-container-lowest border-b border-outline-variant/40 z-40 px-space-lg flex items-center justify-between shadow-[0_1px_4px_rgba(26,39,58,0.04)]"><div class="flex items-center gap-space-md"><img alt="CENTERLOC Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUVh69YIR84jKNWh5QJscBhhVxCQimM9Rce_9VsIVdOEuuEg3V8hpQzBvIChTmxgXxXZ3_N9DxuZMwfIJWJ9eMZTVUnvBRwOgQxZpCsHZgpfL09NkEStgvbLfX74BcDTOxZBw1JDOD1TDn32cApG1HvIVZEeTDQeVbgcOWjO4FHTP7XoMWN2qsXrwuWKynJohxUhNKQcgBI5Z1EwyIOcTRK5nFcaxcdqR93BZgmDZpJ6rozW3MedIZ0g"/><div class="h-4 w-px bg-outline-variant/40 hidden sm:block"></div><nav class="hidden sm:flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">CENTERLOC</span><span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span><span class="text-outline font-body-sm text-body-sm">Gestão Integrada</span></nav></div><div class="flex items-center gap-space-md"><div class="relative hidden md:flex items-center"><span class="material-symbols-outlined absolute left-2.5 text-outline text-[18px]">search</span><input class="w-56 lg:w-72 h-[34px] pl-8 pr-space-sm rounded bg-surface-container-low border border-outline-variant text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:border-secondary transition-colors" placeholder="Buscar chassi, placa, contrato..." type="text"/></div><button class="relative p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span></button><button class="h-[34px] px-space-md bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-sm transition-all" type="button"><span class="material-symbols-outlined text-[16px]">add</span><span>Novo</span></button><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNyQ7n44WW0zUOw_Yxj6A9FXtIDs4PoOTZZ5XUwseNrHCtNo7cbI1MkH2DwhojBJn2ID72Vid69W0icu4M45hGxhi0R8H5i_flt97CiQmL2DXCaGm3GOCBxPu-1bbA-ST_46RRMUKfWaRVMb-vEhYOlffduet9T-q5s0FQddNGJ6v5XjgBCfqhxA6tcg4KOqNxR-qlwLG4rCaVqdIl6vBkMMTPD-c5-B1PQVRhx9LjqRh6ZT-n2WgcSQ"/><div class="hidden xl:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Antonio Neto</span><span class="font-label-sm text-[10px] text-on-surface-variant leading-none">Gerente Operacional</span></div></div></div></header><main class="w-full pt-[52px] bg-background min-h-screen"><div class="flex flex-col w-full">
+<div class="px-space-xl py-space-md bg-surface-container-lowest shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-2xs">
+<nav class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant">
+<span>Cadastros</span>
+<span class="material-symbols-outlined text-[12px] text-outline">chevron_right</span>
+<span>Veículos e Equipamentos</span>
+<span class="material-symbols-outlined text-[12px] text-outline">chevron_right</span>
+<span class="text-secondary font-semibold">Novo Cadastro</span>
+</nav>
+<div class="flex items-center gap-space-sm">
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tight uppercase">Cadastrar Equipamento</h1>
+<span class="bg-surface-container-high text-primary font-code-sm text-code-sm px-space-xs py-0.5 rounded uppercase">FROTA SUAPE</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-start sm:self-auto">
+<button class="h-10 px-space-md bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md rounded flex items-center gap-space-xs transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_border</span>
+<span>Salvar como Rascunho</span>
+</button>
+<button class="h-10 px-space-lg bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-md transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Salvar Equipamento</span>
+</button>
+</div>
+</div>
+<div class="px-space-xl py-space-xl max-w-[1720px] w-full mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<div class="lg:col-span-8 flex flex-col gap-space-xl">
+<div class="bg-surface-container-lowest rounded-lg shadow-sm p-space-xl relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary"></div>
+<div class="flex items-center justify-between mb-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded bg-primary text-on-primary flex items-center justify-center font-headline-sm text-headline-sm">1</span>
+<h2 class="font-headline-lg text-headline-lg text-primary uppercase tracking-wide">Identificação do Ativo</h2>
+</div>
+<span class="text-outline font-code-sm text-code-sm">ID PROVISÓRIO: #EQP-2026-088</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md">
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Tipo de Ativo</label>
+<div class="relative">
+<select class="w-full h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none appearance-none cursor-pointer">
+<option selected="">Veículo Pesado / Caminhão</option>
+<option>Máquina Pesada / Linha Amarela</option>
+<option>Implemento / Acessório</option>
+<option>Veículo Leve de Apoio</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-sm top-2.5 text-outline pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Subcategoria / Segmento</label>
+<input class="w-full h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none" type="text" value="Caminhão Basculante Traçado 6x4"/>
+</div>
+<div class="md:col-span-12 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Nome / Denominação Comercial do Ativo</label>
+<input class="w-full h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface font-semibold focus:outline-none" type="text" value="Caminhão Basculante Traçado Volvo FH 540 6x4 Caçamba 14m³"/>
+</div>
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Marca / Fabricante</label>
+<div class="relative">
+<select class="w-full h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none appearance-none cursor-pointer">
+<option selected="">Volvo do Brasil</option>
+<option>Scania Latin America</option>
+<option>Caterpillar Inc.</option>
+<option>New Holland Construction</option>
+<option>Mercedes-Benz</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-sm top-2.5 text-outline pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Modelo Comercial</label>
+<input class="w-full h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none" type="text" value="FH 540 6x4 Rigid Heavy"/>
+</div>
+<div class="md:col-span-2 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Ano Fab.</label>
+<input class="w-full h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none" type="number" value="2023"/>
+</div>
+<div class="md:col-span-2 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Ano Modelo</label>
+<input class="w-full h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none" type="number" value="2024"/>
+</div>
+<div class="md:col-span-3 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Placa (Mercosul)</label>
+<div class="flex">
+<span class="h-10 px-space-xs bg-primary text-on-primary font-code-sm text-code-sm flex items-center justify-center rounded-l">PE</span>
+<input class="w-full h-10 px-space-sm bg-surface-container-low rounded-r font-code-sm text-code-sm uppercase font-bold text-on-surface focus:outline-none" type="text" value="RCL-9E40"/>
+</div>
+</div>
+<div class="md:col-span-3 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Renavam</label>
+<input class="w-full h-10 px-space-sm bg-surface-container-low rounded font-code-sm text-code-sm text-on-surface focus:outline-none" type="text" value="01248920194"/>
+</div>
+<div class="md:col-span-3 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Nº de Chassi / Série</label>
+<input class="w-full h-10 px-space-sm bg-surface-container-low rounded font-code-sm text-code-sm uppercase text-on-surface focus:outline-none" type="text" value="9BVFH540NZ182903"/>
+</div>
+<div class="md:col-span-3 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Combustível</label>
+<div class="relative">
+<select class="w-full h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none appearance-none cursor-pointer">
+<option selected="">Diesel S10</option>
+<option>Diesel S500</option>
+<option>100% Elétrico</option>
+<option>Flex / Gasolina</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-sm top-2.5 text-outline pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg shadow-sm p-space-xl relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary"></div>
+<div class="flex items-center justify-between mb-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded bg-primary text-on-primary flex items-center justify-center font-headline-sm text-headline-sm">2</span>
+<h2 class="font-headline-lg text-headline-lg text-primary uppercase tracking-wide">Capacidade e Especificações Operacionais</h2>
+</div>
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">tune</span> Telemetria Mecânica
+            </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md">
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Capacidade Operacional</label>
+<div class="flex gap-space-2xs">
+<input class="w-2/3 h-10 px-space-sm bg-surface-container-low rounded-l font-body-md text-body-md font-bold text-on-surface focus:outline-none" type="number" value="14"/>
+<select class="w-1/3 h-10 px-space-2xs bg-surface-container rounded-r font-label-sm text-label-sm text-on-surface focus:outline-none cursor-pointer">
+<option selected="">m³</option>
+<option>Toneladas</option>
+<option>Litros</option>
+<option>Passageiros</option>
+</select>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Potência Nominal</label>
+<div class="flex items-center">
+<input class="w-full h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none" type="text" value="540"/>
+<span class="-ml-12 px-space-xs font-code-sm text-code-sm text-on-surface-variant font-bold">CV</span>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Horímetro / Odômetro Atual</label>
+<div class="flex items-center">
+<input class="w-full h-10 px-space-sm bg-surface-container-low rounded font-code-sm text-code-sm font-bold text-on-surface focus:outline-none" type="text" value="4.850"/>
+<span class="-ml-14 px-space-xs font-label-sm text-[10px] text-on-surface-variant font-bold uppercase">Horas</span>
+</div>
+</div>
+<div class="md:col-span-12 flex flex-col gap-space-2xs mt-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Observações Técnicas e Exigências Regulatórias</label>
+<span class="font-label-sm text-[10px] text-on-secondary-container bg-tertiary-fixed px-space-xs py-0.5 rounded font-bold">NR-11 • ART ATIVA</span>
+</div>
+<textarea class="w-full p-space-sm bg-surface-container-low rounded font-body-sm text-body-sm text-on-surface focus:outline-none resize-none" rows="3">Equipamento configurado para mineração e movimentação de terraplanagem no Complexo Portuário de Suape. Caçamba reforçada Hardox 450, tacógrafo eletrônico aferido pelo IPEM/INMETRO vigente até 11/2026. Acompanha ART de montagem mecânica e laudo de emissões PROCONVE P8 / Euro 6.</textarea>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg shadow-sm p-space-xl relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary-container"></div>
+<div class="flex items-center justify-between mb-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded bg-primary text-on-primary flex items-center justify-center font-headline-sm text-headline-sm">3</span>
+<h2 class="font-headline-lg text-headline-lg text-primary uppercase tracking-wide">Condições Comerciais e Financeiras de Locação</h2>
+</div>
+<span class="bg-surface-container-high font-label-sm text-label-sm px-space-sm py-1 rounded text-primary font-bold">TABELA TARIFÁRIA 2026</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md">
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Valor de Aquisição / Compra</label>
+<div class="relative flex items-center">
+<span class="absolute left-space-sm font-code-sm text-code-sm text-outline">R$</span>
+<input class="w-full h-10 pl-10 pr-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none" type="text" value="890.000,00"/>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Data da Aquisição</label>
+<input class="w-full h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none" type="date" value="2023-04-14"/>
+</div>
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Depreciação Contábil</label>
+<input class="w-full h-10 px-space-sm bg-surface-container rounded font-body-sm text-body-sm text-on-surface-variant focus:outline-none cursor-not-allowed" readonly="" type="text" value="20% ao ano (5 anos)"/>
+</div>
+<div class="md:col-span-12 p-space-md bg-surface-container-low rounded-lg flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded bg-secondary flex items-center justify-center text-on-secondary shadow-sm">
+<span class="material-symbols-outlined text-[24px]">payments</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase text-on-surface-variant">Valor Padrão de Locação Mensal</span>
+<div class="flex items-baseline gap-space-2xs">
+<span class="font-headline-xl text-headline-xl text-secondary">R$ 18.000,00</span>
+<span class="font-body-sm text-body-sm text-outline">/ período mensal</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-lg w-full md:w-auto justify-between border-t md:border-t-0 pt-space-sm md:pt-0">
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-on-surface-variant">Franquia Mínima Inclusa</span>
+<span class="font-headline-sm text-headline-sm text-primary">200 HORAS / MÊS</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-on-surface-variant">Hora Excedente</span>
+<span class="font-headline-sm text-headline-sm text-secondary">R$ 90,00 / H</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Taxa de Mobilização / Desmobilização (MOB/DESMOB)</label>
+<div class="relative flex items-center">
+<span class="absolute left-space-sm font-code-sm text-code-sm text-outline">R$</span>
+<input class="w-full h-10 pl-10 pr-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none" type="text" value="1.500,00"/>
+</div>
+</div>
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Modalidade de Faturamento</label>
+<div class="relative">
+<select class="w-full h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none appearance-none cursor-pointer">
+<option selected="">Mensal Fechado + Horas Adicionais</option>
+<option>Diária Operacional sem Franquia</option>
+<option>Spot Especial com Operador Incluso</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-sm top-2.5 text-outline pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg shadow-sm p-space-xl relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary-container"></div>
+<div class="flex items-center justify-between mb-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded bg-primary text-on-primary flex items-center justify-center font-headline-sm text-headline-sm">4</span>
+<h2 class="font-headline-lg text-headline-lg text-primary uppercase tracking-wide">Plano de Manutenção e Telemetria</h2>
+</div>
+<div class="flex items-center gap-space-2xs text-secondary-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">satellite_alt</span>
+<span>CAN Bus Conectado</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md">
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Última Revisão Preventiva</label>
+<div class="flex gap-space-2xs">
+<input class="w-1/2 h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none" type="date" value="2026-01-20"/>
+<input class="w-1/2 h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none" type="text" value="4.500 horas"/>
+</div>
+</div>
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Próxima Revisão Programada</label>
+<div class="flex gap-space-2xs items-center">
+<input class="w-2/3 h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md font-bold text-on-surface focus:outline-none" type="text" value="5.000 horas"/>
+<div class="w-1/3 h-10 bg-error-container text-on-error-container font-label-sm text-[11px] px-space-2xs rounded flex items-center justify-center text-center font-bold">
+                  Restam 150h
+                </div>
+</div>
+</div>
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">Oficina Homologada de Referência</label>
+<input class="w-full h-10 px-space-sm bg-surface-container-low rounded font-body-md text-body-md text-on-surface focus:outline-none" type="text" value="Oficina Central Suape - Baia 04"/>
+</div>
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant">ID Módulo Rastreador Satelital</label>
+<input class="w-full h-10 px-space-sm bg-surface-container-low rounded font-code-sm text-code-sm text-on-surface focus:outline-none" type="text" value="SAT-SUAPE-88390-CAN"/>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-4 flex flex-col gap-space-xl">
+<div class="bg-surface-container-lowest rounded-lg shadow-sm p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm uppercase text-primary">Foto Principal do Equipamento</h3>
+<span class="font-label-sm text-[10px] text-outline uppercase">Obrigatório</span>
+</div>
+<div class="relative group rounded-lg overflow-hidden bg-surface-container-high h-56 flex flex-col items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="Heavy orange industrial dump truck parked in a seaport container yard in Recife Suape, high resolution daylight professional photography with maritime shipping logistics background, clean livery" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxDnZ_s-fFKeYnDpvwGqdpntEuinG3SOv9_vtZlrngfLazgxJylkkQppSAgxx4EdQvKQ1GxzqloSgg9ZnO0QOX2oXKOFlvF8drJe2mNyLroXVqcoY2mZR7_t5sj9dlx0-b6y3vK-oR-HARVeIOZFVJQQVwvEhHXUn-tC9Q6xASFi6p-Yp1LPLxwoVPM2Z7btxZAgXecp55_Afv1lZNk28rTe6QRbEK_kHUXr_Rg6_AZmL3SLGXxduz6A"/>
+<div class="absolute inset-0 bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-space-sm">
+<button class="h-9 px-space-md bg-surface-container-lowest text-primary font-headline-sm text-headline-sm uppercase rounded shadow" type="button">
+                Trocar Imagem
+              </button>
+</div>
+<div class="absolute bottom-2 left-2 bg-primary/80 backdrop-blur text-on-primary px-space-xs py-0.5 rounded font-label-sm text-[10px]">
+              VOLVO FH 540 • ATIVO
+            </div>
+</div>
+<div class="flex items-center justify-between text-outline font-label-sm text-[11px]">
+<span>Formato recomendado: JPG/PNG</span>
+<span>Máximo 5MB</span>
+</div>
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<label class="font-label-sm text-[11px] uppercase text-on-surface-variant font-bold">Fotos Complementares e Laudos (3)</label>
+<div class="grid grid-cols-3 gap-space-xs">
+<div class="relative h-20 rounded bg-surface-container-low overflow-hidden group">
+<img class="w-full h-full object-cover" data-alt="Close up photograph of heavy truck tires and hydraulic lifting mechanism in industrial harbor depot, realistic engineering photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLAIMkzzz7QHXFL1MQtStFlEIj8_FqHuMmT34_LLCXiz7X3GvC7taR_htkQOl0iQqS-UBvoiOgXoxkUmvC9JeTkik2j1qr3y1E5g_3eLA1m6ifS0506YMqqGT58T4_8q9BB3NrdvWzeO71zQbuFOdgUwyPzr2u1OUYwwcobWBfsma-3TGOVDB5O-xAyqTV6Bofs5e7UywtZd-XnVgyXIUC7HalpJl2Tix7mz6SKfy_DHBRzGhB3xpdZg"/>
+<span class="absolute top-1 left-1 bg-primary text-on-primary text-[9px] font-label-sm px-1 rounded">MEC</span>
+</div>
+<div class="relative h-20 rounded bg-surface-container-low overflow-hidden group">
+<img class="w-full h-full object-cover" data-alt="Interior driver cabin of modern heavy dump truck with digital dashboard telemetry screen and joystick controls, clean view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAScBJW8MsdQJiBi5qOACuAjtpuJN8IA2GKpmS0ooSscDQr1AOp2-UBN0_g5vXAqUnYX3L51eWwDdIvXJqCLmdg8LHdg2eMXRdnAYgTO7nOZ0APKtnTeP8DlG-1t2C-v48ZRB39EQUAKR7RRxmU8Lp3SgXbehqvFy_DwzgDy_wDa0K1Y9llTgwxMLosvTS3eIhCaOhEMQsS_eibYp36SGlHJOZtUEPTWHSQ44aMDIP9XzwqIfnyqzhFCA"/>
+<span class="absolute top-1 left-1 bg-primary text-on-primary text-[9px] font-label-sm px-1 rounded">CAB</span>
+</div>
+<div class="relative h-20 rounded bg-surface-container-low flex flex-col items-center justify-center text-outline hover:text-secondary cursor-pointer hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">add_a_photo</span>
+<span class="font-label-sm text-[10px] mt-0.5">+ Anexo</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-primary text-on-primary rounded-lg shadow-md p-space-lg flex flex-col gap-space-md relative overflow-hidden">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-secondary-container font-label-sm text-[10px] uppercase tracking-wider font-bold">Identificador Físico</span>
+<h3 class="font-headline-md text-headline-md uppercase text-on-primary">Etiqueta de Patrimônio</h3>
+</div>
+<span class="material-symbols-outlined text-secondary-container text-[24px]">qr_code_2</span>
+</div>
+<div class="bg-surface-container-lowest text-on-surface p-space-md rounded flex items-center gap-space-md">
+<div class="w-24 h-24 bg-surface-container-low rounded p-1 flex items-center justify-center shrink-0">
+<svg class="w-full h-full text-primary" fill="currentColor" viewbox="0 0 100 100">
+<rect fill="currentColor" height="28" width="28" x="0" y="0"></rect>
+<rect fill="#ffffff" height="20" width="20" x="4" y="4"></rect>
+<rect fill="currentColor" height="12" width="12" x="8" y="8"></rect>
+<rect fill="currentColor" height="28" width="28" x="72" y="0"></rect>
+<rect fill="#ffffff" height="20" width="20" x="76" y="4"></rect>
+<rect fill="currentColor" height="12" width="12" x="80" y="8"></rect>
+<rect fill="currentColor" height="28" width="28" x="0" y="72"></rect>
+<rect fill="#ffffff" height="20" width="20" x="4" y="76"></rect>
+<rect fill="currentColor" height="12" width="12" x="8" y="80"></rect>
+<rect fill="currentColor" height="16" width="8" x="36" y="8"></rect>
+<rect fill="currentColor" height="24" width="8" x="48" y="4"></rect>
+<rect fill="currentColor" height="28" width="28" x="36" y="36"></rect>
+<rect fill="currentColor" height="8" width="12" x="72" y="36"></rect>
+<rect fill="currentColor" height="16" width="8" x="88" y="48"></rect>
+<rect fill="currentColor" height="8" width="16" x="44" y="72"></rect>
+<rect fill="currentColor" height="20" width="24" x="68" y="76"></rect>
+</svg>
+</div>
+<div class="flex flex-col">
+<span class="font-code-sm text-[12px] font-bold text-secondary">#PAT-2026-088</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase mt-1">CENTERLOC RECIFE PE</span>
+<span class="font-body-sm text-body-sm text-outline text-[11px] leading-tight mt-1">Acesso direto ao prontuário via scanner da equipe de campo.</span>
+</div>
+</div>
+<button class="w-full h-9 bg-primary-container hover:bg-on-primary-fixed-variant text-on-primary font-headline-sm text-headline-sm uppercase rounded flex items-center justify-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">print</span>
+<span>Imprimir Etiqueta em Alumínio</span>
+</button>
+</div>
+<div class="bg-surface-container-lowest rounded-lg shadow-sm p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm uppercase text-primary">Resumo Operacional Estimado</h3>
+<span class="bg-surface-container text-on-surface font-label-sm text-[10px] px-2 py-0.5 rounded-full font-bold">STATUS ATUAL</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between p-space-sm bg-surface-container-low rounded">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Disponibilidade</span>
+<span class="bg-surface-bright text-secondary font-label-sm text-[11px] px-space-xs py-0.5 rounded font-bold uppercase">Imediata (No Pátio)</span>
+</div>
+<div class="flex items-center justify-between p-space-sm bg-surface-container-low rounded">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Localização Atual</span>
+<span class="font-headline-sm text-headline-sm text-primary">Pátio Central Suape PE</span>
+</div>
+<div class="flex items-center justify-between p-space-sm bg-surface-container-low rounded">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Apólice de Seguro</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Porto Seguro Casco Total</span>
+</div>
+<div class="flex items-center justify-between p-space-sm bg-surface-container-low rounded">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Validade Seguro</span>
+<span class="font-code-sm text-code-sm text-on-surface">28/02/2027</span>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container rounded flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px] shrink-0 mt-0.5">verified_user</span>
+<span class="font-body-sm text-[12px] text-on-surface-variant leading-snug">
+              Este veículo atende os requisitos de circulação pesada portuária e ambiental de Pernambuco.
+            </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sticky bottom-0 left-0 right-0 bg-surface-container-lowest shadow-xl px-space-xl py-space-sm flex items-center justify-between z-30">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+        Preenchimento obrigatório completo: <strong class="text-primary font-semibold">100% verificado</strong>
+</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="h-10 px-space-md text-outline hover:text-on-surface font-label-md text-label-md rounded transition-colors" type="button">
+        Cancelar
+      </button>
+<button class="h-10 px-space-xl bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-md transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span>Salvar Equipamento</span>
+</button>
+</div>
+</div>
+</div></main></div></body></html>

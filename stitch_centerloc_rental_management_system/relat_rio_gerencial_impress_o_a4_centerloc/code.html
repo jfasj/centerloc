@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-fixed-variant":"#6b3a0a","primary-container":"#1a3a6e","outline-variant":"#c4c6d1","on-secondary-fixed-variant":"#743400","surface-bright":"#f6faff","tertiary-fixed-dim":"#ffb77e","background":"#f6faff","on-primary-fixed-variant":"#28467b","on-secondary":"#ffffff","on-secondary-fixed":"#321300","secondary-container":"#ff8934","primary-fixed-dim":"#adc7ff","on-tertiary-container":"#da965f","on-primary-fixed":"#001a41","on-secondary-container":"#662d00","inverse-on-surface":"#edf1f7","tertiary-fixed":"#ffdcc3","error-container":"#ffdad6","surface-container-lowest":"#ffffff","surface-container-high":"#e4e8ee","on-background":"#171c20","outline":"#747780","on-primary-container":"#89a5e0","tertiary-container":"#5d2f00","primary-fixed":"#d8e2ff","surface-container":"#eaeef4","surface-container-low":"#f0f4fa","primary":"#002453","error":"#ba1a1a","on-tertiary-fixed":"#2f1500","on-surface-variant":"#44474f","tertiary":"#3d1d00","on-tertiary":"#ffffff","secondary-fixed-dim":"#ffb68b","surface":"#f6faff","on-error":"#ffffff","on-surface":"#171c20","surface-variant":"#dfe3e9","surface-tint":"#415e94","surface-dim":"#d6dae0","on-error-container":"#93000a","on-primary":"#ffffff","inverse-surface":"#2c3136","secondary-fixed":"#ffdbc8","inverse-primary":"#adc7ff","secondary":"#994700","surface-container-highest":"#dfe3e9"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-normal":"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-lg":"1rem","sidebar-width":"260px","space-xl":"1.5rem","gutter-dense":"0.75rem","space-3xl":"2.5rem","space-2xl":"2rem","space-sm":"0.5rem","topbar-height":"64px","space-2xs":"0.125rem"},fontFamily:{"headline-lg":["Barlow Condensed"],"headline-md":["Barlow Condensed"],"body-md":["Inter"],"headline-sm":["Barlow Condensed"],"code-sm":["Inter"],"headline-xl":["Barlow Condensed"],"display-lg":["Barlow Condensed"],"label-md":["Inter"],"body-sm":["Inter"],"label-sm":["Inter"],"body-lg":["Inter"]},fontSize:{"headline-lg":["24px",{lineHeight:"28px",letterSpacing:"0.01em",fontWeight:"700"}],"headline-md":["20px",{lineHeight:"24px",letterSpacing:"0.01em",fontWeight:"700"}],"body-md":["14px",{lineHeight:"20px",letterSpacing:"0em",fontWeight:"400"}],"headline-sm":["16px",{lineHeight:"20px",letterSpacing:"0.02em",fontWeight:"700"}],"code-sm":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-xl":["32px",{lineHeight:"36px",letterSpacing:"0.02em",fontWeight:"800"}],"display-lg":["44px",{lineHeight:"48px",letterSpacing:"0.02em",fontWeight:"900"}],"label-md":["13px",{lineHeight:"18px",letterSpacing:"0.01em",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"400"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[240px] bg-primary-container text-on-primary z-50 flex flex-col justify-between overflow-y-auto border-r border-outline-variant/20 shadow-xl"><div class="flex flex-col"><div class="h-[52px] flex items-center px-space-md gap-space-sm border-b border-outline-variant/10 bg-primary"><div class="w-8 h-8 rounded bg-secondary flex items-center justify-center text-on-secondary font-headline-md text-headline-md tracking-wider shadow-sm">C</div><div class="flex flex-col"><div class="flex items-center gap-space-2xs"><span class="font-headline-md text-headline-md font-bold tracking-tight text-on-primary leading-none">CENTER</span><span class="font-headline-md text-headline-md font-bold tracking-tight text-secondary-container leading-none">LOC</span></div><span class="font-label-sm text-[9px] uppercase tracking-widest text-on-primary-container leading-none mt-space-2xs">Recife • PE</span></div></div><nav class="flex flex-col px-space-xs py-space-sm gap-space-2xs" data-active-classes="bg-secondary text-on-secondary font-bold shadow-sm"><div class="px-space-sm pt-space-xs pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Principal</div><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded transition-colors bg-secondary text-on-secondary font-bold shadow-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Dashboard</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Cadastros</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="locatarios" href="#"><span class="material-symbols-outlined text-[18px]">badge</span><span>Locatários</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="veiculos-equipamentos" href="#"><span class="material-symbols-outlined text-[18px]">precision_manufacturing</span><span>Veículos / Equip.</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="clientes-fornecedores" href="#"><span class="material-symbols-outlined text-[18px]">domain</span><span>Clientes / Forneced.</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Comercial</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="propostas" href="#"><span class="material-symbols-outlined text-[18px]">request_quote</span><span>Propostas</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contratos" href="#"><span class="material-symbols-outlined text-[18px]">history_edu</span><span>Contratos</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Fiscal</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="notas-de-debito" href="#"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Notas de Débito</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Financeiro</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-receber" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_down</span><span>Contas a Receber</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-pagar" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_up</span><span>Contas a Pagar</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="fluxo-de-caixa" href="#"><span class="material-symbols-outlined text-[18px]">account_balance</span><span>Fluxo de Caixa</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Sistema</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="configuracoes" href="#"><span class="material-symbols-outlined text-[18px]">settings</span><span>Configurações</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="relatorios" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span><span>Relatórios</span></a></nav></div><div class="p-space-sm border-t border-outline-variant/10 bg-primary/40 flex flex-col gap-space-2xs text-on-primary-container/60"><div class="font-code-sm text-[10px] tracking-tight">CNPJ: 12.299.005/0001-46</div><div class="flex items-center justify-between font-label-sm text-[9px] uppercase tracking-wider text-on-primary-container/50"><span>Suape Hub Ops</span><span>v3.4.2</span></div></div></aside><div class="pl-[240px]"><header class="fixed top-0 left-[240px] right-0 h-[52px] bg-surface-container-lowest border-b border-outline-variant/40 z-40 px-space-lg flex items-center justify-between shadow-[0_1px_4px_rgba(26,39,58,0.04)]"><div class="flex items-center gap-space-md"><img alt="CENTERLOC Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUVh69YIR84jKNWh5QJscBhhVxCQimM9Rce_9VsIVdOEuuEg3V8hpQzBvIChTmxgXxXZ3_N9DxuZMwfIJWJ9eMZTVUnvBRwOgQxZpCsHZgpfL09NkEStgvbLfX74BcDTOxZBw1JDOD1TDn32cApG1HvIVZEeTDQeVbgcOWjO4FHTP7XoMWN2qsXrwuWKynJohxUhNKQcgBI5Z1EwyIOcTRK5nFcaxcdqR93BZgmDZpJ6rozW3MedIZ0g"/><div class="h-4 w-px bg-outline-variant/40 hidden sm:block"></div><nav class="hidden sm:flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">CENTERLOC</span><span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span><span class="text-outline font-body-sm text-body-sm">Gestão Integrada</span></nav></div><div class="flex items-center gap-space-md"><div class="relative hidden md:flex items-center"><span class="material-symbols-outlined absolute left-2.5 text-outline text-[18px]">search</span><input class="w-56 lg:w-72 h-[34px] pl-8 pr-space-sm rounded bg-surface-container-low border border-outline-variant text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:border-secondary transition-colors" placeholder="Buscar chassi, placa, contrato..." type="text"/></div><button class="relative p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span></button><button class="h-[34px] px-space-md bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-sm transition-all" type="button"><span class="material-symbols-outlined text-[16px]">add</span><span>Novo</span></button><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNyQ7n44WW0zUOw_Yxj6A9FXtIDs4PoOTZZ5XUwseNrHCtNo7cbI1MkH2DwhojBJn2ID72Vid69W0icu4M45hGxhi0R8H5i_flt97CiQmL2DXCaGm3GOCBxPu-1bbA-ST_46RRMUKfWaRVMb-vEhYOlffduet9T-q5s0FQddNGJ6v5XjgBCfqhxA6tcg4KOqNxR-qlwLG4rCaVqdIl6vBkMMTPD-c5-B1PQVRhx9LjqRh6ZT-n2WgcSQ"/><div class="hidden xl:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Antonio Neto</span><span class="font-label-sm text-[10px] text-on-surface-variant leading-none">Gerente Operacional</span></div></div></div></header><main class="w-full pt-[52px] bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Dynamic Styles for Print Simulation -->
+<style>
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      aside, header, .no-print {
+        display: none !important;
+      }
+      main {
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+      }
+      .print-sheet {
+        box-shadow: none !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+        max-width: 210mm !important;
+        padding: 12mm 15mm !important;
+      }
+    }
+  </style>
+<!-- Sticky Operational Floating Action Toolbar -->
+<div class="sticky top-[52px] z-30 w-full bg-surface-container-lowest/95 backdrop-blur-md shadow-sm py-space-sm px-space-xl mb-space-lg flex flex-wrap items-center justify-between gap-space-md no-print">
+<div class="flex items-center gap-space-md min-w-0">
+<button class="inline-flex items-center gap-space-xs px-space-sm py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-primary font-headline-sm text-headline-sm uppercase transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span>Voltar para Relatórios</span>
+</button>
+<div class="hidden md:flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm tracking-wide shadow-sm">
+<span class="material-symbols-outlined text-[15px] text-secondary-container">verified</span>
+<span>RELATÓRIO CONSOLIDADO MENSAL • COMPETÊNCIA AGOSTO/2026</span>
+</div>
+</div>
+<!-- Quick Action Controls -->
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="px-space-md py-1.5 bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded shadow-md hover:shadow-lg transition-all flex items-center gap-space-xs" onclick="window.print()" type="button">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Imprimir Relatório</span>
+</button>
+<button class="px-space-md py-1.5 bg-primary hover:bg-primary-container text-on-primary font-headline-sm text-headline-sm uppercase tracking-wider rounded shadow-sm hover:shadow-md transition-all flex items-center gap-space-xs" type="button">
+<span class="material-symbols-outlined text-[18px]">download_for_offline</span>
+<span>Baixar PDF Oficial</span>
+</button>
+<button class="px-space-sm py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md rounded transition-all flex items-center gap-space-xs shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">table_chart</span>
+<span class="hidden sm:inline">Exportar (.xlsx)</span>
+</button>
+<button class="px-space-sm py-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md rounded transition-all flex items-center gap-space-xs shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">mail</span>
+<span class="hidden lg:inline">Enviar Diretoria</span>
+</button>
+</div>
+</div>
+<!-- A4 Print Mock Canvas Container -->
+<div class="w-full flex justify-center px-space-sm pb-space-3xl">
+<!-- A4 Standard Metric Paper Sheet (210mm wide standard aspect) -->
+<div class="print-sheet w-full max-w-[860px] bg-surface-container-lowest shadow-xl rounded p-space-xl sm:p-space-2xl md:p-space-3xl flex flex-col justify-between text-on-surface relative overflow-hidden">
+<!-- Top Decorative Industrial Colored Accent Stripe (No border rule) -->
+<div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary via-primary-container to-secondary"></div>
+<!-- Watermark Security Stamp Overlay -->
+<div class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-[0.035] select-none rotate-[-25deg]">
+<div class="text-center font-display-lg text-display-lg font-black uppercase text-primary leading-tight tracking-widest">
+          CENTERLOC<br/>AUDITORIA OFICIAL<br/>SUAPE RECIFE
+        </div>
+</div>
+<!-- Inner Document Content -->
+<div class="relative z-10 flex flex-col gap-space-lg">
+<!-- HEADER INSTITUCIONAL TIMBRADO -->
+<div class="flex flex-col sm:flex-row justify-between items-start gap-space-md pb-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-14 h-14 rounded bg-primary flex items-center justify-center text-secondary-container font-display-lg text-display-lg font-black shadow-md flex-shrink-0">
+              C
+            </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-xl text-headline-xl text-primary font-black tracking-tighter leading-none">CENTER</span>
+<span class="font-headline-xl text-headline-xl text-secondary font-black tracking-tighter leading-none">LOC</span>
+</div>
+<span class="font-label-md text-label-md font-bold text-on-surface mt-space-2xs uppercase tracking-tight">Locadora de Veículos e Máquinas Pesadas LTDA</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-tight">CNPJ: 12.299.005/0001-46 • I.E.: 0329188-42 • Suape Hub Logística Industrial</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Av. Mal. Mascarenhas de Morais, 4820 - Imbiribeira, Recife - PE</span>
+</div>
+</div>
+<!-- Metadados de Emissão do Relatório -->
+<div class="flex flex-col sm:items-end bg-surface-container-low p-space-sm rounded w-full sm:w-auto shadow-sm">
+<div class="flex items-center gap-space-xs text-primary font-headline-sm text-headline-sm uppercase">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+<span>DOC. AUDITADO • A4</span>
+</div>
+<span class="font-code-sm text-code-sm font-bold text-secondary mt-space-2xs">REL-2026/08-01</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Data Emissão: <strong class="text-on-surface">31/08/2026 às 18:40</strong></span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Exercício Fiscal: <strong class="text-on-surface">Agosto / 2026</strong></span>
+<span class="font-label-sm text-label-sm text-outline mt-space-2xs">Hash: SHA-789a2b…e401</span>
+</div>
+</div>
+<!-- TÍTULO DO DOCUMENTO COM SUBTÍTULO OPERACIONAL -->
+<div class="bg-primary text-on-primary p-space-md rounded flex flex-col md:flex-row justify-between items-start md:items-center gap-space-sm shadow-sm">
+<div>
+<div class="font-label-sm text-label-sm text-secondary-container uppercase tracking-widest leading-none mb-space-2xs">Caderno Executivo • Departamento Operacional e Finanças</div>
+<h1 class="font-headline-lg text-headline-lg font-black uppercase tracking-wide leading-none text-on-primary">
+              Relatório Gerencial &amp; Auditoria Operacional de Locações
+            </h1>
+</div>
+<div class="bg-primary-container px-space-md py-1 rounded text-right flex-shrink-0">
+<span class="font-label-sm text-label-sm text-on-primary-container block uppercase tracking-wider">Gestão Técnica</span>
+<span class="font-headline-sm text-headline-sm text-on-primary font-bold">Antonio Neto</span>
+</div>
+</div>
+<!-- SEÇÃO 1: RESUMO EXECUTIVO DE FECHAMENTO (KPIs INDUSTRIAIS) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-primary font-headline-sm text-headline-sm uppercase tracking-wide">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span>1. Resumo Executivo • Fechamento Consolidado Mensal</span>
+</div>
+<!-- Cards de Métricas e KPIs Financeiro/Frota -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-sm">
+<!-- Frota Alocada -->
+<div class="bg-surface-container-low p-space-sm rounded shadow-sm flex flex-col justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Status da Frota</span>
+<div class="flex items-baseline gap-space-xs my-space-xs">
+<span class="font-headline-xl text-headline-xl font-extrabold text-primary leading-none">8</span>
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface-variant">/ 15 ativos</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-[10px]">
+<span class="text-secondary font-bold">53.3% Alocada</span>
+<span>5 Disp. • 2 Manut.</span>
+</div>
+</div>
+<!-- Faturamento Base Contratual -->
+<div class="bg-surface-container-low p-space-sm rounded shadow-sm flex flex-col justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Faturamento Base</span>
+<div class="my-space-xs">
+<span class="font-headline-xl text-headline-xl font-extrabold text-primary leading-none">R$ 84.500</span>
+</div>
+<div class="font-label-sm text-[10px] text-on-surface-variant flex items-center justify-between">
+<span>Franquias Fixas</span>
+<span class="text-primary font-bold">5 Contratos</span>
+</div>
+</div>
+<!-- Horas Extras Omnilink -->
+<div class="bg-surface-container-low p-space-sm rounded shadow-sm flex flex-col justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Excedente Telemetria</span>
+<div class="my-space-xs">
+<span class="font-headline-xl text-headline-xl font-extrabold text-secondary leading-none">+R$ 11.800</span>
+</div>
+<div class="font-label-sm text-[10px] text-on-surface-variant flex items-center justify-between">
+<span>CAN Bus / Omnilink</span>
+<span class="text-secondary font-bold">148h extras</span>
+</div>
+</div>
+<!-- Margem Líquida Operacional -->
+<div class="bg-primary-container text-on-primary p-space-sm rounded shadow-sm flex flex-col justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-primary-container">Resultado Operacional</span>
+<div class="my-space-xs">
+<span class="font-headline-xl text-headline-xl font-extrabold text-secondary-container leading-none">R$ 63.850</span>
+</div>
+<div class="font-label-sm text-[10px] text-on-primary-container flex items-center justify-between">
+<span>Receita R$ 96,3k</span>
+<span class="font-bold text-on-primary">Margem 66.3%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SEÇÃO 2: DISCRIMINAÇÃO CONSOLIDADA POR TOMADOR / CLIENTE -->
+<div class="flex flex-col gap-space-xs mt-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-primary font-headline-sm text-headline-sm uppercase tracking-wide">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span>2. Discriminação Contratual por Locatário &amp; Equipamento</span>
+</div>
+<span class="font-label-sm text-[10px] text-on-surface-variant uppercase">Todos os valores em Reais (BRL)</span>
+</div>
+<!-- Tabela de Auditoria e Fechamento Contábil -->
+<div class="overflow-x-auto rounded bg-surface-container-lowest shadow-sm">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-container-high text-primary font-headline-sm text-headline-sm uppercase tracking-wider">
+<tr>
+<th class="py-space-xs px-space-sm">Locatário / Contrato</th>
+<th class="py-space-xs px-space-sm">Maquinário Alocado</th>
+<th class="py-space-xs px-space-sm text-center">Horas Franquia</th>
+<th class="py-space-xs px-space-sm text-center">Horas Extras</th>
+<th class="py-space-xs px-space-sm text-right">Mensalidade</th>
+<th class="py-space-xs px-space-sm text-right">Total Apurado</th>
+<th class="py-space-xs px-space-sm text-center">Status Liq.</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Item 1: Engeman -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-xs px-space-sm">
+<div class="font-bold text-on-surface">Engeman S/A</div>
+<span class="font-code-sm text-[11px] text-on-surface-variant">CTR #0082 • Suape Refinaria</span>
+</td>
+<td class="py-space-xs px-space-sm">
+<div class="flex items-center gap-space-2xs">
+<span class="px-1 py-0.5 rounded bg-primary text-on-primary font-code-sm text-[10px]">PE-REC-4921</span>
+<span class="text-on-surface truncate">Volvo FH 540 6x4</span>
+</div>
+</td>
+<td class="py-space-xs px-space-sm text-center font-code-sm">200h</td>
+<td class="py-space-xs px-space-sm text-center font-code-sm font-semibold text-secondary">+18h (R$ 2.620)</td>
+<td class="py-space-xs px-space-sm text-right font-code-sm">R$ 17.000,00</td>
+<td class="py-space-xs px-space-sm text-right font-code-sm font-bold text-on-surface">R$ 19.620,00</td>
+<td class="py-space-xs px-space-sm text-center">
+<span class="inline-block px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-[10px] font-bold uppercase">Atraso 3d</span>
+</td>
+</tr>
+<!-- Item 2: Consórcio Suape II -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-xs px-space-sm">
+<div class="font-bold text-on-surface">Consórcio Suape II</div>
+<span class="font-code-sm text-[11px] text-on-surface-variant">CTR #0079 • Terraplenagem</span>
+</td>
+<td class="py-space-xs px-space-sm">
+<div class="flex items-center gap-space-2xs">
+<span class="px-1 py-0.5 rounded bg-primary text-on-primary font-code-sm text-[10px]">5x UND</span>
+<span class="text-on-surface truncate">Retroescavadeiras Cat 416F</span>
+</div>
+</td>
+<td class="py-space-xs px-space-sm text-center font-code-sm">1.000h</td>
+<td class="py-space-xs px-space-sm text-center font-code-sm font-semibold text-secondary">+45h (R$ 4.500)</td>
+<td class="py-space-xs px-space-sm text-right font-code-sm">R$ 20.000,00</td>
+<td class="py-space-xs px-space-sm text-right font-code-sm font-bold text-on-surface">R$ 24.500,00</td>
+<td class="py-space-xs px-space-sm text-center">
+<span class="inline-block px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-[10px] font-bold uppercase">PIX Pago</span>
+</td>
+</tr>
+<!-- Item 3: Tecon Suape -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-xs px-space-sm">
+<div class="font-bold text-on-surface">Tecon Suape Terminal</div>
+<span class="font-code-sm text-[11px] text-on-surface-variant">CTR #0065 • Berço 3 Movimentação</span>
+</td>
+<td class="py-space-xs px-space-sm">
+<div class="flex items-center gap-space-2xs">
+<span class="px-1 py-0.5 rounded bg-primary text-on-primary font-code-sm text-[10px]">2x UND</span>
+<span class="text-on-surface truncate">Reach Stacker / Madal 45t</span>
+</div>
+</td>
+<td class="py-space-xs px-space-sm text-center font-code-sm">360h</td>
+<td class="py-space-xs px-space-sm text-center font-code-sm text-outline">0h (No cap)</td>
+<td class="py-space-xs px-space-sm text-right font-code-sm">R$ 21.000,00</td>
+<td class="py-space-xs px-space-sm text-right font-code-sm font-bold text-on-surface">R$ 21.000,00</td>
+<td class="py-space-xs px-space-sm text-center">
+<span class="inline-block px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-[10px] font-bold uppercase">TED Liquidado</span>
+</td>
+</tr>
+<!-- Item 4: Queiroz Galvão -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-xs px-space-sm">
+<div class="font-bold text-on-surface">Queiroz Galvão Óleo &amp; Gás</div>
+<span class="font-code-sm text-[11px] text-on-surface-variant">CTR #0091 • Doca Estaleiro</span>
+</td>
+<td class="py-space-xs px-space-sm">
+<div class="flex items-center gap-space-2xs">
+<span class="px-1 py-0.5 rounded bg-primary text-on-primary font-code-sm text-[10px]">4x GER</span>
+<span class="text-on-surface truncate">Geradores Diesel Cummins 250kVA</span>
+</div>
+</td>
+<td class="py-space-xs px-space-sm text-center font-code-sm">480h</td>
+<td class="py-space-xs px-space-sm text-center font-code-sm font-semibold text-secondary">+22h (R$ 1.010)</td>
+<td class="py-space-xs px-space-sm text-right font-code-sm">R$ 9.000,00</td>
+<td class="py-space-xs px-space-sm text-right font-code-sm font-bold text-on-surface">R$ 10.010,00</td>
+<td class="py-space-xs px-space-sm text-center">
+<span class="inline-block px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-[10px] font-bold uppercase">A Vencer 05/09</span>
+</td>
+</tr>
+<!-- Item 5: Estaleiro Atlântico Sul -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-xs px-space-sm">
+<div class="font-bold text-on-surface">Estaleiro Atlântico Sul</div>
+<span class="font-code-sm text-[11px] text-on-surface-variant">CTR #0043 • Manutenção Naval</span>
+</td>
+<td class="py-space-xs px-space-sm">
+<div class="flex items-center gap-space-2xs">
+<span class="px-1 py-0.5 rounded bg-primary text-on-primary font-code-sm text-[10px]">PE-IPO-1188</span>
+<span class="text-on-surface truncate">Caminhão Guindauto Munck 20t</span>
+</div>
+</td>
+<td class="py-space-xs px-space-sm text-center font-code-sm">180h</td>
+<td class="py-space-xs px-space-sm text-center font-code-sm font-semibold text-secondary">+63h (R$ 3.670)</td>
+<td class="py-space-xs px-space-sm text-right font-code-sm">R$ 12.830,00</td>
+<td class="py-space-xs px-space-sm text-right font-code-sm font-bold text-on-surface">R$ 16.500,00</td>
+<td class="py-space-xs px-space-sm text-center">
+<span class="inline-block px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-[10px] font-bold uppercase">PIX Pago</span>
+</td>
+</tr>
+</tbody>
+<!-- Rodapé da Tabela de Totais -->
+<tfoot class="bg-surface-container-low font-headline-sm text-headline-sm uppercase">
+<tr>
+<td class="py-space-xs px-space-sm text-primary font-black" colspan="4">Subtotais Auditados (5 Contratos Vigentes)</td>
+<td class="py-space-xs px-space-sm text-right font-code-sm text-on-surface font-bold">R$ 84.500,00</td>
+<td class="py-space-xs px-space-sm text-right font-code-sm text-secondary font-black text-body-lg">R$ 96.300,00</td>
+<td class="py-space-xs px-space-sm text-center font-label-sm text-[10px] text-on-surface-variant">87.5% Liq.</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+<!-- SEÇÃO 3: AUDITORIA DE HORÍMETRO & TELEMETRIA SATELITAL -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm">
+<div class="md:col-span-2 bg-surface-container-low p-space-md rounded shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-space-xs text-primary font-headline-sm text-headline-sm uppercase">
+<span class="material-symbols-outlined text-secondary text-[18px]">satellite_alt</span>
+<span>3. Auditoria de Horímetro &amp; Telemetria CAN Bus</span>
+</div>
+<span class="font-code-sm text-[11px] text-primary bg-surface-container px-space-xs py-0.5 rounded font-bold">Sinal Omnilink 98.6% OK</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+              Dados extraídos diretamente da central ECU dos equipamentos via rede satelital e modem GSM Suape. 
+              <strong class="text-on-surface">14 de 15 ativos</strong> transmitiram dados ininterruptamente durante o ciclo de 31 dias de Agosto/2026. 
+              A média operacional ponderada atingiu <strong class="text-on-surface">7.8 horas/máquina/dia</strong>, registrando plena conformidade operacional 
+              e ausência de anomalias térmicas ou excesso de rotação crítica de motor em campo.
+            </p>
+<div class="grid grid-cols-3 gap-space-xs mt-space-sm pt-space-xs bg-surface-container-lowest p-space-xs rounded">
+<div class="text-center">
+<span class="block font-label-sm text-[10px] text-outline uppercase">Total de Horas CAN</span>
+<span class="font-code-sm text-code-sm font-bold text-primary">2.418 Horas</span>
+</div>
+<div class="text-center">
+<span class="block font-label-sm text-[10px] text-outline uppercase">Excedente Faturado</span>
+<span class="font-code-sm text-code-sm font-bold text-secondary">148 Horas Extras</span>
+</div>
+<div class="text-center">
+<span class="block font-label-sm text-[10px] text-outline uppercase">Falhas Telemetria</span>
+<span class="font-code-sm text-code-sm font-bold text-on-surface">0 Incidentes</span>
+</div>
+</div>
+</div>
+<!-- Micro Gráfico / Visualização Analítica Operacional -->
+<div class="bg-surface-container-low p-space-md rounded shadow-sm flex flex-col justify-between items-center text-center">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Distribuição de Receita</span>
+<!-- Inline SVG Donut Chart for Financial Breakdown -->
+<div class="relative w-28 h-28 my-space-xs flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<!-- Background circle -->
+<circle class="text-surface-container-high" cx="18" cy="18" fill="transparent" r="15.915" stroke="currentColor" stroke-width="3.5"></circle>
+<!-- Segment 1: Fixed Rent (87.7%) -->
+<circle class="text-primary" cx="18" cy="18" fill="transparent" r="15.915" stroke="currentColor" stroke-dasharray="87.7 12.3" stroke-dashoffset="0" stroke-width="3.5"></circle>
+<!-- Segment 2: Overtime (12.3%) -->
+<circle class="text-secondary" cx="18" cy="18" fill="transparent" r="15.915" stroke="currentColor" stroke-dasharray="12.3 87.7" stroke-dashoffset="-87.7" stroke-width="3.5"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-headline-md text-headline-md font-black text-primary leading-none">96.3k</span>
+<span class="font-label-sm text-[9px] uppercase text-outline">Total Liq.</span>
+</div>
+</div>
+<div class="flex items-center justify-center gap-space-sm font-label-sm text-[11px]">
+<span class="flex items-center gap-1 text-primary"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span> Base 87.7%</span>
+<span class="flex items-center gap-1 text-secondary"><span class="w-2 h-2 rounded-full bg-secondary inline-block"></span> Extras 12.3%</span>
+</div>
+</div>
+</div>
+<!-- SEÇÃO 4: DECLARAÇÃO DE RESPONSABILIDADE & AUTENTICAÇÃO DIGITAL ICP -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<div class="flex items-center gap-space-xs text-primary font-headline-sm text-headline-sm uppercase tracking-wide">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<span>4. Autenticação Digital &amp; Conformidade de Auditoria</span>
+</div>
+<!-- ICP-Brasil Certificate Box -->
+<div class="bg-surface-container-lowest p-space-sm rounded shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded bg-primary-container text-on-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">qr_code_2</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-primary uppercase">Assinatura Digital Qualificada • Padrão ICP-Brasil</span>
+<span class="font-code-sm text-[10px] text-on-surface-variant">ID: 88F9-A012-C891-B730-0046 • Timestamp: 2026-08-31T18:40:12-03:00 (Recife/PE)</span>
+</div>
+</div>
+<div class="bg-surface-container-high px-space-sm py-1 rounded text-primary font-label-sm text-[11px] font-semibold flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[14px] text-secondary">security</span>
+<span>Integridade SHA-256 Garantida</span>
+</div>
+</div>
+<!-- Assinaturas Formais Executivas -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-xl pt-space-md pb-space-xs text-center">
+<!-- Assinatura 1 -->
+<div class="flex flex-col items-center">
+<div class="h-10 flex items-end justify-center mb-1">
+<!-- Assinatura digital estilizada -->
+<span class="font-headline-md text-headline-md italic text-primary/70 tracking-widest font-normal">Antonio Neto</span>
+</div>
+<div class="w-64 h-0.5 bg-outline-variant/60 mb-space-2xs"></div>
+<span class="font-headline-sm text-headline-sm text-primary uppercase">Antonio Neto</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Gerente Operacional • Reg. CREA-PE 48.910</span>
+<span class="font-code-sm text-[10px] text-outline">CENTERLOC Locadora de Veículos e Máquinas LTDA</span>
+</div>
+<!-- Assinatura 2 -->
+<div class="flex flex-col items-center">
+<div class="h-10 flex items-end justify-center mb-1">
+<!-- Assinatura digital estilizada -->
+<span class="font-headline-md text-headline-md italic text-primary/70 tracking-widest font-normal">Eduardo Albuquerque</span>
+</div>
+<div class="w-64 h-0.5 bg-outline-variant/60 mb-space-2xs"></div>
+<span class="font-headline-sm text-headline-sm text-primary uppercase">Diretoria Executiva &amp; Finanças</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Conselho de Administração CENTERLOC</span>
+<span class="font-code-sm text-[10px] text-outline">Certificado ICP-Brasil AC Safeweb A3</span>
+</div>
+</div>
+</div>
+</div>
+<!-- RODAPÉ DA FOLHA TIMBRADA A4 -->
+<div class="pt-space-md mt-space-md text-on-surface-variant flex flex-col sm:flex-row items-center justify-between gap-space-xs font-body-sm text-[11px] relative z-10">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>CENTERLOC ERP v3.4.2 • Suape Hub Operational Analytics</span>
+</div>
+<div class="flex items-center gap-space-sm font-label-sm text-label-sm text-outline uppercase">
+<span>Confidencialidade Estrita</span>
+<span>•</span>
+<span class="text-primary font-bold">Página 1 de 1</span>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

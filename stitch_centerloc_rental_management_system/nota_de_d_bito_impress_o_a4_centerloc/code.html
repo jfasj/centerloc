@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-fixed-variant":"#6b3a0a","primary-container":"#1a3a6e","outline-variant":"#c4c6d1","on-secondary-fixed-variant":"#743400","surface-bright":"#f6faff","tertiary-fixed-dim":"#ffb77e","background":"#f6faff","on-primary-fixed-variant":"#28467b","on-secondary":"#ffffff","on-secondary-fixed":"#321300","secondary-container":"#ff8934","primary-fixed-dim":"#adc7ff","on-tertiary-container":"#da965f","on-primary-fixed":"#001a41","on-secondary-container":"#662d00","inverse-on-surface":"#edf1f7","tertiary-fixed":"#ffdcc3","error-container":"#ffdad6","surface-container-lowest":"#ffffff","surface-container-high":"#e4e8ee","on-background":"#171c20","outline":"#747780","on-primary-container":"#89a5e0","tertiary-container":"#5d2f00","primary-fixed":"#d8e2ff","surface-container":"#eaeef4","surface-container-low":"#f0f4fa","primary":"#002453","error":"#ba1a1a","on-tertiary-fixed":"#2f1500","on-surface-variant":"#44474f","tertiary":"#3d1d00","on-tertiary":"#ffffff","secondary-fixed-dim":"#ffb68b","surface":"#f6faff","on-error":"#ffffff","on-surface":"#171c20","surface-variant":"#dfe3e9","surface-tint":"#415e94","surface-dim":"#d6dae0","on-error-container":"#93000a","on-primary":"#ffffff","inverse-surface":"#2c3136","secondary-fixed":"#ffdbc8","inverse-primary":"#adc7ff","secondary":"#994700","surface-container-highest":"#dfe3e9"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-normal":"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-lg":"1rem","sidebar-width":"260px","space-xl":"1.5rem","gutter-dense":"0.75rem","space-3xl":"2.5rem","space-2xl":"2rem","space-sm":"0.5rem","topbar-height":"64px","space-2xs":"0.125rem"},fontFamily:{"headline-lg":["Barlow Condensed"],"headline-md":["Barlow Condensed"],"body-md":["Inter"],"headline-sm":["Barlow Condensed"],"code-sm":["Inter"],"headline-xl":["Barlow Condensed"],"display-lg":["Barlow Condensed"],"label-md":["Inter"],"body-sm":["Inter"],"label-sm":["Inter"],"body-lg":["Inter"]},fontSize:{"headline-lg":["24px",{lineHeight:"28px",letterSpacing:"0.01em",fontWeight:"700"}],"headline-md":["20px",{lineHeight:"24px",letterSpacing:"0.01em",fontWeight:"700"}],"body-md":["14px",{lineHeight:"20px",letterSpacing:"0em",fontWeight:"400"}],"headline-sm":["16px",{lineHeight:"20px",letterSpacing:"0.02em",fontWeight:"700"}],"code-sm":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-xl":["32px",{lineHeight:"36px",letterSpacing:"0.02em",fontWeight:"800"}],"display-lg":["44px",{lineHeight:"48px",letterSpacing:"0.02em",fontWeight:"900"}],"label-md":["13px",{lineHeight:"18px",letterSpacing:"0.01em",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"400"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[240px] bg-primary-container text-on-primary z-50 flex flex-col justify-between overflow-y-auto border-r border-outline-variant/20 shadow-xl"><div class="flex flex-col"><div class="h-[52px] flex items-center px-space-md gap-space-sm border-b border-outline-variant/10 bg-primary"><div class="w-8 h-8 rounded bg-secondary flex items-center justify-center text-on-secondary font-headline-md text-headline-md tracking-wider shadow-sm">C</div><div class="flex flex-col"><div class="flex items-center gap-space-2xs"><span class="font-headline-md text-headline-md font-bold tracking-tight text-on-primary leading-none">CENTER</span><span class="font-headline-md text-headline-md font-bold tracking-tight text-secondary-container leading-none">LOC</span></div><span class="font-label-sm text-[9px] uppercase tracking-widest text-on-primary-container leading-none mt-space-2xs">Recife • PE</span></div></div><nav class="flex flex-col px-space-xs py-space-sm gap-space-2xs" data-active-classes="bg-secondary text-on-secondary font-bold shadow-sm"><div class="px-space-sm pt-space-xs pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Principal</div><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded transition-colors bg-secondary text-on-secondary font-bold shadow-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Dashboard</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Cadastros</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="locatarios" href="#"><span class="material-symbols-outlined text-[18px]">badge</span><span>Locatários</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="veiculos-equipamentos" href="#"><span class="material-symbols-outlined text-[18px]">precision_manufacturing</span><span>Veículos / Equip.</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="clientes-fornecedores" href="#"><span class="material-symbols-outlined text-[18px]">domain</span><span>Clientes / Forneced.</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Comercial</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="propostas" href="#"><span class="material-symbols-outlined text-[18px]">request_quote</span><span>Propostas</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contratos" href="#"><span class="material-symbols-outlined text-[18px]">history_edu</span><span>Contratos</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Fiscal</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="notas-de-debito" href="#"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Notas de Débito</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Financeiro</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-receber" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_down</span><span>Contas a Receber</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-pagar" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_up</span><span>Contas a Pagar</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="fluxo-de-caixa" href="#"><span class="material-symbols-outlined text-[18px]">account_balance</span><span>Fluxo de Caixa</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Sistema</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="configuracoes" href="#"><span class="material-symbols-outlined text-[18px]">settings</span><span>Configurações</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="relatorios" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span><span>Relatórios</span></a></nav></div><div class="p-space-sm border-t border-outline-variant/10 bg-primary/40 flex flex-col gap-space-2xs text-on-primary-container/60"><div class="font-code-sm text-[10px] tracking-tight">CNPJ: 12.299.005/0001-46</div><div class="flex items-center justify-between font-label-sm text-[9px] uppercase tracking-wider text-on-primary-container/50"><span>Suape Hub Ops</span><span>v3.4.2</span></div></div></aside><div class="pl-[240px]"><header class="fixed top-0 left-[240px] right-0 h-[52px] bg-surface-container-lowest border-b border-outline-variant/40 z-40 px-space-lg flex items-center justify-between shadow-[0_1px_4px_rgba(26,39,58,0.04)]"><div class="flex items-center gap-space-md"><img alt="CENTERLOC Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUVh69YIR84jKNWh5QJscBhhVxCQimM9Rce_9VsIVdOEuuEg3V8hpQzBvIChTmxgXxXZ3_N9DxuZMwfIJWJ9eMZTVUnvBRwOgQxZpCsHZgpfL09NkEStgvbLfX74BcDTOxZBw1JDOD1TDn32cApG1HvIVZEeTDQeVbgcOWjO4FHTP7XoMWN2qsXrwuWKynJohxUhNKQcgBI5Z1EwyIOcTRK5nFcaxcdqR93BZgmDZpJ6rozW3MedIZ0g"/><div class="h-4 w-px bg-outline-variant/40 hidden sm:block"></div><nav class="hidden sm:flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">CENTERLOC</span><span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span><span class="text-outline font-body-sm text-body-sm">Gestão Integrada</span></nav></div><div class="flex items-center gap-space-md"><div class="relative hidden md:flex items-center"><span class="material-symbols-outlined absolute left-2.5 text-outline text-[18px]">search</span><input class="w-56 lg:w-72 h-[34px] pl-8 pr-space-sm rounded bg-surface-container-low border border-outline-variant text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:border-secondary transition-colors" placeholder="Buscar chassi, placa, contrato..." type="text"/></div><button class="relative p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span></button><button class="h-[34px] px-space-md bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-sm transition-all" type="button"><span class="material-symbols-outlined text-[16px]">add</span><span>Novo</span></button><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNyQ7n44WW0zUOw_Yxj6A9FXtIDs4PoOTZZ5XUwseNrHCtNo7cbI1MkH2DwhojBJn2ID72Vid69W0icu4M45hGxhi0R8H5i_flt97CiQmL2DXCaGm3GOCBxPu-1bbA-ST_46RRMUKfWaRVMb-vEhYOlffduet9T-q5s0FQddNGJ6v5XjgBCfqhxA6tcg4KOqNxR-qlwLG4rCaVqdIl6vBkMMTPD-c5-B1PQVRhx9LjqRh6ZT-n2WgcSQ"/><div class="hidden xl:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Antonio Neto</span><span class="font-label-sm text-[10px] text-on-surface-variant leading-none">Gerente Operacional</span></div></div></div></header><main class="w-full pt-[52px] bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Script para sincronizar navegação da shell lateral -->
+<script>
+    (function() {
+      try {
+        const currentPath = 'notas-de-debito';
+        const activeLink = document.querySelector(`aside nav a[data-path="${currentPath}"]`);
+        if (activeLink) {
+          const nav = activeLink.closest('nav');
+          if (nav) {
+            const defaultClasses = 'text-on-primary-container hover:bg-primary hover:text-on-primary';
+            nav.querySelectorAll('a[data-path]').forEach(link => {
+              link.classList.remove('bg-secondary', 'text-on-secondary', 'font-bold', 'shadow-sm');
+              link.classList.add(...defaultClasses.split(' '));
+            });
+          }
+          activeLink.classList.remove('text-on-primary-container', 'hover:bg-primary', 'hover:text-on-primary');
+          activeLink.classList.add('bg-secondary', 'text-on-secondary', 'font-bold', 'shadow-sm');
+        }
+      } catch (e) {
+        console.error('Nav sync error:', e);
+      }
+    })();
+  </script>
+<!-- BARRA SUPERIOR DE COMANDOS & METADADOS DA IMPRESSÃO -->
+<section class="bg-surface-container-lowest shadow-sm px-space-lg py-space-sm flex flex-col gap-space-sm sticky top-[52px] z-30">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<!-- Breadcrumb e Retorno Rápido -->
+<div class="flex items-center gap-space-md min-w-0">
+<a class="flex items-center gap-space-xs font-label-md text-label-md text-primary hover:text-secondary transition-colors py-1 px-space-sm rounded bg-surface-container-low hover:bg-surface-container" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span class="font-headline-sm text-headline-sm uppercase tracking-wide">Voltar para Notas de Débito</span>
+</a>
+<div class="hidden md:flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant">
+<span>Fiscal</span>
+<span class="material-symbols-outlined text-[13px] text-outline">chevron_right</span>
+<span>Notas de Débito</span>
+<span class="material-symbols-outlined text-[13px] text-outline">chevron_right</span>
+<span class="text-on-surface font-semibold">Visualizar Impressão A4</span>
+<span class="material-symbols-outlined text-[13px] text-outline">chevron_right</span>
+<span class="font-code-sm text-code-sm bg-primary text-on-primary px-space-xs py-0.5 rounded">ND-2026/085</span>
+</div>
+</div>
+<!-- Badges de Status Operacional e Pagamento -->
+<div class="flex items-center gap-space-sm flex-wrap">
+<div class="flex items-center gap-1.5 px-space-sm py-1 rounded-full bg-surface-container text-on-surface text-label-sm font-label-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="uppercase tracking-wider font-bold">Autenticada • #ND-2026/085</span>
+</div>
+<div class="flex items-center gap-1.5 px-space-sm py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px] text-secondary">schedule</span>
+<span>VENCE EM 10/09/2026 (15 DIAS)</span>
+</div>
+</div>
+</div>
+<!-- Barra de Ações Diretas / Ferramentas do Documento -->
+<div class="flex flex-wrap items-center justify-between gap-space-md pt-space-xs">
+<div class="flex items-center gap-space-xs flex-wrap">
+<!-- Botão Primário Laranja de Impressão -->
+<button class="h-9 px-space-lg bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-sm transition-all transform active:scale-[0.98]" onclick="window.print()" type="button">
+<span class="material-symbols-outlined text-[19px]">print</span>
+<span>Imprimir Nota de Débito</span>
+</button>
+<!-- Ação Baixar PDF -->
+<button class="h-9 px-space-md bg-surface-container-low hover:bg-surface-container text-primary font-label-md text-label-md rounded flex items-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Baixar PDF Oficial</span>
+</button>
+<!-- Ação Enviar E-mail -->
+<button class="h-9 px-space-md bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md rounded flex items-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+<span>Enviar por E-mail</span>
+</button>
+<!-- Ação Enviar WhatsApp -->
+<button class="h-9 px-space-md bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md rounded flex items-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+<span>WhatsApp Cobrança</span>
+</button>
+<!-- Boleto / PIX -->
+<button class="h-9 px-space-md bg-primary-container text-on-primary hover:bg-primary font-label-md text-label-md rounded flex items-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">qr_code_2</span>
+<span>Gerar Boleto / PIX</span>
+</button>
+</div>
+<!-- Controles de Escala / Pré-visualização -->
+<div class="hidden xl:flex items-center gap-space-sm text-label-sm font-label-sm text-outline">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">aspect_ratio</span> Formato A4 Oficial (210 × 297 mm)
+        </span>
+<span>•</span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">verified</span> ICP-Brasil Válido
+        </span>
+</div>
+</div>
+</section>
+<!-- CANVAS COM FOLHA A4 CENTRALIZADA -->
+<section class="w-full py-space-xl px-space-md flex justify-center bg-surface-container-low overflow-x-auto">
+<!-- CONTAINER DA FOLHA A4 TIMBRADA -->
+<!-- Dimensões proporcionais A4 com largura controlada máxima de 820px para leitura técnica e impressão -->
+<div class="w-full max-w-[840px] bg-surface-container-lowest text-on-surface shadow-xl rounded p-8 sm:p-10 flex flex-col gap-space-md relative overflow-hidden transition-all" id="folha-nota-debito">
+<!-- Listra Decorativa Superior Institucional CENTERLOC -->
+<div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary via-primary-container to-secondary"></div>
+<!-- 1. CABEÇALHO INSTITUCIONAL TIMBRADO -->
+<header class="flex flex-col sm:flex-row justify-between items-start gap-space-md pt-space-xs">
+<!-- Logo e Dados Oficiais do Emissor -->
+<div class="flex items-start gap-space-md max-w-lg">
+<div class="w-14 h-14 rounded bg-primary flex flex-col items-center justify-center text-on-primary shadow-sm flex-shrink-0">
+<span class="font-headline-xl text-headline-xl leading-none text-secondary-container">C</span>
+<span class="text-[8px] font-label-sm tracking-widest text-on-primary-container">LOC</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-baseline gap-1.5">
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight leading-none uppercase">CENTERLOC</h1>
+<span class="font-label-sm text-label-sm text-secondary uppercase font-bold tracking-widest">Locadora</span>
+</div>
+<p class="font-label-sm text-[11px] uppercase font-bold text-on-surface mt-1 leading-tight">
+              CENTERLOC LOCADORA DE VEÍCULOS E MÁQUINAS LTDA
+            </p>
+<div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] font-body-sm text-on-surface-variant mt-0.5">
+<span><strong>CNPJ:</strong> 12.299.005/0001-46</span>
+<span>•</span>
+<span><strong>I.E.:</strong> 0345892-12</span>
+</div>
+<p class="text-[11px] font-body-sm text-on-surface-variant leading-tight mt-0.5">
+              Av. Mascarenhas de Morais, 2100 - Galpão 04 - Imbiribeira, Recife - PE • CEP: 51150-000
+            </p>
+<div class="flex flex-wrap items-center gap-x-2 text-[10px] font-body-sm text-outline mt-0.5">
+<span>(81) 99996-6343</span>
+<span>•</span>
+<span>comercial@centerloc.com.br</span>
+<span>•</span>
+<span class="text-primary font-semibold">Suape Hub Portuário Ops</span>
+</div>
+</div>
+</div>
+<!-- Bloco de Identificação Formal da Nota de Débito (Canto Superior Direito) -->
+<div class="w-full sm:w-64 bg-surface-container p-space-sm rounded flex flex-col gap-1 text-right flex-shrink-0">
+<div class="flex items-center justify-end gap-1.5 text-secondary">
+<span class="material-symbols-outlined text-[16px]">receipt_long</span>
+<span class="font-label-sm text-[10px] uppercase tracking-wider font-bold">Documento Não-Fiscal Fiscalizável</span>
+</div>
+<h2 class="font-headline-md text-headline-md uppercase text-primary tracking-tight leading-tight">
+            NOTA DE DÉBITO
+          </h2>
+<div class="text-primary font-headline-xl text-headline-xl leading-none font-extrabold tracking-tight">
+            Nº 085<span class="text-secondary">/2026</span>
+</div>
+<div class="mt-1 pt-1 bg-surface-container-high/50 px-space-xs py-1 rounded text-[11px] font-body-sm text-on-surface flex flex-col gap-0.5">
+<div class="flex justify-between">
+<span class="text-outline">Emissão:</span>
+<span class="font-semibold">26/08/2026</span>
+</div>
+<div class="flex justify-between text-secondary font-bold">
+<span>Vencimento:</span>
+<span>10/09/2026</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Competência:</span>
+<span class="font-semibold font-code-sm">08 / 2026</span>
+</div>
+</div>
+</div>
+</header>
+<!-- SEPARADOR DISCRETO -->
+<div class="h-px bg-surface-variant w-full my-0.5"></div>
+<!-- 2. IDENTIFICAÇÃO DO TOMADOR / LOCATÁRIO -->
+<section class="bg-surface-container-low p-space-sm rounded flex flex-col gap-space-xs">
+<div class="flex items-center justify-between pb-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">domain</span>
+<span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">Dados do Locatário / Tomador do Serviço</span>
+</div>
+<span class="text-[10px] font-code-sm uppercase px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">Cliente Cadastrado #CLI-0082</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-xs text-[12px] font-body-sm">
+<div class="md:col-span-8 flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">Razão Social / Tomador</span>
+<span class="font-bold text-on-surface text-body-md font-body-md leading-tight">ENGEMAN MANUTENÇÃO DE EQUIPAMENTOS S/A</span>
+</div>
+<div class="md:col-span-4 flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">CNPJ / Inscrição Estadual</span>
+<span class="font-code-sm text-code-sm font-semibold text-primary">08.769.549/0006-61 <span class="text-outline font-normal">| I.E: 0345892-12</span></span>
+</div>
+<div class="md:col-span-7 flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">Endereço Operacional / Canteiro</span>
+<span class="text-on-surface">Rodovia PE-60, Km 10 - Complexo Portuário de Suape, Ipojuca - PE • CEP: 55590-000</span>
+</div>
+<div class="md:col-span-5 flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">Vínculo Contratual &amp; Ordem de Compra</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="bg-primary text-on-primary px-1.5 py-0.5 rounded text-[10px] font-label-sm uppercase font-bold">Contrato 0082/2026</span>
+<span class="bg-surface-container text-on-surface font-code-sm text-[11px] px-1.5 py-0.5 rounded">PO #ENG-99482</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. PLANILHA DESCRITIVA DOS SERVIÇOS DE LOCAÇÃO -->
+<section class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">precision_manufacturing</span>
+<span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">Discriminação dos Ativos e Itens Faturados</span>
+</div>
+<span class="font-label-sm text-[11px] text-outline uppercase">Moeda Corrente: Real (BRL)</span>
+</div>
+<div class="overflow-x-auto rounded bg-surface-container-lowest">
+<table class="w-full text-left font-body-sm text-[12px] border-collapse">
+<thead>
+<tr class="bg-surface-container text-primary font-headline-sm text-headline-sm uppercase tracking-wide text-[13px]">
+<th class="py-2 px-space-sm w-12 text-center">Item</th>
+<th class="py-2 px-space-sm">Descrição do Ativo / Medição Operacional</th>
+<th class="py-2 px-space-sm w-28 text-center">Período / Base</th>
+<th class="py-2 px-space-sm w-20 text-center">Qtd/Un</th>
+<th class="py-2 px-space-sm w-28 text-right">Unitário (R$)</th>
+<th class="py-2 px-space-sm w-28 text-right">Total (R$)</th>
+</tr>
+</thead>
+<tbody class="text-on-surface">
+<!-- Item 01 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<td class="py-2.5 px-space-sm text-center font-bold text-primary">01</td>
+<td class="py-2.5 px-space-sm">
+<div class="font-bold text-primary flex items-center gap-1.5">
+<span>Locação Mensal de Caminhão Basculante Volvo FH 540 6x4</span>
+<span class="font-code-sm text-[10px] bg-primary-container text-on-primary px-1.5 py-0.2 rounded uppercase">Frota #043</span>
+</div>
+<div class="text-[11px] text-on-surface-variant flex flex-wrap gap-x-2 mt-0.5">
+<span><strong>Placa:</strong> PE-REC-4921</span>
+<span>•</span>
+<span><strong>Chassi:</strong> 982310</span>
+<span>•</span>
+<span>Franquia mensal inclusa: 200 horas operacionais</span>
+</div>
+</td>
+<td class="py-2.5 px-space-sm text-center text-[11px] font-medium text-on-surface-variant">
+                  01/08 a 31/08
+                </td>
+<td class="py-2.5 px-space-sm text-center font-medium">1 Mês</td>
+<td class="py-2.5 px-space-sm text-right font-code-sm">18.000,00</td>
+<td class="py-2.5 px-space-sm text-right font-code-sm font-bold text-primary">18.000,00</td>
+</tr>
+<!-- Item 02 -->
+<tr class="bg-surface-container-low/40 hover:bg-surface-container-low transition-colors">
+<td class="py-2.5 px-space-sm text-center font-bold text-primary">02</td>
+<td class="py-2.5 px-space-sm">
+<div class="font-bold text-on-surface flex items-center gap-1.5">
+<span>Horas Excedentes de Horímetro (Telemetria Omnilink)</span>
+<span class="font-label-sm text-[10px] bg-secondary-container text-on-secondary-container px-1.5 py-0.2 rounded font-bold">Medição #TL-883</span>
+</div>
+<div class="text-[11px] text-on-surface-variant mt-0.5">
+                    Medição eletrônica: 218h realizadas − 200h franquia contratual = 18h de trabalho excedente.
+                  </div>
+</td>
+<td class="py-2.5 px-space-sm text-center text-[11px] font-medium text-on-surface-variant">
+                  Apuração Telemetria
+                </td>
+<td class="py-2.5 px-space-sm text-center font-medium">18 Horas</td>
+<td class="py-2.5 px-space-sm text-right font-code-sm">90,00</td>
+<td class="py-2.5 px-space-sm text-right font-code-sm font-bold text-primary">1.620,00</td>
+</tr>
+<!-- Item 03 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<td class="py-2.5 px-space-sm text-center font-bold text-primary">03</td>
+<td class="py-2.5 px-space-sm">
+<div class="font-bold text-on-surface flex items-center gap-1.5">
+<span>Taxa de Mobilização e Desmobilização de Equipamento</span>
+<span class="text-[10px] bg-surface-container text-outline px-1.5 py-0.2 rounded font-bold">Bonificação Comercial</span>
+</div>
+<div class="text-[11px] text-on-surface-variant mt-0.5">
+                    Transporte especializado em prancha rebaixada (Galpão CENTERLOC Imbiribeira → Suape).
+                  </div>
+</td>
+<td class="py-2.5 px-space-sm text-center text-[11px] font-medium text-on-surface-variant">
+                  Conforme Contrato
+                </td>
+<td class="py-2.5 px-space-sm text-center font-medium">1 Serviço</td>
+<td class="py-2.5 px-space-sm text-right font-code-sm text-outline">0,00</td>
+<td class="py-2.5 px-space-sm text-right font-code-sm font-semibold text-outline">0,00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- 4. TOTALIZADORES FINANCEIROS E VALOR POR EXTENSO -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-start">
+<!-- Bloco com Valor por Extenso -->
+<div class="md:col-span-7 flex flex-col gap-1.5">
+<div class="bg-surface-container-low p-space-sm rounded">
+<span class="font-label-sm text-[10px] uppercase tracking-wider text-outline block">Valor Total por Extenso</span>
+<p class="font-body-md text-[13px] italic font-semibold text-primary mt-1">
+              “Dezenove mil, seiscentos e vinte reais”
+            </p>
+</div>
+<div class="text-[11px] font-body-sm text-on-surface-variant flex items-center gap-1.5 px-space-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">info</span>
+<span>Documento emitido para fins de liquidação financeira e comprovação de custos operacionais.</span>
+</div>
+</div>
+<!-- Tabela Compacta de Totais -->
+<div class="md:col-span-5 bg-surface-container p-space-sm rounded flex flex-col gap-1.5">
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant">Subtotal Bruto dos Serviços:</span>
+<span class="font-code-sm font-semibold text-on-surface">R$ 19.620,00</span>
+</div>
+<div class="flex justify-between items-center text-[12px]">
+<span class="text-on-surface-variant flex items-center gap-1">
+              Retenções (ISSQN / IRRF / CSLL):
+              <span class="material-symbols-outlined text-[13px] text-outline" title="Locação pura isenta de retenção municipal/federal">help_outline</span>
+</span>
+<span class="font-code-sm font-semibold text-outline">R$ 0,00</span>
+</div>
+<div class="h-0.5 bg-surface-variant my-0.5"></div>
+<div class="flex justify-between items-center">
+<span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">Valor Líquido a Pagar:</span>
+<span class="font-headline-xl text-headline-xl font-black text-secondary leading-none">R$ 19.620,00</span>
+</div>
+</div>
+</section>
+<!-- 5. AMPARO LEGAL E FUNDAMENTAÇÃO FISCAL (SÚMULA VINCULANTE 31 STF) -->
+<section class="bg-surface-container-low p-space-sm rounded flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">balance</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-[13px] uppercase text-primary tracking-wider font-bold">
+              Amparo Legal • Declaração de Natureza Fiscal (Não Incidência de ISS)
+            </h3>
+<span class="bg-primary text-on-primary text-[9px] font-label-sm font-bold uppercase px-1 rounded">Súmula Vinculante 31 STF</span>
+</div>
+<p class="text-[10px] font-body-sm text-on-surface-variant leading-relaxed text-justify">
+            O presente documento refere-se exclusivamente à atividade de <strong>locação e cessão onerosa de bens móveis</strong> (maquinários pesados e veículos), operação isenta e não sujeita à tributação do Imposto Sobre Serviços de Qualquer Natureza (ISSQN), consoante jurisprudência pacificada pelo <strong>Supremo Tribunal Federal (Súmula Vinculante nº 31: <em>“É inconstitucional a incidência do imposto sobre serviços de qualquer natureza - ISS sobre operações de locação de bens móveis”</em>)</strong> e Subitem 3.01 da Lista Anexa à Lei Complementar nº 116/2003 (vetado pela Presidência da República), servindo esta Nota de Débito como comprovante de faturamento e documento de cobrança com plena eficácia de título executivo extrajudicial.
+          </p>
+</div>
+</section>
+<!-- 6. DADOS BANCÁRIOS, PIX DINÂMICO E REGRAS DE LIQUIDAÇÃO -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-center bg-surface-container p-space-sm rounded">
+<!-- Instruções Bancárias -->
+<div class="md:col-span-8 flex flex-col gap-1.5">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">account_balance</span>
+<span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">Dados Oficiais para Depósito ou Transferência</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm text-[11px] font-body-sm">
+<div class="bg-surface-container-lowest p-space-xs rounded flex flex-col">
+<span class="text-outline uppercase text-[9px] font-label-sm">Instituição Financeira</span>
+<span class="font-bold text-primary">Banco do Brasil S/A (Código 001)</span>
+<span class="text-on-surface mt-0.5"><strong>Agência:</strong> 3214-X • <strong>C/C:</strong> 48201-9</span>
+</div>
+<div class="bg-surface-container-lowest p-space-xs rounded flex flex-col">
+<span class="text-outline uppercase text-[9px] font-label-sm">Chave PIX Cadastrada (CNPJ)</span>
+<span class="font-code-sm font-bold text-secondary text-[12px]">12.299.005/0001-46</span>
+<span class="text-[10px] text-outline mt-0.5">Favorecido: CENTERLOC Locadora Ltda</span>
+</div>
+</div>
+<div class="text-[10px] text-on-surface-variant flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[13px] text-secondary">notification_important</span>
+<span>Após efetuar o pagamento, solicitamos envio do comprovante para: <strong>financeiro@centerloc.com.br</strong></span>
+</div>
+</div>
+<!-- Bloco QR Code PIX Dinâmico -->
+<div class="md:col-span-4 bg-surface-container-lowest p-space-xs rounded flex items-center gap-space-sm shadow-sm justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase font-bold text-primary leading-tight">Pague com PIX</span>
+<span class="text-[9px] text-outline">QR Code dinâmico com valor exato já configurado.</span>
+<span class="font-code-sm text-[11px] font-bold text-secondary mt-1">R$ 19.620,00</span>
+</div>
+<!-- SVG Representativo QR Code PIX de Alta Resolução -->
+<div class="w-20 h-20 bg-surface-container p-1 rounded flex items-center justify-center flex-shrink-0">
+<svg class="w-full h-full text-primary" fill="currentColor" viewbox="0 0 100 100">
+<!-- Canto Superior Esquerdo -->
+<rect fill="currentColor" height="28" rx="2" width="28" x="5" y="5"></rect>
+<rect fill="#ffffff" height="18" width="18" x="10" y="10"></rect>
+<rect fill="currentColor" height="10" width="10" x="14" y="14"></rect>
+<!-- Canto Superior Direito -->
+<rect fill="currentColor" height="28" rx="2" width="28" x="67" y="5"></rect>
+<rect fill="#ffffff" height="18" width="18" x="72" y="10"></rect>
+<rect fill="currentColor" height="10" width="10" x="76" y="14"></rect>
+<!-- Canto Inferior Esquerdo -->
+<rect fill="currentColor" height="28" rx="2" width="28" x="5" y="67"></rect>
+<rect fill="#ffffff" height="18" width="18" x="10" y="72"></rect>
+<rect fill="currentColor" height="10" width="10" x="14" y="76"></rect>
+<!-- Matriz de Dados Simulado -->
+<rect height="6" width="6" x="38" y="8"></rect>
+<rect height="6" width="10" x="48" y="16"></rect>
+<rect height="12" width="6" x="40" y="26"></rect>
+<rect height="8" width="8" x="52" y="32"></rect>
+<rect height="6" width="10" x="8" y="42"></rect>
+<rect height="6" width="14" x="22" y="44"></rect>
+<rect height="6" width="16" x="42" y="46"></rect>
+<rect height="12" width="10" x="64" y="42"></rect>
+<rect height="6" width="12" x="80" y="40"></rect>
+<rect height="8" width="12" x="38" y="60"></rect>
+<rect height="14" width="8" x="56" y="58"></rect>
+<rect height="6" width="14" x="70" y="60"></rect>
+<rect height="16" width="6" x="88" y="64"></rect>
+<rect height="14" width="6" x="38" y="78"></rect>
+<rect height="8" width="18" x="48" y="84"></rect>
+<rect height="6" width="12" x="72" y="76"></rect>
+<rect height="6" width="16" x="72" y="86"></rect>
+</svg>
+</div>
+</div>
+</section>
+<!-- 7. AUTENTICAÇÃO DIGITAL ICP-BRASIL E ASSINATURA -->
+<footer class="mt-space-xs pt-space-xs flex flex-col md:flex-row justify-between items-end gap-space-md text-[11px] font-body-sm text-outline">
+<!-- Selo de Validação Criptográfica -->
+<div class="flex flex-col gap-1 max-w-sm w-full">
+<div class="flex items-center gap-1.5 text-primary font-label-sm text-[10px] uppercase font-bold">
+<span class="material-symbols-outlined text-[15px] text-secondary">verified_user</span>
+<span>Chave de Segurança &amp; Autenticidade Digital</span>
+</div>
+<div class="font-code-sm text-[10px] bg-surface-container-low p-1.5 rounded text-on-surface leading-tight break-all">
+            HASH SHA-256: <span class="text-primary font-bold">b87f-94a2-11e0-d49e-c802f019a4e3c88102</span>
+</div>
+<span class="text-[9px] text-outline">
+            Assinado com Certificado Digital ICP-Brasil A1 (AC Serasa RFB) em 26/08/2026 às 14:32:09 BRT.
+          </span>
+</div>
+<!-- Linha de Assinatura Oficial do Emissor -->
+<div class="flex flex-col items-center text-center w-full md:w-64">
+<div class="w-full h-px bg-on-surface-variant/40 mb-1"></div>
+<span class="font-bold text-on-surface text-[11px] leading-tight">CENTERLOC LOCADORA DE VEÍCULOS LTDA</span>
+<span class="text-[10px] text-on-surface-variant font-medium">Antonio Neto • Gerência Operacional e Financeira</span>
+<span class="text-[9px] text-outline">Representante Legal Autorizado</span>
+</div>
+</footer>
+<!-- Rodapé Técnico da Página A4 -->
+<div class="pt-2 text-center text-[9px] font-code-sm text-outline flex items-center justify-between">
+<span>Sistema Integrado CENTERLOC Enterprise v3.4.2 • Módulo Fiscal</span>
+<span>Página 1 de 1 • Documento Gerado em 26/08/2026</span>
+<span>Suape Hub Ops • Recife - PE</span>
+</div>
+</div>
+</section>
+</div></main></div></body></html>

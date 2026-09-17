@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-fixed-variant":"#6b3a0a","primary-container":"#1a3a6e","outline-variant":"#c4c6d1","on-secondary-fixed-variant":"#743400","surface-bright":"#f6faff","tertiary-fixed-dim":"#ffb77e","background":"#f6faff","on-primary-fixed-variant":"#28467b","on-secondary":"#ffffff","on-secondary-fixed":"#321300","secondary-container":"#ff8934","primary-fixed-dim":"#adc7ff","on-tertiary-container":"#da965f","on-primary-fixed":"#001a41","on-secondary-container":"#662d00","inverse-on-surface":"#edf1f7","tertiary-fixed":"#ffdcc3","error-container":"#ffdad6","surface-container-lowest":"#ffffff","surface-container-high":"#e4e8ee","on-background":"#171c20","outline":"#747780","on-primary-container":"#89a5e0","tertiary-container":"#5d2f00","primary-fixed":"#d8e2ff","surface-container":"#eaeef4","surface-container-low":"#f0f4fa","primary":"#002453","error":"#ba1a1a","on-tertiary-fixed":"#2f1500","on-surface-variant":"#44474f","tertiary":"#3d1d00","on-tertiary":"#ffffff","secondary-fixed-dim":"#ffb68b","surface":"#f6faff","on-error":"#ffffff","on-surface":"#171c20","surface-variant":"#dfe3e9","surface-tint":"#415e94","surface-dim":"#d6dae0","on-error-container":"#93000a","on-primary":"#ffffff","inverse-surface":"#2c3136","secondary-fixed":"#ffdbc8","inverse-primary":"#adc7ff","secondary":"#994700","surface-container-highest":"#dfe3e9"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-normal":"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-lg":"1rem","sidebar-width":"260px","space-xl":"1.5rem","gutter-dense":"0.75rem","space-3xl":"2.5rem","space-2xl":"2rem","space-sm":"0.5rem","topbar-height":"64px","space-2xs":"0.125rem"},fontFamily:{"headline-lg":["Barlow Condensed"],"headline-md":["Barlow Condensed"],"body-md":["Inter"],"headline-sm":["Barlow Condensed"],"code-sm":["Inter"],"headline-xl":["Barlow Condensed"],"display-lg":["Barlow Condensed"],"label-md":["Inter"],"body-sm":["Inter"],"label-sm":["Inter"],"body-lg":["Inter"]},fontSize:{"headline-lg":["24px",{lineHeight:"28px",letterSpacing:"0.01em",fontWeight:"700"}],"headline-md":["20px",{lineHeight:"24px",letterSpacing:"0.01em",fontWeight:"700"}],"body-md":["14px",{lineHeight:"20px",letterSpacing:"0em",fontWeight:"400"}],"headline-sm":["16px",{lineHeight:"20px",letterSpacing:"0.02em",fontWeight:"700"}],"code-sm":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-xl":["32px",{lineHeight:"36px",letterSpacing:"0.02em",fontWeight:"800"}],"display-lg":["44px",{lineHeight:"48px",letterSpacing:"0.02em",fontWeight:"900"}],"label-md":["13px",{lineHeight:"18px",letterSpacing:"0.01em",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"400"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[240px] bg-primary-container text-on-primary z-50 flex flex-col justify-between overflow-y-auto border-r border-outline-variant/20 shadow-xl"><div class="flex flex-col"><div class="h-[52px] flex items-center px-space-md gap-space-sm border-b border-outline-variant/10 bg-primary"><div class="w-8 h-8 rounded bg-secondary flex items-center justify-center text-on-secondary font-headline-md text-headline-md tracking-wider shadow-sm">C</div><div class="flex flex-col"><div class="flex items-center gap-space-2xs"><span class="font-headline-md text-headline-md font-bold tracking-tight text-on-primary leading-none">CENTER</span><span class="font-headline-md text-headline-md font-bold tracking-tight text-secondary-container leading-none">LOC</span></div><span class="font-label-sm text-[9px] uppercase tracking-widest text-on-primary-container leading-none mt-space-2xs">Recife • PE</span></div></div><nav class="flex flex-col px-space-xs py-space-sm gap-space-2xs" data-active-classes="bg-secondary text-on-secondary font-bold shadow-sm"><div class="px-space-sm pt-space-xs pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Principal</div><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded transition-colors bg-secondary text-on-secondary font-bold shadow-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Dashboard</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Cadastros</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="locatarios" href="#"><span class="material-symbols-outlined text-[18px]">badge</span><span>Locatários</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="veiculos-equipamentos" href="#"><span class="material-symbols-outlined text-[18px]">precision_manufacturing</span><span>Veículos / Equip.</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="clientes-fornecedores" href="#"><span class="material-symbols-outlined text-[18px]">domain</span><span>Clientes / Forneced.</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Comercial</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="propostas" href="#"><span class="material-symbols-outlined text-[18px]">request_quote</span><span>Propostas</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contratos" href="#"><span class="material-symbols-outlined text-[18px]">history_edu</span><span>Contratos</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Fiscal</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="notas-de-debito" href="#"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Notas de Débito</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Financeiro</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-receber" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_down</span><span>Contas a Receber</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-pagar" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_up</span><span>Contas a Pagar</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="fluxo-de-caixa" href="#"><span class="material-symbols-outlined text-[18px]">account_balance</span><span>Fluxo de Caixa</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Sistema</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="configuracoes" href="#"><span class="material-symbols-outlined text-[18px]">settings</span><span>Configurações</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="relatorios" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span><span>Relatórios</span></a></nav></div><div class="p-space-sm border-t border-outline-variant/10 bg-primary/40 flex flex-col gap-space-2xs text-on-primary-container/60"><div class="font-code-sm text-[10px] tracking-tight">CNPJ: 12.299.005/0001-46</div><div class="flex items-center justify-between font-label-sm text-[9px] uppercase tracking-wider text-on-primary-container/50"><span>Suape Hub Ops</span><span>v3.4.2</span></div></div></aside><div class="pl-[240px]"><header class="fixed top-0 left-[240px] right-0 h-[52px] bg-surface-container-lowest border-b border-outline-variant/40 z-40 px-space-lg flex items-center justify-between shadow-[0_1px_4px_rgba(26,39,58,0.04)]"><div class="flex items-center gap-space-md"><img alt="CENTERLOC Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUVh69YIR84jKNWh5QJscBhhVxCQimM9Rce_9VsIVdOEuuEg3V8hpQzBvIChTmxgXxXZ3_N9DxuZMwfIJWJ9eMZTVUnvBRwOgQxZpCsHZgpfL09NkEStgvbLfX74BcDTOxZBw1JDOD1TDn32cApG1HvIVZEeTDQeVbgcOWjO4FHTP7XoMWN2qsXrwuWKynJohxUhNKQcgBI5Z1EwyIOcTRK5nFcaxcdqR93BZgmDZpJ6rozW3MedIZ0g"/><div class="h-4 w-px bg-outline-variant/40 hidden sm:block"></div><nav class="hidden sm:flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">CENTERLOC</span><span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span><span class="text-outline font-body-sm text-body-sm">Gestão Integrada</span></nav></div><div class="flex items-center gap-space-md"><div class="relative hidden md:flex items-center"><span class="material-symbols-outlined absolute left-2.5 text-outline text-[18px]">search</span><input class="w-56 lg:w-72 h-[34px] pl-8 pr-space-sm rounded bg-surface-container-low border border-outline-variant text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:border-secondary transition-colors" placeholder="Buscar chassi, placa, contrato..." type="text"/></div><button class="relative p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span></button><button class="h-[34px] px-space-md bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-sm transition-all" type="button"><span class="material-symbols-outlined text-[16px]">add</span><span>Novo</span></button><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNyQ7n44WW0zUOw_Yxj6A9FXtIDs4PoOTZZ5XUwseNrHCtNo7cbI1MkH2DwhojBJn2ID72Vid69W0icu4M45hGxhi0R8H5i_flt97CiQmL2DXCaGm3GOCBxPu-1bbA-ST_46RRMUKfWaRVMb-vEhYOlffduet9T-q5s0FQddNGJ6v5XjgBCfqhxA6tcg4KOqNxR-qlwLG4rCaVqdIl6vBkMMTPD-c5-B1PQVRhx9LjqRh6ZT-n2WgcSQ"/><div class="hidden xl:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Antonio Neto</span><span class="font-label-sm text-[10px] text-on-surface-variant leading-none">Gerente Operacional</span></div></div></div></header><main class="w-full pt-[52px] bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Application Subheader / Proposal Actions Ribbon -->
+<div class="sticky top-0 z-30 flex flex-wrap items-center justify-between gap-space-md px-space-xl py-space-sm bg-surface-container-lowest/95 backdrop-blur-md shadow-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-outline uppercase tracking-wider">
+<span>Comercial</span>
+<span class="material-symbols-outlined text-[12px] text-outline">chevron_right</span>
+<span>Propostas</span>
+<span class="material-symbols-outlined text-[12px] text-outline">chevron_right</span>
+<span class="text-secondary font-headline-sm text-headline-sm">#PROP-2026/031</span>
+</div>
+<div class="flex items-center gap-space-sm mt-space-2xs">
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tight">Nova Proposta Comercial</h1>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-[10px] uppercase font-bold tracking-wider">Rascunho Ativo</span>
+<span class="flex items-center gap-1 text-[11px] font-label-md text-outline">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+          Autosalvamento há 24s
+        </span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="h-9 px-space-md bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md rounded flex items-center gap-space-xs transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Salvar Rascunho</span>
+</button>
+<button class="h-9 px-space-md bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md rounded flex items-center gap-space-xs transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Exportar PDF</span>
+</button>
+<button class="h-9 px-space-lg bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-md transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">send</span>
+<span>Emitir e Enviar Proposta</span>
+</button>
+</div>
+</div>
+<!-- Operational Workspace Split Layout -->
+<div class="flex flex-col xl:flex-row gap-space-xl p-space-xl items-start">
+<!-- LEFT COLUMN: Proposal Editor Form (55%) -->
+<div class="w-full xl:w-[55%] flex flex-col gap-space-xl">
+<!-- Section 1: Identification & Recipient -->
+<div class="bg-surface-container-lowest rounded-lg p-space-xl shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary"></div>
+<div class="flex items-center justify-between pb-space-md mb-space-lg bg-surface-container-low/50 -mx-space-xl -mt-space-xl px-space-xl pt-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded bg-primary text-on-primary flex items-center justify-center font-headline-sm text-headline-sm">01</span>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary leading-none">Destinatário &amp; Identificação da Operação</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Parâmetros cadastrais e alocação do canteiro contratual</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded bg-surface-container text-primary font-code-sm text-code-sm">SUAPE DOCK OPS</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="col-span-2 flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider flex items-center gap-1">
+<span>Locatário / Tomador do Serviço</span>
+<span class="text-error font-bold">*</span>
+</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[18px]">apartment</span>
+<input class="w-full h-10 pl-10 pr-9 rounded bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest transition-all" id="form-client" type="text" value="ENGEMAN MANUTENÇÃO DE EQUIPAMENTOS S/A (CNPJ: 08.769.549/0006-61)"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-secondary text-[18px]">verified</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider flex items-center gap-1">
+<span>Aos Cuidados de (Att)</span>
+<span class="text-error font-bold">*</span>
+</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[18px]">badge</span>
+<input class="w-full h-10 pl-10 pr-3 rounded bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest transition-all" id="form-att" type="text" value="Eng. Carlos Vasconcelos - Gerente de Obras"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Data Emissão</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-outline text-[18px]">calendar_today</span>
+<input class="w-full h-10 pl-9 pr-2 rounded bg-surface-container-low text-on-surface font-body-md text-body-md" type="text" value="26/08/2026"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Validade</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-outline text-[18px]">schedule</span>
+<input class="w-full h-10 pl-9 pr-2 rounded bg-surface-container-low text-on-surface font-body-md text-body-md" id="form-validity" type="text" value="10 dias (05/09/2026)"/>
+</div>
+</div>
+</div>
+<div class="col-span-2 flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider flex items-center gap-1">
+<span>Local da Operação / Canteiro de Destino</span>
+<span class="text-error font-bold">*</span>
+</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[18px]">pin_drop</span>
+<input class="w-full h-10 pl-10 pr-3 rounded bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest transition-all" id="form-location" type="text" value="Polo Logístico de Suape - Píer de Granéis Líquidos (Ipojuca - PE)"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 2: Fleet Items & Billing Matrix -->
+<div class="bg-surface-container-lowest rounded-lg p-space-xl shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary"></div>
+<div class="flex items-center justify-between pb-space-md mb-space-lg bg-surface-container-low/50 -mx-space-xl -mt-space-xl px-space-xl pt-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded bg-secondary text-on-secondary flex items-center justify-center font-headline-sm text-headline-sm">02</span>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary leading-none">Itens da Proposta &amp; Equipamentos</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Composição dos ativos, horímetro e custos de mobilização</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded bg-secondary-container/20 text-on-secondary-container font-code-sm text-code-sm font-semibold">2 Ativos Selecionados</span>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto rounded-lg bg-surface-container-lowest">
+<table class="w-full text-left font-body-md text-body-md">
+<thead>
+<tr class="bg-surface-container-high text-primary font-headline-sm text-headline-sm uppercase tracking-wide">
+<th class="py-2.5 px-3">Item</th>
+<th class="py-2.5 px-3 min-w-[220px]">Equipamento / Especificação</th>
+<th class="py-2.5 px-2 text-center">Qtd</th>
+<th class="py-2.5 px-3">Franquia</th>
+<th class="py-2.5 px-3 text-right">Tarifa Mensal</th>
+<th class="py-2.5 px-3 text-right">MOB/DESMOB</th>
+<th class="py-2.5 px-3 text-right">Subtotal</th>
+<th class="py-2.5 px-2 text-center">Ações</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Item 1 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-3 font-code-sm text-code-sm font-bold text-primary">#01</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Caminhão Basculante Traçado Volvo FH 540 6x4</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Caçamba 20m³ Meia Cana Haradox • Telemetria CAN Bus</span>
+<span class="mt-1 inline-flex items-center gap-1 font-code-sm text-[10px] text-primary bg-surface-container px-1.5 py-0.5 rounded w-fit">
+                      CHASSI: 9BVRZ0148TR • FROTA #VOL-542
+                    </span>
+</div>
+</td>
+<td class="py-3 px-2 text-center font-code-sm text-code-sm">1</td>
+<td class="py-3 px-3 font-body-sm text-body-sm whitespace-nowrap text-on-surface-variant">200 h/mês</td>
+<td class="py-3 px-3 text-right font-code-sm text-code-sm text-on-surface font-semibold whitespace-nowrap">R$ 18.000,00</td>
+<td class="py-3 px-3 text-right font-code-sm text-code-sm text-on-surface-variant whitespace-nowrap">R$ 1.500,00</td>
+<td class="py-3 px-3 text-right font-code-sm text-code-sm text-primary font-bold whitespace-nowrap">R$ 19.500,00</td>
+<td class="py-3 px-2 text-center">
+<button class="p-1 rounded text-outline hover:text-error hover:bg-error-container/20 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Item 2 -->
+<tr class="hover:bg-surface-container-low/60 transition-colors">
+<td class="py-3 px-3 font-code-sm text-code-sm font-bold text-primary">#02</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Garfo Paleteiro Heavy Duty 2.5T Acoplável</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Engate rápido ISO 23727 • Aço Forjado Anti-Fadiga</span>
+<span class="mt-1 inline-flex items-center gap-1 font-code-sm text-[10px] text-primary bg-surface-container px-1.5 py-0.5 rounded w-fit">
+                      SERIE: IMP-2024-884
+                    </span>
+</div>
+</td>
+<td class="py-3 px-2 text-center font-code-sm text-code-sm">1</td>
+<td class="py-3 px-3 font-body-sm text-body-sm whitespace-nowrap text-on-surface-variant">Livre / Uso Pleno</td>
+<td class="py-3 px-3 text-right font-code-sm text-code-sm text-on-surface font-semibold whitespace-nowrap">R$ 2.000,00</td>
+<td class="py-3 px-3 text-right font-body-sm text-body-sm text-secondary font-medium whitespace-nowrap">Isento</td>
+<td class="py-3 px-3 text-right font-code-sm text-code-sm text-primary font-bold whitespace-nowrap">R$ 2.000,00</td>
+<td class="py-3 px-2 text-center">
+<button class="p-1 rounded text-outline hover:text-error hover:bg-error-container/20 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Add item trigger -->
+<button class="w-full mt-space-md py-3 rounded bg-surface-container-low hover:bg-surface-container text-primary font-headline-sm text-headline-sm uppercase tracking-wider flex items-center justify-center gap-space-xs transition-colors group" type="button">
+<span class="material-symbols-outlined text-[20px] text-secondary group-hover:scale-110 transition-transform">add_circle</span>
+<span>Adicionar Maquinário ou Implemento à Proposta</span>
+</button>
+<!-- Calculation Matrix Bento Card -->
+<div class="mt-space-lg p-space-lg rounded-lg bg-surface-container-low flex flex-col md:flex-row gap-space-lg items-center justify-between">
+<div class="grid grid-cols-2 gap-x-space-lg gap-y-2 w-full md:w-auto">
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase">Subtotal Mensal</span>
+<p class="font-headline-md text-headline-md text-primary font-bold">R$ 20.000,00</p>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase">Taxa MOB / DESMOB Única</span>
+<p class="font-headline-md text-headline-md text-on-surface font-semibold">R$ 1.500,00</p>
+</div>
+<div class="col-span-2">
+<span class="font-label-sm text-label-sm text-outline uppercase">Hora Extra Operacional</span>
+<p class="font-body-md text-body-md text-on-surface-variant font-medium">R$ 90,00 / hora excedente</p>
+</div>
+</div>
+<div class="w-full md:w-auto flex flex-col items-start md:items-end justify-center p-space-md rounded bg-surface-container-lowest shadow-sm">
+<span class="font-label-sm text-label-sm uppercase text-secondary font-bold tracking-wider">Total Estimado 1º Faturamento</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg text-secondary font-bold">R$</span>
+<span class="font-display-lg text-display-lg text-secondary font-black leading-none">21.500,00</span>
+</div>
+<span class="font-body-sm text-[11px] text-outline mt-1">(Locação R$ 20.000 + Mobilização R$ 1.500)</span>
+</div>
+</div>
+</div>
+<!-- Section 3: Operational Conditions & Custom Terms -->
+<div class="bg-surface-container-lowest rounded-lg p-space-xl shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary-container"></div>
+<div class="flex items-center justify-between pb-space-md mb-space-lg bg-surface-container-low/50 -mx-space-xl -mt-space-xl px-space-xl pt-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded bg-primary-container text-on-primary flex items-center justify-center font-headline-sm text-headline-sm">03</span>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary leading-none">Condições Operacionais &amp; Checklist de Cláusulas</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Cláusulas padrão de mobilização e responsabilidades contratuais</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-outline font-label-sm text-[10px] uppercase font-bold">Padrão Suape</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm mb-space-lg">
+<label class="flex items-start gap-space-sm p-space-sm rounded bg-surface-container-low/60 hover:bg-surface-container-low cursor-pointer transition-colors">
+<input checked="" class="mt-0.5 w-4 h-4 rounded text-secondary focus:ring-secondary accent-secondary" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Manutenção Integral Preventiva</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Desgaste natural e revisões programadas por conta da CENTERLOC.</span>
+</div>
+</label>
+<label class="flex items-start gap-space-sm p-space-sm rounded bg-surface-container-low/60 hover:bg-surface-container-low cursor-pointer transition-colors">
+<input checked="" class="mt-0.5 w-4 h-4 rounded text-secondary focus:ring-secondary accent-secondary" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Regime sem Operador</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Cessão pura de bens móveis (Lei nº 10.406/02), motorista do locatário.</span>
+</div>
+</label>
+<label class="flex items-start gap-space-sm p-space-sm rounded bg-surface-container-low/60 hover:bg-surface-container-low cursor-pointer transition-colors">
+<input checked="" class="mt-0.5 w-4 h-4 rounded text-secondary focus:ring-secondary accent-secondary" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Combustível e Insumos</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Diesel S10 e Arla 32 sob exclusiva responsabilidade da ENGEMAN S/A.</span>
+</div>
+</label>
+<label class="flex items-start gap-space-sm p-space-sm rounded bg-surface-container-low/60 hover:bg-surface-container-low cursor-pointer transition-colors">
+<input checked="" class="mt-0.5 w-4 h-4 rounded text-secondary focus:ring-secondary accent-secondary" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Telemetria e Medição CAN Bus</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Franquia de 200h monitorada via satélite pelo centro de operações.</span>
+</div>
+</label>
+<label class="flex items-start gap-space-sm p-space-sm rounded bg-surface-container-low/60 hover:bg-surface-container-low cursor-pointer transition-colors">
+<input checked="" class="mt-0.5 w-4 h-4 rounded text-secondary focus:ring-secondary accent-secondary" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Tarifamento de Horas Extras</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Faturamento adicional apurado em fechamento quinzenal por R$ 90,00/h.</span>
+</div>
+</label>
+<label class="flex items-start gap-space-sm p-space-sm rounded bg-surface-container-low/60 hover:bg-surface-container-low cursor-pointer transition-colors">
+<input checked="" class="mt-0.5 w-4 h-4 rounded text-secondary focus:ring-secondary accent-secondary" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Checklist de Entrega Suape</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Ativo entregue limpo e com tanque abastecido (devolução equivalente).</span>
+</div>
+</label>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Observações Técnicas e Condições Especiais</label>
+<textarea class="w-full p-space-sm rounded bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest transition-all" rows="3">Equipamento já inspecionado com laudo de emissões PROCONVE P8 e tacógrafo aferido pelo IPEM/INMETRO vigente até 11/2026. Habilitado para acesso às áreas restritas portuárias de Suape.</textarea>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Live A4 Real-Time Preview (45% Sticky) -->
+<div class="w-full xl:w-[45%] sticky top-[68px] flex flex-col gap-space-sm">
+<!-- Preview Meta Header Bar -->
+<div class="flex items-center justify-between bg-surface-container-high px-space-md py-space-xs rounded-t-lg">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">visibility</span>
+<span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">Minuta A4 • Visualização em Tempo Real</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-container-lowest font-label-sm text-[10px] text-primary font-bold shadow-xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+            Sincronizado
+          </span>
+<div class="flex items-center gap-1 text-outline">
+<button class="p-1 hover:text-primary rounded" type="button"><span class="material-symbols-outlined text-[16px]">zoom_in</span></button>
+<button class="p-1 hover:text-primary rounded" type="button"><span class="material-symbols-outlined text-[16px]">zoom_out</span></button>
+</div>
+</div>
+</div>
+<!-- A4 Visual Sheet Container (Authentic Industrial Corporate Proportion) -->
+<div class="w-full max-h-[88vh] overflow-y-auto bg-surface-container-high/60 p-space-md rounded-b-lg shadow-inner flex justify-center">
+<!-- Physical Document Sheet -->
+<div class="w-full max-w-[595px] min-h-[842px] bg-surface-container-lowest text-on-surface shadow-2xl p-8 flex flex-col justify-between font-body-sm text-body-sm relative select-none">
+<!-- Sheet Watermark / Seal Accent -->
+<div class="absolute right-8 top-16 opacity-5 pointer-events-none font-headline-xl text-[100px] leading-none font-black text-primary select-none">
+            CENTERLOC
+          </div>
+<!-- Document Top Header -->
+<div class="flex flex-col">
+<div class="flex items-start justify-between pb-4 border-b-2 border-primary">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary flex items-center justify-center text-on-primary font-headline-lg text-headline-lg font-black tracking-wider">
+                  C
+                </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-0.5 font-headline-lg text-headline-lg font-bold tracking-tight text-primary leading-tight">
+<span>CENTER</span><span class="text-secondary">LOC</span>
+</div>
+<span class="font-code-sm text-[9px] uppercase tracking-widest text-outline">Locação de Veículos &amp; Equipamentos Pesados</span>
+<span class="font-code-sm text-[9px] text-outline">CNPJ: 12.299.005/0001-46 • Recife - PE</span>
+</div>
+</div>
+<div class="flex flex-col items-end text-right">
+<span class="font-headline-sm text-headline-sm uppercase text-secondary tracking-widest font-black">PROPOSTA COMERCIAL</span>
+<span class="font-headline-lg text-headline-lg font-black text-primary leading-tight">Nº 031/2026</span>
+<span class="font-code-sm text-[10px] text-on-surface-variant">Recife (PE), 26/08/2026</span>
+</div>
+</div>
+<!-- Recipient Metadata Box -->
+<div class="mt-4 p-3 bg-surface-container-low rounded flex flex-col gap-1">
+<div class="flex justify-between items-baseline">
+<span class="font-label-sm text-[10px] uppercase font-bold text-outline">À Empresa / Locatário:</span>
+<span class="font-code-sm text-[10px] text-on-surface font-semibold">Validade: 10 Dias</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-primary uppercase font-bold leading-tight">
+                ENGEMAN MANUTENÇÃO DE EQUIPAMENTOS S/A
+              </p>
+<div class="grid grid-cols-2 gap-2 text-[11px] text-on-surface-variant mt-1">
+<div><strong class="text-on-surface">CNPJ:</strong> 08.769.549/0006-61</div>
+<div><strong class="text-on-surface">A/C:</strong> Eng. Carlos Vasconcelos</div>
+<div class="col-span-2"><strong class="text-on-surface">Canteiro:</strong> Polo Logístico de Suape - Píer de Granéis Líquidos (Ipojuca/PE)</div>
+</div>
+</div>
+<!-- Letter Body -->
+<p class="mt-3 text-[11px] leading-relaxed text-on-surface-variant text-justify">
+              Apresentamos nossa proposta técnica e comercial para a locação dos equipamentos e implementos industriais abaixo detalhados, disponibilizados sob regime de cessão de bens móveis, revisados e prontos para mobilização imediata no Hub Portuário de Suape.
+            </p>
+<!-- Proposal Items Table in A4 -->
+<div class="mt-3">
+<table class="w-full text-left text-[11px]">
+<thead>
+<tr class="bg-primary text-on-primary font-headline-sm text-[11px] uppercase tracking-wide">
+<th class="py-1 px-2">Item</th>
+<th class="py-1 px-2">Descrição Técnica</th>
+<th class="py-1 px-1 text-center">Qtd</th>
+<th class="py-1 px-2">Franquia</th>
+<th class="py-1 px-2 text-right">Locação (Mês)</th>
+<th class="py-1 px-2 text-right">MOB/DESMOB</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<tr class="bg-surface-container-lowest">
+<td class="py-1.5 px-2 font-code-sm font-bold text-primary">#01</td>
+<td class="py-1.5 px-2">
+<span class="font-semibold block text-primary">Caminhão Basculante Traçado Volvo FH 540 6x4</span>
+<span class="text-[9px] text-on-surface-variant block">Caçamba 20m³ Meia Cana • Tração 6x4 Integral</span>
+</td>
+<td class="py-1.5 px-1 text-center font-code-sm">01</td>
+<td class="py-1.5 px-2 text-[10px]">200 h/mês</td>
+<td class="py-1.5 px-2 text-right font-code-sm font-semibold">R$ 18.000,00</td>
+<td class="py-1.5 px-2 text-right font-code-sm">R$ 1.500,00</td>
+</tr>
+<tr class="bg-surface-container-low/40">
+<td class="py-1.5 px-2 font-code-sm font-bold text-primary">#02</td>
+<td class="py-1.5 px-2">
+<span class="font-semibold block text-primary">Garfo Paleteiro Heavy Duty 2.5T</span>
+<span class="text-[9px] text-on-surface-variant block">Engate rápido industrial ISO • Acoplável</span>
+</td>
+<td class="py-1.5 px-1 text-center font-code-sm">01</td>
+<td class="py-1.5 px-2 text-[10px]">Livre</td>
+<td class="py-1.5 px-2 text-right font-code-sm font-semibold">R$ 2.000,00</td>
+<td class="py-1.5 px-2 text-right text-[10px] text-secondary font-bold">Isento</td>
+</tr>
+</tbody>
+</table>
+<!-- A4 Summary Strip -->
+<div class="mt-2 p-2 rounded bg-surface-container-high flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-[9px] uppercase font-label-sm text-outline">Subtotal Mensal das Unidades:</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold leading-tight">R$ 20.000,00 / mês</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[9px] uppercase font-label-sm text-secondary font-bold">Total Previsto (1º Faturamento c/ MOB):</span>
+<span class="font-headline-lg text-headline-lg text-secondary font-black leading-tight">R$ 21.500,00</span>
+</div>
+</div>
+</div>
+<!-- Conditions in Minuta -->
+<div class="mt-3">
+<span class="font-headline-sm text-[11px] uppercase font-bold text-primary block border-b border-surface-container-high pb-0.5 mb-1">
+                Condições Contratuais &amp; Diretrizes Gerais
+              </span>
+<ul class="text-[10px] text-on-surface-variant space-y-0.5 list-disc pl-3">
+<li>Manutenções preventivas e desgastes de uso ordinário inclusos por conta da <strong>CENTERLOC</strong>.</li>
+<li>Equipamentos locados no regime de <strong>locação pura (sem motorista / operador)</strong>.</li>
+<li>Abastecimento (Diesel S10 e Arla 32) por responsabilidade exclusiva da <strong>ENGEMAN S/A</strong>.</li>
+<li>Hora excedente à franquia de 200h faturada por <strong>R$ 90,00/hora</strong> apurada via telemetria CAN.</li>
+<li>Faturamento: Envio de Nota de Débito quinzenal com vencimento para 28 dias após medição aprovada.</li>
+</ul>
+</div>
+<!-- Special Note -->
+<div class="mt-2 p-2 rounded bg-surface-container-low text-[10px] text-on-surface italic">
+<strong>Nota Técnica:</strong> Equipamento entregue no canteiro de Suape com laudo de emissões PROCONVE P8 e tacógrafo aferido pelo IPEM/INMETRO vigente até 11/2026.
+            </div>
+</div>
+<!-- Document Footer / Signatures -->
+<div class="mt-6 pt-3 border-t border-surface-container-high flex items-end justify-between">
+<div class="flex flex-col items-start">
+<div class="w-36 h-0.5 bg-outline-variant mb-1"></div>
+<span class="font-label-sm text-[10px] uppercase font-bold text-primary">Antonio Neto</span>
+<span class="text-[9px] text-on-surface-variant">Gerência de Operações • CENTERLOC</span>
+<span class="text-[8px] text-outline font-code-sm">CRC-PE 018442/O-9</span>
+</div>
+<div class="flex flex-col items-end text-right">
+<div class="w-36 h-0.5 bg-outline-variant mb-1"></div>
+<span class="font-label-sm text-[10px] uppercase font-bold text-primary">Eng. Carlos Vasconcelos</span>
+<span class="text-[9px] text-on-surface-variant">De Acordo / Locatário (ENGEMAN S/A)</span>
+<span class="text-[8px] text-outline font-code-sm">Data: ____/____/2026</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Persistent Compliance & Operational Action Footer -->
+<footer class="w-full bg-surface-container-lowest border-t border-surface-container px-space-xl py-space-sm flex flex-wrap items-center justify-between gap-space-md shadow-lg">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
+<span>Campos Obrigatórios: <strong>100% Preenchidos</strong></span>
+</div>
+<div class="h-4 w-px bg-outline-variant hidden sm:block"></div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span>Destino Portuário: <strong>Suape (Ipojuca/PE)</strong></span>
+<span>•</span>
+<span>Taxa MOB: <strong>R$ 1.500,00</strong></span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="h-9 px-space-md bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md rounded transition-colors" type="button">
+        Cancelar
+      </button>
+<button class="h-9 px-space-xl bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-md transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Finalizar e Assinar Proposta Digitalmente</span>
+</button>
+</div>
+</footer>
+</div></main></div></body></html>

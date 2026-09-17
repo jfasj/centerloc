@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-fixed-variant":"#6b3a0a","primary-container":"#1a3a6e","outline-variant":"#c4c6d1","on-secondary-fixed-variant":"#743400","surface-bright":"#f6faff","tertiary-fixed-dim":"#ffb77e","background":"#f6faff","on-primary-fixed-variant":"#28467b","on-secondary":"#ffffff","on-secondary-fixed":"#321300","secondary-container":"#ff8934","primary-fixed-dim":"#adc7ff","on-tertiary-container":"#da965f","on-primary-fixed":"#001a41","on-secondary-container":"#662d00","inverse-on-surface":"#edf1f7","tertiary-fixed":"#ffdcc3","error-container":"#ffdad6","surface-container-lowest":"#ffffff","surface-container-high":"#e4e8ee","on-background":"#171c20","outline":"#747780","on-primary-container":"#89a5e0","tertiary-container":"#5d2f00","primary-fixed":"#d8e2ff","surface-container":"#eaeef4","surface-container-low":"#f0f4fa","primary":"#002453","error":"#ba1a1a","on-tertiary-fixed":"#2f1500","on-surface-variant":"#44474f","tertiary":"#3d1d00","on-tertiary":"#ffffff","secondary-fixed-dim":"#ffb68b","surface":"#f6faff","on-error":"#ffffff","on-surface":"#171c20","surface-variant":"#dfe3e9","surface-tint":"#415e94","surface-dim":"#d6dae0","on-error-container":"#93000a","on-primary":"#ffffff","inverse-surface":"#2c3136","secondary-fixed":"#ffdbc8","inverse-primary":"#adc7ff","secondary":"#994700","surface-container-highest":"#dfe3e9"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-normal":"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-lg":"1rem","sidebar-width":"260px","space-xl":"1.5rem","gutter-dense":"0.75rem","space-3xl":"2.5rem","space-2xl":"2rem","space-sm":"0.5rem","topbar-height":"64px","space-2xs":"0.125rem"},fontFamily:{"headline-lg":["Barlow Condensed"],"headline-md":["Barlow Condensed"],"body-md":["Inter"],"headline-sm":["Barlow Condensed"],"code-sm":["Inter"],"headline-xl":["Barlow Condensed"],"display-lg":["Barlow Condensed"],"label-md":["Inter"],"body-sm":["Inter"],"label-sm":["Inter"],"body-lg":["Inter"]},fontSize:{"headline-lg":["24px",{lineHeight:"28px",letterSpacing:"0.01em",fontWeight:"700"}],"headline-md":["20px",{lineHeight:"24px",letterSpacing:"0.01em",fontWeight:"700"}],"body-md":["14px",{lineHeight:"20px",letterSpacing:"0em",fontWeight:"400"}],"headline-sm":["16px",{lineHeight:"20px",letterSpacing:"0.02em",fontWeight:"700"}],"code-sm":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-xl":["32px",{lineHeight:"36px",letterSpacing:"0.02em",fontWeight:"800"}],"display-lg":["44px",{lineHeight:"48px",letterSpacing:"0.02em",fontWeight:"900"}],"label-md":["13px",{lineHeight:"18px",letterSpacing:"0.01em",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"400"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[240px] bg-primary-container text-on-primary z-50 flex flex-col justify-between overflow-y-auto border-r border-outline-variant/20 shadow-xl"><div class="flex flex-col"><div class="h-[52px] flex items-center px-space-md gap-space-sm border-b border-outline-variant/10 bg-primary"><div class="w-8 h-8 rounded bg-secondary flex items-center justify-center text-on-secondary font-headline-md text-headline-md tracking-wider shadow-sm">C</div><div class="flex flex-col"><div class="flex items-center gap-space-2xs"><span class="font-headline-md text-headline-md font-bold tracking-tight text-on-primary leading-none">CENTER</span><span class="font-headline-md text-headline-md font-bold tracking-tight text-secondary-container leading-none">LOC</span></div><span class="font-label-sm text-[9px] uppercase tracking-widest text-on-primary-container leading-none mt-space-2xs">Recife • PE</span></div></div><nav class="flex flex-col px-space-xs py-space-sm gap-space-2xs" data-active-classes="bg-secondary text-on-secondary font-bold shadow-sm"><div class="px-space-sm pt-space-xs pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Principal</div><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded transition-colors bg-secondary text-on-secondary font-bold shadow-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Dashboard</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Cadastros</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="locatarios" href="#"><span class="material-symbols-outlined text-[18px]">badge</span><span>Locatários</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="veiculos-equipamentos" href="#"><span class="material-symbols-outlined text-[18px]">precision_manufacturing</span><span>Veículos / Equip.</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="clientes-fornecedores" href="#"><span class="material-symbols-outlined text-[18px]">domain</span><span>Clientes / Forneced.</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Comercial</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="propostas" href="#"><span class="material-symbols-outlined text-[18px]">request_quote</span><span>Propostas</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contratos" href="#"><span class="material-symbols-outlined text-[18px]">history_edu</span><span>Contratos</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Fiscal</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="notas-de-debito" href="#"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Notas de Débito</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Financeiro</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-receber" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_down</span><span>Contas a Receber</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-pagar" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_up</span><span>Contas a Pagar</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="fluxo-de-caixa" href="#"><span class="material-symbols-outlined text-[18px]">account_balance</span><span>Fluxo de Caixa</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Sistema</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="configuracoes" href="#"><span class="material-symbols-outlined text-[18px]">settings</span><span>Configurações</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="relatorios" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span><span>Relatórios</span></a></nav></div><div class="p-space-sm border-t border-outline-variant/10 bg-primary/40 flex flex-col gap-space-2xs text-on-primary-container/60"><div class="font-code-sm text-[10px] tracking-tight">CNPJ: 12.299.005/0001-46</div><div class="flex items-center justify-between font-label-sm text-[9px] uppercase tracking-wider text-on-primary-container/50"><span>Suape Hub Ops</span><span>v3.4.2</span></div></div></aside><div class="pl-[240px]"><header class="fixed top-0 left-[240px] right-0 h-[52px] bg-surface-container-lowest border-b border-outline-variant/40 z-40 px-space-lg flex items-center justify-between shadow-[0_1px_4px_rgba(26,39,58,0.04)]"><div class="flex items-center gap-space-md"><img alt="CENTERLOC Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUVh69YIR84jKNWh5QJscBhhVxCQimM9Rce_9VsIVdOEuuEg3V8hpQzBvIChTmxgXxXZ3_N9DxuZMwfIJWJ9eMZTVUnvBRwOgQxZpCsHZgpfL09NkEStgvbLfX74BcDTOxZBw1JDOD1TDn32cApG1HvIVZEeTDQeVbgcOWjO4FHTP7XoMWN2qsXrwuWKynJohxUhNKQcgBI5Z1EwyIOcTRK5nFcaxcdqR93BZgmDZpJ6rozW3MedIZ0g"/><div class="h-4 w-px bg-outline-variant/40 hidden sm:block"></div><nav class="hidden sm:flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">CENTERLOC</span><span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span><span class="text-outline font-body-sm text-body-sm">Gestão Integrada</span></nav></div><div class="flex items-center gap-space-md"><div class="relative hidden md:flex items-center"><span class="material-symbols-outlined absolute left-2.5 text-outline text-[18px]">search</span><input class="w-56 lg:w-72 h-[34px] pl-8 pr-space-sm rounded bg-surface-container-low border border-outline-variant text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:border-secondary transition-colors" placeholder="Buscar chassi, placa, contrato..." type="text"/></div><button class="relative p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span></button><button class="h-[34px] px-space-md bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-sm transition-all" type="button"><span class="material-symbols-outlined text-[16px]">add</span><span>Novo</span></button><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNyQ7n44WW0zUOw_Yxj6A9FXtIDs4PoOTZZ5XUwseNrHCtNo7cbI1MkH2DwhojBJn2ID72Vid69W0icu4M45hGxhi0R8H5i_flt97CiQmL2DXCaGm3GOCBxPu-1bbA-ST_46RRMUKfWaRVMb-vEhYOlffduet9T-q5s0FQddNGJ6v5XjgBCfqhxA6tcg4KOqNxR-qlwLG4rCaVqdIl6vBkMMTPD-c5-B1PQVRhx9LjqRh6ZT-n2WgcSQ"/><div class="hidden xl:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Antonio Neto</span><span class="font-label-sm text-[10px] text-on-surface-variant leading-none">Gerente Operacional</span></div></div></div></header><main class="w-full pt-[52px] bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Control / Navigation Sub-Header -->
+<section class="px-space-xl py-space-md bg-surface-container-lowest shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-sm">
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tight uppercase leading-none">Propostas de Locação</h1>
+<span class="px-2 py-0.5 rounded-full bg-secondary/10 text-secondary font-label-sm text-label-sm uppercase font-bold tracking-wider">Suape Fleet v26</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-2xs">Gestão Comercial e Funil de Negociação Suape/Recife • Ciclo Operacional 2026</p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Kanban vs Table Switcher -->
+<div class="bg-surface-container-high p-0.5 rounded-lg flex items-center shadow-inner">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-container-lowest text-primary shadow-sm font-label-md text-label-md transition-all" id="btn-kanban" type="button">
+<span class="material-symbols-outlined text-[17px] text-secondary">view_kanban</span>
+<span>Kanban</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" id="btn-tabela" type="button">
+<span class="material-symbols-outlined text-[17px]">table_rows</span>
+<span>Tabela</span>
+</button>
+</div>
+<!-- Year Selector -->
+<div class="flex items-center bg-surface-container-low px-3 py-1.5 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-outline mr-1.5">calendar_month</span>
+<span class="font-code-sm text-code-sm text-on-surface font-semibold">2026</span>
+</div>
+<!-- Primary Action CTA -->
+<button class="bg-secondary-container hover:bg-secondary text-on-primary font-headline-sm text-headline-sm uppercase px-space-md py-1.5 rounded-lg flex items-center gap-space-xs shadow-md hover:shadow-lg transition-all tracking-wider" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>Nova Proposta</span>
+</button>
+</div>
+</section>
+<!-- Main Canvas Container -->
+<div class="p-space-xl flex flex-col gap-space-lg">
+<!-- Top KPI Grid: 4 Metric Panels with Structural Accent Bars -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- KPI 1: Orange accent stripe -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary-container"></div>
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Total em Negociação</span>
+<span class="material-symbols-outlined text-secondary-container text-[20px]">monetization_on</span>
+</div>
+<div class="mt-space-sm">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-xl text-headline-xl text-primary font-black">R$ 142.000</span>
+<span class="font-label-sm text-label-sm text-outline">/mês</span>
+</div>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">8 propostas ativas no fluxo</span>
+</div>
+</div>
+</div>
+<!-- KPI 2: Navy accent stripe -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary-container"></div>
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Taxa de Conversão</span>
+<span class="material-symbols-outlined text-primary-container text-[20px]">query_stats</span>
+</div>
+<div class="mt-space-sm">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-xl text-headline-xl text-primary font-black">68%</span>
+<span class="flex items-center text-primary-fixed-dim bg-primary font-code-sm text-[11px] px-1.5 py-0.5 rounded font-bold">
+<span class="material-symbols-outlined text-[13px] leading-none">arrow_upward</span>
+<span>4% m/m</span>
+</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Benchmark do Complexo Portuário</p>
+</div>
+</div>
+<!-- KPI 3: Navy Secondary accent stripe -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary"></div>
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Tempo Médio de Fechamento</span>
+<span class="material-symbols-outlined text-primary text-[20px]">timelapse</span>
+</div>
+<div class="mt-space-sm">
+<div class="flex items-baseline gap-1">
+<span class="font-headline-xl text-headline-xl text-primary font-black">4.2</span>
+<span class="font-headline-md text-headline-md text-on-surface-variant uppercase">dias</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Meta SLA: ≤ 5.0 dias corridos</p>
+</div>
+</div>
+<!-- KPI 4: Pending / Warning accent stripe -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 left-0 right-0 h-1 bg-tertiary-fixed-dim"></div>
+<div class="flex items-start justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Aguardando Assinatura</span>
+<span class="material-symbols-outlined text-tertiary text-[20px]">draw</span>
+</div>
+<div class="mt-space-sm">
+<div class="flex items-baseline gap-2">
+<span class="font-headline-xl text-headline-xl text-tertiary font-black">3</span>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant uppercase font-bold">propostas</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 font-semibold text-secondary">R$ 64.000,00/mês garantidos</p>
+</div>
+</div>
+</div>
+<!-- Operational Filter Strip -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-space-md">
+<!-- Search Input -->
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[19px]">search</span>
+<input class="w-full h-10 pl-10 pr-space-md rounded-lg bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:bg-surface-container-lowest transition-colors shadow-inner" placeholder="Buscar por proposta, cliente ou maquinário (ex: Trator, FH 540, Odebrecht)..." type="text"/>
+</div>
+<!-- Controls Row -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Vendedor Filter -->
+<div class="flex items-center gap-2 bg-surface-container-low rounded-lg px-3 py-2">
+<span class="material-symbols-outlined text-outline text-[17px]">person</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Resp:</span>
+<select class="bg-transparent font-body-sm text-body-sm text-on-surface font-medium focus:outline-none cursor-pointer">
+<option value="all">Todos os Vendedores</option>
+<option selected="" value="an">Antonio Neto (Gerência)</option>
+<option value="mr">Marcos Ribeiro (Suape Cargas)</option>
+<option value="cs">Carla Silveira (Linha Amarela)</option>
+</select>
+</div>
+<!-- Tipo Frota Filter -->
+<div class="flex items-center gap-2 bg-surface-container-low rounded-lg px-3 py-2">
+<span class="material-symbols-outlined text-outline text-[17px]">category</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Frota:</span>
+<select class="bg-transparent font-body-sm text-body-sm text-on-surface font-medium focus:outline-none cursor-pointer">
+<option value="all">Todos os Segmentos</option>
+<option value="pesados">Pesados (Caminhões/Guindautos)</option>
+<option value="amarela">Linha Amarela (Terraplanagem)</option>
+<option value="implementos">Implementos &amp; Geradores</option>
+</select>
+</div>
+<!-- Export Action -->
+<button class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-high hover:bg-surface-container text-primary font-label-md text-label-md transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>Exportar Funil</span>
+</button>
+</div>
+</div>
+<!-- KANBAN BOARD CONTAINER -->
+<div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-space-md items-start">
+<!-- COLUMN 1: RASCUNHO -->
+<div class="flex flex-col bg-surface-container-low rounded-xl p-space-sm shadow-sm">
+<!-- Header -->
+<div class="flex items-center justify-between p-space-sm bg-surface-container-lowest rounded-lg mb-space-sm shadow-xs relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-outline"></div>
+<div class="flex items-center gap-2 pl-1.5">
+<h2 class="font-headline-md text-headline-md text-primary uppercase tracking-wide">Rascunho</h2>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant font-code-sm text-code-sm font-bold">1</span>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-[10px] text-outline uppercase block">Subtotal</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">R$ 15.000<span class="font-body-sm text-[10px] text-outline">/mês</span></span>
+</div>
+</div>
+<!-- Cards List -->
+<div class="flex flex-col gap-space-sm">
+<!-- Card #PROP-0028 -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative group hover:shadow-md transition-all overflow-hidden flex flex-col gap-space-sm">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary-container"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-outline cursor-grab text-[18px] opacity-40 group-hover:opacity-100">drag_indicator</span>
+<span class="bg-primary text-on-primary font-code-sm text-code-sm px-2 py-0.5 rounded font-bold">#PROP-0028</span>
+</div>
+<span class="font-code-sm text-[11px] text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">schedule</span> Hoje, 10:15
+              </span>
+</div>
+<div>
+<span class="font-label-sm text-[10px] text-outline uppercase tracking-wider block">Cliente Locatário</span>
+<h3 class="font-headline-sm text-headline-sm text-primary leading-tight mt-0.5 hover:text-secondary cursor-pointer">
+                Construtora Norberto Odebrecht Hub Suape
+              </h3>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Yellow heavy crawler bulldozer working in civil construction site with dirt background, sharp focus, industrial telematics equipment CENTERLOC style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOL3g4H8BhZOwl1ZgJ2njRuel_0znOLMId9c79U-cqLdnErd7PmN51UT8Tolo-ZvpvhOpYynGSRdyCDFSqQyAFhu9lmg50c1vt-MeEL23dRwsbmuQSkartMHKbBBNfF-MOe-e2UGeYqIEJAvUEpgyaydUzw-rsEUcwi7iTucpEXhSIJqxCf99_4miKTRK40kmHz53lqiOSm9LL_h6v1DIN8RM8I6uICe5ljAgMWb4y_bHYTlh9Z1VUiQ"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-[10px] uppercase text-outline">Equipamento Alvo</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">Trator de Esteiras CAT D6T</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">Franquia 220h • S/ Operador</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">Locação Mensal</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">R$ 15.000,00</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[11px]">
+<span class="material-symbols-outlined text-[14px]">account_circle</span>
+<span>Antonio Neto</span>
+</div>
+</div>
+<!-- Card Actions -->
+<div class="flex items-center gap-space-xs pt-space-2xs bg-surface-container-low/50 -mx-space-md -mb-space-md px-space-md py-space-xs mt-space-xs">
+<button class="flex-1 py-1 px-2 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-sm text-label-sm font-bold flex items-center justify-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">visibility</span> Ver
+              </button>
+<button class="flex-1 py-1 px-2 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-sm text-label-sm font-bold flex items-center justify-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">edit</span> Editar
+              </button>
+</div>
+</div>
+</div>
+</div>
+<!-- COLUMN 2: ENVIADA AO CLIENTE -->
+<div class="flex flex-col bg-surface-container-low rounded-xl p-space-sm shadow-sm">
+<!-- Header -->
+<div class="flex items-center justify-between p-space-sm bg-surface-container-lowest rounded-lg mb-space-sm shadow-xs relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-container"></div>
+<div class="flex items-center gap-2 pl-1.5">
+<h2 class="font-headline-md text-headline-md text-primary uppercase tracking-wide">Enviada ao Cliente</h2>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-code-sm text-code-sm font-bold">2</span>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-[10px] text-outline uppercase block">Subtotal</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">R$ 36.000<span class="font-body-sm text-[10px] text-outline">/mês</span></span>
+</div>
+</div>
+<!-- Cards List -->
+<div class="flex flex-col gap-space-sm">
+<!-- Card #PROP-0026 -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative group hover:shadow-md transition-all overflow-hidden flex flex-col gap-space-sm">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary-container"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-outline cursor-grab text-[18px] opacity-40 group-hover:opacity-100">drag_indicator</span>
+<span class="bg-primary text-on-primary font-code-sm text-code-sm px-2 py-0.5 rounded font-bold">#PROP-0026</span>
+</div>
+<span class="font-code-sm text-[11px] text-primary-container bg-primary-fixed/40 px-2 py-0.5 rounded flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[13px]">send</span> Há 2 dias
+              </span>
+</div>
+<div>
+<span class="font-label-sm text-[10px] text-outline uppercase tracking-wider block">Cliente Locatário</span>
+<h3 class="font-headline-sm text-headline-sm text-primary leading-tight mt-0.5 hover:text-secondary cursor-pointer">
+                CLC Construtora e Pavimentação S/A
+              </h3>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Heavy industrial white water tanker truck parked at maritime port facility under daylight, CENTERLOC logistics theme" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvTdJew3PrZYUod1gunPgYkRm6ixDXooWnqqgo2eWQFE4_OLnsVVuUi4qNNn7djc02x3lM21NSDNA3znKu_RnH0eLkwPIUipYqd0g9lX111boJX6hSbTXQq5QVcdrkY-8KyyKyxDwAQ-S1KkiOuBvpaNpeJBAbLK_pn28MJTzcYL-Se9md0B8YNru9f1tZvF5dz2IrsKJwz7K0oZqYtDWA0D91K3OVMSU0k5nZh-RTG3kcq-PT08gWzw"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-[10px] uppercase text-outline">Equipamento</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">Caminhão Pipa 20.000L Atego</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">Chassi MB-2730 • Suape Norte</span>
+</div>
+</div>
+<!-- Status Pill & Validity Badge -->
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">gavel</span> Feedback Jurídico
+              </span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-code-sm text-[10px]">
+                Restam 3 dias
+              </span>
+</div>
+<div class="flex items-baseline justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">Locação Mensal</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">R$ 18.000,00</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[11px]">
+<span class="material-symbols-outlined text-[14px]">account_circle</span>
+<span>Antonio Neto</span>
+</div>
+</div>
+<!-- Card Actions -->
+<div class="flex items-center gap-space-xs pt-space-2xs bg-surface-container-low/50 -mx-space-md -mb-space-md px-space-md py-space-xs mt-space-xs">
+<button class="flex-1 py-1 px-2 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-sm text-label-sm font-bold flex items-center justify-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">send_and_archive</span> Reenviar
+              </button>
+<button class="flex-1 py-1 px-2 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-sm text-label-sm font-bold flex items-center justify-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">history</span> Histórico
+              </button>
+</div>
+</div>
+<!-- Card #PROP-0027 -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative group hover:shadow-md transition-all overflow-hidden flex flex-col gap-space-sm">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary-container"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-outline cursor-grab text-[18px] opacity-40 group-hover:opacity-100">drag_indicator</span>
+<span class="bg-primary text-on-primary font-code-sm text-code-sm px-2 py-0.5 rounded font-bold">#PROP-0027</span>
+</div>
+<span class="font-code-sm text-[11px] text-primary-container bg-primary-fixed/40 px-2 py-0.5 rounded flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[13px]">schedule</span> Ontem
+              </span>
+</div>
+<div>
+<span class="font-label-sm text-[10px] text-outline uppercase tracking-wider block">Cliente Locatário</span>
+<h3 class="font-headline-sm text-headline-sm text-primary leading-tight mt-0.5 hover:text-secondary cursor-pointer">
+                Tecon Suape Terminal de Contêineres
+              </h3>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Heavy knuckle boom crane truck lifting container equipment in port yard setting, sharp engineered details" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHoimYqHY_no_SjlNoUjwUB_2jdtzwRpTiM1Msk2k69RPMmacsqpEBb5MOG3CJ0yjy4Lx1b_i3PWDbRJG6Hwixe7w5EZLnI3SCv8zukrWuMA3NPOZCC1jFpfHV-yW30Ch8g7w-ehFUAllNL-GUa3tQ6O8PEtkNTz51ws1UJpdLgkrMj3mECKKTlEz1PMh_9OF1J61VxQxW-CYcMKYfSiUkm_fUY6_aGTELAnXOLiuIxSO1NLBxeN5Ang"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-[10px] uppercase text-outline">Equipamento</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">Guindauto Madal Palfinger 45T</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">Lança 28m • Operação Portuária</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-code-sm text-[10px] flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-secondary">alarm</span> Restam 6 dias
+              </span>
+</div>
+<div class="flex items-baseline justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">Locação Mensal</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">R$ 18.000,00</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-[11px]">
+<span class="material-symbols-outlined text-[14px]">account_circle</span>
+<span>Antonio Neto</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs pt-space-2xs bg-surface-container-low/50 -mx-space-md -mb-space-md px-space-md py-space-xs mt-space-xs">
+<button class="flex-1 py-1 px-2 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-sm text-label-sm font-bold flex items-center justify-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">visibility</span> Detalhes
+              </button>
+<button class="flex-1 py-1 px-2 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-sm text-label-sm font-bold flex items-center justify-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">edit_note</span> Aditivos
+              </button>
+</div>
+</div>
+</div>
+</div>
+<!-- COLUMN 3: APROVADA -->
+<div class="flex flex-col bg-surface-container-low rounded-xl p-space-sm shadow-sm">
+<!-- Header -->
+<div class="flex items-center justify-between p-space-sm bg-surface-container-lowest rounded-lg mb-space-sm shadow-xs relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex items-center gap-2 pl-1.5">
+<h2 class="font-headline-md text-headline-md text-primary uppercase tracking-wide">Aprovada</h2>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-code-sm text-code-sm font-bold">3</span>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-[10px] text-outline uppercase block">Subtotal</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">R$ 54.000<span class="font-body-sm text-[10px] text-outline">/mês</span></span>
+</div>
+</div>
+<!-- Cards List -->
+<div class="flex flex-col gap-space-sm">
+<!-- Card #PROP-0024 -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative group hover:shadow-md transition-all overflow-hidden flex flex-col gap-space-sm">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary-container"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-outline cursor-grab text-[18px] opacity-40 group-hover:opacity-100">drag_indicator</span>
+<span class="bg-primary text-on-primary font-code-sm text-code-sm px-2 py-0.5 rounded font-bold">#PROP-0024</span>
+</div>
+<span class="font-label-sm text-[10px] text-primary-container bg-primary-fixed font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">verified</span> Diretoria OK
+              </span>
+</div>
+<div>
+<span class="font-label-sm text-[10px] text-outline uppercase tracking-wider block">Cliente Locatário</span>
+<h3 class="font-headline-sm text-headline-sm text-primary leading-tight mt-0.5 hover:text-secondary cursor-pointer">
+                ENGEMAN MANUTENÇÃO DE EQUIPAMENTOS S/A
+              </h3>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Heavy duty Volvo tipper dump truck FH 540 in a gravel quarry in Pernambuco, high detail commercial photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKI6cjTCqxUgRKa6Z95aiTdexhaT1UVshkbCYiMEOgeMwoQxvU6lqTXgKoIwx7s-yeth57vY3K1WeTL4JMidwoVWm_ACqvkUwvqdkfQKTEX_Pn7CmjZtOWsvtAASvOwSQ7UoacP5ImDN6-4orszl2OiMtW3gMvMKoTllqfeY5mRAWrUOGrz2JVNNFH5a0SR0ye0q7WrNhovWWxuNKwf8aui6sBTzXO150HrIkgzwrpWCcXGS87JlG5Nw"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-[10px] uppercase text-outline">Equipamento</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">Caminhão Basculante Volvo FH 540 6x4</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">Franquia 200h • Caçamba Meia Cana</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">Locação Mensal</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">R$ 18.000,00</span>
+</div>
+<span class="font-label-sm text-[10px] bg-surface-container text-on-surface-variant px-1.5 py-0.5 rounded">Prazo 12m</span>
+</div>
+<!-- Prominent Conversion Action -->
+<button class="w-full py-2 px-3 rounded-lg bg-secondary-container hover:bg-secondary text-on-primary font-headline-sm text-headline-sm uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-sm transition-transform active:scale-[0.98]" type="button">
+<span>Converter em Contrato</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<!-- Card #PROP-0023 -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative group hover:shadow-md transition-all overflow-hidden flex flex-col gap-space-sm">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary-container"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-outline cursor-grab text-[18px] opacity-40 group-hover:opacity-100">drag_indicator</span>
+<span class="bg-primary text-on-primary font-code-sm text-code-sm px-2 py-0.5 rounded font-bold">#PROP-0023</span>
+</div>
+<span class="font-label-sm text-[10px] text-primary-container bg-primary-fixed font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">check</span> Validada
+              </span>
+</div>
+<div>
+<span class="font-label-sm text-[10px] text-outline uppercase tracking-wider block">Cliente Locatário</span>
+<h3 class="font-headline-sm text-headline-sm text-primary leading-tight mt-0.5 hover:text-secondary cursor-pointer">
+                Copergás Cia Pernambucana de Gás
+              </h3>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Compact skid steer loader New Holland yellow machine working on urban gas pipeline excavation site" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjPL662wsopVxanvt4Qa39y6nhn4gDX4tOvrHPFZyG2A-lI-EZsKfK65xuurfsQFCPoOYEvrQ4KI34-EaaNBHzH-4fLjIvy15xPszXJVTqoCWvo6lt9wg_xBT7WZa7Ualz4VwErTq3PgOcoASyRJTbd8ur4fGXIqxKev7OhgghCVk6KeOQly80AKED5fclYcgHvKacGG544qDspFqkIHqqXoMtIO_onwAKgS8WSoiglmlkx6VrGxnYEg"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-[10px] uppercase text-outline">Equipamento</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">Mini Carregadeira New Holland L218</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">Lança Radial • Acessório Garfo</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">Locação Mensal</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">R$ 15.000,00</span>
+</div>
+<span class="font-label-sm text-[10px] bg-surface-container text-on-surface-variant px-1.5 py-0.5 rounded">Prazo 24m</span>
+</div>
+<!-- Conversion Action -->
+<button class="w-full py-2 px-3 rounded-lg bg-secondary-container hover:bg-secondary text-on-primary font-headline-sm text-headline-sm uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-sm transition-transform active:scale-[0.98]" type="button">
+<span>Converter em Contrato</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<!-- Card #PROP-0022 -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative group hover:shadow-md transition-all overflow-hidden flex flex-col gap-space-sm">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary-container"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-outline cursor-grab text-[18px] opacity-40 group-hover:opacity-100">drag_indicator</span>
+<span class="bg-primary text-on-primary font-code-sm text-code-sm px-2 py-0.5 rounded font-bold">#PROP-0022</span>
+</div>
+<span class="font-label-sm text-[10px] text-primary-container bg-primary-fixed font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">task_alt</span> Pronta p/ Assinatura
+              </span>
+</div>
+<div>
+<span class="font-label-sm text-[10px] text-outline uppercase tracking-wider block">Cliente Locatário</span>
+<h3 class="font-headline-sm text-headline-sm text-primary leading-tight mt-0.5 hover:text-secondary cursor-pointer">
+                Porto Novo Empreendimentos
+              </h3>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Caterpillar backhoe loader machine digging foundation trench near seaside harbor development, precision civil engineering" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4sKUAcuGAXzHzscZTNgny-h71A68gGjFVaXqImdJcqHZELx6LpnuMqgIT4xx7k1fUdIjBnGvxlD9A7YcC8HRO0WfniG0qtdYAkc8yjzPERQ3tJh3EiEOljEPNH2JU2Jw6Jk13JzVaWf6exek-qgJW8caG6gsPWNAWCuysQJXDHRiaQWiBgTgHVlFsgqs5uq2VFvtNEPlZR_urGAoPZ5PurFW0MJU_kU2zdvRzkHzWOSN-4vIieU6sxQ"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-[10px] uppercase text-outline">Equipamento</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface truncate">Retroescavadeira CAT 416F2</span>
+<span class="font-code-sm text-[11px] text-secondary font-semibold">C/ Operador + Mobilização</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">Locação Mensal</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">R$ 21.000,00</span>
+</div>
+<span class="font-label-sm text-[10px] bg-surface-container text-on-surface-variant px-1.5 py-0.5 rounded">Prazo 6m</span>
+</div>
+<!-- Conversion Action -->
+<button class="w-full py-2 px-3 rounded-lg bg-secondary-container hover:bg-secondary text-on-primary font-headline-sm text-headline-sm uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-sm transition-transform active:scale-[0.98]" type="button">
+<span>Converter em Contrato</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- COLUMN 4: RECUSADA / CANCELADA -->
+<div class="flex flex-col bg-surface-container-low rounded-xl p-space-sm shadow-sm">
+<!-- Header -->
+<div class="flex items-center justify-between p-space-sm bg-surface-container-lowest rounded-lg mb-space-sm shadow-xs relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex items-center gap-2 pl-1.5">
+<h2 class="font-headline-md text-headline-md text-primary uppercase tracking-wide">Recusada / Cancelada</h2>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-code-sm text-code-sm font-bold">1</span>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-[10px] text-outline uppercase block">Subtotal</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">R$ 12.000<span class="font-body-sm text-[10px] text-outline">/mês</span></span>
+</div>
+</div>
+<!-- Cards List -->
+<div class="flex flex-col gap-space-sm">
+<!-- Card #PROP-0020 -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative group hover:shadow-md transition-all overflow-hidden flex flex-col gap-space-sm opacity-90 hover:opacity-100">
+<div class="absolute top-0 left-0 right-0 h-1 bg-error"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-outline cursor-grab text-[18px] opacity-40 group-hover:opacity-100">drag_indicator</span>
+<span class="bg-surface-container-highest text-on-surface-variant font-code-sm text-code-sm px-2 py-0.5 rounded font-bold line-through">#PROP-0020</span>
+</div>
+<span class="font-label-sm text-[10px] text-error bg-error-container font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">cancel</span> Declinada
+              </span>
+</div>
+<div>
+<span class="font-label-sm text-[10px] text-outline uppercase tracking-wider block">Cliente Locatário</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface-variant leading-tight mt-0.5">
+                TAUA Hotel &amp; Resort Porto de Galinhas
+              </h3>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded bg-surface-container-high overflow-hidden shrink-0 grayscale opacity-75">
+<img class="w-full h-full object-cover" data-alt="Industrial pallet fork lifter and soil compactor parked on construction yard pavement" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSJz5zp8Gnf5rrOwSntlukpqMb_ZG9lbX9KqCZKd243A0Y8EQYfh_i9hmYRSLV3MBOFu0SFliAcfgVYukKDBbhBgPvBs6bs10o45-UZ8rPyTU5o6i0lpnFuS_pL1-EDrB0-aueekjBlG3ruQWy1d7hNgG7sNmyGFmahmHXGggjlPuQghZPxAlu7_-v19_dRZ0LvFw1a4sMUzdF9nC4y6FYuBPSgqI94Il44OBxHiW9sQFvg_p745DC2g"/>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-[10px] uppercase text-outline">Equipamento</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface-variant truncate">Garfo Paleteiro 2.5T + Compactador</span>
+<span class="font-code-sm text-[11px] text-outline">Implementos de Apoio</span>
+</div>
+</div>
+<!-- Justification / Reason Container -->
+<div class="p-space-xs rounded bg-error-container/40 flex items-start gap-1.5 text-on-error-container">
+<span class="material-symbols-outlined text-[15px] shrink-0 mt-0.5">info</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase font-bold tracking-tight">Motivo de Recusa</span>
+<span class="font-body-sm text-[12px] leading-tight text-on-surface font-medium">Orçamento fora do escopo da obra civil do hotel.</span>
+</div>
+</div>
+<div class="flex items-baseline justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">Valor Dispensado</span>
+<span class="font-headline-md text-headline-md text-on-surface-variant line-through font-bold">R$ 12.000,00</span>
+</div>
+<div class="flex items-center gap-1 text-outline font-label-sm text-[11px]">
+<span class="material-symbols-outlined text-[14px]">history</span>
+<span>Encerrado</span>
+</div>
+</div>
+<!-- Action: Reabrir -->
+<button class="w-full py-1.5 px-3 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-sm text-label-sm font-bold flex items-center justify-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">refresh</span> Reabrir Negociação
+            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- BOTTOM OPERATIONAL BAR & QUICK SUMMARY -->
+<footer class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">sync_alt</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">Conversão Automática em Contrato Ativa</span>
+<span class="bg-surface-container-high text-primary px-2 py-0.5 rounded font-code-sm text-[10px] font-bold uppercase">SLA &lt; 2 min</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Ao clicar em <span class="font-semibold text-secondary">"Converter em Contrato"</span>, os dados de franquia horária, seguro de casco marítimo, mobilização e faturamento são migrados automaticamente sem revalidação de crédito.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-space-lg shrink-0 self-stretch lg:self-auto justify-end bg-surface-container-low px-space-md py-space-xs rounded-lg">
+<div class="flex flex-col text-right">
+<span class="font-label-sm text-[10px] uppercase text-outline">Pipeline Ativo</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">R$ 142.000,00</span>
+</div>
+<div class="h-8 w-px bg-outline-variant/50"></div>
+<div class="flex flex-col text-right">
+<span class="font-label-sm text-[10px] uppercase text-outline">Taxa Sucesso</span>
+<span class="font-headline-md text-headline-md text-secondary font-bold">87.5%</span>
+</div>
+<div class="h-8 w-px bg-outline-variant/50"></div>
+<button class="p-2 text-primary hover:bg-surface-container-high rounded transition-colors" title="Ajuda sobre o Funil Comercial" type="button">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+</div>
+</footer>
+</div>
+</div>
+<script>
+  // Simple view switcher interaction
+  const btnKanban = document.getElementById('btn-kanban');
+  const btnTabela = document.getElementById('btn-tabela');
+
+  if (btnKanban && btnTabela) {
+    btnTabela.addEventListener('click', () => {
+      btnTabela.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+      btnTabela.classList.remove('text-on-surface-variant');
+      
+      btnKanban.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+      btnKanban.classList.add('text-on-surface-variant');
+    });
+
+    btnKanban.addEventListener('click', () => {
+      btnKanban.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+      btnKanban.classList.remove('text-on-surface-variant');
+      
+      btnTabela.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+      btnTabela.classList.add('text-on-surface-variant');
+    });
+  }
+</script></main></div></body></html>

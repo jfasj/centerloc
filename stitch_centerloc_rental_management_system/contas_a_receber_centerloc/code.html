@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-fixed-variant":"#6b3a0a","primary-container":"#1a3a6e","outline-variant":"#c4c6d1","on-secondary-fixed-variant":"#743400","surface-bright":"#f6faff","tertiary-fixed-dim":"#ffb77e","background":"#f6faff","on-primary-fixed-variant":"#28467b","on-secondary":"#ffffff","on-secondary-fixed":"#321300","secondary-container":"#ff8934","primary-fixed-dim":"#adc7ff","on-tertiary-container":"#da965f","on-primary-fixed":"#001a41","on-secondary-container":"#662d00","inverse-on-surface":"#edf1f7","tertiary-fixed":"#ffdcc3","error-container":"#ffdad6","surface-container-lowest":"#ffffff","surface-container-high":"#e4e8ee","on-background":"#171c20","outline":"#747780","on-primary-container":"#89a5e0","tertiary-container":"#5d2f00","primary-fixed":"#d8e2ff","surface-container":"#eaeef4","surface-container-low":"#f0f4fa","primary":"#002453","error":"#ba1a1a","on-tertiary-fixed":"#2f1500","on-surface-variant":"#44474f","tertiary":"#3d1d00","on-tertiary":"#ffffff","secondary-fixed-dim":"#ffb68b","surface":"#f6faff","on-error":"#ffffff","on-surface":"#171c20","surface-variant":"#dfe3e9","surface-tint":"#415e94","surface-dim":"#d6dae0","on-error-container":"#93000a","on-primary":"#ffffff","inverse-surface":"#2c3136","secondary-fixed":"#ffdbc8","inverse-primary":"#adc7ff","secondary":"#994700","surface-container-highest":"#dfe3e9"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-normal":"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-lg":"1rem","sidebar-width":"260px","space-xl":"1.5rem","gutter-dense":"0.75rem","space-3xl":"2.5rem","space-2xl":"2rem","space-sm":"0.5rem","topbar-height":"64px","space-2xs":"0.125rem"},fontFamily:{"headline-lg":["Barlow Condensed"],"headline-md":["Barlow Condensed"],"body-md":["Inter"],"headline-sm":["Barlow Condensed"],"code-sm":["Inter"],"headline-xl":["Barlow Condensed"],"display-lg":["Barlow Condensed"],"label-md":["Inter"],"body-sm":["Inter"],"label-sm":["Inter"],"body-lg":["Inter"]},fontSize:{"headline-lg":["24px",{lineHeight:"28px",letterSpacing:"0.01em",fontWeight:"700"}],"headline-md":["20px",{lineHeight:"24px",letterSpacing:"0.01em",fontWeight:"700"}],"body-md":["14px",{lineHeight:"20px",letterSpacing:"0em",fontWeight:"400"}],"headline-sm":["16px",{lineHeight:"20px",letterSpacing:"0.02em",fontWeight:"700"}],"code-sm":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-xl":["32px",{lineHeight:"36px",letterSpacing:"0.02em",fontWeight:"800"}],"display-lg":["44px",{lineHeight:"48px",letterSpacing:"0.02em",fontWeight:"900"}],"label-md":["13px",{lineHeight:"18px",letterSpacing:"0.01em",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"400"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[240px] bg-primary-container text-on-primary z-50 flex flex-col justify-between overflow-y-auto border-r border-outline-variant/20 shadow-xl"><div class="flex flex-col"><div class="h-[52px] flex items-center px-space-md gap-space-sm border-b border-outline-variant/10 bg-primary"><div class="w-8 h-8 rounded bg-secondary flex items-center justify-center text-on-secondary font-headline-md text-headline-md tracking-wider shadow-sm">C</div><div class="flex flex-col"><div class="flex items-center gap-space-2xs"><span class="font-headline-md text-headline-md font-bold tracking-tight text-on-primary leading-none">CENTER</span><span class="font-headline-md text-headline-md font-bold tracking-tight text-secondary-container leading-none">LOC</span></div><span class="font-label-sm text-[9px] uppercase tracking-widest text-on-primary-container leading-none mt-space-2xs">Recife • PE</span></div></div><nav class="flex flex-col px-space-xs py-space-sm gap-space-2xs" data-active-classes="bg-secondary text-on-secondary font-bold shadow-sm"><div class="px-space-sm pt-space-xs pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Principal</div><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded transition-colors bg-secondary text-on-secondary font-bold shadow-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Dashboard</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Cadastros</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="locatarios" href="#"><span class="material-symbols-outlined text-[18px]">badge</span><span>Locatários</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="veiculos-equipamentos" href="#"><span class="material-symbols-outlined text-[18px]">precision_manufacturing</span><span>Veículos / Equip.</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="clientes-fornecedores" href="#"><span class="material-symbols-outlined text-[18px]">domain</span><span>Clientes / Forneced.</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Comercial</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="propostas" href="#"><span class="material-symbols-outlined text-[18px]">request_quote</span><span>Propostas</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contratos" href="#"><span class="material-symbols-outlined text-[18px]">history_edu</span><span>Contratos</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Fiscal</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="notas-de-debito" href="#"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Notas de Débito</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Financeiro</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-receber" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_down</span><span>Contas a Receber</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-pagar" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_up</span><span>Contas a Pagar</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="fluxo-de-caixa" href="#"><span class="material-symbols-outlined text-[18px]">account_balance</span><span>Fluxo de Caixa</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Sistema</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="configuracoes" href="#"><span class="material-symbols-outlined text-[18px]">settings</span><span>Configurações</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="relatorios" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span><span>Relatórios</span></a></nav></div><div class="p-space-sm border-t border-outline-variant/10 bg-primary/40 flex flex-col gap-space-2xs text-on-primary-container/60"><div class="font-code-sm text-[10px] tracking-tight">CNPJ: 12.299.005/0001-46</div><div class="flex items-center justify-between font-label-sm text-[9px] uppercase tracking-wider text-on-primary-container/50"><span>Suape Hub Ops</span><span>v3.4.2</span></div></div></aside><div class="pl-[240px]"><header class="fixed top-0 left-[240px] right-0 h-[52px] bg-surface-container-lowest border-b border-outline-variant/40 z-40 px-space-lg flex items-center justify-between shadow-[0_1px_4px_rgba(26,39,58,0.04)]"><div class="flex items-center gap-space-md"><img alt="CENTERLOC Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUVh69YIR84jKNWh5QJscBhhVxCQimM9Rce_9VsIVdOEuuEg3V8hpQzBvIChTmxgXxXZ3_N9DxuZMwfIJWJ9eMZTVUnvBRwOgQxZpCsHZgpfL09NkEStgvbLfX74BcDTOxZBw1JDOD1TDn32cApG1HvIVZEeTDQeVbgcOWjO4FHTP7XoMWN2qsXrwuWKynJohxUhNKQcgBI5Z1EwyIOcTRK5nFcaxcdqR93BZgmDZpJ6rozW3MedIZ0g"/><div class="h-4 w-px bg-outline-variant/40 hidden sm:block"></div><nav class="hidden sm:flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">CENTERLOC</span><span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span><span class="text-outline font-body-sm text-body-sm">Gestão Integrada</span></nav></div><div class="flex items-center gap-space-md"><div class="relative hidden md:flex items-center"><span class="material-symbols-outlined absolute left-2.5 text-outline text-[18px]">search</span><input class="w-56 lg:w-72 h-[34px] pl-8 pr-space-sm rounded bg-surface-container-low border border-outline-variant text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:border-secondary transition-colors" placeholder="Buscar chassi, placa, contrato..." type="text"/></div><button class="relative p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span></button><button class="h-[34px] px-space-md bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-sm transition-all" type="button"><span class="material-symbols-outlined text-[16px]">add</span><span>Novo</span></button><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNyQ7n44WW0zUOw_Yxj6A9FXtIDs4PoOTZZ5XUwseNrHCtNo7cbI1MkH2DwhojBJn2ID72Vid69W0icu4M45hGxhi0R8H5i_flt97CiQmL2DXCaGm3GOCBxPu-1bbA-ST_46RRMUKfWaRVMb-vEhYOlffduet9T-q5s0FQddNGJ6v5XjgBCfqhxA6tcg4KOqNxR-qlwLG4rCaVqdIl6vBkMMTPD-c5-B1PQVRhx9LjqRh6ZT-n2WgcSQ"/><div class="hidden xl:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Antonio Neto</span><span class="font-label-sm text-[10px] text-on-surface-variant leading-none">Gerente Operacional</span></div></div></div></header><main class="w-full pt-[52px] bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Dynamic Operational Sub-bar -->
+<div class="w-full bg-surface-container-low px-space-lg py-space-sm flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm flex-wrap">
+<div class="flex items-center gap-space-2xs text-body-sm font-body-sm text-on-surface-variant">
+<span>Financeiro</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="font-label-md text-label-md text-primary font-bold">Contas a Receber</span>
+</div>
+<div class="h-3 w-px bg-outline-variant hidden sm:block"></div>
+<div class="flex items-center gap-space-xs bg-surface-container-lowest px-2 py-0.5 rounded shadow-sm">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-code-sm text-code-sm text-on-surface">VAN Bancária Suape: Conectada (BB / Santander)</span>
+</div>
+</div>
+<!-- Competency Navigator & Fast Actions -->
+<div class="flex items-center gap-space-sm self-end md:self-auto">
+<div class="flex items-center bg-surface-container-lowest rounded shadow-sm p-0.5">
+<button class="p-1 hover:bg-surface-container text-on-surface-variant rounded transition-colors" title="Mês Anterior" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<div class="flex items-center gap-space-xs px-space-sm font-headline-sm text-headline-sm uppercase text-primary tracking-wide">
+<span class="material-symbols-outlined text-[16px] text-secondary">calendar_today</span>
+<span>Agosto / 2026</span>
+</div>
+<button class="p-1 hover:bg-surface-container text-on-surface-variant rounded transition-colors" title="Próximo Mês" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+<button class="h-8 px-space-sm bg-surface-container-lowest hover:bg-surface-container text-primary font-label-md text-label-md rounded flex items-center gap-space-2xs shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">upload_file</span>
+<span class="hidden sm:inline">Retorno CNAB</span>
+</button>
+<button class="h-8 px-space-sm bg-surface-container-lowest hover:bg-surface-container text-primary font-label-md text-label-md rounded flex items-center gap-space-2xs shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span class="hidden sm:inline">Exportar</span>
+</button>
+<button class="h-8 px-space-md bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">add_circle</span>
+<span>Recebimento Manual</span>
+</button>
+</div>
+</div>
+<div class="p-space-lg flex flex-col gap-space-lg">
+<!-- Top Strategic Banner with Contextual Fleet Dispatch Photo -->
+<div class="relative overflow-hidden rounded-lg bg-primary text-on-primary shadow-md">
+<div class="absolute inset-0 opacity-20 mix-blend-luminosity pointer-events-none bg-cover bg-center" data-alt="High angle architectural view of heavy civil engineering cranes, industrial bulldozers, and crawler loaders parked along the maritime shipping docks of Suape Port in Recife, Pernambuco under humid coastal sunlight." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCs9-XrMNdMW8SY-ZdNVNrqv32Jky4K7tgyDsp4eH1vqtpqH2lVgrOd7y9YpOxdeLr8P0YqphqKZsMv_CFSSL8pULeuP2nEKv40x--OvUemRhZDCzUBetB2UcT_DAwWa9Mwo79-Sg-RaVEhNKS0ZkLuTQ4gdMJte4TR2kWbRdeD6T2Gd2quL8DuI7P_QYNvdnz9M9nBDwH853sJw-QxuxXRQoE__NEsyTAY0ViczwkQ3bqBgtpYZBnyFw')"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary-container/80"></div>
+<div class="relative z-10 px-space-xl py-space-lg flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-2xs max-w-2xl">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-secondary text-on-secondary font-label-sm text-label-sm uppercase tracking-widest">Módulo Faturamento &amp; Receita</span>
+<span class="font-code-sm text-code-sm text-on-primary-container">Competência Fiscal Fechamento 28/08</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-primary tracking-tight uppercase leading-none">
+            Fluxo de Recebimentos Suape &amp; RMR
+          </h1>
+<p class="font-body-md text-body-md text-on-primary-container leading-snug">
+            Gestão unificada de Notas de Débito, títulos bancários registrados, liquidações via PIX Dinâmico e régua de cobrança das frentes ativas de locação industrial.
+          </p>
+</div>
+<div class="flex items-center gap-space-lg bg-primary-container/60 p-space-md rounded-lg backdrop-blur-sm self-start lg:self-auto">
+<div class="flex flex-col text-right">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-primary-container">Eficácia de Liquidação</span>
+<span class="font-headline-xl text-headline-xl text-secondary-container font-extrabold leading-tight">73.4%</span>
+<span class="font-body-sm text-body-sm text-on-primary/70">Meta Operacional: 80% até dia 30</span>
+</div>
+<div class="w-14 h-14 flex items-center justify-center">
+<svg class="w-14 h-14 transform -rotate-90" viewbox="0 0 36 36">
+<path class="text-on-primary-container/20" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.5"></path>
+<path class="text-secondary-container" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="73.4, 100" stroke-linecap="round" stroke-width="3.5"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Financial Indicator Strip (KPI Cards) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- KPI 1: Total Previsto -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary-container"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Previsto no Mês</span>
+<span class="material-symbols-outlined text-primary text-[20px]">account_balance_wallet</span>
+</div>
+<div class="my-space-xs">
+<div class="font-headline-xl text-headline-xl text-primary font-extrabold leading-none tracking-tight">R$ 84.500,00</div>
+<div class="flex items-center gap-space-xs mt-space-2xs text-body-sm text-body-sm text-on-surface-variant">
+<span class="font-label-md text-label-md text-primary font-semibold">14 títulos</span>
+<span>emitidos e auditados</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 100%"></div>
+</div>
+</div>
+<!-- KPI 2: Já Liquidado -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Recebido / Liquidado</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
+</div>
+<div class="my-space-xs">
+<div class="font-headline-xl text-headline-xl text-secondary font-extrabold leading-none tracking-tight">R$ 62.000,00</div>
+<div class="flex items-center gap-space-xs mt-space-2xs text-body-sm text-body-sm text-on-surface-variant">
+<span class="px-1.5 py-0.2 rounded bg-surface-container text-on-surface font-code-sm text-code-sm font-bold">10 liquidados</span>
+<span>Conciliados BB / Santander</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 73.4%"></div>
+</div>
+</div>
+<!-- KPI 3: A Receber (No Prazo) -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 left-0 right-0 h-1 bg-surface-tint"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">A Receber (No Prazo)</span>
+<span class="material-symbols-outlined text-surface-tint text-[20px]">schedule</span>
+</div>
+<div class="my-space-xs">
+<div class="font-headline-xl text-headline-xl text-primary font-extrabold leading-none tracking-tight">R$ 15.510,00</div>
+<div class="flex items-center gap-space-xs mt-space-2xs text-body-sm text-body-sm text-on-surface-variant">
+<span class="font-label-md text-label-md text-primary font-bold">3 títulos</span>
+<span>vencimentos até 31/08</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-surface-tint h-full rounded-full" style="width: 18.3%"></div>
+</div>
+</div>
+<!-- KPI 4: Inadimplência / Atraso -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 left-0 right-0 h-1 bg-error"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-error uppercase tracking-wider font-bold">Vencidos / Em Cobrança</span>
+<span class="material-symbols-outlined text-error text-[20px]">warning</span>
+</div>
+<div class="my-space-xs">
+<div class="font-headline-xl text-headline-xl text-error font-extrabold leading-none tracking-tight">R$ 6.990,00</div>
+<div class="flex items-center gap-space-xs mt-space-2xs text-body-sm text-body-sm text-on-surface-variant">
+<span class="text-error font-semibold">1 título</span>
+<span class="text-[11px] bg-error-container text-on-error-container px-1 py-0.5 rounded">Régua ativa (Engeman)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5 overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 8.3%"></div>
+</div>
+</div>
+</div>
+<!-- Filter Control Bar -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-sm items-center">
+<!-- Search Field -->
+<div class="md:col-span-4 relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">search</span>
+<input class="w-full h-[38px] pl-9 pr-space-sm rounded bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:bg-surface-container-lowest transition-colors" id="filter-search" placeholder="Filtrar por Locatário, Nº da ND, Título ou CNPJ..." type="text"/>
+</div>
+<!-- Status Filter -->
+<div class="md:col-span-2">
+<select class="w-full h-[38px] px-space-sm rounded bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none cursor-pointer">
+<option value="all">Status: Todos (14)</option>
+<option value="paid">Liquidados (10)</option>
+<option value="pending">A Vencer (3)</option>
+<option value="overdue">Vencidos (1)</option>
+</select>
+</div>
+<!-- Client Filter -->
+<div class="md:col-span-3">
+<select class="w-full h-[38px] px-space-sm rounded bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none cursor-pointer">
+<option value="">Locatário: Todos os Contratos</option>
+<option value="engeman">Engeman Manutenção S/A</option>
+<option value="suape2">Consórcio Construtor Suape II</option>
+<option value="tecon">Tecon Suape S/A</option>
+<option value="queiroz">Queiroz Galvão Óleo &amp; Gás</option>
+<option value="eas">Estaleiro Atlântico Sul S/A</option>
+</select>
+</div>
+<!-- Payment Method -->
+<div class="md:col-span-2">
+<select class="w-full h-[38px] px-space-sm rounded bg-surface-container-low text-on-surface font-body-sm text-body-sm focus:outline-none cursor-pointer">
+<option value="">Forma: Todas</option>
+<option value="pix">PIX Dinâmico</option>
+<option value="boleto">Boleto Registrado (BB)</option>
+<option value="ted">Transferência / TED</option>
+</select>
+</div>
+<!-- Quick Reset/Clear Filter -->
+<div class="md:col-span-1 flex justify-end">
+<button class="h-[38px] w-full flex items-center justify-center rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant transition-colors" title="Limpar Filtros" type="button">
+<span class="material-symbols-outlined text-[18px]">filter_alt_off</span>
+</button>
+</div>
+</div>
+<!-- Quick Filter Pills -->
+<div class="flex items-center justify-between flex-wrap gap-space-xs pt-space-xs text-body-sm text-body-sm">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Vencimento:</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-container text-on-primary font-code-sm text-[11px] font-bold">01/08/2026 - 31/08/2026</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-code-sm text-[11px]">Banco do Brasil: Conta #39401-2</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-code-sm text-[11px]">Santander Portuário: #00812-9</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-body-sm">
+<span>Mostrando <strong>5</strong> de <strong>14</strong> títulos registrados</span>
+</div>
+</div>
+</div>
+<!-- Corporate Receivable Ledger Table -->
+<div class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high text-primary font-headline-sm text-headline-sm uppercase tracking-wide text-[13px]">
+<th class="py-3 px-space-md w-10 text-center">
+<input class="w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer" id="check-all" type="checkbox"/>
+</th>
+<th class="py-3 px-space-md">Título / ND</th>
+<th class="py-3 px-space-md">Locatário / Tomador</th>
+<th class="py-3 px-space-md">Contrato Origem</th>
+<th class="py-3 px-space-md">Vencimento</th>
+<th class="py-3 px-space-md text-right">Valor Original</th>
+<th class="py-3 px-space-md text-right">Juros / Multa</th>
+<th class="py-3 px-space-md text-right">Valor Pago</th>
+<th class="py-3 px-space-md">Forma Pgto</th>
+<th class="py-3 px-space-md text-center">Status</th>
+<th class="py-3 px-space-md text-center">Ações Operacionais</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container font-body-sm text-body-sm text-on-surface">
+<!-- Row 1: Overdue Engeman -->
+<tr class="hover:bg-error-container/20 transition-colors group bg-error-container/10">
+<td class="py-3 px-space-md text-center">
+<input checked="" class="item-checkbox w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm font-bold text-primary">#REC-2026-081</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">ND-00534 (Suape)</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">ENGEMAN MANUTENÇÃO S/A</span>
+<span class="font-code-sm text-[11px] text-outline">CNPJ: 09.382.112/0001-90</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[15px] text-outline">history_edu</span>
+<span class="font-code-sm text-code-sm font-semibold">CTR-0082</span>
+</div>
+<span class="text-[10px] text-on-surface-variant block">3x Guindastes 75t</span>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm font-bold text-error">25/08/2026</span>
+<span class="text-[10px] text-error font-bold tracking-tight uppercase">Atraso: 3 dias</span>
+</div>
+</td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm font-bold text-primary">
+                R$ 6.990,00
+              </td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm text-error font-semibold">
+                + R$ 139,80
+              </td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm text-outline">
+                -
+              </td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-2xs text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-primary">barcode</span>
+<span>Boleto BB</span>
+</div>
+<span class="text-[10px] text-outline">Reg: 8291039-1</span>
+</td>
+<td class="py-3 px-space-md text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-[11px] font-bold uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                  Vencido
+                </span>
+</td>
+<td class="py-3 px-space-md text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="p-1.5 bg-surface-container rounded hover:bg-secondary hover:text-on-secondary transition-colors" title="Baixar Título Manualmente" type="button">
+<span class="material-symbols-outlined text-[16px]">price_check</span>
+</button>
+<button class="p-1.5 bg-surface-container rounded hover:bg-primary hover:text-on-primary transition-colors" title="Emitir 2ª Via Atualizada com Juros" type="button">
+<span class="material-symbols-outlined text-[16px]">receipt</span>
+</button>
+<button class="p-1.5 bg-surface-container rounded hover:bg-secondary hover:text-on-secondary transition-colors" title="Disparar Cobrança WhatsApp" type="button">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Paid Consorcio Construtor Suape II -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-3 px-space-md text-center">
+<input class="item-checkbox w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm font-bold text-primary">#REC-2026-082</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">ND-00533 (Píer Petroleiro)</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">CONSÓRCIO CONSTRUTOR SUAPE II</span>
+<span class="font-code-sm text-[11px] text-outline">CNPJ: 14.882.019/0001-44</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[15px] text-outline">history_edu</span>
+<span class="font-code-sm text-code-sm font-semibold">CTR-0079</span>
+</div>
+<span class="text-[10px] text-on-surface-variant block">5x Retroescavadeiras Cat</span>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-on-surface">20/08/2026</span>
+<span class="text-[10px] text-secondary font-semibold">Pago em 20/08</span>
+</div>
+</td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm font-bold text-on-surface">
+                R$ 24.500,00
+              </td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm text-outline">
+                R$ 0,00
+              </td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm font-bold text-primary">
+                R$ 24.500,00
+              </td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-2xs text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">qr_code_2</span>
+<span>PIX Dinâmico</span>
+</div>
+<span class="text-[10px] text-outline">Santander Aut. #71092</span>
+</td>
+<td class="py-3 px-space-md text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-[11px] font-bold uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Liquidado
+                </span>
+</td>
+<td class="py-3 px-space-md text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="p-1.5 bg-surface-container rounded hover:bg-primary hover:text-on-primary transition-colors" title="Visualizar Comprovante Bancário" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+<button class="p-1.5 bg-surface-container rounded hover:bg-primary hover:text-on-primary transition-colors" title="Emitir Recibo de Quitação" type="button">
+<span class="material-symbols-outlined text-[16px]">print</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Paid Tecon Suape -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-3 px-space-md text-center">
+<input class="item-checkbox w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm font-bold text-primary">#REC-2026-083</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">ND-00532 (Terminal Conteiner)</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">TECON SUAPE S/A</span>
+<span class="font-code-sm text-[11px] text-outline">CNPJ: 04.221.782/0001-08</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[15px] text-outline">history_edu</span>
+<span class="font-code-sm text-code-sm font-semibold">CTR-0065</span>
+</div>
+<span class="text-[10px] text-on-surface-variant block">2x Empilhadeiras Reach Stacker</span>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-on-surface">15/08/2026</span>
+<span class="text-[10px] text-secondary font-semibold">Pago em 14/08</span>
+</div>
+</td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm font-bold text-on-surface">
+                R$ 21.000,00
+              </td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm text-outline">
+                R$ 0,00
+              </td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm font-bold text-primary">
+                R$ 21.000,00
+              </td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-2xs text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-primary">account_balance</span>
+<span>TED Banco Real</span>
+</div>
+<span class="text-[10px] text-outline">Lote Conciliado #994</span>
+</td>
+<td class="py-3 px-space-md text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-[11px] font-bold uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Liquidado
+                </span>
+</td>
+<td class="py-3 px-space-md text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="p-1.5 bg-surface-container rounded hover:bg-primary hover:text-on-primary transition-colors" title="Visualizar Comprovante Bancário" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+<button class="p-1.5 bg-surface-container rounded hover:bg-primary hover:text-on-primary transition-colors" title="Emitir Recibo de Quitação" type="button">
+<span class="material-symbols-outlined text-[16px]">print</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Pending Queiroz Galvao -->
+<tr class="hover:bg-surface-container/60 transition-colors bg-surface-container-low/40">
+<td class="py-3 px-space-md text-center">
+<input class="item-checkbox w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm font-bold text-primary">#REC-2026-084</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">ND-00531 (Refinaria Abreu e Lima)</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">QUEIROZ GALVÃO ÓLEO &amp; GÁS</span>
+<span class="font-code-sm text-[11px] text-outline">CNPJ: 33.412.981/0003-72</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[15px] text-outline">history_edu</span>
+<span class="font-code-sm text-code-sm font-semibold">CTR-0091</span>
+</div>
+<span class="text-[10px] text-on-surface-variant block">4x Geradores Diesel 500kVA</span>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm font-bold text-primary">30/08/2026</span>
+<span class="text-[10px] text-on-primary-fixed-variant font-semibold">Vence em 2 dias</span>
+</div>
+</td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm font-bold text-primary">
+                R$ 10.010,00
+              </td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm text-outline">
+                -
+              </td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm text-outline">
+                -
+              </td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-2xs text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-primary">barcode</span>
+<span>Boleto BB</span>
+</div>
+<span class="text-[10px] text-outline">Reg: 8291040-4</span>
+</td>
+<td class="py-3 px-space-md text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-[11px] font-bold uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                  A Vencer
+                </span>
+</td>
+<td class="py-3 px-space-md text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="p-1.5 bg-surface-container rounded hover:bg-secondary hover:text-on-secondary transition-colors" title="Informar Baixa" type="button">
+<span class="material-symbols-outlined text-[16px]">price_check</span>
+</button>
+<button class="p-1.5 bg-surface-container rounded hover:bg-primary hover:text-on-primary transition-colors" title="Enviar Boleto por E-mail / WhatsApp" type="button">
+<span class="material-symbols-outlined text-[16px]">send</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: Paid Estaleiro Atlantico Sul -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-3 px-space-md text-center">
+<input class="item-checkbox w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm font-bold text-primary">#REC-2026-085</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">ND-00530 (Dique Seco Sul)</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">ESTALEIRO ATLÂNTICO SUL S/A</span>
+<span class="font-code-sm text-[11px] text-outline">CNPJ: 08.991.044/0001-23</span>
+</div>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-[15px] text-outline">history_edu</span>
+<span class="font-code-sm text-code-sm font-semibold">CTR-0043</span>
+</div>
+<span class="text-[10px] text-on-surface-variant block">1x Caminhão Munck 45t</span>
+</td>
+<td class="py-3 px-space-md">
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm text-on-surface">10/08/2026</span>
+<span class="text-[10px] text-secondary font-semibold">Pago em 09/08</span>
+</div>
+</td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm font-bold text-on-surface">
+                R$ 16.500,00
+              </td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm text-outline">
+                R$ 0,00
+              </td>
+<td class="py-3 px-space-md text-right font-code-sm text-code-sm font-bold text-primary">
+                R$ 16.500,00
+              </td>
+<td class="py-3 px-space-md">
+<div class="flex items-center gap-space-2xs text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-secondary">qr_code_2</span>
+<span>PIX Santander</span>
+</div>
+<span class="text-[10px] text-outline">Chave CNPJ Centerloc</span>
+</td>
+<td class="py-3 px-space-md text-center">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-[11px] font-bold uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Liquidado
+                </span>
+</td>
+<td class="py-3 px-space-md text-center">
+<div class="flex items-center justify-center gap-1">
+<button class="p-1.5 bg-surface-container rounded hover:bg-primary hover:text-on-primary transition-colors" title="Visualizar Comprovante Bancário" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+<button class="p-1.5 bg-surface-container rounded hover:bg-primary hover:text-on-primary transition-colors" title="Emitir Recibo de Quitação" type="button">
+<span class="material-symbols-outlined text-[16px]">print</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Bulk Actions Bar Triggered upon selection -->
+<div class="bg-primary px-space-md py-space-sm flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-primary" id="bulk-bar">
+<div class="flex items-center gap-space-sm">
+<span class="w-6 h-6 rounded-full bg-secondary flex items-center justify-center font-bold text-[12px] text-on-secondary">1</span>
+<span class="font-label-md text-label-md">Título selecionado para ação em lote</span>
+<span class="text-on-primary-container text-body-sm font-body-sm">(Total: R$ 6.990,00)</span>
+</div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<button class="h-8 px-space-sm bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-2xs transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">price_check</span>
+<span>Baixar Título Selecionado</span>
+</button>
+<button class="h-8 px-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded flex items-center gap-space-2xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">sim_card_download</span>
+<span>Remessa CNAB 400</span>
+</button>
+<button class="h-8 px-space-sm bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded flex items-center gap-space-2xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+<span>Notificar WhatsApp</span>
+</button>
+<button class="p-1.5 text-on-primary-container hover:text-on-primary rounded transition-colors" title="Cancelar Seleção" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Operational Deck: Automation & Bank Gateway Status -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<!-- Section: Automation & WhatsApp Collection Engine -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[22px]">smart_toy</span>
+<h2 class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">Régua de Cobrança Automática (Suape)</h2>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-code-sm text-[11px] font-bold">Status: Ativa</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+            Parâmetros de comunicação disparados com link do boleto registrado e QR Code PIX dinâmico integrado ao sistema financeiro.
+          </p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm">
+<!-- Stage 1 -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between">
+<div class="flex items-center justify-between mb-space-2xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">D-3 Aviso</span>
+<span class="material-symbols-outlined text-outline text-[16px]">schedule</span>
+</div>
+<p class="text-[11px] text-on-surface-variant leading-tight">
+                Disparo preventivo com código de barras e chave PIX para conferência fiscal do cliente.
+              </p>
+<div class="mt-space-sm flex items-center justify-between font-code-sm text-[10px] text-outline">
+<span>Canal: E-mail</span>
+<span class="text-secondary font-bold">100% Entregue</span>
+</div>
+</div>
+<!-- Stage 2 -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between">
+<div class="flex items-center justify-between mb-space-2xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">D-0 Vencimento</span>
+<span class="material-symbols-outlined text-secondary text-[16px]">notifications_active</span>
+</div>
+<p class="text-[11px] text-on-surface-variant leading-tight">
+                Lembrete matinal via WhatsApp Corporativo para tesouraria do tomador com PDF anexo.
+              </p>
+<div class="mt-space-sm flex items-center justify-between font-code-sm text-[10px] text-outline">
+<span>Canal: WhatsApp API</span>
+<span class="text-secondary font-bold">Automático</span>
+</div>
+</div>
+<!-- Stage 3 -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between">
+<div class="flex items-center justify-between mb-space-2xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-error font-bold">D+3 Atraso</span>
+<span class="material-symbols-outlined text-error text-[16px]">report_problem</span>
+</div>
+<p class="text-[11px] text-on-surface-variant leading-tight">
+                Notificação de incidência de juros (1% a.m.) e multa (2%), travando novos despachos de máquinas.
+              </p>
+<div class="mt-space-sm flex items-center justify-between font-code-sm text-[10px] text-error font-bold">
+<span>Engeman: Acionado</span>
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between">
+<span class="text-body-sm text-body-sm text-on-surface-variant">Próximo disparo agendado: <strong>Amanhã, 08:30 (Queiroz Galvão)</strong></span>
+<button class="font-label-md text-label-md text-secondary hover:text-on-secondary-container font-semibold flex items-center gap-1 transition-colors" type="button">
+<span>Configurar Régua</span>
+<span class="material-symbols-outlined text-[16px]">settings</span>
+</button>
+</div>
+</div>
+<!-- Section: Banking VAN & CNAB Gateway Realtime Status -->
+<div class="lg:col-span-5 bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">sync_alt</span>
+<h2 class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">Conciliação CNAB / Banco do Brasil</h2>
+</div>
+<span class="flex h-2.5 w-2.5 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary"></span>
+</span>
+</div>
+<div class="flex flex-col gap-space-sm my-space-xs">
+<!-- Last Processed Return -->
+<div class="p-space-sm bg-surface-container-low rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">download_done</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Último Arquivo Retorno (.RET)</span>
+<span class="font-code-sm text-[11px] text-outline">CB280801.RET • Hoje às 11:42</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-code-sm text-code-sm font-bold text-secondary">10 Títulos Conciliados</span>
+<span class="block text-[10px] text-on-surface-variant">Valor: R$ 62.000,00</span>
+</div>
+</div>
+<!-- Last Processed Remittance -->
+<div class="p-space-sm bg-surface-container-low rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-surface-container-high text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">publish</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Remessa Transmitida (.REM)</span>
+<span class="font-code-sm text-[11px] text-outline">RM202608.REM • 24/08 às 17:10</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-code-sm text-code-sm font-bold text-primary">3 Títulos Aceitos</span>
+<span class="block text-[10px] text-on-surface-variant">Sem rejeição de chassi/ND</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-2xs text-[11px] text-outline font-code-sm">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span>Layout FEBRABAN CNAB 400 Convênio #189201</span>
+</div>
+<button class="font-label-md text-label-md text-primary hover:text-secondary font-semibold flex items-center gap-1 transition-colors" type="button">
+<span>Log de Ocorrências</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    // Basic table select all & state management for batch action bar
+    const checkAll = document.getElementById('check-all');
+    const itemCheckboxes = document.querySelectorAll('.item-checkbox');
+    const bulkBar = document.getElementById('bulk-bar');
+
+    if (checkAll) {
+      checkAll.addEventListener('change', function(e) {
+        itemCheckboxes.forEach(cb => cb.checked = e.target.checked);
+        updateBulkBar();
+      });
+    }
+
+    itemCheckboxes.forEach(cb => {
+      cb.addEventListener('change', updateBulkBar);
+    });
+
+    function updateBulkBar() {
+      const checkedCount = document.querySelectorAll('.item-checkbox:checked').length;
+      if (checkedCount > 0) {
+        bulkBar.classList.remove('hidden');
+      } else {
+        bulkBar.classList.add('hidden');
+      }
+    }
+  })();
+</script></main></div></body></html>

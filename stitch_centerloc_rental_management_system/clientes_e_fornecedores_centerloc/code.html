@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-fixed-variant":"#6b3a0a","primary-container":"#1a3a6e","outline-variant":"#c4c6d1","on-secondary-fixed-variant":"#743400","surface-bright":"#f6faff","tertiary-fixed-dim":"#ffb77e","background":"#f6faff","on-primary-fixed-variant":"#28467b","on-secondary":"#ffffff","on-secondary-fixed":"#321300","secondary-container":"#ff8934","primary-fixed-dim":"#adc7ff","on-tertiary-container":"#da965f","on-primary-fixed":"#001a41","on-secondary-container":"#662d00","inverse-on-surface":"#edf1f7","tertiary-fixed":"#ffdcc3","error-container":"#ffdad6","surface-container-lowest":"#ffffff","surface-container-high":"#e4e8ee","on-background":"#171c20","outline":"#747780","on-primary-container":"#89a5e0","tertiary-container":"#5d2f00","primary-fixed":"#d8e2ff","surface-container":"#eaeef4","surface-container-low":"#f0f4fa","primary":"#002453","error":"#ba1a1a","on-tertiary-fixed":"#2f1500","on-surface-variant":"#44474f","tertiary":"#3d1d00","on-tertiary":"#ffffff","secondary-fixed-dim":"#ffb68b","surface":"#f6faff","on-error":"#ffffff","on-surface":"#171c20","surface-variant":"#dfe3e9","surface-tint":"#415e94","surface-dim":"#d6dae0","on-error-container":"#93000a","on-primary":"#ffffff","inverse-surface":"#2c3136","secondary-fixed":"#ffdbc8","inverse-primary":"#adc7ff","secondary":"#994700","surface-container-highest":"#dfe3e9"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-normal":"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-lg":"1rem","sidebar-width":"260px","space-xl":"1.5rem","gutter-dense":"0.75rem","space-3xl":"2.5rem","space-2xl":"2rem","space-sm":"0.5rem","topbar-height":"64px","space-2xs":"0.125rem"},fontFamily:{"headline-lg":["Barlow Condensed"],"headline-md":["Barlow Condensed"],"body-md":["Inter"],"headline-sm":["Barlow Condensed"],"code-sm":["Inter"],"headline-xl":["Barlow Condensed"],"display-lg":["Barlow Condensed"],"label-md":["Inter"],"body-sm":["Inter"],"label-sm":["Inter"],"body-lg":["Inter"]},fontSize:{"headline-lg":["24px",{lineHeight:"28px",letterSpacing:"0.01em",fontWeight:"700"}],"headline-md":["20px",{lineHeight:"24px",letterSpacing:"0.01em",fontWeight:"700"}],"body-md":["14px",{lineHeight:"20px",letterSpacing:"0em",fontWeight:"400"}],"headline-sm":["16px",{lineHeight:"20px",letterSpacing:"0.02em",fontWeight:"700"}],"code-sm":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-xl":["32px",{lineHeight:"36px",letterSpacing:"0.02em",fontWeight:"800"}],"display-lg":["44px",{lineHeight:"48px",letterSpacing:"0.02em",fontWeight:"900"}],"label-md":["13px",{lineHeight:"18px",letterSpacing:"0.01em",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"400"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[240px] bg-primary-container text-on-primary z-50 flex flex-col justify-between overflow-y-auto border-r border-outline-variant/20 shadow-xl"><div class="flex flex-col"><div class="h-[52px] flex items-center px-space-md gap-space-sm border-b border-outline-variant/10 bg-primary"><div class="w-8 h-8 rounded bg-secondary flex items-center justify-center text-on-secondary font-headline-md text-headline-md tracking-wider shadow-sm">C</div><div class="flex flex-col"><div class="flex items-center gap-space-2xs"><span class="font-headline-md text-headline-md font-bold tracking-tight text-on-primary leading-none">CENTER</span><span class="font-headline-md text-headline-md font-bold tracking-tight text-secondary-container leading-none">LOC</span></div><span class="font-label-sm text-[9px] uppercase tracking-widest text-on-primary-container leading-none mt-space-2xs">Recife • PE</span></div></div><nav class="flex flex-col px-space-xs py-space-sm gap-space-2xs" data-active-classes="bg-secondary text-on-secondary font-bold shadow-sm"><div class="px-space-sm pt-space-xs pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Principal</div><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded transition-colors bg-secondary text-on-secondary font-bold shadow-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Dashboard</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Cadastros</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="locatarios" href="#"><span class="material-symbols-outlined text-[18px]">badge</span><span>Locatários</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="veiculos-equipamentos" href="#"><span class="material-symbols-outlined text-[18px]">precision_manufacturing</span><span>Veículos / Equip.</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="clientes-fornecedores" href="#"><span class="material-symbols-outlined text-[18px]">domain</span><span>Clientes / Forneced.</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Comercial</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="propostas" href="#"><span class="material-symbols-outlined text-[18px]">request_quote</span><span>Propostas</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contratos" href="#"><span class="material-symbols-outlined text-[18px]">history_edu</span><span>Contratos</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Fiscal</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="notas-de-debito" href="#"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Notas de Débito</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Financeiro</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-receber" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_down</span><span>Contas a Receber</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-pagar" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_up</span><span>Contas a Pagar</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="fluxo-de-caixa" href="#"><span class="material-symbols-outlined text-[18px]">account_balance</span><span>Fluxo de Caixa</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Sistema</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="configuracoes" href="#"><span class="material-symbols-outlined text-[18px]">settings</span><span>Configurações</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="relatorios" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span><span>Relatórios</span></a></nav></div><div class="p-space-sm border-t border-outline-variant/10 bg-primary/40 flex flex-col gap-space-2xs text-on-primary-container/60"><div class="font-code-sm text-[10px] tracking-tight">CNPJ: 12.299.005/0001-46</div><div class="flex items-center justify-between font-label-sm text-[9px] uppercase tracking-wider text-on-primary-container/50"><span>Suape Hub Ops</span><span>v3.4.2</span></div></div></aside><div class="pl-[240px]"><header class="fixed top-0 left-[240px] right-0 h-[52px] bg-surface-container-lowest border-b border-outline-variant/40 z-40 px-space-lg flex items-center justify-between shadow-[0_1px_4px_rgba(26,39,58,0.04)]"><div class="flex items-center gap-space-md"><img alt="CENTERLOC Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUVh69YIR84jKNWh5QJscBhhVxCQimM9Rce_9VsIVdOEuuEg3V8hpQzBvIChTmxgXxXZ3_N9DxuZMwfIJWJ9eMZTVUnvBRwOgQxZpCsHZgpfL09NkEStgvbLfX74BcDTOxZBw1JDOD1TDn32cApG1HvIVZEeTDQeVbgcOWjO4FHTP7XoMWN2qsXrwuWKynJohxUhNKQcgBI5Z1EwyIOcTRK5nFcaxcdqR93BZgmDZpJ6rozW3MedIZ0g"/><div class="h-4 w-px bg-outline-variant/40 hidden sm:block"></div><nav class="hidden sm:flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">CENTERLOC</span><span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span><span class="text-outline font-body-sm text-body-sm">Gestão Integrada</span></nav></div><div class="flex items-center gap-space-md"><div class="relative hidden md:flex items-center"><span class="material-symbols-outlined absolute left-2.5 text-outline text-[18px]">search</span><input class="w-56 lg:w-72 h-[34px] pl-8 pr-space-sm rounded bg-surface-container-low border border-outline-variant text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:border-secondary transition-colors" placeholder="Buscar chassi, placa, contrato..." type="text"/></div><button class="relative p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span></button><button class="h-[34px] px-space-md bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-sm transition-all" type="button"><span class="material-symbols-outlined text-[16px]">add</span><span>Novo</span></button><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNyQ7n44WW0zUOw_Yxj6A9FXtIDs4PoOTZZ5XUwseNrHCtNo7cbI1MkH2DwhojBJn2ID72Vid69W0icu4M45hGxhi0R8H5i_flt97CiQmL2DXCaGm3GOCBxPu-1bbA-ST_46RRMUKfWaRVMb-vEhYOlffduet9T-q5s0FQddNGJ6v5XjgBCfqhxA6tcg4KOqNxR-qlwLG4rCaVqdIl6vBkMMTPD-c5-B1PQVRhx9LjqRh6ZT-n2WgcSQ"/><div class="hidden xl:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Antonio Neto</span><span class="font-label-sm text-[10px] text-on-surface-variant leading-none">Gerente Operacional</span></div></div></div></header><main class="w-full pt-[52px] bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Sub-Header / Module Control Bar -->
+<div class="w-full bg-surface-container-lowest shadow-sm px-space-xl py-space-md">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<!-- Breadcrumb & Module Heading -->
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-outline uppercase tracking-wider">
+<span>Cadastros</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface-variant font-semibold">Clientes e Fornecedores</span>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tight font-extrabold uppercase">Clientes &amp; Fornecedores</h1>
+<span class="font-label-sm text-label-sm text-outline px-space-xs py-0.5 rounded bg-surface-container font-medium">Base Consolidada Suape</span>
+</div>
+</div>
+<!-- Action Area -->
+<div class="flex items-center gap-space-sm self-start md:self-auto">
+<button class="h-10 px-space-md bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md rounded flex items-center gap-space-xs transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">download_for_offline</span>
+<span>Importar Planilha</span>
+</button>
+<button class="h-10 px-space-lg bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-md transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>+ Novo Cadastro</span>
+</button>
+</div>
+</div>
+<!-- Segmented Filter Tabs -->
+<div class="flex items-center gap-space-xl mt-space-md overflow-x-auto border-b-0">
+<!-- Tab: Todos -->
+<button class="relative pb-space-sm flex items-center gap-space-xs font-headline-sm text-headline-sm uppercase tracking-wide text-secondary transition-colors group" type="button">
+<span>Todos</span>
+<span class="font-code-sm text-[11px] px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-bold">48</span>
+<span class="absolute bottom-0 left-0 right-0 h-[3px] bg-secondary rounded-t"></span>
+</button>
+<!-- Tab: Clientes -->
+<button class="relative pb-space-sm flex items-center gap-space-xs font-headline-sm text-headline-sm uppercase tracking-wide text-on-surface-variant hover:text-primary transition-colors group" type="button">
+<span>Clientes</span>
+<span class="font-code-sm text-[11px] px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-bold">31</span>
+</button>
+<!-- Tab: Fornecedores -->
+<button class="relative pb-space-sm flex items-center gap-space-xs font-headline-sm text-headline-sm uppercase tracking-wide text-on-surface-variant hover:text-primary transition-colors group" type="button">
+<span>Fornecedores</span>
+<span class="font-code-sm text-[11px] px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-bold">12</span>
+</button>
+<!-- Tab: Ambos / Mistos -->
+<button class="relative pb-space-sm flex items-center gap-space-xs font-headline-sm text-headline-sm uppercase tracking-wide text-on-surface-variant hover:text-primary transition-colors group" type="button">
+<span>Ambos</span>
+<span class="font-code-sm text-[11px] px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-bold">5</span>
+</button>
+</div>
+</div>
+<!-- Operational Body Canvas -->
+<div class="p-space-xl flex flex-col gap-space-lg">
+<!-- Top KPI Glance Matrix -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Card: Ativos Conectados -->
+<div class="relative bg-surface-container-lowest p-space-md rounded shadow-sm overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary"></div>
+<div class="flex items-center justify-between text-outline mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Parceiros Cadastrados</span>
+<span class="material-symbols-outlined text-[20px] text-secondary">groups</span>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="font-headline-xl text-headline-xl font-black text-primary">48</span>
+<span class="font-code-sm text-code-sm text-secondary font-bold">96% Operantes</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 mt-space-sm overflow-hidden">
+<div class="bg-secondary h-1.5 rounded-full" style="width: 96%"></div>
+</div>
+</div>
+<!-- Card: A Receber (Clientes) -->
+<div class="relative bg-surface-container-lowest p-space-md rounded shadow-sm overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary"></div>
+<div class="flex items-center justify-between text-outline mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Total em Aberto (A Receber)</span>
+<span class="material-symbols-outlined text-[20px] text-primary">arrow_circle_down</span>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="font-headline-xl text-headline-xl font-black text-primary">R$ 54.000<span class="text-[16px] text-outline">,00</span></span>
+<span class="font-code-sm text-code-sm text-primary font-bold">14 faturas</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 mt-space-sm overflow-hidden">
+<div class="bg-primary h-1.5 rounded-full" style="width: 74%"></div>
+</div>
+</div>
+<!-- Card: A Pagar (Fornecedores) -->
+<div class="relative bg-surface-container-lowest p-space-md rounded shadow-sm overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 left-0 right-0 h-1 bg-error"></div>
+<div class="flex items-center justify-between text-outline mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Total a Liquidar (A Pagar)</span>
+<span class="material-symbols-outlined text-[20px] text-error">arrow_circle_up</span>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="font-headline-xl text-headline-xl font-black text-error">R$ 7.370<span class="text-[16px] text-error/70">,00</span></span>
+<span class="font-code-sm text-code-sm text-error font-bold">4 pendências</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 mt-space-sm overflow-hidden">
+<div class="bg-error h-1.5 rounded-full" style="width: 32%"></div>
+</div>
+</div>
+<!-- Card: Pátio & Contratos Vinculados -->
+<div class="relative bg-surface-container-lowest p-space-md rounded shadow-sm overflow-hidden flex flex-col justify-between">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary-container"></div>
+<div class="flex items-center justify-between text-outline mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Equipamentos em Campo</span>
+<span class="material-symbols-outlined text-[20px] text-secondary-container">precision_manufacturing</span>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="font-headline-xl text-headline-xl font-black text-primary">82 <span class="font-headline-sm text-headline-sm text-outline">UN</span></span>
+<span class="font-code-sm text-code-sm text-primary font-bold">Suape Hub</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 mt-space-sm overflow-hidden">
+<div class="bg-secondary-container h-1.5 rounded-full" style="width: 88%"></div>
+</div>
+</div>
+</div>
+<!-- Filter Control Bar -->
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-space-md">
+<!-- Search Input Field -->
+<div class="relative flex-1 min-w-[280px]">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full h-10 pl-10 pr-space-md rounded bg-surface-container-low text-on-surface placeholder:text-outline font-body-md text-body-md focus:outline-none focus:bg-surface-container-lowest transition-colors" placeholder="Buscar por Razão Social, CNPJ ou contato..." type="text"/>
+</div>
+<!-- Filter Controls Matrix -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Tipo Filter -->
+<div class="relative min-w-[130px]">
+<select class="w-full h-10 pl-3 pr-8 rounded bg-surface-container-low text-on-surface font-body-sm text-body-sm font-semibold appearance-none focus:outline-none cursor-pointer">
+<option>Tipo: Todos</option>
+<option>Tipo: Clientes</option>
+<option>Tipo: Fornecedores</option>
+<option>Tipo: Ambos</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">expand_more</span>
+</div>
+<!-- Cidade/UF Filter -->
+<div class="relative min-w-[150px]">
+<select class="w-full h-10 pl-3 pr-8 rounded bg-surface-container-low text-on-surface font-body-sm text-body-sm font-semibold appearance-none focus:outline-none cursor-pointer">
+<option>Cidade/UF: Todas</option>
+<option>Recife / PE</option>
+<option>Cabo de Sto. Agostinho / PE</option>
+<option>Jaboatão dos Guararapes / PE</option>
+<option>Caruaru / PE</option>
+<option>Ipojuca / PE</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">location_on</span>
+</div>
+<!-- Status Filter -->
+<div class="relative min-w-[130px]">
+<select class="w-full h-10 pl-3 pr-8 rounded bg-surface-container-low text-on-surface font-body-sm text-body-sm font-semibold appearance-none focus:outline-none cursor-pointer">
+<option>Status: Ativo</option>
+<option>Status: Inativo</option>
+<option>Status: Bloqueado</option>
+<option>Status: Todos</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">tune</span>
+</div>
+<!-- Quick Export Report -->
+<button class="h-10 px-space-md bg-surface-container-high hover:bg-surface-variant text-primary font-headline-sm text-headline-sm uppercase tracking-wide rounded flex items-center gap-space-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Exportar Relatório</span>
+</button>
+<!-- View / Quick Clear Options -->
+<button class="w-10 h-10 flex items-center justify-center bg-surface-container-low hover:bg-surface-container rounded text-outline hover:text-on-surface transition-colors" title="Limpar filtros" type="button">
+<span class="material-symbols-outlined text-[18px]">filter_alt_off</span>
+</button>
+</div>
+</div>
+<!-- Master Data Registry Card -->
+<div class="bg-surface-container-lowest rounded shadow-sm overflow-hidden">
+<!-- Enterprise High Density Data Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left text-on-surface">
+<!-- Table Header -->
+<thead class="bg-surface-container-low text-primary uppercase font-headline-sm text-headline-sm tracking-wider">
+<tr>
+<th class="w-12 px-space-md py-space-sm text-center" scope="col">
+<input class="w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer" type="checkbox"/>
+</th>
+<th class="px-space-md py-space-sm" scope="col">Nome / Razão Social</th>
+<th class="px-space-md py-space-sm text-center" scope="col">Tipo</th>
+<th class="px-space-md py-space-sm" scope="col">CNPJ / CPF</th>
+<th class="px-space-md py-space-sm" scope="col">Cidade / UF</th>
+<th class="px-space-md py-space-sm" scope="col">Telefone / Contato</th>
+<th class="px-space-md py-space-sm text-right" scope="col">Saldo Aberto</th>
+<th class="px-space-md py-space-sm text-center" scope="col">Status</th>
+<th class="px-space-md py-space-sm text-center" scope="col">Ações</th>
+</tr>
+</thead>
+<!-- Table Body Rows -->
+<tbody class="divide-y divide-surface-container-low font-body-md text-body-md">
+<!-- Row 1: Petrovia (Fornecedor) -->
+<tr class="hover:bg-surface-container-low/70 transition-colors group">
+<td class="px-space-md py-space-sm text-center">
+<input class="w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-space-md py-space-sm">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary font-bold group-hover:text-secondary transition-colors">Auto Posto Petrovia Diesel Ltda</span>
+<span class="font-body-sm text-[12px] text-outline">Combustíveis e Abastecimento de Maquinário Campo</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 font-label-sm text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed tracking-wider">
+<span class="material-symbols-outlined text-[12px]">local_shipping</span>
+                  Fornecedor
+                </span>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<span class="font-code-sm text-code-sm text-on-surface font-semibold bg-surface-container-low px-1.5 py-0.5 rounded">12.345.678/0001-99</span>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<div class="flex items-center gap-1 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span>Cabo de Sto. Agostinho / PE</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">(81) 3521-1122</span>
+<span class="font-body-sm text-[11px] text-outline">pedidos@petroviadiesel.com.br</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-right whitespace-nowrap">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-error font-extrabold">R$ 2.400,00</span>
+<span class="font-label-sm text-[10px] text-error font-bold uppercase tracking-wider">A Pagar • 15/Nov</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 font-label-sm text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full bg-surface-container-highest text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Ativo
+                </span>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<div class="flex items-center justify-center gap-1">
+<button class="h-8 px-2.5 bg-surface-container hover:bg-surface-container-high text-primary rounded font-label-sm text-label-sm font-bold flex items-center gap-1 transition-colors" title="Ver Detalhes" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Ver</span>
+</button>
+<button class="h-8 w-8 bg-surface-container-low hover:bg-surface-container text-on-surface-variant rounded flex items-center justify-center transition-colors" title="Editar Registro" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="h-8 w-8 bg-surface-container-low hover:bg-surface-container text-outline rounded flex items-center justify-center transition-colors" title="Mais Opções" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Construtora ABC (Cliente) -->
+<tr class="hover:bg-surface-container-low/70 transition-colors group">
+<td class="px-space-md py-space-sm text-center">
+<input class="w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-space-md py-space-sm">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary font-bold group-hover:text-secondary transition-colors">Construtora ABC Engenharia e Obras</span>
+<span class="font-body-sm text-[12px] text-outline">Locação de 3 Retroescavadeiras e 1 Rolo Compactador</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 font-label-sm text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed tracking-wider">
+<span class="material-symbols-outlined text-[12px]">engineering</span>
+                  Cliente
+                </span>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<span class="font-code-sm text-code-sm text-on-surface font-semibold bg-surface-container-low px-1.5 py-0.5 rounded">07.891.234/0002-55</span>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<div class="flex items-center gap-1 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span>Caruaru / PE</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">(81) 99999-0001</span>
+<span class="font-body-sm text-[11px] text-outline">Eng. Rogério Sampaio</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-right whitespace-nowrap">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-primary font-extrabold">R$ 18.000,00</span>
+<span class="font-label-sm text-[10px] text-primary font-bold uppercase tracking-wider">A Receber • CTR-4402</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 font-label-sm text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full bg-surface-container-highest text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Ativo
+                </span>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<div class="flex items-center justify-center gap-1">
+<button class="h-8 px-2.5 bg-surface-container hover:bg-surface-container-high text-primary rounded font-label-sm text-label-sm font-bold flex items-center gap-1 transition-colors" title="Ver Detalhes" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Ver</span>
+</button>
+<button class="h-8 w-8 bg-surface-container-low hover:bg-surface-container text-on-surface-variant rounded flex items-center justify-center transition-colors" title="Editar Registro" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="h-8 w-8 bg-surface-container-low hover:bg-surface-container text-outline rounded flex items-center justify-center transition-colors" title="Mais Opções" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Transportes e Guindastes Nordeste (Ambos) -->
+<tr class="hover:bg-surface-container-low/70 transition-colors group">
+<td class="px-space-md py-space-sm text-center">
+<input class="w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-space-md py-space-sm">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary font-bold group-hover:text-secondary transition-colors">Transportes e Guindastes Nordeste S/A</span>
+<span class="font-body-sm text-[12px] text-outline">Sublocação Cruzada e Suporte Logístico Pesado</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 font-label-sm text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed tracking-wider">
+<span class="material-symbols-outlined text-[12px]">sync_alt</span>
+                  Ambos (Misto)
+                </span>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<span class="font-code-sm text-code-sm text-on-surface font-semibold bg-surface-container-low px-1.5 py-0.5 rounded">03.112.445/0001-70</span>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<div class="flex items-center gap-1 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span>Recife / PE</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">(81) 3224-9000</span>
+<span class="font-body-sm text-[11px] text-outline">central@guindastesne.com.br</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-right whitespace-nowrap">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-primary font-extrabold">R$ 4.500,00</span>
+<span class="font-label-sm text-[10px] text-primary font-bold uppercase tracking-wider">A Receber Líquido</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 font-label-sm text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full bg-surface-container-highest text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Ativo
+                </span>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<div class="flex items-center justify-center gap-1">
+<button class="h-8 px-2.5 bg-surface-container hover:bg-surface-container-high text-primary rounded font-label-sm text-label-sm font-bold flex items-center gap-1 transition-colors" title="Ver Detalhes" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Ver</span>
+</button>
+<button class="h-8 w-8 bg-surface-container-low hover:bg-surface-container text-on-surface-variant rounded flex items-center justify-center transition-colors" title="Editar Registro" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="h-8 w-8 bg-surface-container-low hover:bg-surface-container text-outline rounded flex items-center justify-center transition-colors" title="Mais Opções" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Mecânica Pesada Silva (Fornecedor) -->
+<tr class="hover:bg-surface-container-low/70 transition-colors group">
+<td class="px-space-md py-space-sm text-center">
+<input class="w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-space-md py-space-sm">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary font-bold group-hover:text-secondary transition-colors">Mecânica Pesada Silva &amp; Filhos</span>
+<span class="font-body-sm text-[12px] text-outline">Revisão Hidráulica e Retífica de Motores Diesel</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 font-label-sm text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed tracking-wider">
+<span class="material-symbols-outlined text-[12px]">build</span>
+                  Fornecedor
+                </span>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<span class="font-code-sm text-code-sm text-on-surface font-semibold bg-surface-container-low px-1.5 py-0.5 rounded">09.876.543/0001-21</span>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<div class="flex items-center gap-1 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span>Jaboatão dos Guararapes / PE</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">(81) 98877-6655</span>
+<span class="font-body-sm text-[11px] text-outline">Sr. Geraldo Silva</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-right whitespace-nowrap">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-error font-extrabold">R$ 3.850,00</span>
+<span class="font-label-sm text-[10px] text-error font-bold uppercase tracking-wider">A Pagar • 20/Nov</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 font-label-sm text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full bg-surface-container-highest text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Ativo
+                </span>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<div class="flex items-center justify-center gap-1">
+<button class="h-8 px-2.5 bg-surface-container hover:bg-surface-container-high text-primary rounded font-label-sm text-label-sm font-bold flex items-center gap-1 transition-colors" title="Ver Detalhes" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Ver</span>
+</button>
+<button class="h-8 w-8 bg-surface-container-low hover:bg-surface-container text-on-surface-variant rounded flex items-center justify-center transition-colors" title="Editar Registro" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="h-8 w-8 bg-surface-container-low hover:bg-surface-container text-outline rounded flex items-center justify-center transition-colors" title="Mais Opções" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: Porto Novo (Cliente) -->
+<tr class="hover:bg-surface-container-low/70 transition-colors group">
+<td class="px-space-md py-space-sm text-center">
+<input class="w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-space-md py-space-sm">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary font-bold group-hover:text-secondary transition-colors">Porto Novo Empreendimentos Imobiliários</span>
+<span class="font-body-sm text-[12px] text-outline">Complexo Logístico Suape Galpão 04</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 font-label-sm text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed tracking-wider">
+<span class="material-symbols-outlined text-[12px]">domain</span>
+                  Cliente
+                </span>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<span class="font-code-sm text-code-sm text-on-surface font-semibold bg-surface-container-low px-1.5 py-0.5 rounded">18.234.567/0001-89</span>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<div class="flex items-center gap-1 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span>Recife / PE</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">(81) 3030-4040</span>
+<span class="font-body-sm text-[11px] text-outline">financeiro@portonovo.com.br</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-right whitespace-nowrap">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-outline font-bold">Em dia</span>
+<span class="font-label-sm text-[10px] text-outline font-semibold uppercase tracking-wider">R$ 0,00 Pendente</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 font-label-sm text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full bg-surface-container-highest text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Ativo
+                </span>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<div class="flex items-center justify-center gap-1">
+<button class="h-8 px-2.5 bg-surface-container hover:bg-surface-container-high text-primary rounded font-label-sm text-label-sm font-bold flex items-center gap-1 transition-colors" title="Ver Detalhes" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Ver</span>
+</button>
+<button class="h-8 w-8 bg-surface-container-low hover:bg-surface-container text-on-surface-variant rounded flex items-center justify-center transition-colors" title="Editar Registro" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="h-8 w-8 bg-surface-container-low hover:bg-surface-container text-outline rounded flex items-center justify-center transition-colors" title="Mais Opções" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 6: Pneus e Peças Rápido (Fornecedor Inativo) -->
+<tr class="hover:bg-surface-container-low/70 transition-colors group opacity-80">
+<td class="px-space-md py-space-sm text-center">
+<input class="w-4 h-4 rounded text-secondary focus:ring-0 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-space-md py-space-sm">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface-variant font-bold group-hover:text-primary transition-colors">Pneus e Peças Rápido Ltda</span>
+<span class="font-body-sm text-[12px] text-outline">Fornecedor Bloqueado para Novas O.S. (Em Auditoria)</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 font-label-sm text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full bg-surface-variant text-on-surface-variant tracking-wider">
+<span class="material-symbols-outlined text-[12px]">tire_repair</span>
+                  Fornecedor
+                </span>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<span class="font-code-sm text-code-sm text-outline font-semibold bg-surface-container-low px-1.5 py-0.5 rounded">05.678.910/0001-32</span>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<div class="flex items-center gap-1 text-outline font-medium">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span>Recife / PE</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm whitespace-nowrap">
+<div class="flex flex-col">
+<span class="font-medium text-outline">(81) 3333-8899</span>
+<span class="font-body-sm text-[11px] text-outline">vendas@pneusrapido.com</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-right whitespace-nowrap">
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-error font-extrabold">R$ 1.120,00</span>
+<span class="font-label-sm text-[10px] text-error font-bold uppercase tracking-wider">A Pagar • Em Atraso</span>
+</div>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 font-label-sm text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full bg-surface-container-high text-outline">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                  Inativo
+                </span>
+</td>
+<td class="px-space-md py-space-sm text-center whitespace-nowrap">
+<div class="flex items-center justify-center gap-1">
+<button class="h-8 px-2.5 bg-surface-container hover:bg-surface-container-high text-primary rounded font-label-sm text-label-sm font-bold flex items-center gap-1 transition-colors" title="Ver Detalhes" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Ver</span>
+</button>
+<button class="h-8 w-8 bg-surface-container-low hover:bg-surface-container text-on-surface-variant rounded flex items-center justify-center transition-colors" title="Editar Registro" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="h-8 w-8 bg-surface-container-low hover:bg-surface-container text-outline rounded flex items-center justify-center transition-colors" title="Mais Opções" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Compact Ledger Footer & Enterprise Pagination -->
+<div class="bg-surface-container-low px-space-lg py-space-md flex flex-col lg:flex-row items-center justify-between gap-space-md text-on-surface-variant font-body-sm text-body-sm">
+<!-- Counter & Distribution Metrics -->
+<div class="flex flex-wrap items-center gap-space-sm text-on-surface">
+<span class="font-semibold text-primary">Exibindo 6 de 48 registros</span>
+<span class="text-outline">•</span>
+<div class="flex items-center gap-2 font-code-sm text-code-sm">
+<span class="text-primary font-bold">31 Clientes</span>
+<span class="text-outline">•</span>
+<span class="text-tertiary font-bold">12 Fornecedores</span>
+<span class="text-outline">•</span>
+<span class="text-secondary font-bold">5 Mistos</span>
+</div>
+</div>
+<!-- Financial Balance Summary in Table Footer -->
+<div class="flex items-center gap-space-md bg-surface-container-lowest px-space-md py-1.5 rounded shadow-sm">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm text-outline uppercase">A Receber:</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">R$ 54.000,00</span>
+</div>
+<span class="text-outline/40">|</span>
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm text-outline uppercase">A Pagar:</span>
+<span class="font-headline-sm text-headline-sm text-error font-bold">R$ 7.370,00</span>
+</div>
+</div>
+<!-- Controls: Pagination Buttons -->
+<div class="flex items-center gap-space-xs">
+<button class="h-8 px-3 rounded bg-surface-container text-outline cursor-not-allowed font-label-md text-label-md flex items-center gap-1" disabled="" type="button">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+<span>Anterior</span>
+</button>
+<button class="h-8 w-8 rounded bg-secondary text-on-secondary font-bold font-label-md text-label-md shadow-sm" type="button">1</button>
+<button class="h-8 w-8 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors" type="button">2</button>
+<button class="h-8 w-8 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors" type="button">3</button>
+<span class="px-1 text-outline">...</span>
+<button class="h-8 w-8 rounded bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors" type="button">8</button>
+<button class="h-8 px-3 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md flex items-center gap-1 transition-colors" type="button">
+<span>Próximo</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Quick Operations & Regional Yard Notice -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
+<!-- Info Banner: Fiscal Center Suape -->
+<div class="bg-primary text-on-primary p-space-lg rounded shadow-sm flex items-start gap-space-md">
+<div class="w-10 h-10 rounded bg-secondary flex items-center justify-center text-on-secondary flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">verified_user</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-headline-sm text-headline-sm uppercase tracking-wide text-secondary-container">Conformidade Fiscal Integrada</span>
+<p class="font-body-sm text-body-sm text-on-primary-container leading-snug">
+            Emissão direta de Notas de Débito de Locação (Lei 8.846/94) habilitada para todos os clientes ativos de Pernambuco.
+          </p>
+</div>
+</div>
+<!-- Quick Action: Exportação SEFAZ-PE -->
+<div class="bg-surface-container-lowest p-space-lg rounded shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">account_balance_wallet</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary uppercase">Fechamento Mensal</span>
+<span class="font-body-sm text-body-sm text-outline">Conciliação bancária • Banco do Brasil</span>
+</div>
+</div>
+<button class="h-9 px-3 bg-surface-container hover:bg-surface-container-high text-primary font-label-sm text-label-sm uppercase font-bold rounded flex items-center gap-1 transition-colors" type="button">
+<span>Conciliar</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<!-- Telemetry Status: Pátio Principal -->
+<div class="bg-surface-container-lowest p-space-lg rounded shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">sensors</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-primary uppercase">Rastreadores Suape</span>
+<span class="font-body-sm text-body-sm text-outline">78 de 82 transmissores online</span>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm font-bold text-primary px-2.5 py-1 bg-surface-container rounded-full">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+          95.1% Sinal
+        </span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple tab click interaction for visual parity
+  document.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      // Micro interaction feedback ripple or toast placeholder
+    });
+  });
+</script></main></div></body></html>

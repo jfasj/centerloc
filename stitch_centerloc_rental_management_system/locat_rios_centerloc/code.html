@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-fixed-variant":"#6b3a0a","primary-container":"#1a3a6e","outline-variant":"#c4c6d1","on-secondary-fixed-variant":"#743400","surface-bright":"#f6faff","tertiary-fixed-dim":"#ffb77e","background":"#f6faff","on-primary-fixed-variant":"#28467b","on-secondary":"#ffffff","on-secondary-fixed":"#321300","secondary-container":"#ff8934","primary-fixed-dim":"#adc7ff","on-tertiary-container":"#da965f","on-primary-fixed":"#001a41","on-secondary-container":"#662d00","inverse-on-surface":"#edf1f7","tertiary-fixed":"#ffdcc3","error-container":"#ffdad6","surface-container-lowest":"#ffffff","surface-container-high":"#e4e8ee","on-background":"#171c20","outline":"#747780","on-primary-container":"#89a5e0","tertiary-container":"#5d2f00","primary-fixed":"#d8e2ff","surface-container":"#eaeef4","surface-container-low":"#f0f4fa","primary":"#002453","error":"#ba1a1a","on-tertiary-fixed":"#2f1500","on-surface-variant":"#44474f","tertiary":"#3d1d00","on-tertiary":"#ffffff","secondary-fixed-dim":"#ffb68b","surface":"#f6faff","on-error":"#ffffff","on-surface":"#171c20","surface-variant":"#dfe3e9","surface-tint":"#415e94","surface-dim":"#d6dae0","on-error-container":"#93000a","on-primary":"#ffffff","inverse-surface":"#2c3136","secondary-fixed":"#ffdbc8","inverse-primary":"#adc7ff","secondary":"#994700","surface-container-highest":"#dfe3e9"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-normal":"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-lg":"1rem","sidebar-width":"260px","space-xl":"1.5rem","gutter-dense":"0.75rem","space-3xl":"2.5rem","space-2xl":"2rem","space-sm":"0.5rem","topbar-height":"64px","space-2xs":"0.125rem"},fontFamily:{"headline-lg":["Barlow Condensed"],"headline-md":["Barlow Condensed"],"body-md":["Inter"],"headline-sm":["Barlow Condensed"],"code-sm":["Inter"],"headline-xl":["Barlow Condensed"],"display-lg":["Barlow Condensed"],"label-md":["Inter"],"body-sm":["Inter"],"label-sm":["Inter"],"body-lg":["Inter"]},fontSize:{"headline-lg":["24px",{lineHeight:"28px",letterSpacing:"0.01em",fontWeight:"700"}],"headline-md":["20px",{lineHeight:"24px",letterSpacing:"0.01em",fontWeight:"700"}],"body-md":["14px",{lineHeight:"20px",letterSpacing:"0em",fontWeight:"400"}],"headline-sm":["16px",{lineHeight:"20px",letterSpacing:"0.02em",fontWeight:"700"}],"code-sm":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-xl":["32px",{lineHeight:"36px",letterSpacing:"0.02em",fontWeight:"800"}],"display-lg":["44px",{lineHeight:"48px",letterSpacing:"0.02em",fontWeight:"900"}],"label-md":["13px",{lineHeight:"18px",letterSpacing:"0.01em",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"400"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[240px] bg-primary-container text-on-primary z-50 flex flex-col justify-between overflow-y-auto border-r border-outline-variant/20 shadow-xl"><div class="flex flex-col"><div class="h-[52px] flex items-center px-space-md gap-space-sm border-b border-outline-variant/10 bg-primary"><div class="w-8 h-8 rounded bg-secondary flex items-center justify-center text-on-secondary font-headline-md text-headline-md tracking-wider shadow-sm">C</div><div class="flex flex-col"><div class="flex items-center gap-space-2xs"><span class="font-headline-md text-headline-md font-bold tracking-tight text-on-primary leading-none">CENTER</span><span class="font-headline-md text-headline-md font-bold tracking-tight text-secondary-container leading-none">LOC</span></div><span class="font-label-sm text-[9px] uppercase tracking-widest text-on-primary-container leading-none mt-space-2xs">Recife • PE</span></div></div><nav class="flex flex-col px-space-xs py-space-sm gap-space-2xs" data-active-classes="bg-secondary text-on-secondary font-bold shadow-sm"><div class="px-space-sm pt-space-xs pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Principal</div><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded transition-colors bg-secondary text-on-secondary font-bold shadow-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Dashboard</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Cadastros</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="locatarios" href="#"><span class="material-symbols-outlined text-[18px]">badge</span><span>Locatários</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="veiculos-equipamentos" href="#"><span class="material-symbols-outlined text-[18px]">precision_manufacturing</span><span>Veículos / Equip.</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="clientes-fornecedores" href="#"><span class="material-symbols-outlined text-[18px]">domain</span><span>Clientes / Forneced.</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Comercial</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="propostas" href="#"><span class="material-symbols-outlined text-[18px]">request_quote</span><span>Propostas</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contratos" href="#"><span class="material-symbols-outlined text-[18px]">history_edu</span><span>Contratos</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Fiscal</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="notas-de-debito" href="#"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Notas de Débito</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Financeiro</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-receber" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_down</span><span>Contas a Receber</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-pagar" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_up</span><span>Contas a Pagar</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="fluxo-de-caixa" href="#"><span class="material-symbols-outlined text-[18px]">account_balance</span><span>Fluxo de Caixa</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Sistema</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="configuracoes" href="#"><span class="material-symbols-outlined text-[18px]">settings</span><span>Configurações</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="relatorios" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span><span>Relatórios</span></a></nav></div><div class="p-space-sm border-t border-outline-variant/10 bg-primary/40 flex flex-col gap-space-2xs text-on-primary-container/60"><div class="font-code-sm text-[10px] tracking-tight">CNPJ: 12.299.005/0001-46</div><div class="flex items-center justify-between font-label-sm text-[9px] uppercase tracking-wider text-on-primary-container/50"><span>Suape Hub Ops</span><span>v3.4.2</span></div></div></aside><div class="pl-[240px]"><header class="fixed top-0 left-[240px] right-0 h-[52px] bg-surface-container-lowest border-b border-outline-variant/40 z-40 px-space-lg flex items-center justify-between shadow-[0_1px_4px_rgba(26,39,58,0.04)]"><div class="flex items-center gap-space-md"><img alt="CENTERLOC Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUVh69YIR84jKNWh5QJscBhhVxCQimM9Rce_9VsIVdOEuuEg3V8hpQzBvIChTmxgXxXZ3_N9DxuZMwfIJWJ9eMZTVUnvBRwOgQxZpCsHZgpfL09NkEStgvbLfX74BcDTOxZBw1JDOD1TDn32cApG1HvIVZEeTDQeVbgcOWjO4FHTP7XoMWN2qsXrwuWKynJohxUhNKQcgBI5Z1EwyIOcTRK5nFcaxcdqR93BZgmDZpJ6rozW3MedIZ0g"/><div class="h-4 w-px bg-outline-variant/40 hidden sm:block"></div><nav class="hidden sm:flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">CENTERLOC</span><span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span><span class="text-outline font-body-sm text-body-sm">Gestão Integrada</span></nav></div><div class="flex items-center gap-space-md"><div class="relative hidden md:flex items-center"><span class="material-symbols-outlined absolute left-2.5 text-outline text-[18px]">search</span><input class="w-56 lg:w-72 h-[34px] pl-8 pr-space-sm rounded bg-surface-container-low border border-outline-variant text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:border-secondary transition-colors" placeholder="Buscar chassi, placa, contrato..." type="text"/></div><button class="relative p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span></button><button class="h-[34px] px-space-md bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-sm transition-all" type="button"><span class="material-symbols-outlined text-[16px]">add</span><span>Novo</span></button><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNyQ7n44WW0zUOw_Yxj6A9FXtIDs4PoOTZZ5XUwseNrHCtNo7cbI1MkH2DwhojBJn2ID72Vid69W0icu4M45hGxhi0R8H5i_flt97CiQmL2DXCaGm3GOCBxPu-1bbA-ST_46RRMUKfWaRVMb-vEhYOlffduet9T-q5s0FQddNGJ6v5XjgBCfqhxA6tcg4KOqNxR-qlwLG4rCaVqdIl6vBkMMTPD-c5-B1PQVRhx9LjqRh6ZT-n2WgcSQ"/><div class="hidden xl:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Antonio Neto</span><span class="font-label-sm text-[10px] text-on-surface-variant leading-none">Gerente Operacional</span></div></div></div></header><main class="w-full pt-[52px] bg-background min-h-screen"><div class="flex flex-col w-full">
+<div class="px-space-xl py-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+<!-- Top Action Breadcrumb Bar -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-space-2xs">
+<span>Cadastros</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-secondary-container font-bold">Locatários</span>
+</div>
+<div class="flex items-baseline gap-space-md">
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tight uppercase">Locatários Cadastrados</h1>
+<span class="font-label-sm text-label-sm uppercase px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-bold">
+            Hub Suape / PE
+          </span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="h-[40px] px-space-md bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-label-md rounded flex items-center gap-space-xs shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">download</span>
+<span>Exportar Relatório</span>
+</button>
+<button class="h-[40px] px-space-lg bg-secondary-container hover:bg-secondary text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-md transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>+ Novo Locatário</span>
+</button>
+</div>
+</div>
+<!-- KPI Summary Micro-Strips -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-secondary-container"></div>
+<div class="flex justify-between items-start">
+<div>
+<div class="font-label-sm text-label-sm uppercase text-on-surface-variant tracking-wider">Total Locatários</div>
+<div class="font-headline-xl text-headline-xl text-primary mt-1">32</div>
+</div>
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">domain</span>
+</div>
+</div>
+<div class="mt-2 flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="text-secondary font-semibold">+3 este mês</span>
+<span>• 92% com frota ativa</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary-container"></div>
+<div class="flex justify-between items-start">
+<div>
+<div class="font-label-sm text-label-sm uppercase text-on-surface-variant tracking-wider">Contratos Vigentes</div>
+<div class="font-headline-xl text-headline-xl text-primary mt-1">48</div>
+</div>
+<div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">assignment_turned_in</span>
+</div>
+</div>
+<div class="mt-2 flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="text-primary font-semibold">11 ativos</span>
+<span>em Porto de Suape</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-on-tertiary-container"></div>
+<div class="flex justify-between items-start">
+<div>
+<div class="font-label-sm text-label-sm uppercase text-on-surface-variant tracking-wider">Frotas Mobilizadas</div>
+<div class="font-headline-xl text-headline-xl text-primary mt-1">87</div>
+</div>
+<div class="w-10 h-10 rounded bg-secondary-fixed/50 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">precision_manufacturing</span>
+</div>
+</div>
+<div class="mt-2 flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="text-secondary font-semibold">Escavadeiras • Caminhões</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-error"></div>
+<div class="flex justify-between items-start">
+<div>
+<div class="font-label-sm text-label-sm uppercase text-on-surface-variant tracking-wider">Locatários Inativos</div>
+<div class="font-headline-xl text-headline-xl text-primary mt-1">4</div>
+</div>
+<div class="w-10 h-10 rounded bg-error-container/40 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[22px]">pause_circle</span>
+</div>
+</div>
+<div class="mt-2 flex items-center gap-1 font-body-sm text-body-sm text-on-surface-variant">
+<span>Contratos encerrados ou suspensos</span>
+</div>
+</div>
+</div>
+<!-- Filter Bar Container -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-md">
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-sm flex-1">
+<!-- Search Input -->
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full h-[40px] pl-10 pr-space-md bg-surface-container-low text-on-surface placeholder:text-outline rounded font-body-sm text-body-sm focus:outline-none focus:bg-surface-container-lowest transition-colors" placeholder="Buscar por nome, CNPJ ou cidade..." type="text"/>
+</div>
+<!-- Dropdowns -->
+<div class="flex items-center gap-space-xs">
+<div class="relative min-w-[150px]">
+<select class="w-full h-[40px] appearance-none pl-space-md pr-8 bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded cursor-pointer focus:outline-none">
+<option value="">Todos os Status</option>
+<option selected="" value="ativo">Ativo</option>
+<option value="inativo">Inativo</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">expand_more</span>
+</div>
+<div class="relative min-w-[130px]">
+<select class="w-full h-[40px] appearance-none pl-space-md pr-8 bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded cursor-pointer focus:outline-none">
+<option value="">Todos Estados</option>
+<option value="PE">Pernambuco (PE)</option>
+<option value="PB">Paraíba (PB)</option>
+<option value="AL">Alagoas (AL)</option>
+<option value="RN">Rio G. Norte (RN)</option>
+<option value="BA">Bahia (BA)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Quick Metrics & Export Action -->
+<div class="flex items-center justify-between lg:justify-end gap-space-md pt-space-xs lg:pt-0">
+<div class="flex items-center gap-space-2xs text-outline font-body-sm text-body-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-code-sm font-semibold text-on-surface">32</span>
+<span>locatários encontrados</span>
+</div>
+<button class="h-[36px] px-space-sm bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface rounded font-label-md text-label-md flex items-center gap-space-2xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span>Filtros Avançados</span>
+</button>
+</div>
+</div>
+<!-- Main Data Table Container -->
+<div class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden relative">
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high text-primary font-headline-sm text-headline-sm uppercase tracking-wider select-none">
+<th class="py-3 px-4 w-[48px] text-center">
+<input checked="" class="w-4 h-4 rounded cursor-pointer accent-secondary text-on-secondary" id="check-all" type="checkbox"/>
+</th>
+<th class="py-3 px-4">
+<div class="flex items-center gap-1 cursor-pointer group">
+<span>Razão Social</span>
+<span class="material-symbols-outlined text-[14px] text-outline group-hover:text-primary">unfold_more</span>
+</div>
+</th>
+<th class="py-3 px-4">CNPJ</th>
+<th class="py-3 px-4">
+<div class="flex items-center gap-1 cursor-pointer group">
+<span>Cidade / UF</span>
+<span class="material-symbols-outlined text-[14px] text-outline group-hover:text-primary">unfold_more</span>
+</div>
+</th>
+<th class="py-3 px-4">Contato Principal</th>
+<th class="py-3 px-4 text-center">Contratos Ativos</th>
+<th class="py-3 px-4 text-center">Status</th>
+<th class="py-3 px-4 text-right pr-6">Ações</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface divide-y divide-surface-container">
+<!-- Row 1: Selected -->
+<tr class="bg-secondary-fixed/20 hover:bg-secondary-fixed/30 transition-colors">
+<td class="py-3 px-4 text-center">
+<input checked="" class="row-checkbox w-4 h-4 rounded cursor-pointer accent-secondary text-on-secondary" type="checkbox"/>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="font-bold text-primary hover:text-secondary cursor-pointer leading-snug">ENGEMAN MANUTENÇÃO DE EQUIPAMENTOS LTDA</span>
+<div class="flex items-center gap-space-2xs mt-0.5">
+<span class="font-code-sm text-[11px] bg-primary text-on-primary px-1.5 py-0.2 rounded font-semibold tracking-tight">ENG-0081</span>
+<span class="text-outline font-body-sm text-[11px]">• Manutenção Naval &amp; Industrial</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="font-code-sm text-on-surface-variant text-[13px] tracking-tight">08.769.549/0006-61</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1 font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span>Recife / PE</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface leading-tight">Roberto Lima</span>
+<span class="font-body-sm text-[11px] text-outline">roberto.lima@engeman.com.br</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-[11px] font-bold">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+<span>2 contratos</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-surface-container text-primary font-label-sm text-label-sm uppercase tracking-wide">
+                  Ativo
+                </span>
+</td>
+<td class="py-3 px-4 text-right pr-6">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Visualizar">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-secondary transition-colors" title="Editar">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant transition-colors" title="Mais Opções">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Selected -->
+<tr class="bg-secondary-fixed/20 hover:bg-secondary-fixed/30 transition-colors">
+<td class="py-3 px-4 text-center">
+<input checked="" class="row-checkbox w-4 h-4 rounded cursor-pointer accent-secondary text-on-secondary" type="checkbox"/>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="font-bold text-primary hover:text-secondary cursor-pointer leading-snug">CLC Construtora e Engenharia S/A</span>
+<div class="flex items-center gap-space-2xs mt-0.5">
+<span class="font-code-sm text-[11px] bg-primary text-on-primary px-1.5 py-0.2 rounded font-semibold tracking-tight">CLC-0142</span>
+<span class="text-outline font-body-sm text-[11px]">• Obras Viárias e Terraplenagem</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="font-code-sm text-on-surface-variant text-[13px] tracking-tight">14.821.903/0001-44</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1 font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span>Recife / PE</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface leading-tight">Julio Cesar</span>
+<span class="font-body-sm text-[11px] text-outline">j.cesar@clcengenharia.com</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-[11px] font-bold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>1 contrato</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-surface-container text-primary font-label-sm text-label-sm uppercase tracking-wide">
+                  Ativo
+                </span>
+</td>
+<td class="py-3 px-4 text-right pr-6">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Visualizar">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-secondary transition-colors" title="Editar">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant transition-colors" title="Mais Opções">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Selected / Inactive -->
+<tr class="bg-secondary-fixed/20 hover:bg-secondary-fixed/30 transition-colors">
+<td class="py-3 px-4 text-center">
+<input checked="" class="row-checkbox w-4 h-4 rounded cursor-pointer accent-secondary text-on-secondary" type="checkbox"/>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="font-bold text-on-surface-variant hover:text-secondary cursor-pointer leading-snug">TAUA Hotel &amp; Resort Porto de Galinhas</span>
+<div class="flex items-center gap-space-2xs mt-0.5">
+<span class="font-code-sm text-[11px] bg-outline text-surface-container-lowest px-1.5 py-0.2 rounded font-semibold tracking-tight">TAU-0009</span>
+<span class="text-outline font-body-sm text-[11px]">• Hotelaria / Infraestrutura</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="font-code-sm text-on-surface-variant text-[13px] tracking-tight">02.418.520/0003-88</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1 font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span>Ipojuca / PE</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface leading-tight">Mariana Tavares</span>
+<span class="font-body-sm text-[11px] text-outline">m.tavares@tauaresorts.com.br</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-[11px] font-bold">
+<span>0 contratos</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-surface-dim text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wide">
+                  Inativo
+                </span>
+</td>
+<td class="py-3 px-4 text-right pr-6">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Visualizar">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-secondary transition-colors" title="Editar">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant transition-colors" title="Mais Opções">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Unchecked -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 text-center">
+<input class="row-checkbox w-4 h-4 rounded cursor-pointer accent-secondary text-on-secondary" type="checkbox"/>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="font-bold text-primary hover:text-secondary cursor-pointer leading-snug">Construtora Norberto Odebrecht Hub Suape</span>
+<div class="flex items-center gap-space-2xs mt-0.5">
+<span class="font-code-sm text-[11px] bg-primary text-on-primary px-1.5 py-0.2 rounded font-semibold tracking-tight">CNO-0931</span>
+<span class="text-outline font-body-sm text-[11px]">• Grandes Obras Portuárias</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="font-code-sm text-on-surface-variant text-[13px] tracking-tight">15.123.456/0004-92</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1 font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span>Cabo de Sto. Agostinho / PE</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface leading-tight">Carlos Eduardo</span>
+<span class="font-body-sm text-[11px] text-outline">carlos.eduardo@novonor.com</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-[11px] font-bold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>3 contratos</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-surface-container text-primary font-label-sm text-label-sm uppercase tracking-wide">
+                  Ativo
+                </span>
+</td>
+<td class="py-3 px-4 text-right pr-6">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Visualizar">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-secondary transition-colors" title="Editar">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant transition-colors" title="Mais Opções">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: Unchecked -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 text-center">
+<input class="row-checkbox w-4 h-4 rounded cursor-pointer accent-secondary text-on-secondary" type="checkbox"/>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="font-bold text-primary hover:text-secondary cursor-pointer leading-snug">Copergás Companhia Pernambucana de Gás</span>
+<div class="flex items-center gap-space-2xs mt-0.5">
+<span class="font-code-sm text-[11px] bg-primary text-on-primary px-1.5 py-0.2 rounded font-semibold tracking-tight">CPG-0021</span>
+<span class="text-outline font-body-sm text-[11px]">• Distribuição de Gás Canalizado</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="font-code-sm text-on-surface-variant text-[13px] tracking-tight">24.321.987/0001-15</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1 font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span>Recife / PE</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface leading-tight">Dra. Fabiana M.</span>
+<span class="font-body-sm text-[11px] text-outline">f.medeiros@copergas.com.br</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-[11px] font-bold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>1 contrato</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-surface-container text-primary font-label-sm text-label-sm uppercase tracking-wide">
+                  Ativo
+                </span>
+</td>
+<td class="py-3 px-4 text-right pr-6">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Visualizar">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-secondary transition-colors" title="Editar">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant transition-colors" title="Mais Opções">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 6: Unchecked -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 text-center">
+<input class="row-checkbox w-4 h-4 rounded cursor-pointer accent-secondary text-on-secondary" type="checkbox"/>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="font-bold text-primary hover:text-secondary cursor-pointer leading-snug">Tecon Suape Terminal de Contêineres</span>
+<div class="flex items-center gap-space-2xs mt-0.5">
+<span class="font-code-sm text-[11px] bg-primary text-on-primary px-1.5 py-0.2 rounded font-semibold tracking-tight">TEC-0518</span>
+<span class="text-outline font-body-sm text-[11px]">• Logística de Pátio &amp; Cais</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="font-code-sm text-on-surface-variant text-[13px] tracking-tight">04.998.776/0001-33</span>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-1 font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span>Ipojuca / PE</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface leading-tight">Marcos Silveira</span>
+<span class="font-body-sm text-[11px] text-outline">marcos.silveira@teconsuape.com</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-[11px] font-bold">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>2 contratos</span>
+</div>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-surface-container text-primary font-label-sm text-label-sm uppercase tracking-wide">
+                  Ativo
+                </span>
+</td>
+<td class="py-3 px-4 text-right pr-6">
+<div class="flex items-center justify-end gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors" title="Visualizar">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant hover:text-secondary transition-colors" title="Editar">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant transition-colors" title="Mais Opções">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer & Pagination -->
+<div class="p-space-md bg-surface-container-lowest flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+          Mostrando <span class="font-semibold text-on-surface">1–6</span> de <span class="font-semibold text-on-surface">32</span> locatários
+        </div>
+<div class="flex items-center gap-1">
+<button class="h-8 px-2.5 rounded bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-sm flex items-center justify-center transition-colors disabled:opacity-50" disabled="" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="h-8 w-8 rounded bg-primary text-on-primary font-label-md text-label-md font-bold flex items-center justify-center shadow-sm" type="button">
+            1
+          </button>
+<button class="h-8 w-8 rounded bg-surface-container-low text-on-surface hover:bg-surface-container font-label-md text-label-md flex items-center justify-center transition-colors" type="button">
+            2
+          </button>
+<button class="h-8 w-8 rounded bg-surface-container-low text-on-surface hover:bg-surface-container font-label-md text-label-md flex items-center justify-center transition-colors" type="button">
+            3
+          </button>
+<button class="h-8 w-8 rounded bg-surface-container-low text-on-surface hover:bg-surface-container font-label-md text-label-md flex items-center justify-center transition-colors" type="button">
+            4
+          </button>
+<button class="h-8 px-2.5 rounded bg-surface-container-low text-on-surface hover:bg-surface-container font-body-sm flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Docked Bulk Actions Floating Bar -->
+<div class="w-full bg-primary text-on-primary px-space-lg py-space-sm flex flex-col sm:flex-row items-center justify-between gap-space-sm shadow-xl transition-all" id="bulk-bar">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary font-code-sm text-[12px] flex items-center justify-center font-bold">
+              3
+            </span>
+<span class="font-headline-sm text-headline-sm uppercase tracking-wide text-on-primary">
+              Locatários Selecionados
+            </span>
+</div>
+<button class="font-body-sm text-body-sm text-on-primary-container hover:text-on-primary underline cursor-pointer" id="clear-selection" type="button">
+            Desmarcar todos
+          </button>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="h-8 px-space-sm rounded bg-primary-container hover:bg-on-primary-fixed-variant text-on-primary font-label-md text-label-md flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Exportar CSV</span>
+</button>
+<button class="h-8 px-space-sm rounded bg-primary-container hover:bg-on-primary-fixed-variant text-on-primary font-label-md text-label-md flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">pause_circle</span>
+<span>Inativar Selecionados</span>
+</button>
+<button class="h-8 px-space-sm rounded bg-error hover:bg-on-error-container text-on-error font-label-md text-label-md flex items-center gap-1 shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+<span>Excluir Selecionados</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Supplementary Operational Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md mt-space-xs">
+<!-- Visual Logistical Yard Dispatch Status -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<div class="font-headline-sm text-headline-sm text-primary uppercase">Distribuição por Região</div>
+<span class="material-symbols-outlined text-outline text-[18px]">travel_explore</span>
+</div>
+<div class="mt-space-sm space-y-2">
+<div>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-1">
+<span>Pernambuco (Suape / RMR)</span>
+<span class="font-bold text-primary">24 locatários (75%)</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container rounded-full" style="width: 75%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-1">
+<span>Paraíba (Litoral Sul / JP)</span>
+<span class="font-bold text-primary">4 locatários (12.5%)</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 12.5%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-1">
+<span>Alagoas &amp; Bahia</span>
+<span class="font-bold text-primary">4 locatários (12.5%)</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-outline rounded-full" style="width: 12.5%;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-space-md flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<span>Logística atendida pela base Recife • Matriz</span>
+<a class="text-secondary font-semibold hover:underline flex items-center gap-0.5" href="#">
+            Ver mapa <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Operational Hub Direct Contacts -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="font-headline-sm text-headline-sm text-primary uppercase">Plantão Suape • Frotas</div>
+<span class="px-2 py-0.5 bg-surface-container text-primary rounded-full font-label-sm text-[10px] uppercase font-bold">24/7 Ativo</span>
+</div>
+<div class="space-y-space-sm font-body-sm text-body-sm">
+<div class="flex items-center gap-space-sm p-2 bg-surface-container-low rounded">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xs">
+              DS
+            </div>
+<div class="flex-1">
+<div class="font-semibold text-on-surface">Despacho Central Suape</div>
+<div class="text-outline text-[12px]">+55 (81) 3461-9000 • Ramal 402</div>
+</div>
+<span class="material-symbols-outlined text-secondary text-[18px]">phone_in_talk</span>
+</div>
+<div class="flex items-center gap-space-sm p-2 bg-surface-container-low rounded">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary flex items-center justify-center font-bold text-xs">
+              ST
+            </div>
+<div class="flex-1">
+<div class="font-semibold text-on-surface">Suporte Técnico em Campo</div>
+<div class="text-outline text-[12px]">SOS Equipamentos • Móvel 01</div>
+</div>
+<span class="material-symbols-outlined text-secondary text-[18px]">cell_tower</span>
+</div>
+</div>
+</div>
+<!-- Quick Tips Card -->
+<div class="bg-primary text-on-primary rounded-lg p-space-md shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 bg-secondary/10 rounded-full pointer-events-none"></div>
+<div>
+<div class="flex items-center gap-1.5 text-secondary-container font-label-sm text-label-sm uppercase tracking-wider mb-1">
+<span class="material-symbols-outlined text-[16px]">info</span>
+<span>Regra de Contrato</span>
+</div>
+<div class="font-headline-md text-headline-md leading-tight text-on-primary">
+            Emissão de Faturamento para Locatários Ativos
+          </div>
+<p class="mt-2 font-body-sm text-body-sm text-on-primary-container leading-relaxed">
+            As medições de telemetria e horas-máquina são consolidadas no dia 25 de cada mês. Certifique-se de que os cadastros de locatários contenham o responsável financeiro atualizado.
+          </p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center gap-space-sm">
+<button class="text-on-secondary bg-secondary hover:bg-on-secondary-container px-space-md py-1 rounded font-headline-sm text-headline-sm uppercase tracking-wider transition-colors" type="button">
+            Gerar Fechamento
+          </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const checkAll = document.getElementById('check-all');
+    const rowCheckboxes = document.querySelectorAll('.row-checkbox');
+    const bulkBar = document.getElementById('bulk-bar');
+    const clearBtn = document.getElementById('clear-selection');
+
+    function updateSelection() {
+      const checkedCount = Array.from(rowCheckboxes).filter(cb => cb.checked).length;
+      if (checkedCount > 0) {
+        bulkBar.classList.remove('hidden');
+      } else {
+        bulkBar.classList.add('hidden');
+      }
+      if (checkAll) {
+        checkAll.checked = checkedCount === rowCheckboxes.length;
+      }
+    }
+
+    if (checkAll) {
+      checkAll.addEventListener('change', function() {
+        rowCheckboxes.forEach(cb => {
+          cb.checked = checkAll.checked;
+          const tr = cb.closest('tr');
+          if (tr) {
+            if (checkAll.checked) {
+              tr.classList.add('bg-secondary-fixed/20');
+              tr.classList.remove('bg-surface-container-lowest');
+            } else {
+              tr.classList.remove('bg-secondary-fixed/20');
+              tr.classList.add('bg-surface-container-lowest');
+            }
+          }
+        });
+        updateSelection();
+      });
+    }
+
+    rowCheckboxes.forEach(cb => {
+      cb.addEventListener('change', function() {
+        const tr = this.closest('tr');
+        if (tr) {
+          if (this.checked) {
+            tr.classList.add('bg-secondary-fixed/20');
+            tr.classList.remove('bg-surface-container-lowest');
+          } else {
+            tr.classList.remove('bg-secondary-fixed/20');
+            tr.classList.add('bg-surface-container-lowest');
+          }
+        }
+        updateSelection();
+      });
+    });
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function() {
+        rowCheckboxes.forEach(cb => {
+          cb.checked = false;
+          const tr = cb.closest('tr');
+          if (tr) {
+            tr.classList.remove('bg-secondary-fixed/20');
+            tr.classList.add('bg-surface-container-lowest');
+          }
+        });
+        if (checkAll) checkAll.checked = false;
+        bulkBar.classList.add('hidden');
+      });
+    }
+  })();
+</script></main></div></body></html>

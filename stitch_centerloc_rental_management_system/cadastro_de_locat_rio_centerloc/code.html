@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-fixed-variant":"#6b3a0a","primary-container":"#1a3a6e","outline-variant":"#c4c6d1","on-secondary-fixed-variant":"#743400","surface-bright":"#f6faff","tertiary-fixed-dim":"#ffb77e","background":"#f6faff","on-primary-fixed-variant":"#28467b","on-secondary":"#ffffff","on-secondary-fixed":"#321300","secondary-container":"#ff8934","primary-fixed-dim":"#adc7ff","on-tertiary-container":"#da965f","on-primary-fixed":"#001a41","on-secondary-container":"#662d00","inverse-on-surface":"#edf1f7","tertiary-fixed":"#ffdcc3","error-container":"#ffdad6","surface-container-lowest":"#ffffff","surface-container-high":"#e4e8ee","on-background":"#171c20","outline":"#747780","on-primary-container":"#89a5e0","tertiary-container":"#5d2f00","primary-fixed":"#d8e2ff","surface-container":"#eaeef4","surface-container-low":"#f0f4fa","primary":"#002453","error":"#ba1a1a","on-tertiary-fixed":"#2f1500","on-surface-variant":"#44474f","tertiary":"#3d1d00","on-tertiary":"#ffffff","secondary-fixed-dim":"#ffb68b","surface":"#f6faff","on-error":"#ffffff","on-surface":"#171c20","surface-variant":"#dfe3e9","surface-tint":"#415e94","surface-dim":"#d6dae0","on-error-container":"#93000a","on-primary":"#ffffff","inverse-surface":"#2c3136","secondary-fixed":"#ffdbc8","inverse-primary":"#adc7ff","secondary":"#994700","surface-container-highest":"#dfe3e9"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-normal":"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-lg":"1rem","sidebar-width":"260px","space-xl":"1.5rem","gutter-dense":"0.75rem","space-3xl":"2.5rem","space-2xl":"2rem","space-sm":"0.5rem","topbar-height":"64px","space-2xs":"0.125rem"},fontFamily:{"headline-lg":["Barlow Condensed"],"headline-md":["Barlow Condensed"],"body-md":["Inter"],"headline-sm":["Barlow Condensed"],"code-sm":["Inter"],"headline-xl":["Barlow Condensed"],"display-lg":["Barlow Condensed"],"label-md":["Inter"],"body-sm":["Inter"],"label-sm":["Inter"],"body-lg":["Inter"]},fontSize:{"headline-lg":["24px",{lineHeight:"28px",letterSpacing:"0.01em",fontWeight:"700"}],"headline-md":["20px",{lineHeight:"24px",letterSpacing:"0.01em",fontWeight:"700"}],"body-md":["14px",{lineHeight:"20px",letterSpacing:"0em",fontWeight:"400"}],"headline-sm":["16px",{lineHeight:"20px",letterSpacing:"0.02em",fontWeight:"700"}],"code-sm":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-xl":["32px",{lineHeight:"36px",letterSpacing:"0.02em",fontWeight:"800"}],"display-lg":["44px",{lineHeight:"48px",letterSpacing:"0.02em",fontWeight:"900"}],"label-md":["13px",{lineHeight:"18px",letterSpacing:"0.01em",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"400"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[240px] bg-primary-container text-on-primary z-50 flex flex-col justify-between overflow-y-auto border-r border-outline-variant/20 shadow-xl"><div class="flex flex-col"><div class="h-[52px] flex items-center px-space-md gap-space-sm border-b border-outline-variant/10 bg-primary"><div class="w-8 h-8 rounded bg-secondary flex items-center justify-center text-on-secondary font-headline-md text-headline-md tracking-wider shadow-sm">C</div><div class="flex flex-col"><div class="flex items-center gap-space-2xs"><span class="font-headline-md text-headline-md font-bold tracking-tight text-on-primary leading-none">CENTER</span><span class="font-headline-md text-headline-md font-bold tracking-tight text-secondary-container leading-none">LOC</span></div><span class="font-label-sm text-[9px] uppercase tracking-widest text-on-primary-container leading-none mt-space-2xs">Recife • PE</span></div></div><nav class="flex flex-col px-space-xs py-space-sm gap-space-2xs" data-active-classes="bg-secondary text-on-secondary font-bold shadow-sm"><div class="px-space-sm pt-space-xs pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Principal</div><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded transition-colors bg-secondary text-on-secondary font-bold shadow-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Dashboard</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Cadastros</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="locatarios" href="#"><span class="material-symbols-outlined text-[18px]">badge</span><span>Locatários</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="veiculos-equipamentos" href="#"><span class="material-symbols-outlined text-[18px]">precision_manufacturing</span><span>Veículos / Equip.</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="clientes-fornecedores" href="#"><span class="material-symbols-outlined text-[18px]">domain</span><span>Clientes / Forneced.</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Comercial</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="propostas" href="#"><span class="material-symbols-outlined text-[18px]">request_quote</span><span>Propostas</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contratos" href="#"><span class="material-symbols-outlined text-[18px]">history_edu</span><span>Contratos</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Fiscal</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="notas-de-debito" href="#"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Notas de Débito</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Financeiro</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-receber" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_down</span><span>Contas a Receber</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-pagar" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_up</span><span>Contas a Pagar</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="fluxo-de-caixa" href="#"><span class="material-symbols-outlined text-[18px]">account_balance</span><span>Fluxo de Caixa</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Sistema</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="configuracoes" href="#"><span class="material-symbols-outlined text-[18px]">settings</span><span>Configurações</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="relatorios" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span><span>Relatórios</span></a></nav></div><div class="p-space-sm border-t border-outline-variant/10 bg-primary/40 flex flex-col gap-space-2xs text-on-primary-container/60"><div class="font-code-sm text-[10px] tracking-tight">CNPJ: 12.299.005/0001-46</div><div class="flex items-center justify-between font-label-sm text-[9px] uppercase tracking-wider text-on-primary-container/50"><span>Suape Hub Ops</span><span>v3.4.2</span></div></div></aside><div class="pl-[240px]"><header class="fixed top-0 left-[240px] right-0 h-[52px] bg-surface-container-lowest border-b border-outline-variant/40 z-40 px-space-lg flex items-center justify-between shadow-[0_1px_4px_rgba(26,39,58,0.04)]"><div class="flex items-center gap-space-md"><img alt="CENTERLOC Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUVh69YIR84jKNWh5QJscBhhVxCQimM9Rce_9VsIVdOEuuEg3V8hpQzBvIChTmxgXxXZ3_N9DxuZMwfIJWJ9eMZTVUnvBRwOgQxZpCsHZgpfL09NkEStgvbLfX74BcDTOxZBw1JDOD1TDn32cApG1HvIVZEeTDQeVbgcOWjO4FHTP7XoMWN2qsXrwuWKynJohxUhNKQcgBI5Z1EwyIOcTRK5nFcaxcdqR93BZgmDZpJ6rozW3MedIZ0g"/><div class="h-4 w-px bg-outline-variant/40 hidden sm:block"></div><nav class="hidden sm:flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">CENTERLOC</span><span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span><span class="text-outline font-body-sm text-body-sm">Gestão Integrada</span></nav></div><div class="flex items-center gap-space-md"><div class="relative hidden md:flex items-center"><span class="material-symbols-outlined absolute left-2.5 text-outline text-[18px]">search</span><input class="w-56 lg:w-72 h-[34px] pl-8 pr-space-sm rounded bg-surface-container-low border border-outline-variant text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:border-secondary transition-colors" placeholder="Buscar chassi, placa, contrato..." type="text"/></div><button class="relative p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span></button><button class="h-[34px] px-space-md bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-sm transition-all" type="button"><span class="material-symbols-outlined text-[16px]">add</span><span>Novo</span></button><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNyQ7n44WW0zUOw_Yxj6A9FXtIDs4PoOTZZ5XUwseNrHCtNo7cbI1MkH2DwhojBJn2ID72Vid69W0icu4M45hGxhi0R8H5i_flt97CiQmL2DXCaGm3GOCBxPu-1bbA-ST_46RRMUKfWaRVMb-vEhYOlffduet9T-q5s0FQddNGJ6v5XjgBCfqhxA6tcg4KOqNxR-qlwLG4rCaVqdIl6vBkMMTPD-c5-B1PQVRhx9LjqRh6ZT-n2WgcSQ"/><div class="hidden xl:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Antonio Neto</span><span class="font-label-sm text-[10px] text-on-surface-variant leading-none">Gerente Operacional</span></div></div></div></header><main class="w-full pt-[52px] bg-background min-h-screen"><div class="flex flex-col w-full pb-28">
+<!-- Sub-Header / Breadcrumbs & Entity Master Bar -->
+<div class="w-full bg-surface-container-lowest shadow-sm">
+<div class="max-w-5xl mx-auto px-space-lg py-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<nav class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant">
+<a class="inline-flex items-center gap-1 text-primary hover:text-secondary transition-colors font-medium" href="#">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+<span>Voltar para listagem</span>
+</a>
+<span class="text-outline-variant">/</span>
+<span class="text-outline">Cadastros</span>
+<span class="text-outline-variant">/</span>
+<span class="text-outline">Locatários</span>
+<span class="text-outline-variant">/</span>
+<span class="text-on-surface font-semibold">Editar Locatário</span>
+</nav>
+<div class="flex items-center gap-space-xs">
+<span class="px-2.5 py-1 rounded-full bg-surface-container font-code-sm text-code-sm text-primary font-bold tracking-wider">
+            ID #LOC-0082
+          </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-bright text-[#15803D] font-label-sm text-label-sm uppercase flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-[#16A34A] animate-pulse"></span>
+            Ativo
+          </span>
+</div>
+</div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-xs">
+<div>
+<div class="text-[11px] font-label-sm uppercase tracking-widest text-on-surface-variant">Registro Cadastral Empresarial</div>
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tight uppercase leading-none">
+            ENGEMAN MANUTENÇÃO DE EQUIPAMENTOS LTDA
+          </h1>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded bg-surface-container text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">warehouse</span>
+            Pátio Suape PE
+          </span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+            Score Fiscal A+
+          </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Operational Flow Indicator -->
+<div class="max-w-5xl mx-auto w-full px-space-lg mt-space-md">
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm">
+<div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">Classificação</span>
+<span class="font-label-md text-label-md text-on-surface font-bold">PJ Especial</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">history_edu</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">Contratos</span>
+<span class="font-label-md text-label-md text-on-surface font-bold">02 Vigentes</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-surface-container text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">Crédito Suape</span>
+<span class="font-label-md text-label-md text-on-surface font-bold">R$ 80.000,00</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-surface-container text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">gavel</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] uppercase text-outline">Situação SEFAZ</span>
+<span class="font-label-md text-label-md text-[#16A34A] font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Regular
+          </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Form Body -->
+<div class="max-w-5xl mx-auto w-full px-space-lg mt-space-md flex flex-col gap-space-md">
+<!-- SECTION 1: Identificação do Locatário -->
+<div class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden transition-all duration-200">
+<div class="flex items-stretch">
+<div class="w-1.5 bg-secondary-container flex-shrink-0"></div>
+<div class="flex-1 p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-headline-sm text-headline-sm">
+                01
+              </span>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary uppercase leading-tight tracking-wide">
+                  Identificação do Locatário
+                </h2>
+<span class="font-body-sm text-body-sm text-outline">Dados fiscais e societários de cadastro em Pernambuco</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">domain_verification</span>
+</div>
+<!-- Person Type Selector -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Tipo de Pessoa</label>
+<div class="inline-flex p-1 bg-surface-container rounded-lg w-fit">
+<button class="px-4 py-1.5 rounded bg-primary text-on-primary font-headline-sm text-headline-sm uppercase tracking-wider shadow-sm flex items-center gap-1.5 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">apartment</span>
+                Pessoa Jurídica (CNPJ)
+              </button>
+<button class="px-4 py-1.5 rounded text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm uppercase tracking-wider flex items-center gap-1.5 transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">person</span>
+                Pessoa Física (CPF)
+              </button>
+</div>
+</div>
+<!-- Full Name / Corporate Name -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant flex items-center justify-between">
+<span>Razão Social / Nome Completo <strong class="text-error">*</strong></span>
+<span class="font-code-sm text-[11px] text-outline">Conforme Contrato Social</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">corporate_fare</span>
+<input class="w-full h-10 pl-9 pr-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none focus:bg-surface-bright transition-all" type="text" value="ENGEMAN MANUTENCAO DE EQUIPAM COM E INDUST LTDA"/>
+</div>
+</div>
+<!-- Trade Name & CNPJ -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">
+                Nome Fantasia
+              </label>
+<input class="w-full h-10 px-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none focus:bg-surface-bright transition-all" type="text" value="ENGEMAN MANUTENÇÃO"/>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">
+                  CNPJ <strong class="text-error">*</strong>
+</label>
+<span class="font-label-sm text-[10px] text-[#15803D] bg-surface-bright px-2 py-0.5 rounded font-bold uppercase tracking-wider flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">check_circle</span>
+                  Válido na SEFAZ-PE
+                </span>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">tag</span>
+<input class="w-full h-10 pl-9 pr-3 rounded bg-surface-container-lowest font-code-sm text-body-md text-on-surface font-semibold shadow-sm focus:outline-none focus:bg-surface-bright transition-all" type="text" value="08.769.549/0006-61"/>
+</div>
+</div>
+</div>
+<!-- State & Municipal Registration -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">
+                Inscrição Estadual (IE)
+              </label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">pin</span>
+<input class="w-full h-10 pl-9 pr-3 rounded bg-surface-container-lowest font-code-sm text-body-md text-on-surface shadow-sm focus:outline-none focus:bg-surface-bright transition-all" type="text" value="0345892-12"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">
+                Inscrição Municipal (IM)
+              </label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">location_city</span>
+<input class="w-full h-10 pl-9 pr-3 rounded bg-surface-container-lowest font-code-sm text-body-md text-on-surface shadow-sm focus:outline-none focus:bg-surface-bright transition-all" type="text" value="189.442-0"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 2: Endereço Operacional -->
+<div class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden transition-all duration-200">
+<div class="flex items-stretch">
+<div class="w-1.5 bg-primary-container flex-shrink-0"></div>
+<div class="flex-1 p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-headline-sm text-headline-sm">
+                02
+              </span>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary uppercase leading-tight tracking-wide">
+                  Endereço Operacional
+                </h2>
+<span class="font-body-sm text-body-sm text-outline">Base logística de desmobilização e entrega técnica</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">pin_drop</span>
+</div>
+<!-- CEP Lookup Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md items-end">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">
+                CEP <strong class="text-error">*</strong>
+</label>
+<div class="flex gap-space-xs">
+<input class="w-full h-10 px-3 rounded bg-surface-container-lowest font-code-sm text-body-md text-on-surface font-semibold shadow-sm focus:outline-none" type="text" value="51150-000"/>
+<button class="h-10 px-3 bg-surface-container hover:bg-surface-container-high text-primary rounded font-label-sm text-label-sm uppercase font-bold flex items-center gap-1 shadow-sm transition-colors whitespace-nowrap" type="button">
+<span class="material-symbols-outlined text-[16px]">travel_explore</span>
+                  Buscar CEP
+                </button>
+</div>
+</div>
+<div class="md:col-span-2 flex items-center p-2 rounded bg-surface-container-low">
+<span class="material-symbols-outlined text-secondary text-[20px] mr-2">verified</span>
+<span class="font-body-sm text-body-sm text-on-surface">Endereço verificado pelo CEP dos Correios (Imbiribeira, Recife - PE)</span>
+</div>
+</div>
+<!-- Street, Number, Complement -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md">
+<div class="md:col-span-7 flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Logradouro</label>
+<input class="w-full h-10 px-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none" type="text" value="Av. Mascarenhas de Morais"/>
+</div>
+<div class="md:col-span-2 flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Número</label>
+<input class="w-full h-10 px-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none" type="text" value="2100"/>
+</div>
+<div class="md:col-span-3 flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Complemento</label>
+<input class="w-full h-10 px-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none" type="text" value="Galpão 04"/>
+</div>
+</div>
+<!-- Neighborhood, City, State -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Bairro</label>
+<input class="w-full h-10 px-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none" type="text" value="Imbiribeira"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Município</label>
+<input class="w-full h-10 px-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none" type="text" value="Recife"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">UF</label>
+<select class="w-full h-10 px-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none">
+<option selected="">PE - Pernambuco</option>
+<option>PB - Paraíba</option>
+<option>AL - Alagoas</option>
+<option>BA - Bahia</option>
+<option>RN - Rio Grande do Norte</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 3: Contatos e Responsáveis -->
+<div class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden transition-all duration-200">
+<div class="flex items-stretch">
+<div class="w-1.5 bg-primary flex-shrink-0"></div>
+<div class="flex-1 p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-headline-sm text-headline-sm">
+                03
+              </span>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary uppercase leading-tight tracking-wide">
+                  Contatos e Responsáveis
+                </h2>
+<span class="font-body-sm text-body-sm text-outline">Comunicação direta para despacho, prorrogação e laudos</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">support_agent</span>
+</div>
+<!-- Contact Name & Role -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">
+                Nome do Contato Principal <strong class="text-error">*</strong>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">account_circle</span>
+<input class="w-full h-10 pl-9 pr-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none" type="text" value="Julio Cesar de Albuquerque"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Cargo / Lotação</label>
+<input class="w-full h-10 px-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none" type="text" value="Gerente de Contratos &amp; Obras"/>
+</div>
+</div>
+<!-- Phones & Email -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Telefone Fixo</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">call</span>
+<input class="w-full h-10 pl-9 pr-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none" type="text" value="(81) 3456-7890"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Celular / WhatsApp</label>
+<span class="flex items-center gap-1 font-label-sm text-[10px] text-[#16A34A] font-bold">
+<span class="material-symbols-outlined text-[14px]">chat</span> Ativo
+                </span>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-[#16A34A] text-[18px]">smartphone</span>
+<input class="w-full h-10 pl-9 pr-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none" type="text" value="(81) 99876-5432"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">E-mail Operacional</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">mail</span>
+<input class="w-full h-10 pl-9 pr-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none" type="email" value="compras@engeman.com.br"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 4: Condições Financeiras & Faturamento -->
+<div class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden transition-all duration-200">
+<div class="flex items-stretch">
+<div class="w-1.5 bg-secondary flex-shrink-0"></div>
+<div class="flex-1 p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-headline-sm text-headline-sm">
+                04
+              </span>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary uppercase leading-tight tracking-wide">
+                  Condições Financeiras &amp; Faturamento
+                </h2>
+<span class="font-body-sm text-body-sm text-outline">Regras comerciais, limite de risco e liquidação bancária</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">account_balance_wallet</span>
+</div>
+<!-- Billing terms, Credit limit, Payment mode -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">
+                Prazo Padrão de Faturamento
+              </label>
+<select class="w-full h-10 px-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none">
+<option>À vista / Antecipado</option>
+<option>15 dias direto</option>
+<option selected="">30 dias fora a quinzena</option>
+<option>45 dias fora o mês</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">
+                  Limite de Crédito Aprovado
+                </label>
+<span class="font-label-sm text-[10px] text-secondary font-bold uppercase">Comitê de Crédito</span>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary text-[18px]">credit_score</span>
+<input class="w-full h-10 pl-9 pr-3 rounded bg-surface-container-lowest font-headline-md text-headline-md text-primary shadow-sm focus:outline-none" type="text" value="R$ 80.000,00"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">
+                Forma de Pagamento Padrão
+              </label>
+<input class="w-full h-10 px-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none" type="text" value="Boleto / Nota de Débito com PIX"/>
+</div>
+</div>
+<!-- Bank Data for Refund / Guarantees -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-[18px]">account_balance</span>
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider">Dados Bancários para Reembolso &amp; Devoluções de Caução</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] text-outline uppercase">Banco</span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">Banco Bradesco S.A. (237)</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] text-outline uppercase">Agência</span>
+<span class="font-code-sm text-body-md font-semibold text-on-surface">1245-0</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] text-outline uppercase">Conta Corrente</span>
+<span class="font-code-sm text-body-md font-semibold text-on-surface">45890-1</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 5: Observações Gerais & Histórico -->
+<div class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden transition-all duration-200">
+<div class="flex items-stretch">
+<div class="w-1.5 bg-outline flex-shrink-0"></div>
+<div class="flex-1 p-space-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-headline-sm text-headline-sm">
+                05
+              </span>
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary uppercase leading-tight tracking-wide">
+                  Observações Gerais &amp; Histórico
+                </h2>
+<span class="font-body-sm text-body-sm text-outline">Anotações técnicas de campo e auditoria do registro</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">history</span>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">
+              Notas do Locatário / Obras de Aplicação
+            </label>
+<textarea class="w-full p-3 rounded bg-surface-container-lowest font-body-md text-body-md text-on-surface shadow-sm focus:outline-none resize-none" rows="4">Cliente corporativo com contratos vigentes no Polo Industrial de Suape. Equipamentos de movimentação de carga e guindautos pesados alocados sob ART 2026/0488. Exigência permanente de operador certificado NR-11 e laudos semestrais de içamento.</textarea>
+</div>
+<!-- Audit Log Strip -->
+<div class="flex flex-col sm:flex-row items-center justify-between pt-space-xs gap-space-xs text-on-surface-variant font-label-sm text-[11px]">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-secondary">update</span>
+<span>Última alteração em <strong>18/08/2026</strong> por <strong>Antonio Neto</strong> (Gerência Operacional)</span>
+</div>
+<a class="inline-flex items-center gap-1 text-primary hover:text-secondary underline font-semibold transition-colors" href="#">
+<span class="material-symbols-outlined text-[14px]">view_timeline</span>
+              Ver Histórico Completo de Alterações (4 registros)
+            </a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- STICKY FOOTER -->
+<div class="fixed bottom-0 left-[240px] right-0 bg-surface-container-lowest shadow-2xl py-3 px-space-xl z-40">
+<div class="max-w-5xl mx-auto flex items-center justify-between">
+<button class="px-4 py-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-headline-sm text-headline-sm uppercase tracking-wider transition-colors flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+<span>Cancelar</span>
+</button>
+<div class="flex items-center gap-space-sm">
+<button class="px-4 py-2 rounded bg-primary text-on-primary hover:bg-primary-container font-headline-sm text-headline-sm uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">description</span>
+<span>Visualizar Contratos Ativos (2)</span>
+</button>
+<button class="px-6 py-2 rounded bg-secondary-container hover:bg-secondary text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-md hover:shadow-lg" type="button">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Salvar Alterações</span>
+</button>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

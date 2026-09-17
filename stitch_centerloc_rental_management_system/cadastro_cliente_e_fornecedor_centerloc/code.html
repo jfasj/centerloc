@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-fixed-variant":"#6b3a0a","primary-container":"#1a3a6e","outline-variant":"#c4c6d1","on-secondary-fixed-variant":"#743400","surface-bright":"#f6faff","tertiary-fixed-dim":"#ffb77e","background":"#f6faff","on-primary-fixed-variant":"#28467b","on-secondary":"#ffffff","on-secondary-fixed":"#321300","secondary-container":"#ff8934","primary-fixed-dim":"#adc7ff","on-tertiary-container":"#da965f","on-primary-fixed":"#001a41","on-secondary-container":"#662d00","inverse-on-surface":"#edf1f7","tertiary-fixed":"#ffdcc3","error-container":"#ffdad6","surface-container-lowest":"#ffffff","surface-container-high":"#e4e8ee","on-background":"#171c20","outline":"#747780","on-primary-container":"#89a5e0","tertiary-container":"#5d2f00","primary-fixed":"#d8e2ff","surface-container":"#eaeef4","surface-container-low":"#f0f4fa","primary":"#002453","error":"#ba1a1a","on-tertiary-fixed":"#2f1500","on-surface-variant":"#44474f","tertiary":"#3d1d00","on-tertiary":"#ffffff","secondary-fixed-dim":"#ffb68b","surface":"#f6faff","on-error":"#ffffff","on-surface":"#171c20","surface-variant":"#dfe3e9","surface-tint":"#415e94","surface-dim":"#d6dae0","on-error-container":"#93000a","on-primary":"#ffffff","inverse-surface":"#2c3136","secondary-fixed":"#ffdbc8","inverse-primary":"#adc7ff","secondary":"#994700","surface-container-highest":"#dfe3e9"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-normal":"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-lg":"1rem","sidebar-width":"260px","space-xl":"1.5rem","gutter-dense":"0.75rem","space-3xl":"2.5rem","space-2xl":"2rem","space-sm":"0.5rem","topbar-height":"64px","space-2xs":"0.125rem"},fontFamily:{"headline-lg":["Barlow Condensed"],"headline-md":["Barlow Condensed"],"body-md":["Inter"],"headline-sm":["Barlow Condensed"],"code-sm":["Inter"],"headline-xl":["Barlow Condensed"],"display-lg":["Barlow Condensed"],"label-md":["Inter"],"body-sm":["Inter"],"label-sm":["Inter"],"body-lg":["Inter"]},fontSize:{"headline-lg":["24px",{lineHeight:"28px",letterSpacing:"0.01em",fontWeight:"700"}],"headline-md":["20px",{lineHeight:"24px",letterSpacing:"0.01em",fontWeight:"700"}],"body-md":["14px",{lineHeight:"20px",letterSpacing:"0em",fontWeight:"400"}],"headline-sm":["16px",{lineHeight:"20px",letterSpacing:"0.02em",fontWeight:"700"}],"code-sm":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}],"headline-xl":["32px",{lineHeight:"36px",letterSpacing:"0.02em",fontWeight:"800"}],"display-lg":["44px",{lineHeight:"48px",letterSpacing:"0.02em",fontWeight:"900"}],"label-md":["13px",{lineHeight:"18px",letterSpacing:"0.01em",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0em",fontWeight:"400"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.05em",fontWeight:"700"}],"body-lg":["16px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"400"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-[240px] bg-primary-container text-on-primary z-50 flex flex-col justify-between overflow-y-auto border-r border-outline-variant/20 shadow-xl"><div class="flex flex-col"><div class="h-[52px] flex items-center px-space-md gap-space-sm border-b border-outline-variant/10 bg-primary"><div class="w-8 h-8 rounded bg-secondary flex items-center justify-center text-on-secondary font-headline-md text-headline-md tracking-wider shadow-sm">C</div><div class="flex flex-col"><div class="flex items-center gap-space-2xs"><span class="font-headline-md text-headline-md font-bold tracking-tight text-on-primary leading-none">CENTER</span><span class="font-headline-md text-headline-md font-bold tracking-tight text-secondary-container leading-none">LOC</span></div><span class="font-label-sm text-[9px] uppercase tracking-widest text-on-primary-container leading-none mt-space-2xs">Recife • PE</span></div></div><nav class="flex flex-col px-space-xs py-space-sm gap-space-2xs" data-active-classes="bg-secondary text-on-secondary font-bold shadow-sm"><div class="px-space-sm pt-space-xs pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Principal</div><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded transition-colors bg-secondary text-on-secondary font-bold shadow-sm" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Dashboard</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Cadastros</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="locatarios" href="#"><span class="material-symbols-outlined text-[18px]">badge</span><span>Locatários</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="veiculos-equipamentos" href="#"><span class="material-symbols-outlined text-[18px]">precision_manufacturing</span><span>Veículos / Equip.</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="clientes-fornecedores" href="#"><span class="material-symbols-outlined text-[18px]">domain</span><span>Clientes / Forneced.</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Comercial</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="propostas" href="#"><span class="material-symbols-outlined text-[18px]">request_quote</span><span>Propostas</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contratos" href="#"><span class="material-symbols-outlined text-[18px]">history_edu</span><span>Contratos</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Fiscal</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="notas-de-debito" href="#"><span class="material-symbols-outlined text-[18px]">receipt_long</span><span>Notas de Débito</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Financeiro</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-receber" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_down</span><span>Contas a Receber</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="contas-a-pagar" href="#"><span class="material-symbols-outlined text-[18px]">arrow_circle_up</span><span>Contas a Pagar</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="fluxo-de-caixa" href="#"><span class="material-symbols-outlined text-[18px]">account_balance</span><span>Fluxo de Caixa</span></a><div class="px-space-sm pt-space-sm pb-space-2xs text-[10px] font-label-sm text-on-primary-container/70 uppercase tracking-widest">Sistema</div><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="configuracoes" href="#"><span class="material-symbols-outlined text-[18px]">settings</span><span>Configurações</span></a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-primary-container hover:bg-primary hover:text-on-primary font-body-sm text-body-sm transition-colors" data-path="relatorios" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span><span>Relatórios</span></a></nav></div><div class="p-space-sm border-t border-outline-variant/10 bg-primary/40 flex flex-col gap-space-2xs text-on-primary-container/60"><div class="font-code-sm text-[10px] tracking-tight">CNPJ: 12.299.005/0001-46</div><div class="flex items-center justify-between font-label-sm text-[9px] uppercase tracking-wider text-on-primary-container/50"><span>Suape Hub Ops</span><span>v3.4.2</span></div></div></aside><div class="pl-[240px]"><header class="fixed top-0 left-[240px] right-0 h-[52px] bg-surface-container-lowest border-b border-outline-variant/40 z-40 px-space-lg flex items-center justify-between shadow-[0_1px_4px_rgba(26,39,58,0.04)]"><div class="flex items-center gap-space-md"><img alt="CENTERLOC Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUVh69YIR84jKNWh5QJscBhhVxCQimM9Rce_9VsIVdOEuuEg3V8hpQzBvIChTmxgXxXZ3_N9DxuZMwfIJWJ9eMZTVUnvBRwOgQxZpCsHZgpfL09NkEStgvbLfX74BcDTOxZBw1JDOD1TDn32cApG1HvIVZEeTDQeVbgcOWjO4FHTP7XoMWN2qsXrwuWKynJohxUhNKQcgBI5Z1EwyIOcTRK5nFcaxcdqR93BZgmDZpJ6rozW3MedIZ0g"/><div class="h-4 w-px bg-outline-variant/40 hidden sm:block"></div><nav class="hidden sm:flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="font-headline-sm text-headline-sm uppercase text-primary tracking-wide">CENTERLOC</span><span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span><span class="text-outline font-body-sm text-body-sm">Gestão Integrada</span></nav></div><div class="flex items-center gap-space-md"><div class="relative hidden md:flex items-center"><span class="material-symbols-outlined absolute left-2.5 text-outline text-[18px]">search</span><input class="w-56 lg:w-72 h-[34px] pl-8 pr-space-sm rounded bg-surface-container-low border border-outline-variant text-on-surface placeholder:text-outline font-body-sm text-body-sm focus:outline-none focus:border-secondary transition-colors" placeholder="Buscar chassi, placa, contrato..." type="text"/></div><button class="relative p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span></button><button class="h-[34px] px-space-md bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-sm text-headline-sm uppercase tracking-wider rounded flex items-center gap-space-xs shadow-sm transition-all" type="button"><span class="material-symbols-outlined text-[16px]">add</span><span>Novo</span></button><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-space-sm pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-outline-variant/60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNyQ7n44WW0zUOw_Yxj6A9FXtIDs4PoOTZZ5XUwseNrHCtNo7cbI1MkH2DwhojBJn2ID72Vid69W0icu4M45hGxhi0R8H5i_flt97CiQmL2DXCaGm3GOCBxPu-1bbA-ST_46RRMUKfWaRVMb-vEhYOlffduet9T-q5s0FQddNGJ6v5XjgBCfqhxA6tcg4KOqNxR-qlwLG4rCaVqdIl6vBkMMTPD-c5-B1PQVRhx9LjqRh6ZT-n2WgcSQ"/><div class="hidden xl:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Antonio Neto</span><span class="font-label-sm text-[10px] text-on-surface-variant leading-none">Gerente Operacional</span></div></div></div></header><main class="w-full pt-[52px] bg-background min-h-screen"><div class="flex flex-col w-full pb- space-3xl">
+<!-- Operational Header & Metadata Breadcrumb -->
+<div class="px-space-xl py-space-md bg-surface-container-low shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<span class="hover:text-primary cursor-pointer transition-colors">Cadastros</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="hover:text-primary cursor-pointer transition-colors">Clientes e Fornecedores</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-secondary font-bold">Novo Cadastro</span>
+</div>
+<div class="flex items-center gap-space-md">
+<h1 class="font-headline-xl text-headline-xl text-primary uppercase tracking-tight flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[30px] text-secondary">domain_add</span>
+          Novo Cliente / Fornecedor
+        </h1>
+<span class="inline-flex items-center gap-space-xs px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-code-sm text-[11px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          HUB-PE #REG-2025-098
+        </span>
+</div>
+</div>
+<!-- Quick Telemetry Chips -->
+<div class="flex items-center gap-space-sm">
+<div class="px-space-md py-1.5 rounded-lg bg-surface-container-lowest shadow-sm flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">verified_user</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] text-outline uppercase tracking-wider leading-none">Receita Federal</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">API Sincronizada</span>
+</div>
+</div>
+<div class="px-space-md py-1.5 rounded-lg bg-surface-container-lowest shadow-sm flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]">anchor</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-[10px] text-outline uppercase tracking-wider leading-none">Polo Logístico</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Suape / Recife</span>
+</div>
+</div>
+</div>
+</div>
+<div class="max-w-5xl mx-auto w-full px-space-lg pt-space-xl flex flex-col gap-space-xl">
+<!-- Hero Segmented Entity Type Selector -->
+<div class="bg-surface-container-lowest rounded-xl shadow-md p-space-lg relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-primary"></div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-md mb-space-sm">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest font-bold">Classificação Operacional</span>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight mt-0.5">Selecione o Tipo de Cadastro</h2>
+</div>
+<span class="font-body-sm text-body-sm text-outline mt-1 sm:mt-0">Habilita seções especializadas de crédito ou fornecimento</span>
+</div>
+<!-- Segmented Buttons Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md" id="type-selector-group">
+<!-- Option 1: Cliente -->
+<button class="group text-left p-space-lg rounded-xl transition-all duration-200 bg-surface-container-low hover:bg-surface-container flex flex-col justify-between relative shadow-sm" id="btn-type-cliente" onclick="setEntityType('cliente')" type="button">
+<div class="flex items-center justify-between w-full mb-space-md">
+<div class="w-11 h-11 rounded-lg bg-primary/10 text-primary flex items-center justify-center transition-transform group-hover:scale-105">
+<span class="material-symbols-outlined text-[26px]">apartment</span>
+</div>
+<span class="indicator-check hidden w-5 h-5 rounded-full bg-primary text-on-primary items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm uppercase tracking-wide text-primary block">Cliente Locatário</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-snug">Empresas e consórcios que realizam locação de maquinários pesados e veículos da frota CENTERLOC.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center gap-space-xs text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">price_check</span>
+<span>Gestão de faturamento e crédito</span>
+</div>
+</button>
+<!-- Option 2: Fornecedor -->
+<button class="group text-left p-space-lg rounded-xl transition-all duration-200 bg-surface-container-low hover:bg-surface-container flex flex-col justify-between relative shadow-sm" id="btn-type-fornecedor" onclick="setEntityType('fornecedor')" type="button">
+<div class="flex items-center justify-between w-full mb-space-md">
+<div class="w-11 h-11 rounded-lg bg-primary-container text-on-primary-fixed flex items-center justify-center transition-transform group-hover:scale-105">
+<span class="material-symbols-outlined text-[26px]">local_shipping</span>
+</div>
+<span class="indicator-check hidden w-5 h-5 rounded-full bg-primary-container text-on-primary items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm uppercase tracking-wide text-primary block">Fornecedor Técnico</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-snug">Prestadores de manutenção, reposição de esteiras/peças, combustíveis e frotas de apoio regional.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center gap-space-xs text-primary-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">payments</span>
+<span>Dados bancários e homologação fiscal</span>
+</div>
+</button>
+<!-- Option 3: Ambos (Active by Default) -->
+<button class="group text-left p-space-lg rounded-xl transition-all duration-200 bg-surface-container-lowest shadow-md flex flex-col justify-between relative ring-2 ring-secondary bg-gradient-to-b from-surface-container-lowest to-secondary-container/10" id="btn-type-ambos" onclick="setEntityType('ambos')" type="button">
+<div class="absolute -top-2.5 right-4 bg-secondary text-on-secondary px-2 py-0.5 rounded text-[10px] font-headline-sm tracking-wider uppercase shadow-sm">
+            Recomendado para Parceiros
+          </div>
+<div class="flex items-center justify-between w-full mb-space-md">
+<div class="w-11 h-11 rounded-lg bg-secondary text-on-secondary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[26px]">sync_alt</span>
+</div>
+<span class="indicator-check flex w-5 h-5 rounded-full bg-secondary text-on-secondary items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</span>
+</div>
+<div>
+<span class="font-headline-sm text-headline-sm uppercase tracking-wide text-secondary block">Ambos — Cliente &amp; Fornecedor</span>
+<p class="font-body-sm text-body-sm text-on-surface mt-1 leading-snug font-medium">Empresa que loca nossos equipamentos e também presta serviços especializados ou fornece insumos industriais.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center gap-space-xs text-secondary font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-[16px]">all_inclusive</span>
+<span>Fluxo duplo: Contas a Receber e a Pagar</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Registration Master Form Wrapper -->
+<form class="flex flex-col gap-space-xl" id="partner-registration-form" onsubmit="event.preventDefault(); submitRegistration();">
+<!-- SECTION 1: Identificação Básica -->
+<section class="bg-surface-container-lowest rounded-xl p-space-xl shadow-md flex flex-col gap-space-lg relative">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded bg-primary text-on-primary flex items-center justify-center font-headline-sm text-headline-sm">01</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary uppercase tracking-tight">Identificação Básica</h3>
+<p class="font-body-sm text-body-sm text-outline">Dados cadastrais e habilitação jurídica perante os órgãos reguladores</p>
+</div>
+</div>
+<!-- Radio PJ / PF -->
+<div class="flex items-center bg-surface-container-low p-1 rounded-lg self-start">
+<label class="flex items-center gap-space-xs px-space-md py-1 rounded cursor-pointer transition-colors has-[:checked]:bg-primary has-[:checked]:text-on-primary">
+<input checked="" class="hidden" name="person_type" onchange="togglePersonType(this.value)" type="radio" value="pj"/>
+<span class="material-symbols-outlined text-[16px]">domain</span>
+<span class="font-label-sm text-label-sm uppercase">Pessoa Jurídica (CNPJ)</span>
+</label>
+<label class="flex items-center gap-space-xs px-space-md py-1 rounded cursor-pointer transition-colors has-[:checked]:bg-primary has-[:checked]:text-on-primary text-on-surface-variant">
+<input class="hidden" name="person_type" onchange="togglePersonType(this.value)" type="radio" value="pf"/>
+<span class="material-symbols-outlined text-[16px]">person</span>
+<span class="font-label-sm text-label-sm uppercase">Pessoa Física (CPF)</span>
+</label>
+</div>
+</div>
+<!-- Inputs Group 1 -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md">
+<!-- Full Width: Razão Social -->
+<div class="md:col-span-12 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center gap-1" for="razao_social">
+<span>Razão Social Completa</span>
+<span class="text-error">*</span>
+</label>
+<div class="relative">
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="razao_social" required="" type="text" value="CONSTRUTORA &amp; ENGENHARIA ATLÂNTICO SUL LTDA"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-secondary text-[20px]">badge</span>
+</div>
+</div>
+<!-- Grid 2 Cols: Nome Fantasia | CNPJ -->
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant" for="nome_fantasia">Nome Fantasia / Comercial</label>
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="nome_fantasia" type="text" value="ATLÂNTICO ENGENHARIA"/>
+</div>
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center gap-1" for="cnpj_cpf">
+<span id="doc_label">CNPJ (Receita Federal)</span>
+<span class="text-error">*</span>
+</label>
+<span class="inline-flex items-center gap-1 text-[11px] text-secondary font-semibold font-code-sm cursor-pointer hover:underline" onclick="mockCnpjConsult()">
+<span class="material-symbols-outlined text-[13px]">refresh</span>
+                Consultar RFB
+              </span>
+</div>
+<div class="relative">
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low font-code-sm text-code-sm text-on-surface focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all tracking-wide" id="cnpj_cpf" maxlength="18" required="" type="text" value="08.924.312/0001-90"/>
+<div class="absolute right-2.5 top-2 flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container-high">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="font-code-sm text-[10px] uppercase font-bold text-primary">Ativo</span>
+</div>
+</div>
+</div>
+<!-- Grid 2 Cols: Inscrição Estadual | Inscrição Municipal -->
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant" for="inscricao_estadual">Inscrição Estadual (SEFAZ PE)</label>
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="inscricao_estadual" placeholder="Isento ou Nº da I.E." type="text" value="0341982-12"/>
+</div>
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant" for="inscricao_municipal">Inscrição Municipal (Recife)</label>
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="inscricao_municipal" placeholder="Nº da Inscrição Mobiliária" type="text" value="482.901-8"/>
+</div>
+</div>
+</section>
+<!-- SECTION 2: Endereço Operacional -->
+<section class="bg-surface-container-lowest rounded-xl p-space-xl shadow-md flex flex-col gap-space-lg">
+<div class="flex items-center gap-space-sm pb-space-sm">
+<span class="w-7 h-7 rounded bg-primary text-on-primary flex items-center justify-center font-headline-sm text-headline-sm">02</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary uppercase tracking-tight">Endereço &amp; Localização Operacional</h3>
+<p class="font-body-sm text-body-sm text-outline">Ponto de entrega de implementos pesados e emissão de notas de débito</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md">
+<!-- CEP com Auto-complete -->
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center gap-1" for="cep">
+<span>CEP (Código Postal)</span>
+<span class="text-error">*</span>
+</label>
+<div class="relative">
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low font-code-sm text-code-sm text-on-surface focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="cep" maxlength="9" required="" type="text" value="51020-000"/>
+<button class="absolute right-1.5 top-1.5 h-7 px-2 bg-surface-container hover:bg-surface-container-high rounded text-primary text-[11px] font-label-sm uppercase flex items-center gap-1 transition-colors" onclick="autoFillCep()" title="Buscar endereço" type="button">
+<span class="material-symbols-outlined text-[15px]">pin_drop</span>
+                Buscar
+              </button>
+</div>
+</div>
+<!-- Logradouro -->
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center gap-1" for="logradouro">
+<span>Logradouro / Avenida / Rua</span>
+<span class="text-error">*</span>
+</label>
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="logradouro" required="" type="text" value="Avenida Engenheiro Domingos Ferreira"/>
+</div>
+<!-- Número -->
+<div class="md:col-span-2 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center gap-1" for="numero">
+<span>Número</span>
+<span class="text-error">*</span>
+</label>
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="numero" required="" type="text" value="4060"/>
+</div>
+<!-- Complemento -->
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant" for="complemento">Complemento / Galpão / Sala</label>
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="complemento" type="text" value="Torre Sul, 14º Andar - Sl 1402"/>
+</div>
+<!-- Bairro -->
+<div class="md:col-span-3 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center gap-1" for="bairro">
+<span>Bairro</span>
+<span class="text-error">*</span>
+</label>
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="bairro" required="" type="text" value="Boa Viagem"/>
+</div>
+<!-- Cidade -->
+<div class="md:col-span-3 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center gap-1" for="cidade">
+<span>Cidade</span>
+<span class="text-error">*</span>
+</label>
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="cidade" required="" type="text" value="Recife"/>
+</div>
+<!-- UF -->
+<div class="md:col-span-2 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center gap-1" for="uf">
+<span>UF</span>
+<span class="text-error">*</span>
+</label>
+<select class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="uf" required="">
+<option selected="" value="PE">PE</option>
+<option value="AL">AL</option>
+<option value="PB">PB</option>
+<option value="BA">BA</option>
+<option value="RN">RN</option>
+<option value="CE">CE</option>
+<option value="SP">SP</option>
+</select>
+</div>
+</div>
+</section>
+<!-- SECTION 3: Contatos Principais -->
+<section class="bg-surface-container-lowest rounded-xl p-space-xl shadow-md flex flex-col gap-space-lg">
+<div class="flex items-center gap-space-sm pb-space-sm">
+<span class="w-7 h-7 rounded bg-primary text-on-primary flex items-center justify-center font-headline-sm text-headline-sm">03</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary uppercase tracking-tight">Contatos &amp; Responsáveis Operacionais</h3>
+<p class="font-body-sm text-body-sm text-outline">Comunicação direta para envio de propostas, laudos de telemetria e ordens de serviço</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md">
+<!-- Nome do Contato -->
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center gap-1" for="contato_nome">
+<span>Nome do Responsável / Ponto Focal</span>
+<span class="text-error">*</span>
+</label>
+<div class="relative">
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="contato_nome" required="" type="text" value="Carlos Eduardo Vasconcelos"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-outline text-[20px]">person</span>
+</div>
+</div>
+<!-- Cargo -->
+<div class="md:col-span-6 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center gap-1" for="contato_cargo">
+<span>Cargo / Departamento</span>
+<span class="text-error">*</span>
+</label>
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="contato_cargo" required="" type="text" value="Coordenador de Suprimentos e Obras Pesadas"/>
+</div>
+<!-- Grid 3 Colunas: Telefone Fixo | WhatsApp | E-mail -->
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant" for="tel_fixo">Telefone Fixo / PABX</label>
+<div class="relative">
+<input class="w-full h-10 pl-9 pr-space-md rounded-lg bg-surface-container-low font-code-sm text-code-sm text-on-surface focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="tel_fixo" type="tel" value="(81) 3465-9000"/>
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-outline text-[18px]">call</span>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center gap-1" for="whatsapp">
+<span>WhatsApp Operacional</span>
+<span class="text-secondary font-bold text-[10px] uppercase">(Plantão)</span>
+</label>
+<div class="relative">
+<input class="w-full h-10 pl-9 pr-space-md rounded-lg bg-surface-container-low font-code-sm text-code-sm text-on-surface focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="whatsapp" required="" type="tel" value="(81) 99872-4411"/>
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-secondary text-[18px]">chat</span>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center gap-1" for="email">
+<span>E-mail Corporativo</span>
+<span class="text-error">*</span>
+</label>
+<div class="relative">
+<input class="w-full h-10 pl-9 pr-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="email" required="" type="email" value="carlos.suprimentos@atlanticosul.eng.br"/>
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-outline text-[18px]">mail</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CONDITIONAL SECTION A: Dados Comerciais (Módulo Cliente) -->
+<section class="bg-surface-container-lowest rounded-xl p-space-xl shadow-md flex flex-col gap-space-lg relative overflow-hidden transition-all duration-300" id="section-module-client">
+<!-- Structural Left Visual Anchor -->
+<div class="absolute left-0 top-0 bottom-0 w-2 bg-primary"></div>
+<div class="flex items-center justify-between pl-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[20px]">request_quote</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<h3 class="font-headline-md text-headline-md text-primary uppercase tracking-tight">Dados Comerciais &amp; Locação</h3>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-label-sm text-[10px] uppercase font-bold">Módulo Cliente</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Condições de faturamento e limites para expedição de escavadeiras, tratores e caminhões pipa</p>
+</div>
+</div>
+<span class="hidden sm:inline-flex items-center gap-1 font-label-sm text-[11px] text-primary-container bg-surface-container-low px-2.5 py-1 rounded">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+            Análise de Risco Suape Aprovada
+          </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pl-space-xs">
+<!-- Limite de Crédito -->
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between" for="limite_credito">
+<span>Limite de Crédito Sugerido</span>
+<span class="text-secondary font-semibold font-code-sm">Score 890</span>
+</label>
+<div class="relative">
+<span class="absolute left-3 top-2.5 font-code-sm text-code-sm font-bold text-primary">R$</span>
+<input class="w-full h-10 pl-10 pr-space-md rounded-lg bg-surface-container-low font-code-sm text-code-sm font-bold text-primary focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary transition-all" id="limite_credito" type="text" value="280.000,00"/>
+</div>
+</div>
+<!-- Prazo de Faturamento -->
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant" for="prazo_faturamento">Prazo de Faturamento Padrão</label>
+<select class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary transition-all" id="prazo_faturamento">
+<option value="15">15 Dias Direto</option>
+<option selected="" value="28">28 Dias (Padrão Obras)</option>
+<option value="30_60">30 / 60 Dias Fracionado</option>
+<option value="mediçao">Conforme Medição Quinzenal</option>
+<option value="a_vista">À Vista / Antecipado</option>
+</select>
+</div>
+<!-- Tabela de Preço -->
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant" for="tabela_preco">Tabela / Condição Comercial</label>
+<select class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary transition-all" id="tabela_preco">
+<option value="tabela_padrao">Tabela Padrão PE 2025</option>
+<option selected="" value="pesada_porto">Tabela Pesada Porto de Suape (-8%)</option>
+<option value="governo_licit">Tabela Especial Licitação / Consórcio</option>
+<option value="longo_prazo">Locação Anual Spot Master</option>
+</select>
+</div>
+</div>
+</section>
+<!-- CONDITIONAL SECTION B: Dados Financeiros & Fornecimento (Módulo Fornecedor) -->
+<section class="bg-surface-container-lowest rounded-xl p-space-xl shadow-md flex flex-col gap-space-lg relative overflow-hidden transition-all duration-300" id="section-module-supplier">
+<!-- Structural Left Visual Anchor -->
+<div class="absolute left-0 top-0 bottom-0 w-2 bg-primary-container"></div>
+<div class="flex items-center justify-between pl-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary-fixed flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[20px]">engineering</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<h3 class="font-headline-md text-headline-md text-primary uppercase tracking-tight">Dados Financeiros &amp; Fornecimento</h3>
+<span class="px-2 py-0.5 rounded bg-primary-container/10 text-primary-container font-label-sm text-[10px] uppercase font-bold">Módulo Fornecedor</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Dados bancários para liquidação de pagamentos, conciliação PIX e escopo de insumos</p>
+</div>
+</div>
+<span class="hidden sm:inline-flex items-center gap-1 font-label-sm text-[11px] text-on-primary-container bg-surface-container-high px-2.5 py-1 rounded">
+<span class="material-symbols-outlined text-[14px]">account_balance_wallet</span>
+            Homologação Financeira Ativa
+          </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md pl-space-xs">
+<!-- Categoria de Fornecimento -->
+<div class="md:col-span-12 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center gap-1" for="categoria_fornecedor">
+<span>Categoria Principal de Fornecimento / Insumos</span>
+<span class="text-error">*</span>
+</label>
+<select class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" id="categoria_fornecedor">
+<option selected="" value="pecas_implementos">Peças, Material Rodante e Implementos Hidráulicos</option>
+<option value="combustivel">Óleo Diesel S10 / Abastecimento em Campo</option>
+<option value="manutencao_mecanica">Manutenção Mecânica, Elétrica e Usinagem Pesada</option>
+<option value="seguro_rastreamento">Seguro de Máquinas e Telemetria Satelital</option>
+<option value="servicos_terceirizados">Operadores de Máquinas e Serviços Especializados</option>
+</select>
+</div>
+<!-- Dados Bancários: Banco, Agência, Conta Corrente -->
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant" for="banco">Instituição Financeira (Banco)</label>
+<select class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" id="banco">
+<option value="341">341 — Banco Itaú Unibanco S.A.</option>
+<option selected="" value="001">001 — Banco do Brasil S.A.</option>
+<option value="237">237 — Banco Bradesco S.A.</option>
+<option value="104">104 — Caixa Econômica Federal</option>
+<option value="033">033 — Banco Santander Brasil</option>
+<option value="004">004 — Banco do Nordeste do Brasil (BNB)</option>
+</select>
+</div>
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant" for="agencia">Agência (com dígito)</label>
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low font-code-sm text-code-sm text-on-surface focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" id="agencia" type="text" value="3214-X"/>
+</div>
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant" for="conta_corrente">Conta Corrente</label>
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low font-code-sm text-code-sm text-on-surface focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" id="conta_corrente" type="text" value="48201-9"/>
+</div>
+<!-- Chave PIX: Tipo e Campo da Chave -->
+<div class="md:col-span-4 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant" for="tipo_pix">Tipo de Chave PIX</label>
+<select class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" id="tipo_pix" onchange="updatePixPlaceholder(this.value)">
+<option selected="" value="cnpj">CNPJ</option>
+<option value="email">E-mail Financeiro</option>
+<option value="telefone">Telefone Celular</option>
+<option value="aleatoria">Chave Aleatória (EVP)</option>
+</select>
+</div>
+<div class="md:col-span-8 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between" for="chave_pix">
+<span>Chave PIX Liquidante</span>
+<span class="text-primary font-code-sm text-[11px] font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">lock</span>
+                Liquidação Automatizada
+              </span>
+</label>
+<div class="relative">
+<input class="w-full h-10 pl-9 pr-space-md rounded-lg bg-surface-container-low font-code-sm text-code-sm text-on-surface focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" id="chave_pix" type="text" value="08.924.312/0001-90"/>
+<span class="material-symbols-outlined absolute left-2.5 top-2.5 text-primary-container text-[18px]">qr_code_2</span>
+</div>
+</div>
+<!-- Descrição dos Produtos/Serviços comumente fornecidos -->
+<div class="md:col-span-12 flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant" for="descricao_fornecimento">Detalhamento dos Produtos / Serviços Fornecidos</label>
+<textarea class="w-full p-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" id="descricao_fornecimento" placeholder="Ex: Fornecimento mensal de filtros hidráulicos CAT e esteiras de reposição para tratores D6T..." rows="2">Fornecimento prioritário de sapatas metálicas, pinos e buchas para escavadeiras Komatsu PC200 e motoniveladoras Caterpillar 140K em regime de plantão no Porto de Suape.</textarea>
+</div>
+</div>
+</section>
+<!-- SECTION 4: Observações Gerais & Parecer Interno -->
+<section class="bg-surface-container-lowest rounded-xl p-space-xl shadow-md flex flex-col gap-space-lg">
+<div class="flex items-center gap-space-sm pb-space-sm">
+<span class="w-7 h-7 rounded bg-primary text-on-primary flex items-center justify-center font-headline-sm text-headline-sm">04</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary uppercase tracking-tight">Observações Internas &amp; Homologação</h3>
+<p class="font-body-sm text-body-sm text-outline">Anotações restritas à gerência operacional, compliance e auditoria</p>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs">
+<label class="font-label-sm text-label-sm uppercase text-on-surface-variant flex items-center justify-between" for="observacoes_internas">
+<span>Notas de Verificação Cadastral</span>
+<span class="text-outline font-label-sm text-[11px]">Visível somente para supervisão CENTERLOC</span>
+</label>
+<textarea class="w-full p-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-secondary transition-all" id="observacoes_internas" placeholder="Adicione restrições de tráfego pesado, contatos de guarita ou restrições contratuais..." rows="3">Parceiro histórico em obras de infraestrutura costeira em Ipojuca. Apresentou certidões CND Federal e FGTS regulares até 11/2025. Habilitado para faturamento direto de locação e fornecimento de insumos com compensação de saldo quando aplicável.</textarea>
+</div>
+<!-- Compliance Checkpoints -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-space-xs">
+<label class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="w-4 h-4 rounded text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="font-label-md text-label-md text-on-surface">CND Federal Válida</span>
+</label>
+<label class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="w-4 h-4 rounded text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="font-label-md text-label-md text-on-surface">Contrato Social Arquivado</span>
+</label>
+<label class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="w-4 h-4 rounded text-secondary focus:ring-secondary" type="checkbox"/>
+<span class="font-label-md text-label-md text-on-surface">Termo LGPD Aceito</span>
+</label>
+</div>
+</section>
+<!-- Sticky Industrial Footer Bar -->
+<div class="sticky bottom-0 z-30 bg-surface-container-lowest/95 backdrop-blur-md -mx-space-lg px-space-xl py-space-md shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-space-md rounded-t-xl">
+<div class="flex items-center gap-space-sm">
+<a class="px-space-md py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-headline-sm text-headline-sm uppercase tracking-wider transition-colors flex items-center gap-space-xs" href="#">
+<span class="material-symbols-outlined text-[18px]">close</span>
+            Cancelar
+          </a>
+<span class="text-outline font-label-sm text-[11px] hidden md:inline">Alterações pendentes de sincronização</span>
+</div>
+<div class="flex items-center gap-space-md">
+<button class="px-space-md py-2 rounded-lg bg-surface-container-low hover:bg-surface-container text-primary font-headline-sm text-headline-sm uppercase tracking-wider transition-colors flex items-center gap-space-xs" onclick="saveDraft()" type="button">
+<span class="material-symbols-outlined text-[18px]">draft</span>
+            Salvar como Rascunho
+          </button>
+<button class="px-space-xl py-2.5 rounded-lg bg-secondary hover:bg-on-secondary-container text-on-secondary font-headline-md text-headline-md uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center gap-space-sm active:scale-95" type="submit">
+<span class="material-symbols-outlined text-[20px]">save</span>
+<span>Salvar Cadastro</span>
+</button>
+</div>
+</div>
+</form>
+</div>
+<!-- Toast Feedback Simulation -->
+<div class="fixed bottom-20 right-6 bg-primary text-on-primary px-space-lg py-space-md rounded-xl shadow-2xl flex items-center gap-space-md transform translate-y-32 opacity-0 pointer-events-none transition-all duration-300 z-50" id="toast-feedback">
+<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-on-secondary">
+<span class="material-symbols-outlined text-[20px]">done_all</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm uppercase tracking-wide text-secondary-container" id="toast-title">Sucesso</span>
+<span class="font-body-sm text-body-sm text-on-primary-container" id="toast-desc">Cadastro consolidado na base CENTERLOC Recife.</span>
+</div>
+</div>
+</div>
+<script>
+  let currentEntityType = 'ambos';
+
+  function setEntityType(type) {
+    currentEntityType = type;
+    const btnCliente = document.getElementById('btn-type-cliente');
+    const btnFornecedor = document.getElementById('btn-type-fornecedor');
+    const btnAmbos = document.getElementById('btn-type-ambos');
+
+    const modClient = document.getElementById('section-module-client');
+    const modSupplier = document.getElementById('section-module-supplier');
+
+    // Reset base styles
+    [btnCliente, btnFornecedor, btnAmbos].forEach(btn => {
+      btn.classList.remove('ring-2', 'ring-secondary', 'ring-primary', 'ring-primary-container', 'bg-surface-container-lowest', 'shadow-md');
+      btn.classList.add('bg-surface-container-low');
+      const check = btn.querySelector('.indicator-check');
+      if (check) check.classList.add('hidden');
+      if (check) check.classList.remove('flex');
+    });
+
+    if (type === 'cliente') {
+      btnCliente.classList.add('ring-2', 'ring-primary', 'bg-surface-container-lowest', 'shadow-md');
+      btnCliente.classList.remove('bg-surface-container-low');
+      const check = btnCliente.querySelector('.indicator-check');
+      check.classList.remove('hidden');
+      check.classList.add('flex');
+
+      modClient.classList.remove('hidden');
+      modSupplier.classList.add('hidden');
+    } else if (type === 'fornecedor') {
+      btnFornecedor.classList.add('ring-2', 'ring-primary-container', 'bg-surface-container-lowest', 'shadow-md');
+      btnFornecedor.classList.remove('bg-surface-container-low');
+      const check = btnFornecedor.querySelector('.indicator-check');
+      check.classList.remove('hidden');
+      check.classList.add('flex');
+
+      modClient.classList.add('hidden');
+      modSupplier.classList.remove('hidden');
+    } else if (type === 'ambos') {
+      btnAmbos.classList.add('ring-2', 'ring-secondary', 'bg-surface-container-lowest', 'shadow-md');
+      btnAmbos.classList.remove('bg-surface-container-low');
+      const check = btnAmbos.querySelector('.indicator-check');
+      check.classList.remove('hidden');
+      check.classList.add('flex');
+
+      modClient.classList.remove('hidden');
+      modSupplier.classList.remove('hidden');
+    }
+  }
+
+  function togglePersonType(type) {
+    const docLabel = document.getElementById('doc_label');
+    const docInput = document.getElementById('cnpj_cpf');
+    if (type === 'pf') {
+      docLabel.textContent = 'CPF (Pessoa Física)';
+      docInput.value = '482.910.334-00';
+      docInput.placeholder = '000.000.000-00';
+    } else {
+      docLabel.textContent = 'CNPJ (Receita Federal)';
+      docInput.value = '08.924.312/0001-90';
+      docInput.placeholder = '00.000.000/0000-00';
+    }
+  }
+
+  function updatePixPlaceholder(type) {
+    const pixInput = document.getElementById('chave_pix');
+    if (type === 'cnpj') pixInput.value = '08.924.312/0001-90';
+    else if (type === 'email') pixInput.value = 'financeiro@atlanticosul.eng.br';
+    else if (type === 'telefone') pixInput.value = '(81) 99872-4411';
+    else if (type === 'aleatoria') pixInput.value = 'd3a4-8f12-45e0-99c1-77b019';
+  }
+
+  function autoFillCep() {
+    showToast('CEP Localizado', 'Endereço atualizado: Boa Viagem, Recife - PE via base postal Suape.');
+    document.getElementById('bairro').value = 'Boa Viagem';
+    document.getElementById('cidade').value = 'Recife';
+    document.getElementById('uf').value = 'PE';
+    document.getElementById('logradouro').value = 'Avenida Engenheiro Domingos Ferreira';
+  }
+
+  function mockCnpjConsult() {
+    showToast('Consulta RFB Concluída', 'Dados da empresa CONSTRUTORA & ENGENHARIA ATLÂNTICO SUL LTDA verificados.');
+  }
+
+  function saveDraft() {
+    showToast('Rascunho Salvo', 'Dados salvos localmente. Você pode retomar o cadastro a qualquer momento.');
+  }
+
+  function submitRegistration() {
+    showToast('Cadastro Realizado!', 'Cliente e Fornecedor habilitado no sistema CENTERLOC com sucesso.');
+  }
+
+  function showToast(title, desc) {
+    const toast = document.getElementById('toast-feedback');
+    document.getElementById('toast-title').textContent = title;
+    document.getElementById('toast-desc').textContent = desc;
+    toast.classList.remove('translate-y-32', 'opacity-0', 'pointer-events-none');
+    toast.classList.add('translate-y-0', 'opacity-100');
+
+    setTimeout(() => {
+      toast.classList.add('translate-y-32', 'opacity-0', 'pointer-events-none');
+      toast.classList.remove('translate-y-0', 'opacity-100');
+    }, 3500);
+  }
+</script></main></div></body></html>
