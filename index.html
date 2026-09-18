@@ -2023,6 +2023,10 @@
       <div class="dialog-section-title">Dados Comerciais</div>
       <div class="form-grid">
         <div class="form-field">
+          <label>Valor do Bem (R$)</label>
+          <input type="number" id="frota-valorBem" step="0.01" min="0" placeholder="Valor de aquisição/patrimonial">
+        </div>
+        <div class="form-field">
           <label>Valor de Locação/Mês (R$) <span class="required-mark">*</span></label>
           <input type="number" id="frota-valor" step="0.01" min="0">
           <span class="field-error"></span>
@@ -3587,6 +3591,7 @@
       document.getElementById('frota-dim-comprimento').value = dim.comprimento || '';
       document.getElementById('frota-dim-largura').value = dim.largura || '';
       document.getElementById('frota-valor').value = f.valorLocacao || '';
+      document.getElementById('frota-valorBem').value = f.valorBem || '';
       document.getElementById('frota-status-display').innerHTML = frotaStatusBadge(f.status);
       document.getElementById('frota-status-display-wrap').style.display = 'block';
       document.getElementById('frota-status-new-note').style.display = 'none';
@@ -3640,6 +3645,7 @@
       fabricante: fabricante,
       anoFabricacao: parseInt(document.getElementById('frota-ano').value, 10) || null,
       valorLocacao: parseFloat(valorStr),
+      valorBem: parseFloat(document.getElementById('frota-valorBem').value) || 0,
       status: existing ? existing.status : 'disponivel',
       ultimaRevisao: document.getElementById('frota-ultimaRevisao').value || '',
       proximaRevisao: document.getElementById('frota-proximaRevisao').value || '',
@@ -3728,7 +3734,7 @@
         '</div>' +
         '<div class="card detail-card"><h3><span class="material-symbols-outlined">settings</span>Especificações Técnicas</h3>' + techRowsHtml + '</div>' +
         '<div class="card detail-card"><h3><span class="material-symbols-outlined">payments</span>Dados Comerciais</h3>' +
-          detailRow('Valor de Locação/Mês', formatBRL(f.valorLocacao)) + detailRow('Status Atual', frotaStatusBadge(f.status)) +
+          detailRow('Valor do Bem', f.valorBem ? formatBRL(f.valorBem) : '—') + detailRow('Valor de Locação/Mês', formatBRL(f.valorLocacao)) + detailRow('Status Atual', frotaStatusBadge(f.status)) +
         '</div>' +
         '<div class="card detail-card"><h3><span class="material-symbols-outlined">build</span>Histórico de Manutenção</h3>' +
           detailRow('Última Revisão', f.ultimaRevisao ? formatDate(f.ultimaRevisao) : '—') + detailRow('Próxima Revisão', f.proximaRevisao ? formatDate(f.proximaRevisao) : '—') + detailRow('Horas de Operação', (f.horasOperacao || 0) + ' h') +
