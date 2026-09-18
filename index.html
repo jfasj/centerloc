@@ -570,6 +570,7 @@
 </style>
 </head>
 <body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <!-- ============ LOGIN PAGE ============ -->
 <section id="login-page">
@@ -622,12 +623,12 @@
           </button>
         </div>
       </div>
-      <button type="submit" class="btn-login">
-        <span>Entrar</span>
+      <button type="submit" class="btn-login" id="btn-login-submit">
+        <span id="btn-login-submit-label">Entrar</span>
         <span class="material-symbols-outlined">arrow_forward</span>
       </button>
     </form>
-    <p class="login-hint">Acesso demo: admin@centerloc.com.br / centerloc2024</p>
+    <p class="login-hint" id="login-toggle-mode" style="cursor:pointer; text-decoration:underline;">Não tem conta? Criar conta</p>
   </div>
 </section>
 
@@ -2251,9 +2252,10 @@
 (function(){
   'use strict';
 
-  var DB_KEY = 'centerloc_v1';
-  var SESSION_KEY = 'centerloc_session';
-  var DEFAULT_USER = { email: 'admin@centerloc.com.br', senha: 'centerloc2024' };
+  var SUPABASE_URL = 'https://atpmcvprsjlilmrgsayd.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_fetnXZ-AARltLdagoBrYzQ_DcupGxYC';
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  var authMode = 'login';
 
   var BREADCRUMBS = {
     'dashboard': ['Principal', 'Dashboard'],
@@ -2356,12 +2358,16 @@
   /* ---------------- DB ---------------- */
 
   function loadDB(){
-    var raw = localStorage.getItem(DB_KEY);
-    if (raw) {
-      try { db = JSON.parse(raw); ensureSchemaV2(); return; } catch(e) { /* fallthrough to defaults */ }
-    }
-    initDefaultData();
-    saveDB();
+    return sb.from('company_data').select('data').eq('id', 1).maybeSingle().then(function(res){
+      if (res.error) throw res.error;
+      if (res.data && res.data.data){
+        db = res.data.data;
+        ensureSchemaV2();
+      } else {
+        initDefaultData();
+      }
+      return saveDB();
+    });
   }
 
   // Upgrades a DB persisted by an earlier sprint to include Sprint 2 collections.
@@ -2437,7 +2443,9 @@
   }
 
   function saveDB(){
-    localStorage.setItem(DB_KEY, JSON.stringify(db));
+    return sb.from('company_data').upsert({ id: 1, data: db, updated_at: new Date().toISOString() }).then(function(res){
+      if (res.error) showToast('Erro ao salvar na nuvem: ' + res.error.message, 'error');
+    });
   }
 
   function getDefaultLogomarca(){
@@ -2947,21 +2955,54 @@
 
   /* ---------------- Auth ---------------- */
 
+  function traduzErroAuth(msg){
+    if (/invalid login credentials/i.test(msg)) return 'E-mail ou senha inválidos.';
+    if (/already registered/i.test(msg)) return 'Este e-mail já está cadastrado. Tente entrar.';
+    if (/password.*at least/i.test(msg)) return 'A senha precisa ter pelo menos 6 caracteres.';
+    if (/unable to validate email/i.test(msg) || /invalid email/i.test(msg)) return 'E-mail inválido.';
+    return msg;
+  }
+
+  function setAuthMode(mode){
+    authMode = mode;
+    document.getElementById('btn-login-submit-label').textContent = mode === 'signup' ? 'Criar Conta' : 'Entrar';
+    document.getElementById('login-toggle-mode').textContent = mode === 'signup' ? 'Já tem conta? Entrar' : 'Não tem conta? Criar conta';
+    hideLoginError();
+  }
+
   function login(ev){
     ev.preventDefault();
     var email = document.getElementById('login-email').value.trim().toLowerCase();
     var senha = document.getElementById('login-senha').value;
-    if (email === DEFAULT_USER.email && senha === DEFAULT_USER.senha){
-      sessionStorage.setItem(SESSION_KEY, JSON.stringify({ email: email, loginAt: Date.now() }));
-      hideLoginError();
-      showApp();
-      goTo('dashboard');
-    } else {
-      showLoginError();
-    }
+    hideLoginError();
+    var btn = document.getElementById('btn-login-submit');
+    btn.disabled = true;
+    var action = authMode === 'signup'
+      ? sb.auth.signUp({ email: email, password: senha })
+      : sb.auth.signInWithPassword({ email: email, password: senha });
+    action.then(function(res){
+      btn.disabled = false;
+      if (res.error){
+        showLoginError(traduzErroAuth(res.error.message));
+        return;
+      }
+      if (authMode === 'signup' && !res.data.session){
+        showToast('Conta criada! Verifique seu e-mail para confirmar o acesso.', 'success');
+        setAuthMode('login');
+        return;
+      }
+      onLoggedIn(res.data.user);
+    });
   }
 
-  function showLoginError(){
+  function onLoggedIn(user){
+    hideLoginError();
+    showApp(user);
+    loadDB().then(function(){ applyBrandLogo(); goTo('dashboard'); });
+  }
+
+  function showLoginError(msg){
+    document.getElementById('login-error-msg').textContent = msg || 'Credenciais inválidas. Verifique seu e-mail e senha.';
     document.getElementById('login-error').classList.add('show');
   }
   function hideLoginError(){
@@ -2969,33 +3010,33 @@
   }
 
   function logout(){
-    sessionStorage.removeItem(SESSION_KEY);
-    document.getElementById('login-form').reset();
-    hideLoginError();
-    showLoginScreen();
+    sb.auth.signOut().then(function(){
+      document.getElementById('login-form').reset();
+      hideLoginError();
+      setAuthMode('login');
+      showLoginScreen();
+    });
   }
 
   function checkAuth(){
-    var session = sessionStorage.getItem(SESSION_KEY);
-    if (session){
-      showApp();
-      goTo('dashboard');
-    } else {
-      showLoginScreen();
-    }
+    sb.auth.getSession().then(function(res){
+      var session = res.data && res.data.session;
+      if (session){
+        onLoggedIn(session.user);
+      } else {
+        showLoginScreen();
+      }
+    });
   }
 
-  function showApp(){
+  function showApp(user){
     document.getElementById('login-page').style.display = 'none';
     document.getElementById('app-shell').style.display = 'block';
-    try {
-      var session = JSON.parse(sessionStorage.getItem(SESSION_KEY) || '{}');
-      if (session.email){
-        var initials = session.email.substring(0,2).toUpperCase();
-        document.getElementById('topbar-avatar').textContent = initials;
-        document.getElementById('topbar-username').textContent = session.email.split('@')[0];
-      }
-    } catch(e) {}
+    if (user && user.email){
+      var initials = user.email.substring(0,2).toUpperCase();
+      document.getElementById('topbar-avatar').textContent = initials;
+      document.getElementById('topbar-username').textContent = user.email.split('@')[0];
+    }
   }
 
   function showLoginScreen(){
@@ -5722,8 +5763,7 @@
   /* ---------------- Configurações ---------------- */
 
   function applyBrandLogo(){
-    var logo = db.empresa && db.empresa.logomarca;
-    if (!logo) return;
+    var logo = (db && db.empresa && db.empresa.logomarca) || getDefaultLogomarca();
 
     var loginLogo = document.getElementById('login-logo-block');
     if (loginLogo){
@@ -5810,6 +5850,9 @@
 
   function wireEvents(){
     document.getElementById('login-form').addEventListener('submit', login);
+    document.getElementById('login-toggle-mode').addEventListener('click', function(){
+      setAuthMode(authMode === 'signup' ? 'login' : 'signup');
+    });
 
     document.getElementById('toggle-senha-btn').addEventListener('click', function(){
       var input = document.getElementById('login-senha');
@@ -6227,7 +6270,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', function(){
-    loadDB();
     applyBrandLogo();
     wireEvents();
     checkAuth();
