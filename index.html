@@ -2191,6 +2191,12 @@
         <span class="field-error"></span>
       </div>
       <div class="form-field">
+        <label>Equipamento (opcional)</label>
+        <select id="pagar-frotaId">
+          <option value="">Custo não ligado a um equipamento específico</option>
+        </select>
+      </div>
+      <div class="form-field">
         <label>Observações</label>
         <textarea id="pagar-obs" rows="3"></textarea>
       </div>
@@ -5012,6 +5018,14 @@
     datalist.innerHTML = fornecedores.map(function(f){ return '<option value="' + f.razaoSocial + '">'; }).join('');
   }
 
+  function populateFrotaSelectPagar(selectedId){
+    var select = document.getElementById('pagar-frotaId');
+    select.innerHTML = '<option value="">Custo não ligado a um equipamento específico</option>' +
+      db.frota.map(function(f){
+        return '<option value="' + f.id + '"' + (f.id === selectedId ? ' selected' : '') + '>' + f.patrimonio + ' — ' + f.descricao + '</option>';
+      }).join('');
+  }
+
   function openModalNovaPagar(id){
     editingPagarId = id;
     populateFornecedoresDatalist();
@@ -5027,6 +5041,9 @@
       document.getElementById('pagar-valor').value = cp.valor || '';
       document.getElementById('pagar-dataVencimento').value = cp.dataVencimento || '';
       document.getElementById('pagar-obs').value = cp.obs || '';
+      populateFrotaSelectPagar(cp.frotaId || '');
+    } else {
+      populateFrotaSelectPagar('');
     }
     document.getElementById('modal-nova-pagar').showModal();
   }
@@ -5058,6 +5075,7 @@
       fornecedorId: fornecedor ? fornecedor.id : null,
       categoria: document.getElementById('pagar-categoria').value,
       valor: parseFloat(valorStr),
+      frotaId: document.getElementById('pagar-frotaId').value || null,
       dataVencimento: dataVencimento,
       dataPagamento: existing ? existing.dataPagamento : null,
       formaPagamento: existing ? existing.formaPagamento : null,
@@ -5370,9 +5388,8 @@
     });
 
     db.contasPagar.forEach(function(cp){
-      if (cp.categoria !== 'Manutenção' || cp.status !== 'pago' || !cp.dataPagamento || cp.dataPagamento.slice(0, 4) !== String(ano)) return;
-      var f = db.frota.filter(function(x){ return cp.descricao.indexOf(x.patrimonio) !== -1; })[0];
-      if (f) custoPorFrota[f.id] = (custoPorFrota[f.id] || 0) + cp.valor;
+      if (!cp.frotaId || cp.status !== 'pago' || !cp.dataPagamento || cp.dataPagamento.slice(0, 4) !== String(ano)) return;
+      custoPorFrota[cp.frotaId] = (custoPorFrota[cp.frotaId] || 0) + cp.valor;
     });
 
     var resultado = db.frota.map(function(f){
