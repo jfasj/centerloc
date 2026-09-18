@@ -1953,8 +1953,9 @@
       </div>
       <div class="form-grid">
         <div class="form-field">
-          <label>Patrimônio</label>
-          <input type="text" id="frota-patrimonio" disabled>
+          <label>Patrimônio <span class="required-mark">*</span></label>
+          <input type="text" id="frota-patrimonio" placeholder="ex: CLR-0001">
+          <span class="field-error"></span>
         </div>
         <div class="form-field">
           <label>Ano de Fabricação</label>
@@ -2014,6 +2015,10 @@
           <div class="form-field"></div>
         </div>
       </div>
+      <div class="form-field">
+        <label>Horímetro (h)</label>
+        <input type="number" id="frota-horasOperacao" min="0" placeholder="Horas de operação acumuladas">
+      </div>
 
       <div class="dialog-section-title">Dados Comerciais</div>
       <div class="form-grid">
@@ -2034,7 +2039,6 @@
         <div class="form-field"><label>Data da Última Revisão</label><input type="date" id="frota-ultimaRevisao"></div>
         <div class="form-field"><label>Próxima Revisão Programada</label><input type="date" id="frota-proximaRevisao"></div>
       </div>
-      <div class="form-field"><label>Horas de Operação Acumuladas</label><input type="number" id="frota-horasOperacao" min="0"></div>
       <div class="form-field"><label>Observações</label><textarea id="frota-observacoes" rows="3"></textarea></div>
 
     </div>
@@ -3606,26 +3610,31 @@
 
   function saveFrota(){
     clearFieldErrors('form-frota');
+    var id = editingFrotaId;
     var tipoChecked = document.querySelector('input[name="frota-tipo"]:checked');
     var tipo = tipoChecked ? tipoChecked.value : 'equipamento';
+    var patrimonio = document.getElementById('frota-patrimonio').value.trim();
     var descricao = document.getElementById('frota-descricao').value.trim();
     var modelo = document.getElementById('frota-modelo').value.trim();
     var fabricante = document.getElementById('frota-fabricante').value.trim();
     var valorStr = document.getElementById('frota-valor').value;
     var valid = true;
 
+    if (!patrimonio){ markInvalid('frota-patrimonio', 'Campo obrigatório.'); valid = false; }
+    else if (db.frota.some(function(f){ return f.patrimonio === patrimonio && f.id !== id; })){
+      markInvalid('frota-patrimonio', 'Já existe um ativo com este patrimônio.'); valid = false;
+    }
     if (!descricao){ markInvalid('frota-descricao', 'Campo obrigatório.'); valid = false; }
     if (!modelo){ markInvalid('frota-modelo', 'Campo obrigatório.'); valid = false; }
     if (!fabricante){ markInvalid('frota-fabricante', 'Campo obrigatório.'); valid = false; }
     if (!valorStr || parseFloat(valorStr) <= 0){ markInvalid('frota-valor', 'Informe um valor válido.'); valid = false; }
     if (!valid) return;
 
-    var id = editingFrotaId;
     var existing = id ? db.frota.filter(function(x){ return x.id === id; })[0] : null;
     var record = {
       id: id || gerarId('F', db.nextIds.frota),
       tipo: tipo,
-      patrimonio: existing ? existing.patrimonio : gerarPatrimonio(),
+      patrimonio: patrimonio,
       descricao: descricao,
       modelo: modelo,
       fabricante: fabricante,
