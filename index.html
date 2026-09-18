@@ -2426,7 +2426,7 @@
       db.nextIds.contaReceber = 18;
       changed = true;
     }
-    if (!db.contasPagar || db.contasPagar.length === 0){
+    if (!db.contasPagar){
       db.contasPagar = buildSeedContasPagar();
       db.nextIds.contaPagar = 7;
       changed = true;
