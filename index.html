@@ -1700,7 +1700,7 @@
           <h2>Rentabilidade por Ativo</h2>
           <div style="overflow-x:auto;">
             <table class="data-table">
-              <thead><tr><th>Equipamento</th><th class="text-right">Meses Locado</th><th class="text-right">Receita Gerada</th><th class="text-right">Custo Manutenção</th><th class="text-right">Resultado</th><th class="text-right">Rentabilidade</th></tr></thead>
+              <thead><tr><th>Equipamento</th><th class="text-right">Meses Locado</th><th class="text-right">Receita Gerada</th><th class="text-right">Custo Total</th><th class="text-right">Resultado</th><th class="text-right">Rentabilidade</th></tr></thead>
               <tbody id="dre-ativos-tbody"></tbody>
             </table>
           </div>
@@ -5330,6 +5330,17 @@
     return null;
   }
 
+  function diasSobrepostosNoMes(dataInicio, dataFim, ano, mes){
+    var inicioMes = new Date(ano, mes - 1, 1);
+    var fimMes = new Date(ano, mes, 0);
+    var inicio = new Date(dataInicio);
+    var fim = new Date(dataFim);
+    var overlapStart = inicio > inicioMes ? inicio : inicioMes;
+    var overlapEnd = fim < fimMes ? fim : fimMes;
+    if (overlapEnd < overlapStart) return 0;
+    return Math.round((overlapEnd - overlapStart) / 86400000) + 1;
+  }
+
   function contarMesesNoAno(dataInicio, dataFim, ano){
     var start = new Date(dataInicio);
     var end = new Date(dataFim);
@@ -5391,6 +5402,32 @@
       if (!cp.frotaId || cp.status !== 'pago' || !cp.dataPagamento || cp.dataPagamento.slice(0, 4) !== String(ano)) return;
       custoPorFrota[cp.frotaId] = (custoPorFrota[cp.frotaId] || 0) + cp.valor;
     });
+
+    // Rateia custos sem equipamento vinculado (salários, administrativo etc.) entre os
+    // equipamentos locados em cada mês, proporcional aos dias de locação de cada um.
+    for (var m = 1; m <= 12; m++){
+      var monthKey = ano + '-' + pad2(m);
+      var diasPorFrotaMes = {};
+      var totalDiasMes = 0;
+      db.contratos.forEach(function(c){
+        (c.itens || []).forEach(function(it){
+          if (!it.frotaId) return;
+          var dias = diasSobrepostosNoMes(c.dataInicio, c.dataFim, ano, m);
+          if (dias > 0){
+            diasPorFrotaMes[it.frotaId] = (diasPorFrotaMes[it.frotaId] || 0) + dias;
+            totalDiasMes += dias;
+          }
+        });
+      });
+      var custoIndiretoMes = sum(db.contasPagar.filter(function(cp){
+        return !cp.frotaId && cp.status === 'pago' && cp.dataPagamento && cp.dataPagamento.slice(0, 7) === monthKey;
+      }).map(function(cp){ return cp.valor; }));
+      if (custoIndiretoMes > 0 && totalDiasMes > 0){
+        Object.keys(diasPorFrotaMes).forEach(function(fid){
+          custoPorFrota[fid] = (custoPorFrota[fid] || 0) + custoIndiretoMes * (diasPorFrotaMes[fid] / totalDiasMes);
+        });
+      }
+    }
 
     var resultado = db.frota.map(function(f){
       var receita = receitaPorFrota[f.id] || 0;
