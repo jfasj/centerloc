@@ -1821,6 +1821,13 @@
     </header>
     <div class="dialog-body">
 
+      <div class="form-field" id="cli-puxar-locatario-wrap">
+        <label>Puxar dados de um Locatário já cadastrado (opcional)</label>
+        <select id="cli-puxar-locatario">
+          <option value="">Selecione para preencher automaticamente...</option>
+        </select>
+      </div>
+
       <div class="form-grid">
         <div class="form-field">
           <label>Tipo <span class="required-mark">*</span></label>
@@ -3430,11 +3437,40 @@
     renderPagination('clientes-pagination', pageInfo, function(p){ listState.clientes.page = p; renderClientes(); });
   }
 
+  function populatePuxarLocatario(){
+    var select = document.getElementById('cli-puxar-locatario');
+    select.innerHTML = '<option value="">Selecione para preencher automaticamente...</option>' +
+      db.locatarios.map(function(l){
+        return '<option value="' + l.id + '">' + l.razaoSocial + ' — ' + l.cnpj + '</option>';
+      }).join('');
+  }
+
+  function preencherClienteDeLocatario(locatarioId){
+    var l = db.locatarios.filter(function(x){ return x.id === locatarioId; })[0];
+    if (!l) return;
+    var e = l.endereco || {};
+    document.getElementById('cli-razaoSocial').value = l.razaoSocial || '';
+    document.getElementById('cli-cnpj').value = l.cnpj || '';
+    document.getElementById('cli-ie').value = l.inscricaoEstadual || '';
+    document.getElementById('cli-contato').value = l.contato || '';
+    document.getElementById('cli-cargo').value = l.cargo || '';
+    document.getElementById('cli-email').value = l.email || '';
+    document.getElementById('cli-telefone').value = l.telefone || '';
+    document.getElementById('cli-rua').value = e.rua || '';
+    document.getElementById('cli-numero').value = e.numero || '';
+    document.getElementById('cli-bairro').value = e.bairro || '';
+    document.getElementById('cli-cidade').value = e.cidade || '';
+    document.getElementById('cli-uf').value = e.uf || 'PE';
+    document.getElementById('cli-cep').value = e.cep || '';
+  }
+
   function openModalCliente(id){
     editingClienteId = id;
     clearFieldErrors('form-cliente');
     document.getElementById('modal-cliente-title').textContent = id ? 'Editar Cliente/Fornecedor' : 'Novo Cliente/Fornecedor';
     document.getElementById('form-cliente').reset();
+    document.getElementById('cli-puxar-locatario-wrap').style.display = id ? 'none' : 'block';
+    if (!id) populatePuxarLocatario();
     if (id){
       var c = db.clientes.filter(function(x){ return x.id === id; })[0];
       var e = c.endereco || {};
@@ -5955,6 +5991,9 @@
     document.getElementById('btn-novo-cliente').addEventListener('click', function(){ openModalCliente(null); });
     document.getElementById('clientes-search').addEventListener('input', function(e){ filtrarClientes(e.target.value); });
     document.getElementById('btn-save-cliente').addEventListener('click', saveCliente);
+    document.getElementById('cli-puxar-locatario').addEventListener('change', function(e){
+      if (e.target.value) preencherClienteDeLocatario(e.target.value);
+    });
     var closeClienteEls = document.querySelectorAll('[data-close-cliente]');
     for (var cc = 0; cc < closeClienteEls.length; cc++){
       closeClienteEls[cc].addEventListener('click', closeModalCliente);
