@@ -854,6 +854,17 @@
             </div>
 
             <div class="cfg-section">
+              <h3><span class="material-symbols-outlined">group</span>Usuários e Permissões</h3>
+              <p style="margin:0; font-size:13px; color:var(--color-text-secondary);">Cada pessoa cria a própria conta na tela de login. Aqui você define o que cada uma pode acessar: <strong>Admin</strong> vê tudo; <strong>Operacional</strong> vê só Dashboard, Locatários, Frota, Contratos e Propostas (sem Financeiro nem Configurações).</p>
+              <div style="overflow-x:auto;">
+                <table class="data-table">
+                  <thead><tr><th>E-mail</th><th>Perfil</th></tr></thead>
+                  <tbody id="usuarios-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="cfg-section">
               <h3><span class="material-symbols-outlined">cloud_download</span>Backup de Dados</h3>
               <p style="margin:0; font-size:13px; color:var(--color-text-secondary);">Os dados já ficam salvos automaticamente na nuvem, com um histórico diário guardado como segurança extra. Ainda assim, recomendamos baixar uma cópia de vez em quando para guardar no seu computador.</p>
               <div>
@@ -2316,6 +2327,9 @@
   };
 
   var db = null;
+  var currentUser = null;
+  var currentUserRole = null;
+  var RESTRICTED_SECTIONS_OPERACIONAL = ['clientes', 'notas', 'contas-receber', 'contas-pagar', 'fluxo-caixa', 'relatorios', 'dre', 'configuracoes'];
   var currentSection = 'dashboard';
 
   var PAGE_SIZE = 15;
@@ -3044,8 +3058,38 @@
 
   function onLoggedIn(user){
     hideLoginError();
-    showApp(user);
-    loadDB().then(function(){ applyBrandLogo(); goTo('dashboard'); });
+    currentUser = user;
+    loadDB().then(function(){
+      applyBrandLogo();
+      return fetchOrCreateProfile(user);
+    }).then(function(role){
+      currentUserRole = role;
+      showApp(user);
+      applyRolePermissions();
+      goTo('dashboard');
+    });
+  }
+
+  function fetchOrCreateProfile(user){
+    return sb.from('profiles').select('role').eq('id', user.id).maybeSingle().then(function(res){
+      if (res.data && res.data.role) return res.data.role;
+      return sb.from('profiles').select('id', { count: 'exact', head: true }).then(function(countRes){
+        var role = (countRes.count === 0) ? 'admin' : 'operacional';
+        return sb.from('profiles').insert({ id: user.id, email: user.email, role: role }).then(function(){
+          return role;
+        });
+      });
+    }).catch(function(){
+      return 'admin';
+    });
+  }
+
+  function applyRolePermissions(){
+    var restrito = currentUserRole === 'operacional';
+    RESTRICTED_SECTIONS_OPERACIONAL.forEach(function(section){
+      var link = document.querySelector('.sidebar-link[data-section="' + section + '"]');
+      if (link) link.style.display = restrito ? 'none' : '';
+    });
   }
 
   function showLoginError(msg){
@@ -3061,6 +3105,12 @@
       document.getElementById('login-form').reset();
       hideLoginError();
       setAuthMode('login');
+      currentUser = null;
+      currentUserRole = null;
+      RESTRICTED_SECTIONS_OPERACIONAL.forEach(function(section){
+        var link = document.querySelector('.sidebar-link[data-section="' + section + '"]');
+        if (link) link.style.display = '';
+      });
       showLoginScreen();
     });
   }
@@ -3094,6 +3144,10 @@
   /* ---------------- Routing ---------------- */
 
   function goTo(section){
+    if (currentUserRole === 'operacional' && RESTRICTED_SECTIONS_OPERACIONAL.indexOf(section) !== -1){
+      showToast('Você não tem permissão para acessar esta área.', 'error');
+      return;
+    }
     currentSection = section;
     var sections = document.querySelectorAll('.section');
     for (var i = 0; i < sections.length; i++) sections[i].classList.remove('active');
@@ -6030,7 +6084,47 @@
     if (sidebarWord) sidebarWord.style.display = 'none';
   }
 
+  function renderUsuarios(){
+    var tbody = document.getElementById('usuarios-tbody');
+    if (currentUserRole !== 'admin'){
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="2">Apenas administradores podem gerenciar usuários.</td></tr>';
+      return;
+    }
+    sb.from('profiles').select('id, email, role').order('email').then(function(res){
+      if (res.error){
+        tbody.innerHTML = '<tr class="empty-row"><td colspan="2">Erro ao carregar usuários.</td></tr>';
+        return;
+      }
+      var lista = res.data || [];
+      if (lista.length === 0){
+        tbody.innerHTML = '<tr class="empty-row"><td colspan="2">Nenhum usuário encontrado.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = lista.map(function(u){
+        var isSelf = u.id === currentUser.id;
+        return '<tr>' +
+          '<td>' + u.email + (isSelf ? ' <span style="color:var(--color-text-secondary);">(você)</span>' : '') + '</td>' +
+          '<td><select data-user-id="' + u.id + '" class="usuario-role-select"' + (isSelf ? ' disabled title="Você não pode alterar seu próprio perfil"' : '') + '>' +
+            '<option value="admin"' + (u.role === 'admin' ? ' selected' : '') + '>Admin</option>' +
+            '<option value="operacional"' + (u.role === 'operacional' ? ' selected' : '') + '>Operacional</option>' +
+          '</select></td>' +
+          '</tr>';
+      }).join('');
+    });
+  }
+
+  function alterarPerfilUsuario(userId, novoRole){
+    sb.from('profiles').update({ role: novoRole }).eq('id', userId).then(function(res){
+      if (res.error){
+        showToast('Erro ao alterar perfil: ' + res.error.message, 'error');
+      } else {
+        showToast('Perfil atualizado com sucesso!', 'success');
+      }
+    });
+  }
+
   function loadConfiguracoes(){
+    renderUsuarios();
     var e = db.empresa;
     document.getElementById('cfg-razaoSocial').value = e.razaoSocial || '';
     document.getElementById('cfg-cnpj').value = e.cnpj || '';
@@ -6122,6 +6216,11 @@
     document.getElementById('cfg-form').addEventListener('submit', saveConfiguracoes);
     document.getElementById('cfg-logo-input').addEventListener('change', handleLogoUpload);
     document.getElementById('btn-baixar-backup').addEventListener('click', baixarBackup);
+    document.getElementById('usuarios-tbody').addEventListener('change', function(e){
+      if (e.target.classList.contains('usuario-role-select')){
+        alterarPerfilUsuario(e.target.dataset.userId, e.target.value);
+      }
+    });
 
     document.getElementById('btn-novo-topbar').addEventListener('click', function(){
       showToast('Selecione um módulo de cadastro para criar um novo registro.', 'info');
