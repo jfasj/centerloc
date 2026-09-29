@@ -713,6 +713,13 @@
 
       <div class="dash-row">
         <div class="card">
+          <h2><span class="material-symbols-outlined" style="vertical-align:middle; font-size:20px;">notifications_active</span> Alertas</h2>
+          <div id="alertas-content"></div>
+        </div>
+      </div>
+
+      <div class="dash-row">
+        <div class="card">
           <h2>Recebimentos — Últimos 6 Meses</h2>
           <canvas id="revenue-chart"></canvas>
         </div>
@@ -3298,8 +3305,72 @@
 
   function renderDashboard(){
     renderKPIs();
+    renderAlertas();
     renderContratosTable();
     renderChart(computeMonthlyRevenue());
+  }
+
+  function calcAlertas(){
+    var hoje = new Date().toISOString().slice(0, 10);
+    var em30dias = new Date(); em30dias.setDate(em30dias.getDate() + 30);
+    var em30diasStr = em30dias.toISOString().slice(0, 10);
+    var em7dias = new Date(); em7dias.setDate(em7dias.getDate() + 7);
+    var em7diasStr = em7dias.toISOString().slice(0, 10);
+
+    var contratosVencendo = db.contratos.filter(function(c){
+      return c.status === 'ativo' && c.dataFim && c.dataFim <= em30diasStr;
+    }).sort(function(a, b){ return a.dataFim < b.dataFim ? -1 : 1; });
+
+    var contasPagarUrgentes = db.contasPagar.filter(function(cp){
+      var s = contaPagarStatusInfo(cp);
+      return s === 'vencido' || (s === 'pendente' && cp.dataVencimento <= em7diasStr);
+    }).sort(function(a, b){ return a.dataVencimento < b.dataVencimento ? -1 : 1; });
+
+    var contasReceberUrgentes = db.contasReceber.filter(function(cr){
+      var s = contaReceberStatusInfo(cr);
+      return s === 'vencido' || (s === 'pendente' && cr.dataVencimento <= em7diasStr);
+    }).sort(function(a, b){ return a.dataVencimento < b.dataVencimento ? -1 : 1; });
+
+    var frotaRevisao = db.frota.filter(function(f){
+      return f.proximaRevisao && f.proximaRevisao <= em30diasStr && f.status !== 'manutencao';
+    }).sort(function(a, b){ return a.proximaRevisao < b.proximaRevisao ? -1 : 1; });
+
+    return { hoje: hoje, contratosVencendo: contratosVencendo, contasPagarUrgentes: contasPagarUrgentes, contasReceberUrgentes: contasReceberUrgentes, frotaRevisao: frotaRevisao };
+  }
+
+  function renderAlertas(){
+    var container = document.getElementById('alertas-content');
+    var a = calcAlertas();
+    var totalAlertas = a.contratosVencendo.length + a.contasPagarUrgentes.length + a.contasReceberUrgentes.length + a.frotaRevisao.length;
+
+    if (totalAlertas === 0){
+      container.innerHTML = '<p style="margin:0; color:var(--color-text-secondary);"><span class="material-symbols-outlined" style="vertical-align:middle; color:var(--color-success);">check_circle</span> Nenhum alerta no momento. Tudo em dia!</p>';
+      return;
+    }
+
+    function bloco(titulo, itens, renderItem){
+      if (!itens.length) return '';
+      return '<div style="margin-bottom:16px;">' +
+        '<div style="font-weight:700; font-size:12px; text-transform:uppercase; color:var(--color-navy); margin-bottom:6px;">' + titulo + ' (' + itens.length + ')</div>' +
+        '<ul style="margin:0; padding-left:20px; font-size:13px;">' +
+          itens.slice(0, 5).map(renderItem).join('') +
+        '</ul>' +
+      '</div>';
+    }
+
+    container.innerHTML =
+      bloco('Contratos vencendo em até 30 dias', a.contratosVencendo, function(c){
+        return '<li>' + c.numero + ' — ' + getLocatarioNome(c.locatarioId) + ' — encerra em ' + formatDate(c.dataFim) + '</li>';
+      }) +
+      bloco('Contas a Pagar vencidas ou a vencer em 7 dias', a.contasPagarUrgentes, function(cp){
+        return '<li>' + cp.descricao + ' — ' + formatBRL(cp.valor) + ' — venc. ' + formatDate(cp.dataVencimento) + '</li>';
+      }) +
+      bloco('Contas a Receber vencidas ou a vencer em 7 dias', a.contasReceberUrgentes, function(cr){
+        return '<li>' + getLocatarioNome(cr.locatarioId) + ' — ' + formatBRL(cr.valor) + ' — venc. ' + formatDate(cr.dataVencimento) + '</li>';
+      }) +
+      bloco('Manutenção programada nos próximos 30 dias', a.frotaRevisao, function(f){
+        return '<li>' + f.patrimonio + ' — ' + f.descricao + ' — revisão em ' + formatDate(f.proximaRevisao) + '</li>';
+      });
   }
 
   /* ---------------- Locatários (T04/T05) ---------------- */
