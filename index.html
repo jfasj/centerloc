@@ -890,6 +890,7 @@
       <div class="page-header">
         <h1>Veículos / Equipamentos</h1>
         <div class="page-header-actions">
+          <button class="btn btn-outline" id="btn-imprimir-frota"><span class="material-symbols-outlined">print</span><span>Imprimir</span></button>
           <button class="btn btn-primary" id="btn-novo-frota"><span class="material-symbols-outlined">add</span><span>Novo Ativo</span></button>
         </div>
       </div>
@@ -1717,6 +1718,10 @@
       <div id="relatorio-print-content"></div>
     </section>
 
+    <section id="sec-frota-print" class="section">
+      <div id="frota-print-content"></div>
+    </section>
+
   </main>
 </div>
 
@@ -2279,6 +2284,7 @@
     'fluxo-caixa': ['Financeiro', 'Fluxo de Caixa'],
     'frota': ['Cadastros', 'Veículos / Equipamentos'],
     'frota-detalhe': ['Cadastros', 'Detalhe do Equipamento'],
+    'frota-print': ['Cadastros', 'Impressão da Relação de Equipamentos'],
     'relatorios': ['Relatórios', 'Relatórios BI'],
     'relatorio-print': ['Relatórios', 'Relatório Gerencial'],
     'dre': ['Relatórios', 'DRE'],
@@ -2370,7 +2376,7 @@
       } else {
         initDefaultData();
       }
-      return saveDB();
+      saveDB();
     });
   }
 
@@ -3065,6 +3071,7 @@
     if (section === 'clientes') renderClientes();
     if (section === 'frota') renderFrota();
     if (section === 'frota-detalhe') renderFrotaDetalhe(currentFrotaDetalheId);
+    if (section === 'frota-print') renderFrotaListagemPrint();
     if (section === 'contratos') renderContratos();
     if (section === 'novo-contrato') renderFormContrato(editingContratoId);
     if (section === 'contrato-print') renderContratoA4(currentContratoPrintId);
@@ -3625,6 +3632,65 @@
       }).join('');
     }
     renderPagination('frota-pagination', pageInfo, function(p){ frotaState.page = p; renderFrota(); });
+  }
+
+  function openFrotaListagemPrint(){
+    goTo('frota-print');
+  }
+
+  function renderFrotaListagemPrint(){
+    var container = document.getElementById('frota-print-content');
+    var emp = db.empresa;
+    var q = normalizeText(frotaState.query);
+    var filtered = db.frota.filter(function(f){
+      var matchQuery = !q ||
+        normalizeText(f.descricao).indexOf(q) !== -1 ||
+        normalizeText(f.placa).indexOf(q) !== -1 ||
+        normalizeText(f.patrimonio).indexOf(q) !== -1 ||
+        normalizeText(f.chassi).indexOf(q) !== -1;
+      var matchTipo = !frotaState.tipo || f.tipo === frotaState.tipo;
+      var matchStatus = !frotaState.status || f.status === frotaState.status;
+      return matchQuery && matchTipo && matchStatus;
+    });
+
+    var rows = filtered.map(function(f){
+      var ident = f.tipo === 'veiculo' ? (f.placa || '—') : (f.serie || '—');
+      return '<tr>' +
+        '<td>' + f.patrimonio + '</td>' +
+        '<td>' + (f.tipo === 'veiculo' ? 'Veículo' : 'Equipamento') + '</td>' +
+        '<td>' + f.descricao + '</td>' +
+        '<td>' + (f.modelo || '—') + ' / ' + (f.fabricante || '—') + '</td>' +
+        '<td class="text-right">' + (f.anoFabricacao || '—') + '</td>' +
+        '<td>' + ident + '</td>' +
+        '<td class="text-right">' + formatBRL(f.valorLocacao) + '</td>' +
+        '<td>' + (FROTA_STATUS_LABELS[f.status] || f.status) + '</td>' +
+        '</tr>';
+    }).join('') || '<tr class="empty-row"><td colspan="8">Nenhum item encontrado.</td></tr>';
+
+    var filtrosAtivos = [];
+    if (frotaState.tipo) filtrosAtivos.push(frotaState.tipo === 'veiculo' ? 'Veículos' : 'Equipamentos');
+    if (frotaState.status) filtrosAtivos.push(FROTA_STATUS_LABELS[frotaState.status] || frotaState.status);
+    if (frotaState.query) filtrosAtivos.push('Busca: "' + frotaState.query + '"');
+    var filtrosLabel = filtrosAtivos.length ? filtrosAtivos.join(' · ') : 'Todos os ativos';
+
+    container.innerHTML =
+      '<div class="a4-actions no-print">' +
+        '<button type="button" class="btn btn-outline" id="btn-voltar-frota-print"><span class="material-symbols-outlined">arrow_back</span><span>Voltar</span></button>' +
+        '<button type="button" class="btn btn-primary" id="btn-imprimir-frota-print"><span class="material-symbols-outlined">print</span><span>Imprimir</span></button>' +
+      '</div>' +
+      '<div class="a4-sheet">' +
+        '<div class="a4-header">' +
+          '<div class="a4-logo">' + (emp.logomarca ? '<img src="' + emp.logomarca + '" alt="Logo">' : '<div class="a4-logo-fallback">' + (emp.razaoSocial || 'C').charAt(0) + '</div>') + '</div>' +
+          '<div class="a4-empresa-dados"><strong>' + emp.razaoSocial + '</strong><br>CNPJ: ' + emp.cnpj + '<br>' + emp.endereco + ' — ' + emp.cidade + '/' + emp.uf + '</div>' +
+        '</div>' +
+        '<h1 class="a4-title">Relação de Veículos e Equipamentos</h1>' +
+        '<div class="a4-meta"><span>Data de Emissão: <strong>' + formatDate(new Date().toISOString().slice(0, 10)) + '</strong></span><span>Filtro: <strong>' + filtrosLabel + '</strong></span></div>' +
+        '<table class="a4-table"><thead><tr><th>Patrimônio</th><th>Tipo</th><th>Descrição</th><th>Modelo / Fabricante</th><th class="text-right">Ano</th><th>Placa/Série</th><th class="text-right">Valor/Mês</th><th>Status</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+        '<div class="a4-meta" style="margin-top:12px;"><span>Total de itens: <strong>' + filtered.length + '</strong></span></div>' +
+      '</div>';
+
+    document.getElementById('btn-voltar-frota-print').addEventListener('click', function(){ goTo('frota'); });
+    document.getElementById('btn-imprimir-frota-print').addEventListener('click', function(){ window.print(); });
   }
 
   function gerarPatrimonio(){
@@ -6028,6 +6094,7 @@
 
     /* Frota (Veículos/Equipamentos) */
     document.getElementById('btn-novo-frota').addEventListener('click', function(){ openModalFrota(null); });
+    document.getElementById('btn-imprimir-frota').addEventListener('click', openFrotaListagemPrint);
     document.getElementById('frota-search').addEventListener('input', function(e){ filtrarFrota(e.target.value); });
     document.getElementById('frota-status-filter').addEventListener('change', function(e){ filtrarFrota(undefined, undefined, e.target.value); });
     document.getElementById('frota-tipo-tabs').addEventListener('click', function(e){
