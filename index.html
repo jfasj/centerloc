@@ -1353,8 +1353,9 @@
           <div class="dialog-section-title" style="margin-top:0; padding-top:0; border-top:none;">Identificação</div>
           <div class="form-grid cols-4">
             <div class="form-field">
-              <label>Nº da Nota</label>
-              <input type="text" id="nota-numero-display" disabled>
+              <label>Nº da Nota <span class="required-mark">*</span></label>
+              <input type="text" id="nota-numero-display">
+              <span class="field-error"></span>
             </div>
             <div class="form-field" style="position:relative;">
               <label>Sacado (Locatário) <span class="required-mark">*</span></label>
@@ -4909,11 +4910,18 @@
 
   function saveNota(){
     clearFieldErrors('form-nota');
+    var numero = document.getElementById('nota-numero-display').value.trim();
     var locatarioId = document.getElementById('nota-locatario-id').value;
     var dataEmissao = document.getElementById('nota-dataEmissao').value;
     var dataVencimento = document.getElementById('nota-dataVencimento').value;
     var valid = true;
 
+    var id = editingNotaId;
+
+    if (!numero){ markInvalid('nota-numero-display', 'Campo obrigatório.'); valid = false; }
+    else if (db.notas.some(function(n){ return n.numero === numero && n.id !== id; })){
+      markInvalid('nota-numero-display', 'Já existe uma nota com este número.'); valid = false;
+    }
     if (!locatarioId){ markInvalid('nota-locatario-search', 'Selecione um locatário.'); valid = false; }
     if (!dataEmissao){ markInvalid('nota-dataEmissao', 'Campo obrigatório.'); valid = false; }
     if (!dataVencimento){ markInvalid('nota-dataVencimento', 'Campo obrigatório.'); valid = false; }
@@ -4924,7 +4932,6 @@
     }
     if (!valid) return;
 
-    var id = editingNotaId;
     var existing = id ? db.notas.filter(function(x){ return x.id === id; })[0] : null;
     var seq = existing ? parseInt(existing.id.replace(/\D/g, ''), 10) : db.nextIds.nota;
 
@@ -4933,7 +4940,7 @@
 
     var record = {
       id: existing ? existing.id : gerarId('ND', seq),
-      numero: existing ? existing.numero : ('ND-' + String(seq).padStart(4, '0')),
+      numero: numero,
       locatarioId: locatarioId,
       contratoId: document.getElementById('nota-contrato-id').value || '',
       dataEmissao: dataEmissao,
