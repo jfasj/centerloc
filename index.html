@@ -846,6 +846,14 @@
               </div>
             </div>
 
+            <div class="cfg-section">
+              <h3><span class="material-symbols-outlined">cloud_download</span>Backup de Dados</h3>
+              <p style="margin:0; font-size:13px; color:var(--color-text-secondary);">Os dados já ficam salvos automaticamente na nuvem, com um histórico diário guardado como segurança extra. Ainda assim, recomendamos baixar uma cópia de vez em quando para guardar no seu computador.</p>
+              <div>
+                <button type="button" class="btn btn-secondary" id="btn-baixar-backup"><span class="material-symbols-outlined">download</span><span>Baixar Backup Completo</span></button>
+              </div>
+            </div>
+
           </div>
 
           <div class="cfg-footer">
@@ -2261,6 +2269,7 @@
 (function(){
   'use strict';
 
+  var lastSnapshotDate = null;
   var SUPABASE_URL = 'https://atpmcvprsjlilmrgsayd.supabase.co';
   var SUPABASE_KEY = 'sb_publishable_fetnXZ-AARltLdagoBrYzQ_DcupGxYC';
   var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -2455,7 +2464,28 @@
   function saveDB(){
     return sb.from('company_data').upsert({ id: 1, data: db, updated_at: new Date().toISOString() }).then(function(res){
       if (res.error) showToast('Erro ao salvar na nuvem: ' + res.error.message, 'error');
+      var hoje = new Date().toISOString().slice(0, 10);
+      if (lastSnapshotDate !== hoje){
+        lastSnapshotDate = hoje;
+        sb.from('company_data_history').insert({ data: db }).then(function(histRes){
+          if (histRes.error) console.error('Erro ao salvar backup histórico:', histRes.error.message);
+        });
+      }
     });
+  }
+
+  function baixarBackup(){
+    var json = JSON.stringify(db, null, 2);
+    var blob = new Blob([json], { type: 'application/json;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'centerloc-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('Backup baixado com sucesso!', 'success');
   }
 
   function getDefaultLogomarca(){
@@ -6020,6 +6050,7 @@
 
     document.getElementById('cfg-form').addEventListener('submit', saveConfiguracoes);
     document.getElementById('cfg-logo-input').addEventListener('change', handleLogoUpload);
+    document.getElementById('btn-baixar-backup').addEventListener('click', baixarBackup);
 
     document.getElementById('btn-novo-topbar').addEventListener('click', function(){
       showToast('Selecione um módulo de cadastro para criar um novo registro.', 'info');
