@@ -1382,9 +1382,13 @@
               <input type="date" id="nota-dataEmissao">
               <span class="field-error"></span>
             </div>
-            <div class="form-field">
-              <label>Data de Vencimento <span class="required-mark">*</span></label>
-              <input type="date" id="nota-dataVencimento">
+            <div class="form-field full">
+              <label>Vencimento(s) <span class="required-mark">*</span></label>
+              <div id="nota-parcelas-list" style="display:flex; flex-direction:column; gap:8px;"></div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; flex-wrap:wrap; gap:8px;">
+                <button type="button" class="btn btn-outline" id="btn-add-parcela"><span class="material-symbols-outlined">add</span><span>Adicionar Parcela</span></button>
+                <span id="nota-parcelas-soma-aviso" style="font-size:12px; color:var(--color-danger); display:none;"></span>
+              </div>
               <span class="field-error"></span>
             </div>
           </div>
@@ -2380,6 +2384,7 @@
   var editingNotaId = null;
   var currentNotaPrintId = null;
   var notaFormItens = [];
+  var notaFormParcelas = [];
   var notaBaixaTargetId = null;
 
   var receberState = { query: '', status: '', periodo: '', page: 1 };
@@ -2866,6 +2871,7 @@
   function notaVencimentoCell(n){
     var info = notaStatusInfo(n);
     var text = formatDate(n.dataVencimento);
+    if (n.parcelas && n.parcelas.length > 1) text += ' (+' + (n.parcelas.length - 1) + ' parcela' + (n.parcelas.length > 2 ? 's' : '') + ')';
     return info.label === 'Vencida' ? '<span class="badge badge-danger">' + text + '</span>' : text;
   }
 
@@ -4862,8 +4868,10 @@
       updateNotaContratoOptions(n.locatarioId);
       document.getElementById('nota-contrato-id').value = n.contratoId || '';
       document.getElementById('nota-dataEmissao').value = n.dataEmissao;
-      document.getElementById('nota-dataVencimento').value = n.dataVencimento;
       notaFormItens = (n.itens || []).map(function(it){ return { descricao: it.descricao, periodo: it.periodo || '', valor: it.valor }; });
+      notaFormParcelas = (n.parcelas && n.parcelas.length)
+        ? n.parcelas.map(function(p){ return { dataVencimento: p.dataVencimento, valor: p.valor }; })
+        : [{ dataVencimento: n.dataVencimento || '', valor: n.valorTotal || 0 }];
     } else {
       document.getElementById('form-nota').reset();
       document.getElementById('nota-numero-display').value = gerarNumeroNota();
@@ -4873,8 +4881,10 @@
       updateNotaContratoOptions('');
       document.getElementById('nota-dataEmissao').value = new Date().toISOString().slice(0, 10);
       notaFormItens = [];
+      notaFormParcelas = [{ dataVencimento: '', valor: 0 }];
     }
     renderNotaItensTable();
+    renderNotaParcelasTable();
   }
 
   function adicionarItemNota(){
@@ -4885,6 +4895,58 @@
   function removeItemNota(idx){
     notaFormItens.splice(idx, 1);
     renderNotaItensTable();
+  }
+
+  function redistribuirParcelasIgualmente(){
+    var total = notaFormItens.reduce(function(s, it){ return s + (it.valor || 0); }, 0);
+    var n = notaFormParcelas.length;
+    if (n === 0) return;
+    var valorCada = Math.floor((total / n) * 100) / 100;
+    for (var i = 0; i < n - 1; i++) notaFormParcelas[i].valor = valorCada;
+    notaFormParcelas[n - 1].valor = Math.round((total - valorCada * (n - 1)) * 100) / 100;
+  }
+
+  function adicionarParcela(){
+    notaFormParcelas.push({ dataVencimento: '', valor: 0 });
+    redistribuirParcelasIgualmente();
+    renderNotaParcelasTable();
+  }
+
+  function removeParcela(idx){
+    if (notaFormParcelas.length <= 1) return;
+    notaFormParcelas.splice(idx, 1);
+    redistribuirParcelasIgualmente();
+    renderNotaParcelasTable();
+  }
+
+  function renderNotaParcelasTable(){
+    var container = document.getElementById('nota-parcelas-list');
+    container.innerHTML = notaFormParcelas.map(function(p, idx){
+      return '<div class="form-grid" data-idx="' + idx + '" style="align-items:end; grid-template-columns: 1fr 1fr auto;">' +
+        '<div class="form-field"><label>' + (notaFormParcelas.length > 1 ? 'Vencimento da Parcela ' + (idx + 1) : 'Data de Vencimento') + '</label>' +
+          '<input type="date" class="parcela-data" data-idx="' + idx + '" value="' + (p.dataVencimento || '') + '"></div>' +
+        (notaFormParcelas.length > 1
+          ? '<div class="form-field"><label>Valor da Parcela</label><input type="number" class="parcela-valor" data-idx="' + idx + '" min="0" step="0.01" value="' + (p.valor || 0) + '"></div>'
+          : '<div></div>') +
+        (notaFormParcelas.length > 1
+          ? '<button type="button" class="icon-btn remove-parcela-btn" data-idx="' + idx + '" title="Remover parcela"><span class="material-symbols-outlined">delete</span></button>'
+          : '<div></div>') +
+        '</div>';
+    }).join('');
+    atualizarAvisoSomaParcelas();
+  }
+
+  function atualizarAvisoSomaParcelas(){
+    var aviso = document.getElementById('nota-parcelas-soma-aviso');
+    if (notaFormParcelas.length <= 1){ aviso.style.display = 'none'; return; }
+    var totalItens = notaFormItens.reduce(function(s, it){ return s + (it.valor || 0); }, 0);
+    var totalParcelas = notaFormParcelas.reduce(function(s, p){ return s + (p.valor || 0); }, 0);
+    if (Math.abs(totalItens - totalParcelas) > 0.01){
+      aviso.textContent = 'Soma das parcelas (' + formatBRL(totalParcelas) + ') diferente do valor total da nota (' + formatBRL(totalItens) + ').';
+      aviso.style.display = 'inline';
+    } else {
+      aviso.style.display = 'none';
+    }
   }
 
   function renderNotaItensTable(){
@@ -4907,6 +4969,7 @@
   function calcTotalNota(){
     var total = notaFormItens.reduce(function(s, it){ return s + (it.valor || 0); }, 0);
     document.getElementById('nota-total-final').textContent = formatBRL(total);
+    atualizarAvisoSomaParcelas();
   }
 
   function saveNota(){
@@ -4914,7 +4977,6 @@
     var numero = document.getElementById('nota-numero-display').value.trim();
     var locatarioId = document.getElementById('nota-locatario-id').value;
     var dataEmissao = document.getElementById('nota-dataEmissao').value;
-    var dataVencimento = document.getElementById('nota-dataVencimento').value;
     var valid = true;
 
     var id = editingNotaId;
@@ -4925,10 +4987,20 @@
     }
     if (!locatarioId){ markInvalid('nota-locatario-search', 'Selecione um locatário.'); valid = false; }
     if (!dataEmissao){ markInvalid('nota-dataEmissao', 'Campo obrigatório.'); valid = false; }
-    if (!dataVencimento){ markInvalid('nota-dataVencimento', 'Campo obrigatório.'); valid = false; }
     var itensValidos = notaFormItens.filter(function(it){ return it.descricao && it.descricao.trim(); });
     if (itensValidos.length === 0){
       showToast('Adicione ao menos um item à nota.', 'error');
+      valid = false;
+    }
+    if (notaFormParcelas.some(function(p){ return !p.dataVencimento; })){
+      showToast('Informe a data de vencimento de todas as parcelas.', 'error');
+      valid = false;
+    }
+    var itens = itensValidos.map(function(it){ return { descricao: it.descricao.trim(), periodo: (it.periodo || '').trim(), valor: it.valor || 0 }; });
+    var valorTotal = itens.reduce(function(s, it){ return s + it.valor; }, 0);
+    var totalParcelas = notaFormParcelas.reduce(function(s, p){ return s + (p.valor || 0); }, 0);
+    if (notaFormParcelas.length > 1 && Math.abs(totalParcelas - valorTotal) > 0.01){
+      showToast('A soma das parcelas precisa ser igual ao valor total da nota.', 'error');
       valid = false;
     }
     if (!valid) return;
@@ -4936,8 +5008,8 @@
     var existing = id ? db.notas.filter(function(x){ return x.id === id; })[0] : null;
     var seq = existing ? parseInt(existing.id.replace(/\D/g, ''), 10) : db.nextIds.nota;
 
-    var itens = itensValidos.map(function(it){ return { descricao: it.descricao.trim(), periodo: (it.periodo || '').trim(), valor: it.valor || 0 }; });
-    var valorTotal = itens.reduce(function(s, it){ return s + it.valor; }, 0);
+    var parcelas = notaFormParcelas.map(function(p){ return { dataVencimento: p.dataVencimento, valor: notaFormParcelas.length > 1 ? (p.valor || 0) : valorTotal }; });
+    var dataVencimento = parcelas.reduce(function(min, p){ return (!min || p.dataVencimento < min) ? p.dataVencimento : min; }, null);
 
     var record = {
       id: existing ? existing.id : gerarId('ND', seq),
@@ -4946,6 +5018,7 @@
       contratoId: document.getElementById('nota-contrato-id').value || '',
       dataEmissao: dataEmissao,
       dataVencimento: dataVencimento,
+      parcelas: parcelas,
       itens: itens,
       valorTotal: valorTotal,
       status: existing ? existing.status : 'aberta'
@@ -4966,6 +5039,22 @@
   function viewNota(id){
     currentNotaPrintId = id;
     goTo('nota-print');
+  }
+
+  function notaParcelas(n){
+    return (n.parcelas && n.parcelas.length) ? n.parcelas : [{ dataVencimento: n.dataVencimento, valor: n.valorTotal }];
+  }
+
+  function notaParcelasRows(n){
+    var parcelas = notaParcelas(n);
+    if (parcelas.length === 1){
+      return '<div class="a4-condicoes"><div class="detail-row"><span class="label">Vencimento</span><span class="value">' + formatDate(parcelas[0].dataVencimento) + '</span></div></div>';
+    }
+    var rows = parcelas.map(function(p, idx){
+      return '<tr><td>' + (idx + 1) + '</td><td>' + formatDate(p.dataVencimento) + '</td><td class="text-right">' + formatBRL(p.valor) + '</td></tr>';
+    }).join('');
+    return '<div class="a4-section-title">Parcelas</div>' +
+      '<table class="a4-table"><thead><tr><th>Parcela</th><th>Vencimento</th><th class="text-right">Valor</th></tr></thead><tbody>' + rows + '</tbody></table>';
   }
 
   function renderNotaA4(id){
@@ -5005,8 +5094,8 @@
           '<div class="detail-row"><span class="label">CNPJ</span><span class="value">' + (loc.cnpj || '—') + '</span></div>' +
           '<div class="detail-row"><span class="label">Endereço</span><span class="value">' + locEnderecoStr + '</span></div>' +
           '<div class="detail-row"><span class="label">Emissão</span><span class="value">' + formatDate(n.dataEmissao) + '</span></div>' +
-          '<div class="detail-row"><span class="label">Vencimento</span><span class="value">' + formatDate(n.dataVencimento) + '</span></div>' +
         '</div>' +
+        (notaParcelasRows(n)) +
 
         '<div class="a4-section-title">Discriminação</div>' +
         '<table class="a4-table"><thead><tr><th>Descrição</th><th class="text-right">Valor</th></tr></thead><tbody>' + itensRows + '</tbody></table>' +
@@ -6507,6 +6596,20 @@
     document.getElementById('nota-itens-tbody').addEventListener('click', function(e){
       var btn = e.target.closest('.remove-item-btn');
       if (btn) removeItemNota(parseInt(btn.dataset.idx, 10));
+    });
+
+    document.getElementById('btn-add-parcela').addEventListener('click', adicionarParcela);
+    document.getElementById('nota-parcelas-list').addEventListener('input', function(e){
+      var idx = parseInt(e.target.dataset.idx, 10);
+      if (isNaN(idx)) return;
+      if (e.target.classList.contains('parcela-data')) notaFormParcelas[idx].dataVencimento = e.target.value;
+      else if (e.target.classList.contains('parcela-valor')) notaFormParcelas[idx].valor = parseFloat(e.target.value) || 0;
+      else return;
+      atualizarAvisoSomaParcelas();
+    });
+    document.getElementById('nota-parcelas-list').addEventListener('click', function(e){
+      var btn = e.target.closest('.remove-parcela-btn');
+      if (btn) removeParcela(parseInt(btn.dataset.idx, 10));
     });
 
     wireLocatarioCombobox('nota-locatario-search', 'nota-locatario-id', 'nota-locatario-dropdown', function(l){
