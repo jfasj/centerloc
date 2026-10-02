@@ -813,25 +813,10 @@
 
             <div class="cfg-section">
               <h3><span class="material-symbols-outlined">account_balance</span>Dados Financeiros</h3>
-              <div class="form-grid cols-4">
-                <div class="form-field full" style="grid-column: span 2;">
-                  <label for="cfg-pix">Chave PIX</label>
-                  <input type="text" id="cfg-pix">
-                </div>
-                <div class="form-field">
-                  <label for="cfg-banco">Banco</label>
-                  <input type="text" id="cfg-banco">
-                </div>
-                <div class="form-field">
-                  <label for="cfg-agencia">Agência</label>
-                  <input type="text" id="cfg-agencia">
-                </div>
-              </div>
-              <div class="form-grid">
-                <div class="form-field">
-                  <label for="cfg-conta">Conta</label>
-                  <input type="text" id="cfg-conta">
-                </div>
+              <p style="margin:0; font-size:13px; color:var(--color-text-secondary);">Cadastre uma ou mais contas bancárias. Ao emitir uma Nota de Débito, você escolhe qual usar.</p>
+              <div id="cfg-contas-bancarias-list" style="display:flex; flex-direction:column; gap:14px;"></div>
+              <div>
+                <button type="button" class="btn btn-outline" id="btn-add-conta-bancaria"><span class="material-symbols-outlined">add</span><span>Adicionar Conta Bancária</span></button>
               </div>
             </div>
 
@@ -1422,6 +1407,10 @@
           <p style="font-size:13px; color:var(--color-text-secondary); margin:0;">Faturamento conforme CONTRATO DE PRESTAÇÃO DE SERVIÇOS<br>Atividade não sujeira ao ISSQN e à emissão de NF conforme Lei 116/03 – item 3.01</p>
 
           <div class="dialog-section-title">Dados de Pagamento</div>
+          <div class="form-field">
+            <label>Conta Bancária</label>
+            <select id="nota-conta-bancaria-id"></select>
+          </div>
           <div class="form-grid cols-4" id="nota-dados-pagamento">
             <div class="detail-row"><span class="label">Chave PIX</span><span class="value" id="nota-pix-display">—</span></div>
             <div class="detail-row"><span class="label">Banco</span><span class="value" id="nota-banco-display">—</span></div>
@@ -2484,6 +2473,17 @@
       db.empresa.logomarca = getDefaultLogomarca();
       changed = true;
     }
+    if (!db.empresa.contasBancarias){
+      db.empresa.contasBancarias = [{
+        id: 'BANK1',
+        nome: db.empresa.banco || 'Conta Principal',
+        pix: db.empresa.pix || '',
+        banco: db.empresa.banco || '',
+        agencia: db.empresa.agencia || '',
+        conta: db.empresa.conta || ''
+      }];
+      changed = true;
+    }
     if (db.empresa.cidade === 'Ipojuca'){
       db.empresa.cidade = 'Recife';
       changed = true;
@@ -2538,6 +2538,7 @@
         banco: 'Bradesco',
         agencia: '3214-5',
         conta: '00123456-7',
+        contasBancarias: [{ id: 'BANK1', nome: 'Bradesco', pix: '12.299.005/0001-46', banco: 'Bradesco', agencia: '3214-5', conta: '00123456-7' }],
         logomarca: getDefaultLogomarca()
       },
       contratos: buildSeedContratos(),
@@ -4864,11 +4865,6 @@
     clearFieldErrors('form-nota');
     document.getElementById('nota-form-title').textContent = id ? 'Editar Nota de Débito' : 'Nova Nota de Débito';
     document.getElementById('nota-locatario-dropdown').style.display = 'none';
-    var emp = db.empresa;
-    document.getElementById('nota-pix-display').textContent = emp.pix || '—';
-    document.getElementById('nota-banco-display').textContent = emp.banco || '—';
-    document.getElementById('nota-agencia-display').textContent = emp.agencia || '—';
-    document.getElementById('nota-conta-display').textContent = emp.conta || '—';
 
     if (id){
       var n = db.notas.filter(function(x){ return x.id === id; })[0];
@@ -4880,6 +4876,7 @@
       updateNotaContratoOptions(n.locatarioId);
       document.getElementById('nota-contrato-id').value = n.contratoId || '';
       document.getElementById('nota-dataEmissao').value = n.dataEmissao;
+      popularContaBancariaSelect(n.contaBancariaId);
       notaFormItens = (n.itens || []).map(function(it){ return { descricao: it.descricao, periodo: it.periodo || '', valor: it.valor }; });
       notaFormParcelas = (n.parcelas && n.parcelas.length)
         ? n.parcelas.map(function(p){ return { dataVencimento: p.dataVencimento, valor: p.valor }; })
@@ -4894,9 +4891,29 @@
       document.getElementById('nota-dataEmissao').value = new Date().toISOString().slice(0, 10);
       notaFormItens = [];
       notaFormParcelas = [{ dataVencimento: '', valor: 0 }];
+      popularContaBancariaSelect();
     }
     renderNotaItensTable();
     renderNotaParcelasTable();
+  }
+
+  function popularContaBancariaSelect(selectedId){
+    var select = document.getElementById('nota-conta-bancaria-id');
+    var contas = db.empresa.contasBancarias || [];
+    select.innerHTML = contas.map(function(c){
+      return '<option value="' + c.id + '"' + (c.id === selectedId ? ' selected' : '') + '>' + (c.nome || c.banco || 'Conta') + '</option>';
+    }).join('');
+    atualizarDisplayContaBancaria();
+  }
+
+  function atualizarDisplayContaBancaria(){
+    var select = document.getElementById('nota-conta-bancaria-id');
+    var contas = db.empresa.contasBancarias || [];
+    var conta = contas.filter(function(c){ return c.id === select.value; })[0] || contas[0] || {};
+    document.getElementById('nota-pix-display').textContent = conta.pix || '—';
+    document.getElementById('nota-banco-display').textContent = conta.banco || '—';
+    document.getElementById('nota-agencia-display').textContent = conta.agencia || '—';
+    document.getElementById('nota-conta-display').textContent = conta.conta || '—';
   }
 
   function adicionarItemNota(){
@@ -5023,6 +5040,9 @@
     var parcelas = notaFormParcelas.map(function(p){ return { dataVencimento: p.dataVencimento, valor: notaFormParcelas.length > 1 ? (p.valor || 0) : valorTotal }; });
     var dataVencimento = parcelas.reduce(function(min, p){ return (!min || p.dataVencimento < min) ? p.dataVencimento : min; }, null);
 
+    var contaBancariaId = document.getElementById('nota-conta-bancaria-id').value;
+    var contaBancaria = (db.empresa.contasBancarias || []).filter(function(c){ return c.id === contaBancariaId; })[0] || null;
+
     var record = {
       id: existing ? existing.id : gerarId('ND', seq),
       numero: numero,
@@ -5031,6 +5051,8 @@
       dataEmissao: dataEmissao,
       dataVencimento: dataVencimento,
       parcelas: parcelas,
+      contaBancariaId: contaBancariaId,
+      contaBancaria: contaBancaria,
       itens: itens,
       valorTotal: valorTotal,
       status: existing ? existing.status : 'aberta'
@@ -5084,6 +5106,7 @@
       ((locEnd.cidade || locEnd.uf) ? ' — ' + [locEnd.cidade, locEnd.uf].filter(Boolean).join('/') : '') +
       (locEnd.cep ? ' — CEP ' + locEnd.cep : '');
     if (!locEnderecoStr.trim()) locEnderecoStr = '—';
+    var contaBanco = n.contaBancaria || (db.empresa.contasBancarias && db.empresa.contasBancarias[0]) || {};
     var itensRows = (n.itens || []).map(function(it){
       return '<tr><td>' + notaItemDescricaoCompleta(it) + '</td><td class="text-right">' + formatBRL(it.valor) + '</td></tr>';
     }).join('');
@@ -5121,7 +5144,7 @@
         '<p style="font-size:12px; margin:0;">Faturamento conforme CONTRATO DE PRESTAÇÃO DE SERVIÇOS<br>Atividade não sujeira ao ISSQN e à emissão de NF conforme Lei 116/03 – item 3.01</p>' +
 
         '<div class="a4-section-title">Pagamento</div>' +
-        '<p style="font-size:12px; margin:0;">PAGAMENTO VIA PIX: ' + (emp.pix || '—') + '<br>Banco ' + (emp.banco || '—') + ' | Ag. ' + (emp.agencia || '—') + ' | C/C ' + (emp.conta || '—') + '</p>' +
+        '<p style="font-size:12px; margin:0;">PAGAMENTO VIA PIX: ' + (contaBanco.pix || '—') + '<br>Banco ' + (contaBanco.banco || '—') + ' | Ag. ' + (contaBanco.agencia || '—') + ' | C/C ' + (contaBanco.conta || '—') + '</p>' +
 
         '<div class="a4-assinaturas" style="margin-top:60px;">' +
           '<div class="a4-assinatura-bloco"><div class="assinatura-nome">Antonio Pereira da Silva Neto</div><div class="a4-linha"></div>' + emp.razaoSocial + '<br><span>CENTERLOC</span></div>' +
@@ -6238,6 +6261,37 @@
     });
   }
 
+  var cfgContasBancarias = [];
+
+  function renderContasBancariasConfig(){
+    var container = document.getElementById('cfg-contas-bancarias-list');
+    container.innerHTML = cfgContasBancarias.map(function(c, idx){
+      return '<div class="card" data-idx="' + idx + '" style="padding:14px; background:var(--color-canvas);">' +
+        '<div class="form-grid cols-4">' +
+          '<div class="form-field full" style="grid-column: span 2;"><label>Apelido/Identificação</label><input type="text" class="conta-nome" data-idx="' + idx + '" value="' + (c.nome || '').replace(/"/g, '&quot;') + '" placeholder="ex: Bradesco Principal"></div>' +
+          '<div class="form-field"><label>Banco</label><input type="text" class="conta-banco" data-idx="' + idx + '" value="' + (c.banco || '').replace(/"/g, '&quot;') + '"></div>' +
+          '<div class="form-field"><label>Agência</label><input type="text" class="conta-agencia" data-idx="' + idx + '" value="' + (c.agencia || '').replace(/"/g, '&quot;') + '"></div>' +
+        '</div>' +
+        '<div class="form-grid cols-4">' +
+          '<div class="form-field full" style="grid-column: span 2;"><label>Chave PIX</label><input type="text" class="conta-pix" data-idx="' + idx + '" value="' + (c.pix || '').replace(/"/g, '&quot;') + '"></div>' +
+          '<div class="form-field"><label>Conta</label><input type="text" class="conta-conta" data-idx="' + idx + '" value="' + (c.conta || '').replace(/"/g, '&quot;') + '"></div>' +
+          '<div class="form-field" style="justify-content:flex-end;"><button type="button" class="btn btn-outline remove-conta-btn" data-idx="' + idx + '"' + (cfgContasBancarias.length <= 1 ? ' disabled title="Mantenha ao menos uma conta"' : '') + '><span class="material-symbols-outlined">delete</span><span>Remover</span></button></div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function adicionarContaBancaria(){
+    cfgContasBancarias.push({ id: 'BANK' + Date.now(), nome: '', pix: '', banco: '', agencia: '', conta: '' });
+    renderContasBancariasConfig();
+  }
+
+  function removerContaBancaria(idx){
+    if (cfgContasBancarias.length <= 1) return;
+    cfgContasBancarias.splice(idx, 1);
+    renderContasBancariasConfig();
+  }
+
   function loadConfiguracoes(){
     renderUsuarios();
     var e = db.empresa;
@@ -6250,10 +6304,8 @@
     document.getElementById('cfg-cep').value = e.cep || '';
     document.getElementById('cfg-telefone').value = e.telefone || '';
     document.getElementById('cfg-email').value = e.email || '';
-    document.getElementById('cfg-pix').value = e.pix || '';
-    document.getElementById('cfg-banco').value = e.banco || '';
-    document.getElementById('cfg-agencia').value = e.agencia || '';
-    document.getElementById('cfg-conta').value = e.conta || '';
+    cfgContasBancarias = (e.contasBancarias || []).map(function(c){ return { id: c.id, nome: c.nome, pix: c.pix, banco: c.banco, agencia: c.agencia, conta: c.conta }; });
+    renderContasBancariasConfig();
 
     var preview = document.getElementById('cfg-logo-preview');
     var placeholder = document.getElementById('cfg-logo-placeholder');
@@ -6279,10 +6331,15 @@
     e.cep = document.getElementById('cfg-cep').value.trim();
     e.telefone = document.getElementById('cfg-telefone').value.trim();
     e.email = document.getElementById('cfg-email').value.trim();
-    e.pix = document.getElementById('cfg-pix').value.trim();
-    e.banco = document.getElementById('cfg-banco').value.trim();
-    e.agencia = document.getElementById('cfg-agencia').value.trim();
-    e.conta = document.getElementById('cfg-conta').value.trim();
+    e.contasBancarias = cfgContasBancarias.map(function(c){
+      return { id: c.id, nome: c.nome.trim(), pix: c.pix.trim(), banco: c.banco.trim(), agencia: c.agencia.trim(), conta: c.conta.trim() };
+    });
+    if (e.contasBancarias.length){
+      e.pix = e.contasBancarias[0].pix;
+      e.banco = e.contasBancarias[0].banco;
+      e.agencia = e.contasBancarias[0].agencia;
+      e.conta = e.contasBancarias[0].conta;
+    }
     saveDB();
     applyBrandLogo();
     showToast('Configurações salvas com sucesso!', 'success');
@@ -6331,6 +6388,20 @@
     document.getElementById('cfg-form').addEventListener('submit', saveConfiguracoes);
     document.getElementById('cfg-logo-input').addEventListener('change', handleLogoUpload);
     document.getElementById('btn-baixar-backup').addEventListener('click', baixarBackup);
+    document.getElementById('btn-add-conta-bancaria').addEventListener('click', adicionarContaBancaria);
+    document.getElementById('cfg-contas-bancarias-list').addEventListener('input', function(e){
+      var idx = parseInt(e.target.dataset.idx, 10);
+      if (isNaN(idx)) return;
+      if (e.target.classList.contains('conta-nome')) cfgContasBancarias[idx].nome = e.target.value;
+      else if (e.target.classList.contains('conta-pix')) cfgContasBancarias[idx].pix = e.target.value;
+      else if (e.target.classList.contains('conta-banco')) cfgContasBancarias[idx].banco = e.target.value;
+      else if (e.target.classList.contains('conta-agencia')) cfgContasBancarias[idx].agencia = e.target.value;
+      else if (e.target.classList.contains('conta-conta')) cfgContasBancarias[idx].conta = e.target.value;
+    });
+    document.getElementById('cfg-contas-bancarias-list').addEventListener('click', function(e){
+      var btn = e.target.closest('.remove-conta-btn');
+      if (btn) removerContaBancaria(parseInt(btn.dataset.idx, 10));
+    });
     document.getElementById('usuarios-tbody').addEventListener('change', function(e){
       if (e.target.classList.contains('usuario-role-select')){
         alterarPerfilUsuario(e.target.dataset.userId, e.target.value);
@@ -6610,6 +6681,7 @@
       if (btn) removeItemNota(parseInt(btn.dataset.idx, 10));
     });
 
+    document.getElementById('nota-conta-bancaria-id').addEventListener('change', atualizarDisplayContaBancaria);
     document.getElementById('btn-add-parcela').addEventListener('click', adicionarParcela);
     document.getElementById('nota-parcelas-list').addEventListener('input', function(e){
       var idx = parseInt(e.target.dataset.idx, 10);
