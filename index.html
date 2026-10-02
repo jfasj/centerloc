@@ -6,7 +6,7 @@
 <title>CENTERLOC — Sistema de Gestão de Locação</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=Alex+Brush&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
 <style>
   :root{
@@ -473,6 +473,7 @@
   .a4-assinaturas{ display:grid; grid-template-columns: 1fr 1fr; gap:40px; margin-top:50px; text-align:center; font-size:12px; }
   .a4-linha{ border-top:1px solid var(--color-text); margin-bottom:6px; }
   .a4-assinatura-bloco span{ color: var(--color-text-secondary); font-size:11px; text-transform:uppercase; }
+  .assinatura-nome{ font-family:'Alex Brush', cursive; font-size:24px; color: var(--color-navy); line-height:1; margin-bottom:-2px; white-space:nowrap; }
 
   @media print{
     .a4-sheet{ box-shadow:none; border:none; max-width:none; padding:0; margin:0; }
@@ -4464,7 +4465,7 @@
 
         '<div class="a4-assinatura-data">' + gerarDataExtenso(hoje) + '</div>' +
         '<div class="a4-assinaturas">' +
-          '<div class="a4-assinatura-bloco"><div class="a4-linha"></div>' + emp.razaoSocial + '<br><span>LOCADORA</span></div>' +
+          '<div class="a4-assinatura-bloco"><div class="assinatura-nome">Antonio Pereira da Silva Neto</div><div class="a4-linha"></div>' + emp.razaoSocial + '<br><span>LOCADORA</span></div>' +
           '<div class="a4-assinatura-bloco"><div class="a4-linha"></div>' + (loc.razaoSocial || '—') + '<br><span>LOCATÁRIO</span></div>' +
         '</div>' +
       '</div>';
@@ -4767,7 +4768,7 @@
 
         '<div class="a4-assinatura-data">' + gerarDataExtenso(p.dataEmissao) + '</div>' +
         '<div class="a4-assinaturas" style="grid-template-columns:1fr;">' +
-          '<div class="a4-assinatura-bloco" style="max-width:320px; margin:0 auto;"><div class="a4-linha"></div>' + emp.razaoSocial + '<br><span>CENTERLOC</span></div>' +
+          '<div class="a4-assinatura-bloco" style="max-width:320px; margin:0 auto;"><div class="assinatura-nome">Antonio Pereira da Silva Neto</div><div class="a4-linha"></div>' + emp.razaoSocial + '<br><span>CENTERLOC</span></div>' +
         '</div>' +
       '</div>';
 
@@ -5015,7 +5016,7 @@
         '<p style="font-size:12px; margin:0;">PAGAMENTO VIA PIX: ' + (emp.pix || '—') + '<br>Banco ' + (emp.banco || '—') + ' | Ag. ' + (emp.agencia || '—') + ' | C/C ' + (emp.conta || '—') + '</p>' +
 
         '<div class="a4-assinaturas" style="margin-top:60px;">' +
-          '<div class="a4-assinatura-bloco"><div class="a4-linha"></div>' + emp.razaoSocial + '<br><span>CENTERLOC</span></div>' +
+          '<div class="a4-assinatura-bloco"><div class="assinatura-nome">Antonio Pereira da Silva Neto</div><div class="a4-linha"></div>' + emp.razaoSocial + '<br><span>CENTERLOC</span></div>' +
           '<div class="a4-assinatura-bloco"><div class="a4-linha"></div>' + (loc.razaoSocial || '—') + '<br><span>LOCATÁRIO</span></div>' +
         '</div>' +
       '</div>';
