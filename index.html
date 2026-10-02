@@ -4831,6 +4831,7 @@
           '<td>' + notaStatusBadge(n) + '</td>' +
           '<td class="text-right"><div class="actions-cell">' +
             '<button type="button" class="icon-btn" title="Ver" data-action="view" data-id="' + n.id + '"><span class="material-symbols-outlined">visibility</span></button>' +
+            '<button type="button" class="icon-btn" title="Editar" data-action="edit" data-id="' + n.id + '"><span class="material-symbols-outlined">edit</span></button>' +
             '<button type="button" class="icon-btn" title="Imprimir" data-action="print" data-id="' + n.id + '"><span class="material-symbols-outlined">print</span></button>' +
             (n.status === 'aberta' ? '<button type="button" class="icon-btn" title="Marcar Pago" data-action="pagar" data-id="' + n.id + '"><span class="material-symbols-outlined">paid</span></button>' : '') +
           '</div></td>' +
@@ -6662,6 +6663,7 @@
       if (!btn) return;
       var id = btn.dataset.id;
       if (btn.dataset.action === 'view') viewNota(id);
+      if (btn.dataset.action === 'edit') openNovaNota(id);
       if (btn.dataset.action === 'print') viewNota(id);
       if (btn.dataset.action === 'pagar') openModalBaixaNota(id);
     });
