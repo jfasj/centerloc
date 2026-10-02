@@ -473,7 +473,7 @@
   .a4-assinaturas{ display:grid; grid-template-columns: 1fr 1fr; gap:40px; margin-top:50px; text-align:center; font-size:12px; }
   .a4-linha{ border-top:1px solid var(--color-text); margin-bottom:6px; }
   .a4-assinatura-bloco span{ color: var(--color-text-secondary); font-size:11px; text-transform:uppercase; }
-  .assinatura-nome{ font-family:'Mrs Saint Delafield', cursive; font-size:32px; color:#1a2a4a; line-height:1; margin-bottom:-2px; white-space:nowrap; display:inline-block; transform:rotate(-3deg); text-shadow:0.3px 0.3px 0.4px rgba(26,42,74,0.4); }
+  .assinatura-nome{ font-family:'Mrs Saint Delafield', cursive; font-size:32px; color:#1a2a4a; line-height:1; white-space:nowrap; transform:rotate(-3deg); text-shadow:0.3px 0.3px 0.4px rgba(26,42,74,0.4); height:34px; display:flex; align-items:flex-end; justify-content:center; margin-bottom:-2px; }
 
   @media print{
     .a4-sheet{ box-shadow:none; border:none; max-width:none; padding:0; margin:0; }
@@ -4466,7 +4466,7 @@
         '<div class="a4-assinatura-data">' + gerarDataExtenso(hoje) + '</div>' +
         '<div class="a4-assinaturas">' +
           '<div class="a4-assinatura-bloco"><div class="assinatura-nome">Antonio Pereira da Silva Neto</div><div class="a4-linha"></div>' + emp.razaoSocial + '<br><span>LOCADORA</span></div>' +
-          '<div class="a4-assinatura-bloco"><div class="a4-linha"></div>' + (loc.razaoSocial || '—') + '<br><span>LOCATÁRIO</span></div>' +
+          '<div class="a4-assinatura-bloco"><div class="assinatura-nome"></div><div class="a4-linha"></div>' + (loc.razaoSocial || '—') + '<br><span>LOCATÁRIO</span></div>' +
         '</div>' +
       '</div>';
 
@@ -5017,7 +5017,7 @@
 
         '<div class="a4-assinaturas" style="margin-top:60px;">' +
           '<div class="a4-assinatura-bloco"><div class="assinatura-nome">Antonio Pereira da Silva Neto</div><div class="a4-linha"></div>' + emp.razaoSocial + '<br><span>CENTERLOC</span></div>' +
-          '<div class="a4-assinatura-bloco"><div class="a4-linha"></div>' + (loc.razaoSocial || '—') + '<br><span>LOCATÁRIO</span></div>' +
+          '<div class="a4-assinatura-bloco"><div class="assinatura-nome"></div><div class="a4-linha"></div>' + (loc.razaoSocial || '—') + '<br><span>LOCATÁRIO</span></div>' +
         '</div>' +
       '</div>';
 
