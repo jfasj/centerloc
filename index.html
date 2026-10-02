@@ -4977,6 +4977,12 @@
     }
     var loc = db.locatarios.filter(function(x){ return x.id === n.locatarioId; })[0] || {};
     var emp = db.empresa;
+    var locEnd = loc.endereco || {};
+    var locEnderecoStr = [locEnd.rua, locEnd.numero].filter(Boolean).join(', Nº ') +
+      (locEnd.bairro ? ' — ' + locEnd.bairro : '') +
+      ((locEnd.cidade || locEnd.uf) ? ' — ' + [locEnd.cidade, locEnd.uf].filter(Boolean).join('/') : '') +
+      (locEnd.cep ? ' — CEP ' + locEnd.cep : '');
+    if (!locEnderecoStr.trim()) locEnderecoStr = '—';
     var itensRows = (n.itens || []).map(function(it){
       return '<tr><td>' + notaItemDescricaoCompleta(it) + '</td><td class="text-right">' + formatBRL(it.valor) + '</td></tr>';
     }).join('');
@@ -4997,6 +5003,7 @@
         '<div class="a4-condicoes">' +
           '<div class="detail-row"><span class="label">Sacado</span><span class="value">' + (loc.razaoSocial || '—') + '</span></div>' +
           '<div class="detail-row"><span class="label">CNPJ</span><span class="value">' + (loc.cnpj || '—') + '</span></div>' +
+          '<div class="detail-row"><span class="label">Endereço</span><span class="value">' + locEnderecoStr + '</span></div>' +
           '<div class="detail-row"><span class="label">Emissão</span><span class="value">' + formatDate(n.dataEmissao) + '</span></div>' +
           '<div class="detail-row"><span class="label">Vencimento</span><span class="value">' + formatDate(n.dataVencimento) + '</span></div>' +
         '</div>' +
