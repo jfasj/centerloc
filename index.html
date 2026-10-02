@@ -2839,8 +2839,20 @@
     return cidade + ', ' + pad2(day) + ' de ' + MESES_EXTENSO[m] + ' de ' + y;
   }
 
+  function proximoNumeroDocumento(registros, prefixo){
+    var maxNum = 0;
+    registros.forEach(function(r){
+      var m = /(\d+)\s*$/.exec(r.numero || '');
+      if (m){
+        var num = parseInt(m[1], 10);
+        if (num > maxNum) maxNum = num;
+      }
+    });
+    return prefixo + '-' + String(maxNum + 1).padStart(4, '0');
+  }
+
   function gerarNumeroProposta(){
-    return 'PR-' + String(db.nextIds.proposta).padStart(4, '0');
+    return proximoNumeroDocumento(db.propostas, 'PR');
   }
 
   function propostaStatusBadge(status){
@@ -2856,7 +2868,7 @@
   }
 
   function gerarNumeroNota(){
-    return 'ND-' + String(db.nextIds.nota).padStart(4, '0');
+    return proximoNumeroDocumento(db.notas, 'ND');
   }
 
   function notaStatusInfo(n){
@@ -4300,7 +4312,7 @@
       document.getElementById('contrato-seguro-danos').checked = !!c.seguroDanos;
     } else {
       document.getElementById('form-contrato').reset();
-      document.getElementById('contrato-numero-display').value = 'CT-' + String(db.nextIds.contrato).padStart(4, '0');
+      document.getElementById('contrato-numero-display').value = proximoNumeroDocumento(db.contratos, 'CT');
       if (contratoPrefillFromProposta){
         var pre = contratoPrefillFromProposta;
         var preLoc = db.locatarios.filter(function(x){ return x.id === pre.locatarioId; })[0];
