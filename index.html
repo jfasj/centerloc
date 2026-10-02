@@ -1056,8 +1056,9 @@
           <div class="dialog-section-title" style="margin-top:0; padding-top:0; border-top:none;">Identificação</div>
           <div class="form-grid cols-4">
             <div class="form-field">
-              <label>Nº da Proposta</label>
-              <input type="text" id="proposta-numero-display" disabled>
+              <label>Nº da Proposta <span class="required-mark">*</span></label>
+              <input type="text" id="proposta-numero-display">
+              <span class="field-error"></span>
             </div>
             <div class="form-field" style="grid-column: span 2; position:relative;">
               <label>Locatário <span class="required-mark">*</span></label>
@@ -1204,8 +1205,9 @@
           <div class="dialog-section-title" style="margin-top:0; padding-top:0; border-top:none;">Identificação</div>
           <div class="form-grid cols-4">
             <div class="form-field">
-              <label>Nº do Contrato</label>
-              <input type="text" id="contrato-numero-display" disabled>
+              <label>Nº do Contrato <span class="required-mark">*</span></label>
+              <input type="text" id="contrato-numero-display">
+              <span class="field-error"></span>
             </div>
             <div class="form-field" style="grid-column: span 2; position:relative;">
               <label>Locatário <span class="required-mark">*</span></label>
@@ -4320,11 +4322,17 @@
 
   function saveContrato(status){
     clearFieldErrors('form-contrato');
+    var id = editingContratoId;
+    var numero = document.getElementById('contrato-numero-display').value.trim();
     var locatarioId = document.getElementById('contrato-locatario-id').value;
     var dataInicio = document.getElementById('contrato-dataInicio').value;
     var dataFim = document.getElementById('contrato-dataFim').value;
     var valid = true;
 
+    if (!numero){ markInvalid('contrato-numero-display', 'Campo obrigatório.'); valid = false; }
+    else if (db.contratos.some(function(c){ return c.numero === numero && c.id !== id; })){
+      markInvalid('contrato-numero-display', 'Já existe um contrato com este número.'); valid = false;
+    }
     if (!locatarioId){ markInvalid('contrato-locatario-search', 'Selecione um locatário.'); valid = false; }
     if (!dataInicio){ markInvalid('contrato-dataInicio', 'Campo obrigatório.'); valid = false; }
     if (!dataFim){ markInvalid('contrato-dataFim', 'Campo obrigatório.'); valid = false; }
@@ -4337,7 +4345,6 @@
     }
     if (!valid) return;
 
-    var id = editingContratoId;
     var existing = id ? db.contratos.filter(function(x){ return x.id === id; })[0] : null;
     var seq = existing ? parseInt(existing.id.replace(/\D/g, ''), 10) : db.nextIds.contrato;
 
@@ -4351,7 +4358,7 @@
 
     var record = {
       id: existing ? existing.id : gerarId('CT', seq),
-      numero: existing ? existing.numero : ('CT-' + String(seq).padStart(4, '0')),
+      numero: numero,
       locatarioId: locatarioId,
       itens: itens,
       dataInicio: dataInicio,
@@ -4638,10 +4645,16 @@
 
   function saveProposta(status){
     clearFieldErrors('form-proposta');
+    var id = editingPropostaId;
+    var numero = document.getElementById('proposta-numero-display').value.trim();
     var locatarioId = document.getElementById('proposta-locatario-id').value;
     var dataEmissao = document.getElementById('proposta-dataEmissao').value;
     var valid = true;
 
+    if (!numero){ markInvalid('proposta-numero-display', 'Campo obrigatório.'); valid = false; }
+    else if (db.propostas.some(function(p){ return p.numero === numero && p.id !== id; })){
+      markInvalid('proposta-numero-display', 'Já existe uma proposta com este número.'); valid = false;
+    }
     if (!locatarioId){ markInvalid('proposta-locatario-search', 'Selecione um locatário.'); valid = false; }
     if (!dataEmissao){ markInvalid('proposta-dataEmissao', 'Campo obrigatório.'); valid = false; }
     var itensValidos = propostaFormItens.filter(function(it){ return it.descricao && it.descricao.trim(); });
@@ -4651,7 +4664,6 @@
     }
     if (!valid) return;
 
-    var id = editingPropostaId;
     var existing = id ? db.propostas.filter(function(x){ return x.id === id; })[0] : null;
     var seq = existing ? parseInt(existing.id.replace(/\D/g, ''), 10) : db.nextIds.proposta;
 
@@ -4666,7 +4678,7 @@
 
     var record = {
       id: existing ? existing.id : gerarId('PR', seq),
-      numero: existing ? existing.numero : ('PR-' + String(seq).padStart(4, '0')),
+      numero: numero,
       locatarioId: locatarioId,
       itens: itens,
       dataEmissao: dataEmissao,
