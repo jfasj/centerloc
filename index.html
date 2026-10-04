@@ -2111,36 +2111,6 @@
 </dialog>
 
 <!-- ============ MODAL BAIXA DE NOTA (Marcar como Pago) ============ -->
-<dialog id="modal-baixa-nota" class="app-dialog" style="width:420px;">
-  <form class="dialog-form" id="form-baixa-nota">
-    <header class="dialog-header">
-      <h2>Marcar como Pago</h2>
-      <button type="button" class="dialog-close" data-close-baixa-nota aria-label="Fechar">&times;</button>
-    </header>
-    <div class="dialog-body">
-      <p id="baixa-nota-info" style="font-size:13px; color:var(--color-text-secondary); margin:0 0 4px;"></p>
-      <div class="form-field">
-        <label>Data do Pagamento <span class="required-mark">*</span></label>
-        <input type="date" id="baixa-nota-data">
-      </div>
-      <div class="form-field">
-        <label>Forma de Pagamento <span class="required-mark">*</span></label>
-        <select id="baixa-nota-forma">
-          <option value="PIX">PIX</option>
-          <option value="Boleto">Boleto</option>
-          <option value="TED">TED</option>
-          <option value="Dinheiro">Dinheiro</option>
-          <option value="Cheque">Cheque</option>
-        </select>
-      </div>
-    </div>
-    <footer class="dialog-footer">
-      <button type="button" class="btn btn-outline" data-close-baixa-nota>Cancelar</button>
-      <button type="button" class="btn btn-primary" id="btn-confirmar-baixa-nota"><span class="material-symbols-outlined">check_circle</span><span>Confirmar Recebimento</span></button>
-    </footer>
-  </form>
-</dialog>
-
 <!-- ============ MODAL BAIXA DE PAGAMENTO (Contas a Receber) ============ -->
 <dialog id="modal-baixa-receber" class="app-dialog" style="width:460px;">
   <form class="dialog-form" id="form-baixa-receber">
@@ -2376,7 +2346,6 @@
   var currentNotaPrintId = null;
   var notaFormItens = [];
   var notaFormParcelas = [];
-  var notaBaixaTargetId = null;
 
   var receberState = { query: '', status: '', periodo: '', page: 1 };
   var baixaReceberTargetId = null;
@@ -2872,9 +2841,16 @@
   }
 
   function notaStatusInfo(n){
-    if (n.status === 'paga') return { label: 'Paga', cls: 'success' };
-    var vencida = n.status === 'aberta' && n.dataVencimento < new Date().toISOString().slice(0, 10);
-    if (vencida) return { label: 'Vencida', cls: 'danger' };
+    var ligadas = db.contasReceber.filter(function(cr){ return cr.notaId === n.id; });
+    if (ligadas.length === 0){
+      if (n.status === 'paga') return { label: 'Paga', cls: 'success' };
+      var vencidaLegado = n.dataVencimento && n.dataVencimento < new Date().toISOString().slice(0, 10);
+      return vencidaLegado ? { label: 'Vencida', cls: 'danger' } : { label: 'Aberta', cls: 'warning' };
+    }
+    var todasPagas = ligadas.every(function(cr){ return cr.status === 'pago'; });
+    if (todasPagas) return { label: 'Paga', cls: 'success' };
+    var algumaVencida = ligadas.some(function(cr){ return contaReceberStatusInfo(cr) === 'vencido'; });
+    if (algumaVencida) return { label: 'Vencida', cls: 'danger' };
     return { label: 'Aberta', cls: 'warning' };
   }
 
@@ -4845,7 +4821,6 @@
             '<button type="button" class="icon-btn" title="Ver" data-action="view" data-id="' + n.id + '"><span class="material-symbols-outlined">visibility</span></button>' +
             '<button type="button" class="icon-btn" title="Editar" data-action="edit" data-id="' + n.id + '"><span class="material-symbols-outlined">edit</span></button>' +
             '<button type="button" class="icon-btn" title="Imprimir" data-action="print" data-id="' + n.id + '"><span class="material-symbols-outlined">print</span></button>' +
-            (n.status === 'aberta' ? '<button type="button" class="icon-btn" title="Marcar Pago" data-action="pagar" data-id="' + n.id + '"><span class="material-symbols-outlined">paid</span></button>' : '') +
           '</div></td>' +
           '</tr>';
       }).join('');
@@ -5078,9 +5053,11 @@
       db.nextIds.nota++;
     }
 
+    sincronizarContasReceberDaNota(record);
+
     saveDB();
     goTo('notas');
-    showToast('Nota de débito salva com sucesso!', 'success');
+    showToast('Nota de débito salva com sucesso! Lançamento criado em Contas a Receber.', 'success');
   }
 
   function viewNota(id){
@@ -5169,56 +5146,43 @@
     document.getElementById('btn-imprimir-nota').addEventListener('click', function(){ window.print(); });
   }
 
-  function openModalBaixaNota(id){
-    notaBaixaTargetId = id;
-    var n = db.notas.filter(function(x){ return x.id === id; })[0];
-    if (!n) return;
-    document.getElementById('baixa-nota-info').textContent = 'Nota ' + n.numero + ' — ' + getLocatarioNome(n.locatarioId) + ' — ' + formatBRL(n.valorTotal);
-    document.getElementById('baixa-nota-data').value = new Date().toISOString().slice(0, 10);
-    document.getElementById('modal-baixa-nota').showModal();
-  }
-
-  function closeModalBaixaNota(){
-    document.getElementById('modal-baixa-nota').close();
-  }
-
-  function confirmarBaixaNota(){
-    var id = notaBaixaTargetId;
-    var n = db.notas.filter(function(x){ return x.id === id; })[0];
-    if (!n) return;
-    var dataPagamento = document.getElementById('baixa-nota-data').value;
-    if (!dataPagamento){ showToast('Informe a data do pagamento.', 'error'); return; }
-    var formaPagamento = document.getElementById('baixa-nota-forma').value;
-
-    n.status = 'paga';
-    n.dataPagamento = dataPagamento;
-
-    var existingCR = db.contasReceber.filter(function(cr){ return cr.notaId === n.id; })[0];
-    if (existingCR){
-      existingCR.status = 'pago';
-      existingCR.dataPagamento = dataPagamento;
-      existingCR.formaPagamento = formaPagamento;
-    } else {
-      db.contasReceber.push({
-        id: gerarId('CR', db.nextIds.contaReceber),
-        descricao: n.numero + ' — ' + notaReferenciaStr(n),
-        locatarioId: n.locatarioId,
-        contratoId: n.contratoId || null,
-        notaId: n.id,
-        valor: n.valorTotal,
-        dataVencimento: n.dataVencimento,
-        dataPagamento: dataPagamento,
-        formaPagamento: formaPagamento,
-        status: 'pago',
-        obs: ''
-      });
-      db.nextIds.contaReceber++;
-    }
-
-    saveDB();
-    closeModalBaixaNota();
-    renderNotas();
-    showToast('Nota marcada como paga. Recebimento registrado.', 'success');
+  function sincronizarContasReceberDaNota(nota){
+    var existentes = db.contasReceber.filter(function(cr){ return cr.notaId === nota.id; });
+    nota.parcelas.forEach(function(p, idx){
+      var cr = existentes.filter(function(x){ return x.parcelaIndex === idx; })[0];
+      var descricao = nota.numero + (nota.parcelas.length > 1 ? ' — Parcela ' + (idx + 1) + '/' + nota.parcelas.length : '') + ' — ' + getLocatarioNome(nota.locatarioId);
+      if (cr){
+        if (cr.status !== 'pago'){
+          cr.valor = p.valor;
+          cr.dataVencimento = p.dataVencimento;
+          cr.descricao = descricao;
+          cr.contratoId = nota.contratoId || null;
+          cr.locatarioId = nota.locatarioId;
+        }
+      } else {
+        db.contasReceber.push({
+          id: gerarId('CR', db.nextIds.contaReceber),
+          descricao: descricao,
+          locatarioId: nota.locatarioId,
+          contratoId: nota.contratoId || null,
+          notaId: nota.id,
+          parcelaIndex: idx,
+          valor: p.valor,
+          dataVencimento: p.dataVencimento,
+          dataPagamento: null,
+          formaPagamento: null,
+          status: 'pendente',
+          obs: ''
+        });
+        db.nextIds.contaReceber++;
+      }
+    });
+    existentes.forEach(function(cr){
+      if (cr.parcelaIndex >= nota.parcelas.length && cr.status !== 'pago'){
+        var idxRemover = db.contasReceber.indexOf(cr);
+        if (idxRemover !== -1) db.contasReceber.splice(idxRemover, 1);
+      }
+    });
   }
 
   /* ---------------- Contas a Receber (T20/T21) ---------------- */
@@ -6677,7 +6641,6 @@
       if (btn.dataset.action === 'view') viewNota(id);
       if (btn.dataset.action === 'edit') openNovaNota(id);
       if (btn.dataset.action === 'print') viewNota(id);
-      if (btn.dataset.action === 'pagar') openModalBaixaNota(id);
     });
 
     document.getElementById('btn-add-item-nota').addEventListener('click', adicionarItemNota);
@@ -6717,15 +6680,6 @@
 
     document.getElementById('btn-cancelar-nota').addEventListener('click', function(){ goTo('notas'); });
     document.getElementById('btn-salvar-nota').addEventListener('click', saveNota);
-
-    document.getElementById('btn-confirmar-baixa-nota').addEventListener('click', confirmarBaixaNota);
-    var closeBaixaNotaEls = document.querySelectorAll('[data-close-baixa-nota]');
-    for (var cbn = 0; cbn < closeBaixaNotaEls.length; cbn++){
-      closeBaixaNotaEls[cbn].addEventListener('click', closeModalBaixaNota);
-    }
-    document.getElementById('modal-baixa-nota').addEventListener('click', function(e){
-      if (e.target === this) closeModalBaixaNota();
-    });
 
     /* Contas a Receber */
     document.getElementById('receber-search').addEventListener('input', function(e){ filtrarContasReceber(undefined, undefined, e.target.value); });
@@ -6854,8 +6808,8 @@
     encerrarContrato: encerrarContrato, gerarDataExtenso: gerarDataExtenso,
     renderPropostas: renderPropostas, openNovaProposta: openNovaProposta, viewProposta: viewProposta,
     rejeitarProposta: rejeitarProposta, converterEmContrato: converterEmContrato,
-    renderNotas: renderNotas, openNovaNota: openNovaNota, viewNota: viewNota,
-    openModalBaixaNota: openModalBaixaNota,
+    renderNotas: renderNotas, openNovaNota: openNovaNota, viewNota: viewNota, notaStatusInfo: notaStatusInfo,
+    sincronizarContasReceberDaNota: sincronizarContasReceberDaNota,
     renderContasReceber: renderContasReceber, openModalBaixaReceber: openModalBaixaReceber,
     renderContasPagar: renderContasPagar, openModalNovaPagar: openModalNovaPagar,
     openModalPagarConta: openModalPagarConta, renderFluxoCaixa: renderFluxoCaixa, navFluxo: navFluxo,
