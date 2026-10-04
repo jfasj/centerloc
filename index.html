@@ -5012,7 +5012,8 @@
       tbody.innerHTML = '<tr class="empty-row"><td colspan="5">Nenhum item adicionado.</td></tr>';
     } else {
       tbody.innerHTML = notaFormItens.map(function(item, idx){
-        var opcoesFrota = '<option value="">—</option>' + db.frota.map(function(f){
+        var frotaOpcoes = db.frota.filter(function(f){ return f.status === 'alugado' || f.id === item.frotaId; });
+        var opcoesFrota = '<option value="">—</option>' + frotaOpcoes.map(function(f){
           return '<option value="' + f.id + '"' + (item.frotaId === f.id ? ' selected' : '') + '>' + f.patrimonio + ' — ' + f.descricao + '</option>';
         }).join('');
         return '<tr data-idx="' + idx + '">' +
