@@ -1388,7 +1388,7 @@
           </div>
           <div style="overflow-x:auto;">
             <table class="data-table">
-              <thead><tr><th>Descrição do Serviço/Equipamento</th><th>Período de Referência</th><th>Valor</th><th></th></tr></thead>
+              <thead><tr><th>Descrição do Serviço/Equipamento</th><th>Período de Referência</th><th>Valor</th><th>Equipamento (controle de custo)</th><th></th></tr></thead>
               <tbody id="nota-itens-tbody"></tbody>
             </table>
           </div>
@@ -4007,6 +4007,33 @@
           return '<tr><td class="tabular">' + c.numero + '</td><td>' + getLocatarioNome(c.locatarioId) + '</td><td>' + formatDate(c.dataInicio) + ' — ' + formatDate(c.dataFim) + '</td><td>' + contratoStatusBadge(c.status) + '</td></tr>';
         }).join('');
 
+    var notasDoEquipamento = db.notas.filter(function(n){
+      return (n.itens || []).some(function(it){ return it.frotaId === id; });
+    });
+    var notasHtml = notasDoEquipamento.length === 0
+      ? '<tr class="empty-row"><td colspan="5">Nenhuma nota de débito vinculada a este ativo.</td></tr>'
+      : notasDoEquipamento.map(function(n){
+          var valorVinculado = sum((n.itens || []).filter(function(it){ return it.frotaId === id; }).map(function(it){ return it.valor; }));
+          return '<tr><td class="tabular">' + n.numero + '</td><td>' + getLocatarioNome(n.locatarioId) + '</td><td class="tabular">' + formatDate(n.dataEmissao) + '</td><td class="tabular">' + formatBRL(valorVinculado) + '</td><td>' + notaStatusBadge(n) + '</td></tr>';
+        }).join('');
+
+    var despesasDoEquipamento = db.contasPagar.filter(function(cp){ return cp.frotaId === id; });
+    var despesasHtml = despesasDoEquipamento.length === 0
+      ? '<tr class="empty-row"><td colspan="4">Nenhuma despesa vinculada a este ativo.</td></tr>'
+      : despesasDoEquipamento.map(function(cp){
+          return '<tr><td>' + cp.descricao + '</td><td>' + cp.categoria + '</td><td class="tabular">' + formatDate(cp.dataVencimento) + '</td><td class="tabular">' + formatBRL(cp.valor) + '</td></tr>';
+        }).join('');
+
+    var receitaRecebida = sum(db.contasReceber.filter(function(cr){ return cr.status === 'pago' && cr.notaId; }).map(function(cr){
+      var n = db.notas.filter(function(x){ return x.id === cr.notaId; })[0];
+      if (!n) return 0;
+      var itensComFrota = (n.itens || []).filter(function(it){ return it.frotaId === id; });
+      if (!itensComFrota.length) return 0;
+      var valorItemEquip = sum(itensComFrota.map(function(it){ return it.valor; }));
+      return cr.valor * (valorItemEquip / (n.valorTotal || valorItemEquip));
+    }));
+    var despesaPaga = sum(despesasDoEquipamento.filter(function(cp){ return cp.status === 'pago'; }).map(function(cp){ return cp.valor; }));
+
     container.innerHTML =
       '<div class="detail-header">' +
         '<div class="detail-header-left">' +
@@ -4037,6 +4064,19 @@
       '<div class="card">' +
         '<h2>Contratos Relacionados</h2>' +
         '<div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>Nº Contrato</th><th>Locatário</th><th>Período</th><th>Status</th></tr></thead><tbody>' + contratosHtml + '</tbody></table></div>' +
+      '</div>' +
+      '<div class="kpi-grid">' +
+        '<div class="kpi-card" style="--stripe-color:var(--color-success);"><div class="kpi-label">Receita Recebida (Notas)</div><div class="kpi-value">' + formatBRL(receitaRecebida) + '</div></div>' +
+        '<div class="kpi-card" style="--stripe-color:var(--color-danger);"><div class="kpi-label">Despesas Pagas</div><div class="kpi-value">' + formatBRL(despesaPaga) + '</div></div>' +
+        '<div class="kpi-card" style="--stripe-color:var(--color-navy);"><div class="kpi-label">Resultado</div><div class="kpi-value">' + formatBRL(receitaRecebida - despesaPaga) + '</div></div>' +
+      '</div>' +
+      '<div class="card">' +
+        '<h2>Notas de Débito Relacionadas</h2>' +
+        '<div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>Nº Nota</th><th>Locatário</th><th>Emissão</th><th>Valor Vinculado</th><th>Status</th></tr></thead><tbody>' + notasHtml + '</tbody></table></div>' +
+      '</div>' +
+      '<div class="card">' +
+        '<h2>Despesas Relacionadas (Contas a Pagar)</h2>' +
+        '<div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>Descrição</th><th>Categoria</th><th>Vencimento</th><th>Valor</th></tr></thead><tbody>' + despesasHtml + '</tbody></table></div>' +
       '</div>';
 
     document.getElementById('btn-mudar-status-detalhe').addEventListener('click', function(){ openModalMudarStatus(f.id); });
@@ -4865,7 +4905,7 @@
       document.getElementById('nota-contrato-id').value = n.contratoId || '';
       document.getElementById('nota-dataEmissao').value = n.dataEmissao;
       popularContaBancariaSelect(n.contaBancariaId);
-      notaFormItens = (n.itens || []).map(function(it){ return { descricao: it.descricao, periodo: it.periodo || '', valor: it.valor }; });
+      notaFormItens = (n.itens || []).map(function(it){ return { descricao: it.descricao, periodo: it.periodo || '', valor: it.valor, frotaId: it.frotaId || '' }; });
       notaFormParcelas = (n.parcelas && n.parcelas.length)
         ? n.parcelas.map(function(p){ return { dataVencimento: p.dataVencimento, valor: p.valor }; })
         : [{ dataVencimento: n.dataVencimento || '', valor: n.valorTotal || 0 }];
@@ -4905,7 +4945,7 @@
   }
 
   function adicionarItemNota(){
-    notaFormItens.push({ descricao: '', periodo: '', valor: 0 });
+    notaFormItens.push({ descricao: '', periodo: '', valor: 0, frotaId: '' });
     renderNotaItensTable();
   }
 
@@ -4969,13 +5009,17 @@
   function renderNotaItensTable(){
     var tbody = document.getElementById('nota-itens-tbody');
     if (notaFormItens.length === 0){
-      tbody.innerHTML = '<tr class="empty-row"><td colspan="4">Nenhum item adicionado.</td></tr>';
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="5">Nenhum item adicionado.</td></tr>';
     } else {
       tbody.innerHTML = notaFormItens.map(function(item, idx){
+        var opcoesFrota = '<option value="">—</option>' + db.frota.map(function(f){
+          return '<option value="' + f.id + '"' + (item.frotaId === f.id ? ' selected' : '') + '>' + f.patrimonio + ' — ' + f.descricao + '</option>';
+        }).join('');
         return '<tr data-idx="' + idx + '">' +
           '<td><input type="text" class="item-descricao" data-idx="' + idx + '" value="' + (item.descricao || '').replace(/"/g, '&quot;') + '" style="min-width:220px;"></td>' +
           '<td><input type="text" class="item-periodo" data-idx="' + idx + '" value="' + (item.periodo || '').replace(/"/g, '&quot;') + '" placeholder="ex: 01/08 a 31/08/2024" style="min-width:180px;"></td>' +
           '<td><input type="number" class="item-valor" data-idx="' + idx + '" min="0" step="0.01" value="' + (item.valor || 0) + '" style="width:120px;"></td>' +
+          '<td><select class="item-frota" data-idx="' + idx + '" style="min-width:200px;">' + opcoesFrota + '</select></td>' +
           '<td><button type="button" class="icon-btn remove-item-btn" data-idx="' + idx + '" title="Remover"><span class="material-symbols-outlined">delete</span></button></td>' +
           '</tr>';
       }).join('');
@@ -5013,7 +5057,7 @@
       showToast('Informe a data de vencimento de todas as parcelas.', 'error');
       valid = false;
     }
-    var itens = itensValidos.map(function(it){ return { descricao: it.descricao.trim(), periodo: (it.periodo || '').trim(), valor: it.valor || 0 }; });
+    var itens = itensValidos.map(function(it){ return { descricao: it.descricao.trim(), periodo: (it.periodo || '').trim(), valor: it.valor || 0, frotaId: it.frotaId || null }; });
     var valorTotal = itens.reduce(function(s, it){ return s + it.valor; }, 0);
     var totalParcelas = notaFormParcelas.reduce(function(s, p){ return s + (p.valor || 0); }, 0);
     if (notaFormParcelas.length > 1 && Math.abs(totalParcelas - valorTotal) > 0.01){
@@ -5744,17 +5788,21 @@
 
     db.contasReceber.forEach(function(cr){
       if (cr.status !== 'pago' || !cr.dataPagamento || cr.dataPagamento.slice(0, 4) !== String(ano)) return;
-      var contratoId = getContratoIdFromCR(cr);
-      var contrato = contratoId ? db.contratos.filter(function(x){ return x.id === contratoId; })[0] : null;
-      if (!contrato) return;
 
       var nota = cr.notaId ? db.notas.filter(function(x){ return x.id === cr.notaId; })[0] : null;
-      if (nota && nota.itens && nota.itens.length){
-        nota.itens.forEach(function(ni){
-          var f = db.frota.filter(function(x){ return normalizeText(ni.descricao).indexOf(normalizeText(x.descricao)) !== -1; })[0];
-          if (f) receitaPorFrota[f.id] = (receitaPorFrota[f.id] || 0) + ni.valor;
+      var itensComFrota = (nota && nota.itens) ? nota.itens.filter(function(it){ return it.frotaId; }) : [];
+      if (itensComFrota.length){
+        var totalItensComFrota = sum(itensComFrota.map(function(it){ return it.valor; })) || 1;
+        itensComFrota.forEach(function(it){
+          var share = it.valor / (nota.valorTotal || totalItensComFrota);
+          receitaPorFrota[it.frotaId] = (receitaPorFrota[it.frotaId] || 0) + cr.valor * share;
         });
-      } else if (contrato.itens && contrato.itens.length){
+        return;
+      }
+
+      var contratoId = getContratoIdFromCR(cr);
+      var contrato = contratoId ? db.contratos.filter(function(x){ return x.id === contratoId; })[0] : null;
+      if (contrato && contrato.itens && contrato.itens.length){
         var totalItens = sum(contrato.itens.map(function(it){ return it.total; })) || 1;
         contrato.itens.forEach(function(it){
           var share = it.total / totalItens;
@@ -6644,6 +6692,12 @@
     });
 
     document.getElementById('btn-add-item-nota').addEventListener('click', adicionarItemNota);
+    document.getElementById('nota-itens-tbody').addEventListener('change', function(e){
+      if (!e.target.classList.contains('item-frota')) return;
+      var idx = parseInt(e.target.dataset.idx, 10);
+      if (isNaN(idx)) return;
+      notaFormItens[idx].frotaId = e.target.value;
+    });
     document.getElementById('nota-itens-tbody').addEventListener('input', function(e){
       var idx = parseInt(e.target.dataset.idx, 10);
       if (isNaN(idx)) return;
