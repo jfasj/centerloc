@@ -1099,14 +1099,8 @@
 
         <div class="card">
           <div class="dialog-section-title" style="margin-top:0; padding-top:0; border-top:none;">Observações Padrão</div>
-          <div style="display:flex; flex-direction:column; gap:10px;">
-            <label class="radio-option"><input type="checkbox" class="proposta-obs-check" value="Valores sujeitos a alteração sem aviso prévio"> Valores sujeitos a alteração sem aviso prévio</label>
-            <label class="radio-option"><input type="checkbox" class="proposta-obs-check" value="Proposta válida por 15 dias"> Proposta válida por 15 dias</label>
-            <label class="radio-option"><input type="checkbox" class="proposta-obs-check" value="Preço inclui operador"> Preço inclui operador</label>
-            <label class="radio-option"><input type="checkbox" class="proposta-obs-check" value="Preço não inclui combustível"> Preço não inclui combustível</label>
-            <label class="radio-option"><input type="checkbox" class="proposta-obs-check" value="Manutenção por conta da CENTERLOC"> Manutenção por conta da CENTERLOC</label>
-            <label class="radio-option"><input type="checkbox" class="proposta-obs-check" value="Transporte por conta do CLIENTE"> Transporte por conta do CLIENTE</label>
-          </div>
+          <p style="margin:0 0 10px; font-size:12px; color:var(--color-text-secondary);">Desmarque as que não se aplicam, ou edite o texto de qualquer uma delas.</p>
+          <div id="proposta-obs-padrao-list" style="display:flex; flex-direction:column; gap:10px;"></div>
         </div>
 
         <div class="card">
@@ -2336,14 +2330,14 @@
   var propostaDadosAdicionais = [];
   var PROPOSTA_STATUS_LABELS = { pendente: 'Pendente', aprovada: 'Aprovada', rejeitada: 'Rejeitada' };
   var PROPOSTA_STATUS_CLASS = { pendente: 'warning', aprovada: 'success', rejeitada: 'danger' };
-  var PROPOSTA_OBS_OPCOES = [
-    'Valores sujeitos a alteração sem aviso prévio',
-    'Proposta válida por 15 dias',
-    'Preço inclui operador',
-    'Preço não inclui combustível',
-    'Manutenção por conta da CENTERLOC',
-    'Transporte por conta do CLIENTE'
+  var PROPOSTA_OBS_PADRAO_DEFAULT = [
+    'Manutenção Preventiva por conta do Locatario',
+    'Equipamento locado sem Operador',
+    'Óleo diesel por conta do Locatário',
+    'Contrato mínimo de 200 horas, acima será cobrado hora excedente',
+    'Hora adicional R$ 90,00'
   ];
+  var propostaObsPadrao = [];
 
   var notasState = { query: '', status: '', page: 1 };
   var editingNotaId = null;
@@ -4573,8 +4567,6 @@
     clearFieldErrors('form-proposta');
     document.getElementById('proposta-form-title').textContent = id ? 'Editar Proposta' : 'Nova Proposta de Locação';
     document.getElementById('proposta-locatario-dropdown').style.display = 'none';
-    var checks = document.querySelectorAll('.proposta-obs-check');
-
     if (id){
       var p = db.propostas.filter(function(x){ return x.id === id; })[0];
       var loc = db.locatarios.filter(function(x){ return x.id === p.locatarioId; })[0];
@@ -4588,7 +4580,9 @@
       propostaFormItens = (p.itens || []).map(function(it){
         return { descricao: it.descricao, qtde: it.qtde, meses: it.meses, valorUnit: it.valorUnit, mobDesob: it.mobDesob };
       });
-      checks.forEach(function(c){ c.checked = (p.obs || []).indexOf(c.value) !== -1; });
+      propostaObsPadrao = (p.obsPadrao && p.obsPadrao.length)
+        ? p.obsPadrao.map(function(o){ return { texto: o.texto, marcado: o.marcado }; })
+        : PROPOSTA_OBS_PADRAO_DEFAULT.map(function(t){ return { texto: t, marcado: (p.obs || []).indexOf(t) !== -1 }; });
       propostaDadosAdicionais = (p.dadosAdicionais || []).slice();
     } else {
       document.getElementById('form-proposta').reset();
@@ -4597,11 +4591,22 @@
       document.getElementById('proposta-locatario-search').value = '';
       document.getElementById('proposta-dataEmissao').value = new Date().toISOString().slice(0, 10);
       propostaFormItens = [];
-      checks.forEach(function(c){ c.checked = false; });
+      propostaObsPadrao = PROPOSTA_OBS_PADRAO_DEFAULT.map(function(t){ return { texto: t, marcado: true }; });
       propostaDadosAdicionais = [];
     }
     renderPropostaItensTable();
+    renderPropostaObsPadraoList();
     renderDadosAdicionaisList();
+  }
+
+  function renderPropostaObsPadraoList(){
+    var container = document.getElementById('proposta-obs-padrao-list');
+    container.innerHTML = propostaObsPadrao.map(function(o, idx){
+      return '<label class="radio-option" style="align-items:center; gap:8px;">' +
+        '<input type="checkbox" class="proposta-obs-padrao-check" data-idx="' + idx + '"' + (o.marcado ? ' checked' : '') + '>' +
+        '<input type="text" class="proposta-obs-padrao-texto" data-idx="' + idx + '" value="' + (o.texto || '').replace(/"/g, '&quot;') + '" style="flex:1;">' +
+        '</label>';
+    }).join('');
   }
 
   function adicionarDadoAdicional(){
@@ -4705,8 +4710,7 @@
       return { descricao: it.descricao.trim(), qtde: qtde, meses: meses, valorUnit: valorUnit, mobDesob: mobDesob, total: qtde * meses * valorUnit + mobDesob };
     });
     var valorTotal = itens.reduce(function(s, it){ return s + it.total; }, 0);
-    var obs = [];
-    document.querySelectorAll('.proposta-obs-check').forEach(function(c){ if (c.checked) obs.push(c.value); });
+    var obs = propostaObsPadrao.filter(function(o){ return o.marcado && o.texto && o.texto.trim(); }).map(function(o){ return o.texto.trim(); });
     var dadosAdicionais = propostaDadosAdicionais.map(function(t){ return (t || '').trim(); }).filter(function(t){ return t; });
 
     var record = {
@@ -4721,6 +4725,7 @@
       valorTotal: valorTotal,
       status: existing ? existing.status : status,
       obs: obs,
+      obsPadrao: propostaObsPadrao.map(function(o){ return { texto: o.texto, marcado: o.marcado }; }),
       dadosAdicionais: dadosAdicionais
     };
 
@@ -6659,6 +6664,17 @@
     document.getElementById('proposta-itens-tbody').addEventListener('click', function(e){
       var btn = e.target.closest('.remove-item-btn');
       if (btn) removeItemProposta(parseInt(btn.dataset.idx, 10));
+    });
+
+    document.getElementById('proposta-obs-padrao-list').addEventListener('change', function(e){
+      var idx = parseInt(e.target.dataset.idx, 10);
+      if (isNaN(idx) || !e.target.classList.contains('proposta-obs-padrao-check')) return;
+      propostaObsPadrao[idx].marcado = e.target.checked;
+    });
+    document.getElementById('proposta-obs-padrao-list').addEventListener('input', function(e){
+      var idx = parseInt(e.target.dataset.idx, 10);
+      if (isNaN(idx) || !e.target.classList.contains('proposta-obs-padrao-texto')) return;
+      propostaObsPadrao[idx].texto = e.target.value;
     });
 
     document.getElementById('btn-add-dado-adicional').addEventListener('click', adicionarDadoAdicional);
