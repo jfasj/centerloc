@@ -4189,6 +4189,7 @@
           '<td>' + contratoStatusBadge(c.status) + '</td>' +
           '<td class="text-right"><div class="actions-cell">' +
             '<button type="button" class="icon-btn" title="Ver" data-action="view" data-id="' + c.id + '"><span class="material-symbols-outlined">visibility</span></button>' +
+            '<button type="button" class="icon-btn" title="Editar" data-action="edit" data-id="' + c.id + '"><span class="material-symbols-outlined">edit</span></button>' +
             '<button type="button" class="icon-btn" title="Imprimir" data-action="print" data-id="' + c.id + '"><span class="material-symbols-outlined">print</span></button>' +
             (c.status === 'ativo' ? '<button type="button" class="icon-btn" title="Encerrar" data-action="encerrar" data-id="' + c.id + '"><span class="material-symbols-outlined">block</span></button>' : '') +
           '</div></td>' +
@@ -4548,6 +4549,7 @@
           '<td>' + propostaStatusBadge(p.status) + '</td>' +
           '<td class="text-right"><div class="actions-cell">' +
             '<button type="button" class="icon-btn" title="Ver" data-action="view" data-id="' + p.id + '"><span class="material-symbols-outlined">visibility</span></button>' +
+            '<button type="button" class="icon-btn" title="Editar" data-action="edit" data-id="' + p.id + '"><span class="material-symbols-outlined">edit</span></button>' +
             '<button type="button" class="icon-btn" title="Imprimir" data-action="print" data-id="' + p.id + '"><span class="material-symbols-outlined">print</span></button>' +
             (canDecide ? '<button type="button" class="icon-btn" title="Converter em Contrato" data-action="converter" data-id="' + p.id + '"><span class="material-symbols-outlined">sync_alt</span></button>' : '') +
             (canDecide ? '<button type="button" class="icon-btn" title="Rejeitar" data-action="rejeitar" data-id="' + p.id + '"><span class="material-symbols-outlined">cancel</span></button>' : '') +
@@ -6588,6 +6590,7 @@
       if (!btn) return;
       var id = btn.dataset.id;
       if (btn.dataset.action === 'view') viewContrato(id);
+      if (btn.dataset.action === 'edit') openNovoContrato(id);
       if (btn.dataset.action === 'print') viewContrato(id);
       if (btn.dataset.action === 'encerrar') encerrarContrato(id);
     });
@@ -6643,6 +6646,7 @@
       if (!btn) return;
       var id = btn.dataset.id;
       if (btn.dataset.action === 'view') viewProposta(id);
+      if (btn.dataset.action === 'edit') openNovaProposta(id);
       if (btn.dataset.action === 'print') viewProposta(id);
       if (btn.dataset.action === 'converter') converterEmContrato(id);
       if (btn.dataset.action === 'rejeitar') rejeitarProposta(id);
