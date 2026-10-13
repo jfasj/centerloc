@@ -1046,7 +1046,7 @@
               <span class="field-error"></span>
             </div>
             <div class="form-field" style="grid-column: span 2; position:relative;">
-              <label>Locatário <span class="required-mark">*</span></label>
+              <label>Locatário</label>
               <input type="text" id="proposta-locatario-search" placeholder="Buscar locatário por nome ou CNPJ..." autocomplete="off">
               <input type="hidden" id="proposta-locatario-id">
               <div id="proposta-locatario-dropdown" class="combo-dropdown" style="display:none;"></div>
@@ -1066,6 +1066,10 @@
             <div class="form-field">
               <label>Referência / Objeto da Locação</label>
               <input type="text" id="proposta-referencia">
+            </div>
+            <div class="form-field">
+              <label>Solicitante</label>
+              <input type="text" id="proposta-solicitante" placeholder="Nome de quem está pedindo a proposta">
             </div>
           </div>
         </div>
@@ -4580,6 +4584,7 @@
       document.getElementById('proposta-dataEmissao').value = p.dataEmissao;
       document.getElementById('proposta-validade').value = p.validade || '';
       document.getElementById('proposta-referencia').value = p.referencia || '';
+      document.getElementById('proposta-solicitante').value = p.solicitante || '';
       propostaFormItens = (p.itens || []).map(function(it){
         return { descricao: it.descricao, qtde: it.qtde, meses: it.meses, valorUnit: it.valorUnit, mobDesob: it.mobDesob };
       });
@@ -4684,7 +4689,6 @@
     else if (db.propostas.some(function(p){ return p.numero === numero && p.id !== id; })){
       markInvalid('proposta-numero-display', 'Já existe uma proposta com este número.'); valid = false;
     }
-    if (!locatarioId){ markInvalid('proposta-locatario-search', 'Selecione um locatário.'); valid = false; }
     if (!dataEmissao){ markInvalid('proposta-dataEmissao', 'Campo obrigatório.'); valid = false; }
     var itensValidos = propostaFormItens.filter(function(it){ return it.descricao && it.descricao.trim(); });
     if (itensValidos.length === 0){
@@ -4713,6 +4717,7 @@
       dataEmissao: dataEmissao,
       validade: document.getElementById('proposta-validade').value || '',
       referencia: document.getElementById('proposta-referencia').value.trim(),
+      solicitante: document.getElementById('proposta-solicitante').value.trim(),
       valorTotal: valorTotal,
       status: existing ? existing.status : status,
       obs: obs,
@@ -4799,7 +4804,7 @@
         '<div class="a4-meta"><span>Nº da Proposta: <strong>' + p.numero + '</strong></span><span>Data: <strong>' + formatDate(p.dataEmissao) + '</strong></span></div>' +
 
         '<div class="a4-section-title">Destinatário</div>' +
-        '<div style="font-size:12px;">A/C: ' + (loc.contato || '—') + ', ' + (loc.razaoSocial || '—') + ', ' + destinoCidadeUf + '</div>' +
+        '<div style="font-size:12px;">A/C: ' + (p.solicitante || loc.contato || '—') + ', ' + (loc.razaoSocial || '—') + ', ' + destinoCidadeUf + '</div>' +
 
         '<div class="a4-section-title">Itens da Proposta</div>' +
         '<table class="a4-table"><thead><tr><th class="text-right">Nº Ord</th><th>Detalhamento</th><th class="text-right">Qtde</th><th class="text-right">Meses</th><th class="text-right">P.Unit</th><th class="text-right">MOB-DESMOB</th><th class="text-right">Total</th></tr></thead><tbody>' + itensRows + '</tbody></table>' +
