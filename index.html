@@ -2297,6 +2297,7 @@
         <div class="form-field">
           <label>Categoria (Plano de Contas) <span class="required-mark">*</span></label>
           <select id="lb-categoria"></select>
+          <span class="field-error"></span>
         </div>
         <div class="form-field">
           <label>Valor <span class="required-mark">*</span></label>
@@ -5439,9 +5440,14 @@
   function popularSelectPlanoContas(selectId, tipo, selectedNome){
     var select = document.getElementById(selectId);
     var categorias = (db.planoDeContas || []).filter(function(c){ return c.tipo === tipo; });
-    select.innerHTML = categorias.map(function(c){
+    var options = categorias.map(function(c){
       return '<option value="' + c.nome.replace(/"/g, '&quot;') + '"' + (c.nome === selectedNome ? ' selected' : '') + '>' + c.nome + '</option>';
-    }).join('');
+    });
+    var existe = categorias.some(function(c){ return c.nome === selectedNome; });
+    if (selectedNome && !existe){
+      options.unshift('<option value="' + selectedNome.replace(/"/g, '&quot;') + '" selected>' + selectedNome + ' (categoria removida)</option>');
+    }
+    select.innerHTML = options.join('');
   }
 
   function openModalBaixaReceber(id){
@@ -5782,6 +5788,7 @@
     var valid = true;
     clearFieldErrors('form-lancamento-bancario');
     if (!bancoId){ markInvalid('lb-banco', 'Selecione a conta bancária.'); valid = false; }
+    if (!categoria){ markInvalid('lb-categoria', 'Selecione a categoria.'); valid = false; }
     if (!descricao){ markInvalid('lb-descricao', 'Informe a descrição.'); valid = false; }
     if (!valor || valor <= 0){ markInvalid('lb-valor', 'Informe um valor válido.'); valid = false; }
     if (!data){ markInvalid('lb-data', 'Informe a data.'); valid = false; }
@@ -6033,6 +6040,9 @@
       var monthKey = ano + '-' + pad2(m);
       var receita = sum(db.contasReceber.filter(function(cr){ return cr.status === 'pago' && cr.dataPagamento && cr.dataPagamento.slice(0, 7) === monthKey; }).map(function(cr){ return cr.valor; }));
       var despesa = sum(db.contasPagar.filter(function(cp){ return cp.status === 'pago' && cp.dataPagamento && cp.dataPagamento.slice(0, 7) === monthKey; }).map(function(cp){ return cp.valor; }));
+      var lancamentosDoMes = (db.lancamentosBancarios || []).filter(function(l){ return l.data && l.data.slice(0, 7) === monthKey; });
+      receita += sum(lancamentosDoMes.filter(function(l){ return l.tipo === 'entrada'; }).map(function(l){ return l.valor; }));
+      despesa += sum(lancamentosDoMes.filter(function(l){ return l.tipo === 'saida'; }).map(function(l){ return l.valor; }));
       meses.push({ mes: m, receita: receita, despesa: despesa, lucro: receita - despesa });
     }
     return meses;
