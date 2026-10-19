@@ -654,7 +654,7 @@
         <div class="sidebar-group-label">Financeiro</div>
         <a href="#" class="sidebar-link" data-section="contas-receber"><span class="material-symbols-outlined">arrow_circle_down</span><span class="sidebar-label">Contas a Receber</span></a>
         <a href="#" class="sidebar-link" data-section="contas-pagar"><span class="material-symbols-outlined">arrow_circle_up</span><span class="sidebar-label">Contas a Pagar</span></a>
-        <a href="#" class="sidebar-link" data-section="fluxo-caixa"><span class="material-symbols-outlined">account_balance</span><span class="sidebar-label">Fluxo de Caixa</span></a>
+        <a href="#" class="sidebar-link" data-section="fluxo-caixa"><span class="material-symbols-outlined">account_balance</span><span class="sidebar-label">Fluxo de Caixa / Extrato</span></a>
 
         <div class="sidebar-group-label">Relatórios</div>
         <a href="#" class="sidebar-link" data-section="relatorios"><span class="material-symbols-outlined">analytics</span><span class="sidebar-label">Relatórios BI</span></a>
@@ -1554,8 +1554,11 @@
 
     <section id="sec-fluxo-caixa" class="section">
       <div class="page-header">
-        <h1>Fluxo de Caixa</h1>
+        <h1>Fluxo de Caixa / Extrato Bancário</h1>
         <div class="page-header-actions" style="align-items:center;">
+          <select id="fluxo-banco-filter" style="height:42px; border-radius:var(--radius); border:1px solid var(--color-border); background:var(--color-surface); padding:0 12px; font-size:13px; color:var(--color-text);">
+            <option value="">Todas as Contas Bancárias</option>
+          </select>
           <button class="btn btn-outline" id="fluxo-prev"><span class="material-symbols-outlined">chevron_left</span></button>
           <span id="fluxo-periodo-label" style="font-family:var(--font-display); font-weight:700; font-size:18px; color:var(--color-navy); text-transform:uppercase; min-width:160px; text-align:center;">—</span>
           <button class="btn btn-outline" id="fluxo-next"><span class="material-symbols-outlined">chevron_right</span></button>
@@ -1593,7 +1596,7 @@
           <h2>Lançamentos do Período</h2>
           <div style="overflow-x:auto;">
             <table class="data-table">
-              <thead><tr><th>Data</th><th>Descrição</th><th>Tipo</th><th>Categoria</th><th class="text-right">Valor</th><th class="text-right">Saldo Acumulado</th></tr></thead>
+              <thead><tr><th>Data</th><th>Descrição</th><th>Conta Bancária</th><th>Tipo</th><th>Categoria</th><th class="text-right">Valor</th><th class="text-right">Saldo Acumulado</th></tr></thead>
               <tbody id="fluxo-tbody"></tbody>
             </table>
           </div>
@@ -2289,7 +2292,7 @@
     'nota-print': ['Fiscal', 'Impressão de Nota de Débito'],
     'contas-receber': ['Financeiro', 'Contas a Receber'],
     'contas-pagar': ['Financeiro', 'Contas a Pagar'],
-    'fluxo-caixa': ['Financeiro', 'Fluxo de Caixa'],
+    'fluxo-caixa': ['Financeiro', 'Fluxo de Caixa / Extrato Bancário'],
     'frota': ['Cadastros', 'Veículos / Equipamentos'],
     'frota-detalhe': ['Cadastros', 'Detalhe do Equipamento'],
     'frota-print': ['Cadastros', 'Impressão da Relação de Equipamentos'],
@@ -2368,7 +2371,7 @@
   var editingPagarId = null;
   var pagarContaTargetId = null;
 
-  var fluxoState = (function(){ var d = new Date(); return { year: d.getFullYear(), month: d.getMonth() + 1 }; })();
+  var fluxoState = (function(){ var d = new Date(); return { year: d.getFullYear(), month: d.getMonth() + 1, bancoId: '' }; })();
 
   var dreState = { ano: new Date().getFullYear() };
   var relatorioState = { tipo: 'mes', de: '', ate: '' };
@@ -5654,19 +5657,38 @@
     var entradas = db.contasReceber.filter(function(cr){
       return cr.status === 'pago' && cr.dataPagamento && cr.dataPagamento.slice(0, 7) === monthKey;
     }).map(function(cr){
-      return { data: cr.dataPagamento, descricao: cr.descricao || getLocatarioNome(cr.locatarioId), tipo: 'entrada', categoria: '—', valor: cr.valor };
+      return { data: cr.dataPagamento, descricao: cr.descricao || getLocatarioNome(cr.locatarioId), tipo: 'entrada', categoria: cr.categoria || '—', bancoId: cr.bancoId || null, valor: cr.valor };
     });
     var saidas = db.contasPagar.filter(function(cp){
       return cp.status === 'pago' && cp.dataPagamento && cp.dataPagamento.slice(0, 7) === monthKey;
     }).map(function(cp){
-      return { data: cp.dataPagamento, descricao: cp.descricao, tipo: 'saida', categoria: cp.categoria, valor: cp.valor };
+      return { data: cp.dataPagamento, descricao: cp.descricao, tipo: 'saida', categoria: cp.categoria, bancoId: cp.bancoId || null, valor: cp.valor };
     });
     var all = entradas.concat(saidas);
+    if (fluxoState.bancoId){
+      all = all.filter(function(m){ return m.bancoId === fluxoState.bancoId; });
+    }
     all.sort(function(a, b){ return new Date(a.data) - new Date(b.data); });
     return all;
   }
 
+  function nomeContaBancaria(bancoId){
+    if (!bancoId) return '—';
+    var contas = db.empresa.contasBancarias || [];
+    var c = contas.filter(function(x){ return x.id === bancoId; })[0];
+    return c ? (c.nome || c.banco) : '—';
+  }
+
+  function renderFluxoBancoFilter(){
+    var select = document.getElementById('fluxo-banco-filter');
+    var contas = db.empresa.contasBancarias || [];
+    select.innerHTML = '<option value="">Todas as Contas Bancárias</option>' + contas.map(function(c){
+      return '<option value="' + c.id + '"' + (c.id === fluxoState.bancoId ? ' selected' : '') + '>' + (c.nome || c.banco) + '</option>';
+    }).join('');
+  }
+
   function renderFluxoCaixa(){
+    renderFluxoBancoFilter();
     var label = capitalizeFirst(MESES_EXTENSO[fluxoState.month - 1]) + '/' + fluxoState.year;
     document.getElementById('fluxo-periodo-label').textContent = label;
 
@@ -5691,7 +5713,7 @@
   function renderTabelaFluxo(movimentos, saldoInicial){
     var tbody = document.getElementById('fluxo-tbody');
     if (movimentos.length === 0){
-      tbody.innerHTML = '<tr class="empty-row"><td colspan="6">Nenhum lançamento no período.</td></tr>';
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="7">Nenhum lançamento no período.</td></tr>';
       return;
     }
     var saldo = saldoInicial;
@@ -5702,6 +5724,7 @@
       return '<tr style="' + corLinha + '">' +
         '<td class="tabular">' + formatDate(m.data) + '</td>' +
         '<td>' + m.descricao + '</td>' +
+        '<td>' + nomeContaBancaria(m.bancoId) + '</td>' +
         '<td>' + (m.tipo === 'entrada' ? '<span class="badge badge-success">Entrada</span>' : '<span class="badge badge-danger">Saída</span>') + '</td>' +
         '<td>' + m.categoria + '</td>' +
         '<td class="text-right tabular">' + formatBRL(m.valor) + '</td>' +
@@ -6949,6 +6972,10 @@
     /* Fluxo de Caixa */
     document.getElementById('fluxo-prev').addEventListener('click', function(){ navFluxo(-1); });
     document.getElementById('fluxo-next').addEventListener('click', function(){ navFluxo(1); });
+    document.getElementById('fluxo-banco-filter').addEventListener('change', function(e){
+      fluxoState.bancoId = e.target.value;
+      renderFluxoCaixa();
+    });
 
     /* DRE */
     document.getElementById('dre-prev').addEventListener('click', function(){ navDRE(-1); });
