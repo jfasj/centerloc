@@ -5285,7 +5285,7 @@
       var matchPeriodo = !receberState.periodo || cr.dataVencimento.slice(0, 7) === receberState.periodo;
       return matchQuery && matchStatus && matchPeriodo;
     });
-    filtered.sort(function(a, b){ return new Date(b.dataVencimento) - new Date(a.dataVencimento); });
+    filtered.sort(function(a, b){ return new Date(a.dataVencimento) - new Date(b.dataVencimento); });
     var pageInfo = paginate(filtered, receberState.page, PAGE_SIZE);
     receberState.page = pageInfo.page;
 
@@ -5412,7 +5412,7 @@
       var matchCategoria = !pagarState.categoria || cp.categoria === pagarState.categoria;
       return matchStatus && matchPeriodo && matchCategoria;
     });
-    filtered.sort(function(a, b){ return new Date(b.dataVencimento) - new Date(a.dataVencimento); });
+    filtered.sort(function(a, b){ return new Date(a.dataVencimento) - new Date(b.dataVencimento); });
     var pageInfo = paginate(filtered, pagarState.page, PAGE_SIZE);
     pagarState.page = pageInfo.page;
 
