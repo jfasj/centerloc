@@ -1556,6 +1556,7 @@
       <div class="page-header">
         <h1>Fluxo de Caixa / Extrato Bancário</h1>
         <div class="page-header-actions" style="align-items:center;">
+          <button class="btn btn-primary" id="btn-novo-lancamento-bancario"><span class="material-symbols-outlined">add</span><span>Novo Lançamento</span></button>
           <select id="fluxo-banco-filter" style="height:42px; border-radius:var(--radius); border:1px solid var(--color-border); background:var(--color-surface); padding:0 12px; font-size:13px; color:var(--color-text);">
             <option value="">Todas as Contas Bancárias</option>
           </select>
@@ -1596,7 +1597,7 @@
           <h2>Lançamentos do Período</h2>
           <div style="overflow-x:auto;">
             <table class="data-table">
-              <thead><tr><th>Data</th><th>Descrição</th><th>Conta Bancária</th><th>Tipo</th><th>Categoria</th><th class="text-right">Valor</th><th class="text-right">Saldo Acumulado</th></tr></thead>
+              <thead><tr><th>Data</th><th>Descrição</th><th>Conta Bancária</th><th>Tipo</th><th>Categoria</th><th class="text-right">Valor</th><th class="text-right">Saldo Acumulado</th><th></th></tr></thead>
               <tbody id="fluxo-tbody"></tbody>
             </table>
           </div>
@@ -2265,6 +2266,62 @@
   </form>
 </dialog>
 
+<!-- ============ MODAL NOVO LANÇAMENTO BANCÁRIO (Extrato) ============ -->
+<dialog id="modal-lancamento-bancario" class="app-dialog" style="width:560px;">
+  <form class="dialog-form" id="form-lancamento-bancario">
+    <header class="dialog-header">
+      <h2 id="modal-lancamento-bancario-title">Novo Lançamento Bancário</h2>
+      <button type="button" class="dialog-close" data-close-lancamento-bancario aria-label="Fechar">&times;</button>
+    </header>
+    <div class="dialog-body">
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Conta Bancária <span class="required-mark">*</span></label>
+          <select id="lb-banco"></select>
+          <span class="field-error"></span>
+        </div>
+        <div class="form-field">
+          <label>Tipo <span class="required-mark">*</span></label>
+          <select id="lb-tipo">
+            <option value="entrada">Entrada</option>
+            <option value="saida">Saída</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Descrição <span class="required-mark">*</span></label>
+        <input type="text" id="lb-descricao" placeholder="Ex: Transferência, Tarifa bancária, Rendimento...">
+        <span class="field-error"></span>
+      </div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Categoria (Plano de Contas) <span class="required-mark">*</span></label>
+          <select id="lb-categoria"></select>
+        </div>
+        <div class="form-field">
+          <label>Valor <span class="required-mark">*</span></label>
+          <input type="number" id="lb-valor" min="0" step="0.01">
+          <span class="field-error"></span>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Data <span class="required-mark">*</span></label>
+        <input type="date" id="lb-data">
+        <span class="field-error"></span>
+      </div>
+      <div class="form-field">
+        <label>Observações</label>
+        <textarea id="lb-obs" rows="3"></textarea>
+      </div>
+    </div>
+    <footer class="dialog-footer">
+      <button type="button" class="btn btn-outline" data-close-lancamento-bancario>Cancelar</button>
+      <button type="button" class="btn btn-danger" id="btn-excluir-lancamento-bancario" style="display:none; margin-right:auto;"><span class="material-symbols-outlined">delete</span><span>Excluir</span></button>
+      <button type="button" class="btn btn-primary" id="btn-salvar-lancamento-bancario"><span class="material-symbols-outlined">save</span><span>Salvar Lançamento</span></button>
+    </footer>
+  </form>
+</dialog>
+
 <div id="toast-container"></div>
 
 <script>
@@ -2489,6 +2546,11 @@
       db.empresa.cidade = 'Recife';
       changed = true;
     }
+    if (!db.lancamentosBancarios){
+      db.lancamentosBancarios = [];
+      db.nextIds.lancamentoBancario = 1;
+      changed = true;
+    }
     if (changed) saveDB();
   }
 
@@ -2566,6 +2628,7 @@
       ],
       contasReceber: buildSeedContasReceber(),
       contasPagar: buildSeedContasPagar(),
+      lancamentosBancarios: [],
       notasDebito: [],
       locatarios: [
         { id: 'L0001', razaoSocial: 'ENGEMAN SERVIÇOS TÉCNICOS LTDA', cnpj: '08.769.549/0006-61', contato: 'Carlos Engenheiro', email: 'engeman@email.com', telefone: '(81) 9999-0001', ativo: true },
@@ -2577,7 +2640,7 @@
         { id: 'C0002', tipo: 'cliente', razaoSocial: 'PORTO DE SUAPE S.A.', cnpj: '44.555.666/0001-22', contato: 'Direção Operacional', email: 'porto@suape.com.br', telefone: '(81) 3527-5000', ativo: true },
         { id: 'C0003', tipo: 'ambos', categoria: 'Peças', razaoSocial: 'DISTRIBUIDORA NORDESTE LTDA', cnpj: '55.666.777/0001-33', contato: 'Marcos Distribuidora', email: 'nordeste@dist.com', telefone: '(81) 9777-0003', ativo: true }
       ],
-      nextIds: { contrato: 4, contaReceber: 18, locatario: 4, cliente: 4, frota: 5, proposta: 2, nota: 533, contaPagar: 7 }
+      nextIds: { contrato: 4, contaReceber: 18, locatario: 4, cliente: 4, frota: 5, proposta: 2, nota: 533, contaPagar: 7, lancamentoBancario: 1 }
     };
   }
 
@@ -5657,14 +5720,19 @@
     var entradas = db.contasReceber.filter(function(cr){
       return cr.status === 'pago' && cr.dataPagamento && cr.dataPagamento.slice(0, 7) === monthKey;
     }).map(function(cr){
-      return { data: cr.dataPagamento, descricao: cr.descricao || getLocatarioNome(cr.locatarioId), tipo: 'entrada', categoria: cr.categoria || '—', bancoId: cr.bancoId || null, valor: cr.valor };
+      return { data: cr.dataPagamento, descricao: cr.descricao || getLocatarioNome(cr.locatarioId), tipo: 'entrada', categoria: cr.categoria || '—', bancoId: cr.bancoId || null, valor: cr.valor, origem: 'contaReceber', refId: cr.id };
     });
     var saidas = db.contasPagar.filter(function(cp){
       return cp.status === 'pago' && cp.dataPagamento && cp.dataPagamento.slice(0, 7) === monthKey;
     }).map(function(cp){
-      return { data: cp.dataPagamento, descricao: cp.descricao, tipo: 'saida', categoria: cp.categoria, bancoId: cp.bancoId || null, valor: cp.valor };
+      return { data: cp.dataPagamento, descricao: cp.descricao, tipo: 'saida', categoria: cp.categoria, bancoId: cp.bancoId || null, valor: cp.valor, origem: 'contaPagar', refId: cp.id };
     });
-    var all = entradas.concat(saidas);
+    var manuais = (db.lancamentosBancarios || []).filter(function(l){
+      return l.data && l.data.slice(0, 7) === monthKey;
+    }).map(function(l){
+      return { data: l.data, descricao: l.descricao, tipo: l.tipo, categoria: l.categoria || '—', bancoId: l.bancoId || null, valor: l.valor, origem: 'manual', refId: l.id };
+    });
+    var all = entradas.concat(saidas).concat(manuais);
     if (fluxoState.bancoId){
       all = all.filter(function(m){ return m.bancoId === fluxoState.bancoId; });
     }
@@ -5677,6 +5745,81 @@
     var contas = db.empresa.contasBancarias || [];
     var c = contas.filter(function(x){ return x.id === bancoId; })[0];
     return c ? (c.nome || c.banco) : '—';
+  }
+
+  var lancamentoBancarioTargetId = null;
+
+  function openModalLancamentoBancario(id){
+    lancamentoBancarioTargetId = id || null;
+    var l = id ? (db.lancamentosBancarios || []).filter(function(x){ return x.id === id; })[0] : null;
+    document.getElementById('modal-lancamento-bancario-title').textContent = l ? 'Editar Lançamento Bancário' : 'Novo Lançamento Bancário';
+    popularSelectBanco('lb-banco', l ? l.bancoId : null);
+    var tipo = l ? l.tipo : 'entrada';
+    document.getElementById('lb-tipo').value = tipo;
+    popularSelectPlanoContas('lb-categoria', tipo === 'entrada' ? 'receita' : 'despesa', l ? l.categoria : null);
+    document.getElementById('lb-descricao').value = l ? l.descricao : '';
+    document.getElementById('lb-valor').value = l ? l.valor : '';
+    document.getElementById('lb-data').value = l ? l.data : new Date().toISOString().slice(0, 10);
+    document.getElementById('lb-obs').value = l ? (l.obs || '') : '';
+    document.getElementById('btn-excluir-lancamento-bancario').style.display = l ? '' : 'none';
+    clearFieldErrors('form-lancamento-bancario');
+    document.getElementById('modal-lancamento-bancario').showModal();
+  }
+
+  function closeModalLancamentoBancario(){
+    document.getElementById('modal-lancamento-bancario').close();
+  }
+
+  function saveLancamentoBancario(){
+    var bancoId = document.getElementById('lb-banco').value;
+    var tipo = document.getElementById('lb-tipo').value;
+    var categoria = document.getElementById('lb-categoria').value;
+    var descricao = document.getElementById('lb-descricao').value.trim();
+    var valor = parseFloat(document.getElementById('lb-valor').value);
+    var data = document.getElementById('lb-data').value;
+    var obs = document.getElementById('lb-obs').value.trim();
+
+    var valid = true;
+    clearFieldErrors('form-lancamento-bancario');
+    if (!bancoId){ markInvalid('lb-banco', 'Selecione a conta bancária.'); valid = false; }
+    if (!descricao){ markInvalid('lb-descricao', 'Informe a descrição.'); valid = false; }
+    if (!valor || valor <= 0){ markInvalid('lb-valor', 'Informe um valor válido.'); valid = false; }
+    if (!data){ markInvalid('lb-data', 'Informe a data.'); valid = false; }
+    if (!valid) return;
+
+    if (!db.lancamentosBancarios) db.lancamentosBancarios = [];
+    if (lancamentoBancarioTargetId){
+      var existing = db.lancamentosBancarios.filter(function(x){ return x.id === lancamentoBancarioTargetId; })[0];
+      existing.bancoId = bancoId;
+      existing.tipo = tipo;
+      existing.categoria = categoria;
+      existing.descricao = descricao;
+      existing.valor = valor;
+      existing.data = data;
+      existing.obs = obs;
+    } else {
+      db.lancamentosBancarios.push({
+        id: gerarId('LB', db.nextIds.lancamentoBancario),
+        bancoId: bancoId, tipo: tipo, categoria: categoria, descricao: descricao, valor: valor, data: data, obs: obs
+      });
+      db.nextIds.lancamentoBancario++;
+    }
+    saveDB();
+    closeModalLancamentoBancario();
+    renderFluxoCaixa();
+    showToast('Lançamento salvo com sucesso!', 'success');
+  }
+
+  function deletarLancamentoBancario(){
+    if (!lancamentoBancarioTargetId) return;
+    if (!confirm('Deseja realmente excluir este lançamento?')) return;
+    var idx = db.lancamentosBancarios.findIndex(function(x){ return x.id === lancamentoBancarioTargetId; });
+    if (idx === -1) return;
+    db.lancamentosBancarios.splice(idx, 1);
+    saveDB();
+    closeModalLancamentoBancario();
+    renderFluxoCaixa();
+    showToast('Lançamento excluído.', 'info');
   }
 
   function renderFluxoBancoFilter(){
@@ -5713,7 +5856,7 @@
   function renderTabelaFluxo(movimentos, saldoInicial){
     var tbody = document.getElementById('fluxo-tbody');
     if (movimentos.length === 0){
-      tbody.innerHTML = '<tr class="empty-row"><td colspan="7">Nenhum lançamento no período.</td></tr>';
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="8">Nenhum lançamento no período.</td></tr>';
       return;
     }
     var saldo = saldoInicial;
@@ -5721,6 +5864,9 @@
       saldo += (m.tipo === 'entrada' ? m.valor : -m.valor);
       var corLinha = m.tipo === 'entrada' ? 'background:#F0FDF4;' : 'background:#FEF2F2;';
       var saldoColor = saldo < 0 ? 'var(--color-danger)' : 'var(--color-text)';
+      var acoes = m.origem === 'manual'
+        ? '<button type="button" class="icon-btn" title="Editar" data-action="edit-lancamento" data-id="' + m.refId + '"><span class="material-symbols-outlined">edit</span></button>'
+        : '';
       return '<tr style="' + corLinha + '">' +
         '<td class="tabular">' + formatDate(m.data) + '</td>' +
         '<td>' + m.descricao + '</td>' +
@@ -5729,6 +5875,7 @@
         '<td>' + m.categoria + '</td>' +
         '<td class="text-right tabular">' + formatBRL(m.valor) + '</td>' +
         '<td class="text-right tabular" style="font-weight:700; color:' + saldoColor + ';">' + formatBRL(saldo) + '</td>' +
+        '<td>' + acoes + '</td>' +
         '</tr>';
     }).join('');
   }
@@ -6976,6 +7123,23 @@
       fluxoState.bancoId = e.target.value;
       renderFluxoCaixa();
     });
+    document.getElementById('btn-novo-lancamento-bancario').addEventListener('click', function(){ openModalLancamentoBancario(null); });
+    document.getElementById('lb-tipo').addEventListener('change', function(e){
+      popularSelectPlanoContas('lb-categoria', e.target.value === 'entrada' ? 'receita' : 'despesa', null);
+    });
+    document.getElementById('btn-salvar-lancamento-bancario').addEventListener('click', saveLancamentoBancario);
+    document.getElementById('btn-excluir-lancamento-bancario').addEventListener('click', deletarLancamentoBancario);
+    var closeLancamentoBancarioEls = document.querySelectorAll('[data-close-lancamento-bancario]');
+    for (var clb = 0; clb < closeLancamentoBancarioEls.length; clb++){
+      closeLancamentoBancarioEls[clb].addEventListener('click', closeModalLancamentoBancario);
+    }
+    document.getElementById('modal-lancamento-bancario').addEventListener('click', function(e){
+      if (e.target === this) closeModalLancamentoBancario();
+    });
+    document.getElementById('fluxo-tbody').addEventListener('click', function(e){
+      var btn = e.target.closest('[data-action="edit-lancamento"]');
+      if (btn) openModalLancamentoBancario(btn.getAttribute('data-id'));
+    });
 
     /* DRE */
     document.getElementById('dre-prev').addEventListener('click', function(){ navDRE(-1); });
@@ -7041,6 +7205,8 @@
     renderContasReceber: renderContasReceber, openModalBaixaReceber: openModalBaixaReceber,
     renderContasPagar: renderContasPagar, openModalNovaPagar: openModalNovaPagar,
     openModalPagarConta: openModalPagarConta, renderFluxoCaixa: renderFluxoCaixa, navFluxo: navFluxo,
+    openModalLancamentoBancario: openModalLancamentoBancario, saveLancamentoBancario: saveLancamentoBancario,
+    deletarLancamentoBancario: deletarLancamentoBancario, getFluxoMovimentos: getFluxoMovimentos,
     renderDRE: renderDRE, navDRE: navDRE, renderRelatorios: renderRelatorios,
     exportarCSV: exportarCSV, openRelatorioGerencial: openRelatorioGerencial
   };
