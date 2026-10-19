@@ -821,6 +821,15 @@
             </div>
 
             <div class="cfg-section">
+              <h3><span class="material-symbols-outlined">account_tree</span>Plano de Contas</h3>
+              <p style="margin:0; font-size:13px; color:var(--color-text-secondary);">Categorias usadas para classificar cada lançamento de Contas a Pagar e Contas a Receber.</p>
+              <div id="cfg-plano-contas-list" style="display:flex; flex-direction:column; gap:8px;"></div>
+              <div>
+                <button type="button" class="btn btn-outline" id="btn-add-plano-conta"><span class="material-symbols-outlined">add</span><span>Adicionar Categoria</span></button>
+              </div>
+            </div>
+
+            <div class="cfg-section">
               <h3><span class="material-symbols-outlined">branding_watermark</span>Logomarca</h3>
               <div class="logo-upload-box">
                 <div class="logo-preview" id="cfg-logo-preview-box">
@@ -1471,7 +1480,7 @@
         <div style="overflow-x:auto;">
           <table class="data-table">
             <thead>
-              <tr><th>Nº</th><th>Locatário</th><th>Nota/Referência</th><th>Vencimento</th><th>Valor</th><th>Data Pagamento</th><th>Forma Pagamento</th><th>Status</th><th class="text-right">Ações</th></tr>
+              <tr><th>Nº</th><th>Locatário</th><th>Nota/Referência</th><th>Categoria</th><th>Vencimento</th><th>Valor</th><th>Data Pagamento</th><th>Forma Pagamento</th><th>Status</th><th class="text-right">Ações</th></tr>
             </thead>
             <tbody id="receber-tbody"></tbody>
           </table>
@@ -2128,15 +2137,25 @@
           <input type="number" id="baixa-receber-valor" min="0" step="0.01">
         </div>
       </div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Forma de Pagamento <span class="required-mark">*</span></label>
+          <select id="baixa-receber-forma">
+            <option value="PIX">PIX</option>
+            <option value="Boleto">Boleto</option>
+            <option value="TED">TED</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cheque">Cheque</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Conta Bancária</label>
+          <select id="baixa-receber-banco"></select>
+        </div>
+      </div>
       <div class="form-field">
-        <label>Forma de Pagamento <span class="required-mark">*</span></label>
-        <select id="baixa-receber-forma">
-          <option value="PIX">PIX</option>
-          <option value="Boleto">Boleto</option>
-          <option value="TED">TED</option>
-          <option value="Dinheiro">Dinheiro</option>
-          <option value="Cheque">Cheque</option>
-        </select>
+        <label>Categoria (Plano de Contas)</label>
+        <select id="baixa-receber-categoria"></select>
       </div>
       <div class="form-field">
         <label>Observações</label>
@@ -2170,17 +2189,8 @@
       </div>
       <div class="form-grid">
         <div class="form-field">
-          <label>Categoria <span class="required-mark">*</span></label>
-          <select id="pagar-categoria">
-            <option value="Manutenção">Manutenção</option>
-            <option value="Combustível">Combustível</option>
-            <option value="Peças e Insumos">Peças e Insumos</option>
-            <option value="Pessoal">Pessoal</option>
-            <option value="Administrativo">Administrativo</option>
-            <option value="Impostos e Taxas">Impostos e Taxas</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Outros">Outros</option>
-          </select>
+          <label>Categoria (Plano de Contas) <span class="required-mark">*</span></label>
+          <select id="pagar-categoria"></select>
         </div>
         <div class="form-field">
           <label>Valor <span class="required-mark">*</span></label>
@@ -2224,15 +2234,21 @@
         <label>Data de Pagamento <span class="required-mark">*</span></label>
         <input type="date" id="pagar-conta-data">
       </div>
-      <div class="form-field">
-        <label>Forma de Pagamento <span class="required-mark">*</span></label>
-        <select id="pagar-conta-forma">
-          <option value="PIX">PIX</option>
-          <option value="TED">TED</option>
-          <option value="Boleto">Boleto</option>
-          <option value="Dinheiro">Dinheiro</option>
-          <option value="Cheque">Cheque</option>
-        </select>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Forma de Pagamento <span class="required-mark">*</span></label>
+          <select id="pagar-conta-forma">
+            <option value="PIX">PIX</option>
+            <option value="TED">TED</option>
+            <option value="Boleto">Boleto</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cheque">Cheque</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Conta Bancária</label>
+          <select id="pagar-conta-banco"></select>
+        </div>
       </div>
       <div class="form-field">
         <label>Observações</label>
@@ -2351,7 +2367,6 @@
   var pagarState = { status: '', periodo: '', categoria: '', page: 1 };
   var editingPagarId = null;
   var pagarContaTargetId = null;
-  var CONTAS_PAGAR_CATEGORIAS = ['Manutenção', 'Combustível', 'Peças e Insumos', 'Pessoal', 'Administrativo', 'Impostos e Taxas', 'Transporte', 'Outros'];
 
   var fluxoState = (function(){ var d = new Date(); return { year: d.getFullYear(), month: d.getMonth() + 1 }; })();
 
@@ -2440,6 +2455,22 @@
       db.empresa.logomarca = getDefaultLogomarca();
       changed = true;
     }
+    if (!db.planoDeContas){
+      db.planoDeContas = [
+        { id: 'PC1', nome: 'Locação de Equipamentos', tipo: 'receita' },
+        { id: 'PC2', nome: 'Mobilização/Desmobilização', tipo: 'receita' },
+        { id: 'PC3', nome: 'Outras Receitas', tipo: 'receita' },
+        { id: 'PC4', nome: 'Manutenção', tipo: 'despesa' },
+        { id: 'PC5', nome: 'Combustível', tipo: 'despesa' },
+        { id: 'PC6', nome: 'Peças e Insumos', tipo: 'despesa' },
+        { id: 'PC7', nome: 'Pessoal', tipo: 'despesa' },
+        { id: 'PC8', nome: 'Administrativo', tipo: 'despesa' },
+        { id: 'PC9', nome: 'Impostos e Taxas', tipo: 'despesa' },
+        { id: 'PC10', nome: 'Transporte', tipo: 'despesa' },
+        { id: 'PC11', nome: 'Outros', tipo: 'despesa' }
+      ];
+      changed = true;
+    }
     if (!db.empresa.contasBancarias){
       db.empresa.contasBancarias = [{
         id: 'BANK1',
@@ -2508,6 +2539,19 @@
         contasBancarias: [{ id: 'BANK1', nome: 'Bradesco', pix: '12.299.005/0001-46', banco: 'Bradesco', agencia: '3214-5', conta: '00123456-7' }],
         logomarca: getDefaultLogomarca()
       },
+      planoDeContas: [
+        { id: 'PC1', nome: 'Locação de Equipamentos', tipo: 'receita' },
+        { id: 'PC2', nome: 'Mobilização/Desmobilização', tipo: 'receita' },
+        { id: 'PC3', nome: 'Outras Receitas', tipo: 'receita' },
+        { id: 'PC4', nome: 'Manutenção', tipo: 'despesa' },
+        { id: 'PC5', nome: 'Combustível', tipo: 'despesa' },
+        { id: 'PC6', nome: 'Peças e Insumos', tipo: 'despesa' },
+        { id: 'PC7', nome: 'Pessoal', tipo: 'despesa' },
+        { id: 'PC8', nome: 'Administrativo', tipo: 'despesa' },
+        { id: 'PC9', nome: 'Impostos e Taxas', tipo: 'despesa' },
+        { id: 'PC10', nome: 'Transporte', tipo: 'despesa' },
+        { id: 'PC11', nome: 'Outros', tipo: 'despesa' }
+      ],
       contratos: buildSeedContratos(),
       propostas: buildSeedPropostas(),
       notas: buildSeedNotas(),
@@ -5291,7 +5335,7 @@
 
     var tbody = document.getElementById('receber-tbody');
     if (pageInfo.items.length === 0){
-      tbody.innerHTML = '<tr class="empty-row"><td colspan="9">Nenhum lançamento encontrado.</td></tr>';
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="10">Nenhum lançamento encontrado.</td></tr>';
     } else {
       tbody.innerHTML = pageInfo.items.map(function(cr){
         var vencida = contaReceberStatusInfo(cr) === 'vencido';
@@ -5301,6 +5345,7 @@
           '<td class="tabular">' + cr.id + '</td>' +
           '<td>' + getLocatarioNome(cr.locatarioId) + '</td>' +
           '<td>' + refCell + '</td>' +
+          '<td>' + (cr.categoria || '—') + '</td>' +
           '<td class="tabular"' + (vencida ? ' style="font-weight:700;color:var(--color-danger);"' : '') + '>' + formatDate(cr.dataVencimento) + '</td>' +
           '<td class="tabular">' + formatBRL(cr.valor) + '</td>' +
           '<td class="tabular">' + (cr.dataPagamento ? formatDate(cr.dataPagamento) : '—') + '</td>' +
@@ -5317,6 +5362,22 @@
     renderPagination('receber-pagination', pageInfo, function(p){ receberState.page = p; renderContasReceber(); });
   }
 
+  function popularSelectBanco(selectId, selectedId){
+    var select = document.getElementById(selectId);
+    var contas = db.empresa.contasBancarias || [];
+    select.innerHTML = '<option value="">—</option>' + contas.map(function(c){
+      return '<option value="' + c.id + '"' + (c.id === selectedId ? ' selected' : '') + '>' + (c.nome || c.banco) + '</option>';
+    }).join('');
+  }
+
+  function popularSelectPlanoContas(selectId, tipo, selectedNome){
+    var select = document.getElementById(selectId);
+    var categorias = (db.planoDeContas || []).filter(function(c){ return c.tipo === tipo; });
+    select.innerHTML = categorias.map(function(c){
+      return '<option value="' + c.nome.replace(/"/g, '&quot;') + '"' + (c.nome === selectedNome ? ' selected' : '') + '>' + c.nome + '</option>';
+    }).join('');
+  }
+
   function openModalBaixaReceber(id){
     baixaReceberTargetId = id;
     var cr = db.contasReceber.filter(function(x){ return x.id === id; })[0];
@@ -5326,6 +5387,8 @@
     document.getElementById('baixa-receber-valor').value = cr.valor;
     document.getElementById('baixa-receber-forma').value = 'PIX';
     document.getElementById('baixa-receber-obs').value = '';
+    popularSelectBanco('baixa-receber-banco', cr.bancoId);
+    popularSelectPlanoContas('baixa-receber-categoria', 'receita', cr.categoria || 'Locação de Equipamentos');
     document.getElementById('modal-baixa-receber').showModal();
   }
 
@@ -5345,6 +5408,8 @@
     cr.dataPagamento = dataPagamento;
     cr.valor = valor;
     cr.formaPagamento = document.getElementById('baixa-receber-forma').value;
+    cr.bancoId = document.getElementById('baixa-receber-banco').value || null;
+    cr.categoria = document.getElementById('baixa-receber-categoria').value || null;
     cr.obs = document.getElementById('baixa-receber-obs').value.trim();
 
     if (cr.notaId){
@@ -5406,6 +5471,12 @@
     document.getElementById('pagar-kpi-vencidas').textContent = formatBRL(k.vencidas);
     document.getElementById('pagar-kpi-proximas').textContent = formatBRL(k.proximas);
 
+    var categoriaFilterSelect = document.getElementById('pagar-categoria-filter');
+    categoriaFilterSelect.innerHTML = '<option value="">Todas as Categorias</option>' +
+      (db.planoDeContas || []).filter(function(c){ return c.tipo === 'despesa'; }).map(function(c){
+        return '<option value="' + c.nome.replace(/"/g, '&quot;') + '"' + (pagarState.categoria === c.nome ? ' selected' : '') + '>' + c.nome + '</option>';
+      }).join('');
+
     var filtered = db.contasPagar.filter(function(cp){
       var matchStatus = !pagarState.status || contaPagarStatusInfo(cp) === pagarState.status;
       var matchPeriodo = !pagarState.periodo || cp.dataVencimento.slice(0, 7) === pagarState.periodo;
@@ -5466,12 +5537,13 @@
       var forn = cp.fornecedorId ? db.clientes.filter(function(x){ return x.id === cp.fornecedorId; })[0] : null;
       document.getElementById('pagar-fornecedor-nome').value = forn ? forn.razaoSocial : '';
       document.getElementById('pagar-descricao').value = cp.descricao || '';
-      document.getElementById('pagar-categoria').value = cp.categoria || 'Outros';
+      popularSelectPlanoContas('pagar-categoria', 'despesa', cp.categoria || 'Outros');
       document.getElementById('pagar-valor').value = cp.valor || '';
       document.getElementById('pagar-dataVencimento').value = cp.dataVencimento || '';
       document.getElementById('pagar-obs').value = cp.obs || '';
       populateFrotaSelectPagar(cp.frotaId || '');
     } else {
+      popularSelectPlanoContas('pagar-categoria', 'despesa');
       populateFrotaSelectPagar('');
     }
     document.getElementById('modal-nova-pagar').showModal();
@@ -5533,6 +5605,7 @@
     document.getElementById('pagar-conta-data').value = new Date().toISOString().slice(0, 10);
     document.getElementById('pagar-conta-forma').value = 'PIX';
     document.getElementById('pagar-conta-obs').value = cp.obs || '';
+    popularSelectBanco('pagar-conta-banco', cp.bancoId);
     document.getElementById('modal-pagar-conta').showModal();
   }
 
@@ -5549,6 +5622,7 @@
     cp.status = 'pago';
     cp.dataPagamento = dataPagamento;
     cp.formaPagamento = document.getElementById('pagar-conta-forma').value;
+    cp.bancoId = document.getElementById('pagar-conta-banco').value || null;
     cp.obs = document.getElementById('pagar-conta-obs').value.trim();
     saveDB();
     closeModalPagarConta();
@@ -6330,6 +6404,33 @@
     renderContasBancariasConfig();
   }
 
+  var cfgPlanoContas = [];
+
+  function renderPlanoContasConfig(){
+    var container = document.getElementById('cfg-plano-contas-list');
+    container.innerHTML = cfgPlanoContas.map(function(c, idx){
+      return '<div style="display:flex; gap:8px; align-items:center;" data-idx="' + idx + '">' +
+        '<input type="text" class="plano-conta-nome" data-idx="' + idx + '" value="' + (c.nome || '').replace(/"/g, '&quot;') + '" style="flex:1;" placeholder="Nome da categoria">' +
+        '<select class="plano-conta-tipo" data-idx="' + idx + '" style="width:120px;">' +
+          '<option value="receita"' + (c.tipo === 'receita' ? ' selected' : '') + '>Receita</option>' +
+          '<option value="despesa"' + (c.tipo === 'despesa' ? ' selected' : '') + '>Despesa</option>' +
+        '</select>' +
+        '<button type="button" class="icon-btn remove-plano-conta-btn" data-idx="' + idx + '" title="Remover"' + (cfgPlanoContas.length <= 1 ? ' disabled' : '') + '><span class="material-symbols-outlined">delete</span></button>' +
+      '</div>';
+    }).join('');
+  }
+
+  function adicionarPlanoConta(){
+    cfgPlanoContas.push({ id: 'PC' + Date.now(), nome: '', tipo: 'despesa' });
+    renderPlanoContasConfig();
+  }
+
+  function removerPlanoConta(idx){
+    if (cfgPlanoContas.length <= 1) return;
+    cfgPlanoContas.splice(idx, 1);
+    renderPlanoContasConfig();
+  }
+
   function loadConfiguracoes(){
     renderUsuarios();
     var e = db.empresa;
@@ -6344,6 +6445,8 @@
     document.getElementById('cfg-email').value = e.email || '';
     cfgContasBancarias = (e.contasBancarias || []).map(function(c){ return { id: c.id, nome: c.nome, pix: c.pix, banco: c.banco, agencia: c.agencia, conta: c.conta }; });
     renderContasBancariasConfig();
+    cfgPlanoContas = (db.planoDeContas || []).map(function(c){ return { id: c.id, nome: c.nome, tipo: c.tipo }; });
+    renderPlanoContasConfig();
 
     var preview = document.getElementById('cfg-logo-preview');
     var placeholder = document.getElementById('cfg-logo-placeholder');
@@ -6378,6 +6481,9 @@
       e.agencia = e.contasBancarias[0].agencia;
       e.conta = e.contasBancarias[0].conta;
     }
+    db.planoDeContas = cfgPlanoContas.map(function(c){
+      return { id: c.id, nome: c.nome.trim(), tipo: c.tipo };
+    });
     saveDB();
     applyBrandLogo();
     showToast('Configurações salvas com sucesso!', 'success');
@@ -6439,6 +6545,21 @@
     document.getElementById('cfg-contas-bancarias-list').addEventListener('click', function(e){
       var btn = e.target.closest('.remove-conta-btn');
       if (btn) removerContaBancaria(parseInt(btn.dataset.idx, 10));
+    });
+    document.getElementById('btn-add-plano-conta').addEventListener('click', adicionarPlanoConta);
+    document.getElementById('cfg-plano-contas-list').addEventListener('input', function(e){
+      var idx = parseInt(e.target.dataset.idx, 10);
+      if (isNaN(idx) || !e.target.classList.contains('plano-conta-nome')) return;
+      cfgPlanoContas[idx].nome = e.target.value;
+    });
+    document.getElementById('cfg-plano-contas-list').addEventListener('change', function(e){
+      var idx = parseInt(e.target.dataset.idx, 10);
+      if (isNaN(idx) || !e.target.classList.contains('plano-conta-tipo')) return;
+      cfgPlanoContas[idx].tipo = e.target.value;
+    });
+    document.getElementById('cfg-plano-contas-list').addEventListener('click', function(e){
+      var btn = e.target.closest('.remove-plano-conta-btn');
+      if (btn) removerPlanoConta(parseInt(btn.dataset.idx, 10));
     });
     document.getElementById('usuarios-tbody').addEventListener('change', function(e){
       if (e.target.classList.contains('usuario-role-select')){
