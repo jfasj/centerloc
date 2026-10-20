@@ -1493,6 +1493,7 @@
       <div class="page-header">
         <h1>Contas a Pagar</h1>
         <div class="page-header-actions">
+          <button class="btn btn-outline" id="btn-importar-xml"><span class="material-symbols-outlined">upload_file</span><span>Importar XML (NF-e)</span></button>
           <button class="btn btn-primary" id="btn-nova-pagar"><span class="material-symbols-outlined">add</span><span>Novo Lançamento</span></button>
         </div>
       </div>
@@ -2323,6 +2324,28 @@
       <button type="button" class="btn btn-outline" data-close-lancamento-bancario>Cancelar</button>
       <button type="button" class="btn btn-danger" id="btn-excluir-lancamento-bancario" style="display:none; margin-right:auto;"><span class="material-symbols-outlined">delete</span><span>Excluir</span></button>
       <button type="button" class="btn btn-primary" id="btn-salvar-lancamento-bancario"><span class="material-symbols-outlined">save</span><span>Salvar Lançamento</span></button>
+    </footer>
+  </form>
+</dialog>
+
+<!-- ============ MODAL IMPORTAR XML (NF-e) ============ -->
+<dialog id="modal-importar-xml" class="app-dialog" style="width:820px; max-width:95vw;">
+  <form class="dialog-form" id="form-importar-xml">
+    <header class="dialog-header">
+      <h2>Importar XML de Nota Fiscal (NF-e)</h2>
+      <button type="button" class="dialog-close" data-close-importar-xml aria-label="Fechar">&times;</button>
+    </header>
+    <div class="dialog-body">
+      <div class="form-field">
+        <label>Selecione um ou mais arquivos XML de NF-e</label>
+        <input type="file" id="xml-file-input" accept=".xml" multiple>
+      </div>
+      <p id="xml-import-erro" style="display:none; background:#FEF2F2; border:1px solid var(--color-danger); color:var(--color-danger); border-radius:var(--radius); padding:10px 12px; font-size:13px; margin:8px 0;"></p>
+      <div id="xml-import-preview" style="display:flex; flex-direction:column; gap:16px; margin-top:12px;"></div>
+    </div>
+    <footer class="dialog-footer">
+      <button type="button" class="btn btn-outline" data-close-importar-xml>Cancelar</button>
+      <button type="button" class="btn btn-primary" id="btn-confirmar-importar-xml" disabled><span class="material-symbols-outlined">save</span><span>Confirmar Importação</span></button>
     </footer>
   </form>
 </dialog>
@@ -5738,6 +5761,257 @@
     showToast('Lançamento excluído.', 'info');
   }
 
+  /* ---------------- Importação de XML (NF-e) para Contas a Pagar ---------------- */
+
+  var xmlImportState = { notas: [] };
+
+  function normalizeCNPJ(cnpj){
+    return String(cnpj || '').replace(/\D/g, '');
+  }
+
+  function formatCNPJ(cnpj){
+    var d = normalizeCNPJ(cnpj);
+    if (d.length !== 14) return cnpj || '';
+    return d.slice(0, 2) + '.' + d.slice(2, 5) + '.' + d.slice(5, 8) + '/' + d.slice(8, 12) + '-' + d.slice(12, 14);
+  }
+
+  function parseNFeXml(xmlText){
+    var doc = new DOMParser().parseFromString(xmlText, 'text/xml');
+    if (doc.getElementsByTagName('parsererror').length){
+      return { erro: 'Um dos arquivos não é um XML válido.' };
+    }
+    var infNFe = doc.getElementsByTagName('infNFe')[0];
+    if (!infNFe){
+      return { erro: 'Um dos arquivos não é um XML de NF-e reconhecido (tag infNFe não encontrada).' };
+    }
+    function txt(parent, tag){
+      if (!parent) return '';
+      var el = parent.getElementsByTagName(tag)[0];
+      return el ? el.textContent.trim() : '';
+    }
+    var chave = (infNFe.getAttribute('Id') || '').replace(/^NFe/, '');
+    var ide = infNFe.getElementsByTagName('ide')[0];
+    var emit = infNFe.getElementsByTagName('emit')[0];
+    var total = infNFe.getElementsByTagName('total')[0];
+    var icmsTot = total ? total.getElementsByTagName('ICMSTot')[0] : null;
+    var dhEmi = txt(ide, 'dhEmi') || txt(ide, 'dEmi');
+    var dataEmissao = dhEmi ? dhEmi.slice(0, 10) : '';
+    var vNF = parseFloat(txt(icmsTot, 'vNF') || '0');
+
+    var parcelas = [];
+    var dups = infNFe.getElementsByTagName('dup');
+    for (var i = 0; i < dups.length; i++){
+      parcelas.push({ dataVencimento: txt(dups[i], 'dVenc'), valor: parseFloat(txt(dups[i], 'vDup') || '0') });
+    }
+    if (parcelas.length === 0){
+      parcelas.push({ dataVencimento: dataEmissao, valor: vNF });
+    }
+
+    return {
+      chave: chave,
+      numero: txt(ide, 'nNF'),
+      dataEmissao: dataEmissao,
+      fornecedorCnpj: formatCNPJ(txt(emit, 'CNPJ')),
+      fornecedorNome: txt(emit, 'xNome'),
+      valorTotal: vNF,
+      parcelas: parcelas
+    };
+  }
+
+  function readFileAsText(file){
+    return new Promise(function(resolve){
+      var reader = new FileReader();
+      reader.onload = function(){ resolve(reader.result); };
+      reader.onerror = function(){ resolve(''); };
+      reader.readAsText(file);
+    });
+  }
+
+  function abrirModalImportarXml(){
+    xmlImportState.notas = [];
+    document.getElementById('xml-file-input').value = '';
+    document.getElementById('xml-import-erro').style.display = 'none';
+    renderXmlImportPreview();
+    document.getElementById('modal-importar-xml').showModal();
+  }
+
+  function closeModalImportarXml(){
+    document.getElementById('modal-importar-xml').close();
+  }
+
+  function onXmlFilesSelected(fileList){
+    var avisoEl = document.getElementById('xml-import-erro');
+    avisoEl.style.display = 'none';
+    var leituras = [];
+    for (var i = 0; i < fileList.length; i++) leituras.push(readFileAsText(fileList[i]));
+    Promise.all(leituras).then(function(textos){
+      var erros = [];
+      textos.forEach(function(texto){
+        var parsed = parseNFeXml(texto);
+        if (parsed.erro){ erros.push(parsed.erro); return; }
+        var cnpjNorm = normalizeCNPJ(parsed.fornecedorCnpj);
+        var fornecedor = db.clientes.filter(function(c){ return normalizeCNPJ(c.cnpj) === cnpjNorm; })[0];
+        var jaImportada = db.contasPagar.some(function(cp){ return parsed.chave && cp.origemXmlChave === parsed.chave; });
+        xmlImportState.notas.push({
+          chave: parsed.chave,
+          numero: parsed.numero,
+          dataEmissao: parsed.dataEmissao,
+          fornecedorCnpj: parsed.fornecedorCnpj,
+          fornecedorNome: parsed.fornecedorNome,
+          fornecedorId: fornecedor ? fornecedor.id : null,
+          valorTotal: parsed.valorTotal,
+          categoria: '',
+          frotaId: '',
+          parcelas: parsed.parcelas,
+          duplicada: jaImportada
+        });
+      });
+      if (erros.length){
+        avisoEl.textContent = erros.join(' ');
+        avisoEl.style.display = '';
+      }
+      renderXmlImportPreview();
+    });
+  }
+
+  function renderXmlImportPreview(){
+    var container = document.getElementById('xml-import-preview');
+    var btnConfirmar = document.getElementById('btn-confirmar-importar-xml');
+    if (xmlImportState.notas.length === 0){
+      container.innerHTML = '';
+      btnConfirmar.disabled = true;
+      return;
+    }
+    btnConfirmar.disabled = false;
+    container.innerHTML = xmlImportState.notas.map(function(nota, idx){
+      var somaParcelas = sum(nota.parcelas.map(function(p){ return p.valor || 0; }));
+      var difere = Math.abs(somaParcelas - nota.valorTotal) > 0.01;
+      var fornecedorInfo = nota.fornecedorId
+        ? 'Fornecedor já cadastrado: <strong>' + esc(nota.fornecedorNome) + '</strong>'
+        : '<span style="color:var(--color-orange);">Fornecedor novo — será cadastrado automaticamente como <strong>' + esc(nota.fornecedorNome) + '</strong> (CNPJ ' + esc(nota.fornecedorCnpj) + ')</span>';
+      var categoriaOptions = '<option value="">Selecione...</option>' + (db.planoDeContas || []).filter(function(c){ return c.tipo === 'despesa'; }).map(function(c){
+        return '<option value="' + esc(c.nome) + '"' + (c.nome === nota.categoria ? ' selected' : '') + '>' + esc(c.nome) + '</option>';
+      }).join('');
+      var frotaOptions = '<option value="">Custo não ligado a um equipamento específico</option>' + db.frota.map(function(f){
+        return '<option value="' + f.id + '"' + (f.id === nota.frotaId ? ' selected' : '') + '>' + esc(f.patrimonio) + ' — ' + esc(f.descricao) + '</option>';
+      }).join('');
+      return '<div class="card" data-idx="' + idx + '" style="padding:14px; background:var(--color-canvas);' + (nota.duplicada ? ' border:1px solid var(--color-danger);' : '') + '">' +
+        '<div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">' +
+          '<div style="font-size:13px;">' +
+            '<strong>NF-e nº ' + esc(nota.numero || '—') + '</strong> — ' + esc(nota.fornecedorNome || '—') + '<br>' +
+            '<span style="color:var(--color-text-secondary);">Emissão: ' + (nota.dataEmissao ? formatDate(nota.dataEmissao) : '—') + ' · Valor Total da NF: ' + formatBRL(nota.valorTotal) + '</span><br>' +
+            fornecedorInfo +
+            (nota.duplicada ? '<br><span style="color:var(--color-danger); font-weight:600;">Atenção: esta NF-e já parece ter sido importada antes (mesma chave de acesso).</span>' : '') +
+          '</div>' +
+          '<button type="button" class="icon-btn remove-nota-xml-btn" data-idx="' + idx + '" title="Remover da importação"><span class="material-symbols-outlined">close</span></button>' +
+        '</div>' +
+        '<div class="form-grid" style="margin-top:10px;">' +
+          '<div class="form-field"><label>Categoria (Plano de Contas) <span class="required-mark">*</span></label><select class="xml-categoria-select" data-idx="' + idx + '">' + categoriaOptions + '</select></div>' +
+          '<div class="form-field"><label>Equipamento (opcional)</label><select class="xml-frota-select" data-idx="' + idx + '">' + frotaOptions + '</select></div>' +
+        '</div>' +
+        '<table class="data-table" style="margin-top:8px;">' +
+          '<thead><tr><th>Parcela</th><th>Vencimento</th><th class="text-right">Valor</th><th></th></tr></thead>' +
+          '<tbody>' +
+            nota.parcelas.map(function(p, pIdx){
+              return '<tr>' +
+                '<td>' + (pIdx + 1) + '/' + nota.parcelas.length + '</td>' +
+                '<td><input type="date" class="xml-parcela-data" data-idx="' + idx + '" data-pidx="' + pIdx + '" value="' + (p.dataVencimento || '') + '"></td>' +
+                '<td class="text-right"><input type="number" class="xml-parcela-valor" data-idx="' + idx + '" data-pidx="' + pIdx + '" min="0" step="0.01" value="' + (p.valor || 0) + '" style="width:120px; text-align:right;"></td>' +
+                '<td>' + (nota.parcelas.length > 1 ? '<button type="button" class="icon-btn remove-parcela-xml-btn" data-idx="' + idx + '" data-pidx="' + pIdx + '" title="Remover parcela"><span class="material-symbols-outlined">delete</span></button>' : '') + '</td>' +
+                '</tr>';
+            }).join('') +
+          '</tbody>' +
+        '</table>' +
+        '<div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">' +
+          '<button type="button" class="btn btn-outline add-parcela-xml-btn" data-idx="' + idx + '"><span class="material-symbols-outlined">add</span><span>Adicionar Parcela</span></button>' +
+          '<span class="xml-soma-valor" data-idx="' + idx + '" style="font-size:13px;' + (difere ? ' color:var(--color-danger); font-weight:700;' : '') + '">Soma das parcelas: ' + formatBRL(somaParcelas) + (difere ? ' (diferente do valor total da NF)' : '') + '</span>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function atualizarSomaXml(idx){
+    var nota = xmlImportState.notas[idx];
+    var el = document.querySelector('.xml-soma-valor[data-idx="' + idx + '"]');
+    if (!nota || !el) return;
+    var soma = sum(nota.parcelas.map(function(p){ return p.valor || 0; }));
+    var difere = Math.abs(soma - nota.valorTotal) > 0.01;
+    el.textContent = 'Soma das parcelas: ' + formatBRL(soma) + (difere ? ' (diferente do valor total da NF)' : '');
+    el.style.color = difere ? 'var(--color-danger)' : '';
+    el.style.fontWeight = difere ? '700' : '';
+  }
+
+  function confirmarImportacaoXml(){
+    var notas = xmlImportState.notas;
+    if (notas.length === 0) return;
+    var avisoEl = document.getElementById('xml-import-erro');
+    var valido = true;
+    notas.forEach(function(nota){
+      if (!nota.categoria) valido = false;
+      nota.parcelas.forEach(function(p){
+        if (!p.dataVencimento || !p.valor || p.valor <= 0) valido = false;
+      });
+    });
+    if (!valido){
+      avisoEl.textContent = 'Selecione a categoria de cada NF-e e confira se todas as parcelas têm data e valor válidos.';
+      avisoEl.style.display = '';
+      return;
+    }
+    avisoEl.style.display = 'none';
+
+    var totalCriadas = 0;
+    notas.forEach(function(nota){
+      var fornecedorId = nota.fornecedorId;
+      if (!fornecedorId){
+        var novoFornecedor = {
+          id: gerarId('C', db.nextIds.cliente),
+          tipo: 'fornecedor',
+          categoria: '',
+          razaoSocial: nota.fornecedorNome || ('Fornecedor ' + nota.fornecedorCnpj),
+          cnpj: nota.fornecedorCnpj,
+          inscricaoEstadual: '',
+          contato: '',
+          cargo: '',
+          email: '',
+          telefone: '',
+          endereco: { rua: '', numero: '', bairro: '', cidade: '', uf: '', cep: '' },
+          observacoes: 'Cadastrado automaticamente via importação de XML de NF-e.',
+          ativo: true
+        };
+        db.clientes.push(novoFornecedor);
+        db.nextIds.cliente++;
+        fornecedorId = novoFornecedor.id;
+      }
+      nota.parcelas.forEach(function(p, pIdx){
+        var descricao = 'NF ' + (nota.numero || '—') + ' — ' + (nota.fornecedorNome || '—') + (nota.parcelas.length > 1 ? ' (parcela ' + (pIdx + 1) + '/' + nota.parcelas.length + ')' : '');
+        db.contasPagar.push({
+          id: gerarId('CP', db.nextIds.contaPagar),
+          descricao: descricao,
+          fornecedorId: fornecedorId,
+          categoria: nota.categoria,
+          valor: p.valor,
+          frotaId: nota.frotaId || null,
+          dataVencimento: p.dataVencimento,
+          dataPagamento: null,
+          formaPagamento: null,
+          bancoId: null,
+          status: 'pendente',
+          obs: '',
+          historico: [],
+          origemXmlChave: nota.chave || null
+        });
+        db.nextIds.contaPagar++;
+        totalCriadas++;
+      });
+    });
+
+    saveDB();
+    xmlImportState.notas = [];
+    closeModalImportarXml();
+    renderContasPagar();
+    showToast(totalCriadas + ' lançamento(s) de Contas a Pagar criado(s) a partir do XML!', 'success');
+  }
+
   /* ---------------- Fluxo de Caixa (T24) ---------------- */
 
   function navFluxo(direcao){
@@ -7117,6 +7391,59 @@
 
     /* Contas a Pagar */
     document.getElementById('btn-nova-pagar').addEventListener('click', function(){ openModalNovaPagar(null); });
+    document.getElementById('btn-importar-xml').addEventListener('click', abrirModalImportarXml);
+    document.getElementById('xml-file-input').addEventListener('change', function(e){
+      if (e.target.files && e.target.files.length) onXmlFilesSelected(e.target.files);
+    });
+    document.getElementById('btn-confirmar-importar-xml').addEventListener('click', confirmarImportacaoXml);
+    var closeImportarXmlEls = document.querySelectorAll('[data-close-importar-xml]');
+    for (var cix = 0; cix < closeImportarXmlEls.length; cix++){
+      closeImportarXmlEls[cix].addEventListener('click', closeModalImportarXml);
+    }
+    document.getElementById('modal-importar-xml').addEventListener('click', function(e){
+      if (e.target === this) closeModalImportarXml();
+    });
+    document.getElementById('xml-import-preview').addEventListener('change', function(e){
+      var idx = parseInt(e.target.dataset.idx, 10);
+      if (isNaN(idx)) return;
+      var nota = xmlImportState.notas[idx];
+      if (!nota) return;
+      if (e.target.classList.contains('xml-categoria-select')) nota.categoria = e.target.value;
+      else if (e.target.classList.contains('xml-frota-select')) nota.frotaId = e.target.value;
+    });
+    document.getElementById('xml-import-preview').addEventListener('input', function(e){
+      var idx = parseInt(e.target.dataset.idx, 10);
+      var pIdx = parseInt(e.target.dataset.pidx, 10);
+      if (isNaN(idx) || isNaN(pIdx)) return;
+      var nota = xmlImportState.notas[idx];
+      if (!nota || !nota.parcelas[pIdx]) return;
+      if (e.target.classList.contains('xml-parcela-data')) nota.parcelas[pIdx].dataVencimento = e.target.value;
+      else if (e.target.classList.contains('xml-parcela-valor')) nota.parcelas[pIdx].valor = parseFloat(e.target.value) || 0;
+      else return;
+      atualizarSomaXml(idx);
+    });
+    document.getElementById('xml-import-preview').addEventListener('click', function(e){
+      var removeNotaBtn = e.target.closest('.remove-nota-xml-btn');
+      if (removeNotaBtn){
+        xmlImportState.notas.splice(parseInt(removeNotaBtn.dataset.idx, 10), 1);
+        renderXmlImportPreview();
+        return;
+      }
+      var addParcelaBtn = e.target.closest('.add-parcela-xml-btn');
+      if (addParcelaBtn){
+        xmlImportState.notas[parseInt(addParcelaBtn.dataset.idx, 10)].parcelas.push({ dataVencimento: '', valor: 0 });
+        renderXmlImportPreview();
+        return;
+      }
+      var removeParcelaBtn = e.target.closest('.remove-parcela-xml-btn');
+      if (removeParcelaBtn){
+        var idxP = parseInt(removeParcelaBtn.dataset.idx, 10);
+        var pidxP = parseInt(removeParcelaBtn.dataset.pidx, 10);
+        if (xmlImportState.notas[idxP].parcelas.length > 1) xmlImportState.notas[idxP].parcelas.splice(pidxP, 1);
+        renderXmlImportPreview();
+        return;
+      }
+    });
     document.getElementById('pagar-periodo-filter').addEventListener('change', function(e){ filtrarContasPagar(undefined, e.target.value); });
     document.getElementById('pagar-categoria-filter').addEventListener('change', function(e){ filtrarContasPagar(undefined, undefined, e.target.value); });
     document.getElementById('pagar-status-tabs').addEventListener('click', function(e){
@@ -7243,6 +7570,8 @@
     openModalPagarConta: openModalPagarConta, renderFluxoCaixa: renderFluxoCaixa, navFluxo: navFluxo,
     openModalLancamentoBancario: openModalLancamentoBancario, saveLancamentoBancario: saveLancamentoBancario,
     deletarLancamentoBancario: deletarLancamentoBancario, getFluxoMovimentos: getFluxoMovimentos,
+    parseNFeXml: parseNFeXml, abrirModalImportarXml: abrirModalImportarXml,
+    confirmarImportacaoXml: confirmarImportacaoXml, getXmlImportState: function(){ return xmlImportState; },
     renderDRE: renderDRE, navDRE: navDRE, renderRelatorios: renderRelatorios,
     exportarCSV: exportarCSV, openRelatorioGerencial: openRelatorioGerencial
   };
