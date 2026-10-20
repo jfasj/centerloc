@@ -2181,6 +2181,10 @@
       <button type="button" class="dialog-close" data-close-nova-pagar aria-label="Fechar">&times;</button>
     </header>
     <div class="dialog-body">
+      <p id="pagar-aviso-pago" style="display:none; background:#FEF3C7; border:1px solid #F59E0B; color:#92400E; border-radius:var(--radius); padding:10px 12px; font-size:13px; margin:0 0 4px;">
+        <span class="material-symbols-outlined" style="font-size:16px; vertical-align:-3px;">warning</span>
+        Esta conta já foi paga. Alterar valor, categoria ou vencimento aqui muda os dados usados em relatórios de meses já fechados. A alteração fica registrada no histórico do lançamento.
+      </p>
       <div class="form-field">
         <label>Fornecedor</label>
         <input type="text" id="pagar-fornecedor-nome" list="pagar-fornecedores-datalist" placeholder="Selecione ou digite um fornecedor...">
@@ -2791,6 +2795,12 @@
     return String(str || '').trim().normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
   }
 
+  var ESC_HTML_MAP = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  function esc(str){
+    if (str === null || str === undefined) return '';
+    return String(str).replace(/[&<>"']/g, function(ch){ return ESC_HTML_MAP[ch]; });
+  }
+
   var UNIDADES = ['','um','dois','três','quatro','cinco','seis','sete','oito','nove'];
   var DEZ_A_DEZENOVE = ['dez','onze','doze','treze','quatorze','quinze','dezesseis','dezessete','dezoito','dezenove'];
   var DEZENAS = ['','dez','vinte','trinta','quarenta','cinquenta','sessenta','setenta','oitenta','noventa'];
@@ -2979,7 +2989,7 @@
     var c = db.contratos.filter(function(x){ return x.id === n.contratoId; })[0];
     var d = new Date(n.dataEmissao + 'T00:00:00');
     var mes = capitalizeFirst(MESES_EXTENSO[d.getMonth()]);
-    return mes + '/' + d.getFullYear() + (c ? ' — Contrato ' + c.numero : '');
+    return mes + '/' + d.getFullYear() + (c ? ' — Contrato ' + esc(c.numero) : '');
   }
 
   function notaItemDescricaoCompleta(it){
@@ -3376,10 +3386,10 @@
       return new Date(b.dataInicio) - new Date(a.dataInicio);
     });
     tbody.innerHTML = sorted.map(function(c){
-      var equipamentos = (c.itens || []).map(function(it){ return it.descricao; }).join(', ') || '—';
+      var equipamentos = esc((c.itens || []).map(function(it){ return it.descricao; }).join(', ') || '—');
       return '<tr>' +
-        '<td>' + c.numero + '</td>' +
-        '<td>' + getLocatarioNome(c.locatarioId) + '</td>' +
+        '<td>' + esc(c.numero) + '</td>' +
+        '<td>' + esc(getLocatarioNome(c.locatarioId)) + '</td>' +
         '<td>' + equipamentos + '</td>' +
         '<td>' + formatDate(c.dataInicio) + '</td>' +
         '<td>' + formatDate(c.dataFim) + '</td>' +
@@ -3522,16 +3532,16 @@
 
     container.innerHTML =
       bloco('Contratos vencendo em até 30 dias', a.contratosVencendo, function(c){
-        return '<li>' + c.numero + ' — ' + getLocatarioNome(c.locatarioId) + ' — encerra em ' + formatDate(c.dataFim) + '</li>';
+        return '<li>' + esc(c.numero) + ' — ' + esc(getLocatarioNome(c.locatarioId)) + ' — encerra em ' + formatDate(c.dataFim) + '</li>';
       }) +
       bloco('Contas a Pagar vencidas ou a vencer em 7 dias', a.contasPagarUrgentes, function(cp){
-        return '<li>' + cp.descricao + ' — ' + formatBRL(cp.valor) + ' — venc. ' + formatDate(cp.dataVencimento) + '</li>';
+        return '<li>' + esc(cp.descricao) + ' — ' + formatBRL(cp.valor) + ' — venc. ' + formatDate(cp.dataVencimento) + '</li>';
       }) +
       bloco('Contas a Receber vencidas ou a vencer em 7 dias', a.contasReceberUrgentes, function(cr){
-        return '<li>' + getLocatarioNome(cr.locatarioId) + ' — ' + formatBRL(cr.valor) + ' — venc. ' + formatDate(cr.dataVencimento) + '</li>';
+        return '<li>' + esc(getLocatarioNome(cr.locatarioId)) + ' — ' + formatBRL(cr.valor) + ' — venc. ' + formatDate(cr.dataVencimento) + '</li>';
       }) +
       bloco('Manutenção programada nos próximos 30 dias', a.frotaRevisao, function(f){
-        return '<li>' + f.patrimonio + ' — ' + f.descricao + ' — revisão em ' + formatDate(f.proximaRevisao) + '</li>';
+        return '<li>' + esc(f.patrimonio) + ' — ' + esc(f.descricao) + ' — revisão em ' + formatDate(f.proximaRevisao) + '</li>';
       });
   }
 
@@ -3559,10 +3569,10 @@
       tbody.innerHTML = pageInfo.items.map(function(l){
         return '<tr data-id="' + l.id + '"' + (selectedLocatarioId === l.id ? ' class="row-selected"' : '') + '>' +
           '<td class="tabular">' + l.id + '</td>' +
-          '<td>' + l.razaoSocial + '</td>' +
-          '<td class="tabular">' + l.cnpj + '</td>' +
-          '<td>' + (l.contato || '—') + '</td>' +
-          '<td>' + (l.telefone || '—') + '</td>' +
+          '<td>' + esc(l.razaoSocial) + '</td>' +
+          '<td class="tabular">' + esc(l.cnpj) + '</td>' +
+          '<td>' + esc(l.contato || '—') + '</td>' +
+          '<td>' + esc(l.telefone || '—') + '</td>' +
           '<td>' + statusAtivoBadge(l.ativo) + '</td>' +
           '<td class="text-right"><div class="actions-cell">' +
             '<button type="button" class="icon-btn" title="Editar" data-action="edit" data-id="' + l.id + '"><span class="material-symbols-outlined">edit</span></button>' +
@@ -3691,11 +3701,11 @@
       tbody.innerHTML = pageInfo.items.map(function(c){
         return '<tr data-id="' + c.id + '"' + (selectedClienteId === c.id ? ' class="row-selected"' : '') + '>' +
           '<td class="tabular">' + c.id + '</td>' +
-          '<td>' + c.razaoSocial + '</td>' +
-          '<td class="tabular">' + c.cnpj + '</td>' +
+          '<td>' + esc(c.razaoSocial) + '</td>' +
+          '<td class="tabular">' + esc(c.cnpj) + '</td>' +
           '<td>' + tipoBadge(c.tipo) + '</td>' +
-          '<td>' + (c.contato || '—') + '</td>' +
-          '<td>' + (c.telefone || '—') + '</td>' +
+          '<td>' + esc(c.contato || '—') + '</td>' +
+          '<td>' + esc(c.telefone || '—') + '</td>' +
           '<td>' + statusAtivoBadge(c.ativo) + '</td>' +
           '<td class="text-right"><div class="actions-cell">' +
             '<button type="button" class="icon-btn" title="Editar" data-action="edit" data-id="' + c.id + '"><span class="material-symbols-outlined">edit</span></button>' +
@@ -3711,7 +3721,7 @@
     var select = document.getElementById('cli-puxar-locatario');
     select.innerHTML = '<option value="">Selecione para preencher automaticamente...</option>' +
       db.locatarios.map(function(l){
-        return '<option value="' + l.id + '">' + l.razaoSocial + ' — ' + l.cnpj + '</option>';
+        return '<option value="' + l.id + '">' + esc(l.razaoSocial) + ' — ' + esc(l.cnpj) + '</option>';
       }).join('');
   }
 
@@ -3878,12 +3888,12 @@
       tbody.innerHTML = pageInfo.items.map(function(f){
         var ident = f.tipo === 'veiculo' ? (f.placa || '—') : (f.serie || '—');
         return '<tr data-id="' + f.id + '">' +
-          '<td><span class="patrimonio-tag">' + f.patrimonio + '</span></td>' +
+          '<td><span class="patrimonio-tag">' + esc(f.patrimonio) + '</span></td>' +
           '<td>' + tipoFrotaCell(f.tipo) + '</td>' +
-          '<td>' + f.descricao + '</td>' +
-          '<td>' + (f.modelo || '—') + ' / ' + (f.fabricante || '—') + '</td>' +
+          '<td>' + esc(f.descricao) + '</td>' +
+          '<td>' + esc(f.modelo || '—') + ' / ' + esc(f.fabricante || '—') + '</td>' +
           '<td class="tabular">' + (f.anoFabricacao || '—') + '</td>' +
-          '<td class="tabular">' + ident + '</td>' +
+          '<td class="tabular">' + esc(ident) + '</td>' +
           '<td class="tabular">' + formatBRL(f.valorLocacao) + '</td>' +
           '<td>' + frotaStatusBadge(f.status) + '</td>' +
           '<td class="text-right"><div class="actions-cell">' +
@@ -4106,14 +4116,14 @@
     }
 
     var techRowsHtml = f.tipo === 'veiculo'
-      ? detailRow('Placa', f.placa || '—') + detailRow('Chassi', f.chassi || '—') + detailRow('Cor', f.cor || '—') + detailRow('Combustível', f.combustivel || '—') + detailRow('Capacidade', f.capacidade || '—')
-      : detailRow('Nº Série', f.serie || '—') + detailRow('Potência', f.potencia || '—') + detailRow('Peso', f.peso || '—') + detailRow('Dimensões (A/C/L)', dimensoesStr(f.dimensoes));
+      ? detailRow('Placa', esc(f.placa || '—')) + detailRow('Chassi', esc(f.chassi || '—')) + detailRow('Cor', esc(f.cor || '—')) + detailRow('Combustível', f.combustivel || '—') + detailRow('Capacidade', esc(f.capacidade || '—'))
+      : detailRow('Nº Série', esc(f.serie || '—')) + detailRow('Potência', esc(f.potencia || '—')) + detailRow('Peso', esc(f.peso || '—')) + detailRow('Dimensões (A/C/L)', dimensoesStr(f.dimensoes));
 
     var contratos = getContratosDoEquipamento(id);
     var contratosHtml = contratos.length === 0
       ? '<tr class="empty-row"><td colspan="4">Nenhum contrato vinculado a este ativo.</td></tr>'
       : contratos.map(function(c){
-          return '<tr><td class="tabular">' + c.numero + '</td><td>' + getLocatarioNome(c.locatarioId) + '</td><td>' + formatDate(c.dataInicio) + ' — ' + formatDate(c.dataFim) + '</td><td>' + contratoStatusBadge(c.status) + '</td></tr>';
+          return '<tr><td class="tabular">' + esc(c.numero) + '</td><td>' + esc(getLocatarioNome(c.locatarioId)) + '</td><td>' + formatDate(c.dataInicio) + ' — ' + formatDate(c.dataFim) + '</td><td>' + contratoStatusBadge(c.status) + '</td></tr>';
         }).join('');
 
     var notasDoEquipamento = db.notas.filter(function(n){
@@ -4123,14 +4133,14 @@
       ? '<tr class="empty-row"><td colspan="5">Nenhuma nota de débito vinculada a este ativo.</td></tr>'
       : notasDoEquipamento.map(function(n){
           var valorVinculado = sum((n.itens || []).filter(function(it){ return it.frotaId === id; }).map(function(it){ return it.valor; }));
-          return '<tr><td class="tabular">' + n.numero + '</td><td>' + getLocatarioNome(n.locatarioId) + '</td><td class="tabular">' + formatDate(n.dataEmissao) + '</td><td class="tabular">' + formatBRL(valorVinculado) + '</td><td>' + notaStatusBadge(n) + '</td></tr>';
+          return '<tr><td class="tabular">' + esc(n.numero) + '</td><td>' + esc(getLocatarioNome(n.locatarioId)) + '</td><td class="tabular">' + formatDate(n.dataEmissao) + '</td><td class="tabular">' + formatBRL(valorVinculado) + '</td><td>' + notaStatusBadge(n) + '</td></tr>';
         }).join('');
 
     var despesasDoEquipamento = db.contasPagar.filter(function(cp){ return cp.frotaId === id; });
     var despesasHtml = despesasDoEquipamento.length === 0
       ? '<tr class="empty-row"><td colspan="4">Nenhuma despesa vinculada a este ativo.</td></tr>'
       : despesasDoEquipamento.map(function(cp){
-          return '<tr><td>' + cp.descricao + '</td><td>' + cp.categoria + '</td><td class="tabular">' + formatDate(cp.dataVencimento) + '</td><td class="tabular">' + formatBRL(cp.valor) + '</td></tr>';
+          return '<tr><td>' + esc(cp.descricao) + '</td><td>' + esc(cp.categoria) + '</td><td class="tabular">' + formatDate(cp.dataVencimento) + '</td><td class="tabular">' + formatBRL(cp.valor) + '</td></tr>';
         }).join('');
 
     var receitaRecebida = sum(db.contasReceber.filter(function(cr){ return cr.status === 'pago' && cr.notaId; }).map(function(cr){
@@ -4146,9 +4156,9 @@
     container.innerHTML =
       '<div class="detail-header">' +
         '<div class="detail-header-left">' +
-          '<span class="patrimonio-tag lg">' + f.patrimonio + '</span>' +
-          '<div><div class="detail-header-title">' + f.descricao + '</div>' +
-          '<div class="detail-header-subtitle">' + (f.modelo || '—') + ' · ' + (f.fabricante || '—') + '</div></div>' +
+          '<span class="patrimonio-tag lg">' + esc(f.patrimonio) + '</span>' +
+          '<div><div class="detail-header-title">' + esc(f.descricao) + '</div>' +
+          '<div class="detail-header-subtitle">' + esc(f.modelo || '—') + ' · ' + esc(f.fabricante || '—') + '</div></div>' +
           '<div class="detail-header-status">' + frotaStatusBadge(f.status) +
             '<button type="button" class="btn btn-outline" id="btn-mudar-status-detalhe"><span class="material-symbols-outlined">sync_alt</span><span>Mudar Status</span></button>' +
           '</div>' +
@@ -4160,7 +4170,7 @@
       '</div>' +
       '<div class="detail-grid">' +
         '<div class="card detail-card"><h3><span class="material-symbols-outlined">badge</span>Dados de Identificação</h3>' +
-          detailRow('Tipo', f.tipo === 'veiculo' ? 'Veículo' : 'Equipamento') + detailRow('Patrimônio', f.patrimonio) + detailRow('Fabricante', f.fabricante || '—') + detailRow('Modelo', f.modelo || '—') + detailRow('Ano de Fabricação', f.anoFabricacao || '—') +
+          detailRow('Tipo', f.tipo === 'veiculo' ? 'Veículo' : 'Equipamento') + detailRow('Patrimônio', esc(f.patrimonio)) + detailRow('Fabricante', esc(f.fabricante || '—')) + detailRow('Modelo', esc(f.modelo || '—')) + detailRow('Ano de Fabricação', f.anoFabricacao || '—') +
         '</div>' +
         '<div class="card detail-card"><h3><span class="material-symbols-outlined">settings</span>Especificações Técnicas</h3>' + techRowsHtml + '</div>' +
         '<div class="card detail-card"><h3><span class="material-symbols-outlined">payments</span>Dados Comerciais</h3>' +
@@ -4289,10 +4299,10 @@
     } else {
       tbody.innerHTML = pageInfo.items.map(function(c){
         var loc = db.locatarios.filter(function(x){ return x.id === c.locatarioId; })[0] || {};
-        var equipamentos = (c.itens || []).map(function(it){ return it.descricao; }).join(', ') || '—';
+        var equipamentos = esc((c.itens || []).map(function(it){ return it.descricao; }).join(', ') || '—');
         return '<tr data-id="' + c.id + '">' +
-          '<td class="tabular">' + c.numero + '</td>' +
-          '<td><div>' + (loc.razaoSocial || '—') + '</div><div class="tabular" style="font-size:11px;color:var(--color-text-secondary);">' + (loc.cnpj || '') + '</div></td>' +
+          '<td class="tabular">' + esc(c.numero) + '</td>' +
+          '<td><div>' + esc(loc.razaoSocial || '—') + '</div><div class="tabular" style="font-size:11px;color:var(--color-text-secondary);">' + esc(loc.cnpj || '') + '</div></td>' +
           '<td>' + equipamentos + '</td>' +
           '<td class="tabular">' + formatDate(c.dataInicio) + '</td>' +
           '<td class="tabular">' + fimCell(c) + '</td>' +
@@ -4322,7 +4332,7 @@
       dropdownEl.innerHTML = '<div class="combo-empty">Nenhum locatário ativo encontrado.</div>';
     } else {
       dropdownEl.innerHTML = matches.map(function(l){
-        return '<div class="combo-item" data-id="' + l.id + '"><div>' + l.razaoSocial + '</div><div class="sub">' + l.cnpj + '</div></div>';
+        return '<div class="combo-item" data-id="' + l.id + '"><div>' + esc(l.razaoSocial) + '</div><div class="sub">' + esc(l.cnpj) + '</div></div>';
       }).join('');
     }
     dropdownEl.style.display = 'block';
@@ -4372,7 +4382,7 @@
     } else {
       tbody.innerHTML = contratoFormItens.map(function(item, idx){
         var options = db.frota.map(function(f){
-          return '<option value="' + f.id + '"' + (item.frotaId === f.id ? ' selected' : '') + '>' + f.patrimonio + ' — ' + f.descricao + '</option>';
+          return '<option value="' + f.id + '"' + (item.frotaId === f.id ? ' selected' : '') + '>' + esc(f.patrimonio) + ' — ' + esc(f.descricao) + '</option>';
         }).join('');
         var total = (item.qtde || 0) * (item.meses || 0) * (item.valorUnit || 0);
         return '<tr data-idx="' + idx + '">' +
@@ -4652,8 +4662,8 @@
       tbody.innerHTML = pageInfo.items.map(function(p){
         var canDecide = p.status !== 'rejeitada';
         return '<tr data-id="' + p.id + '">' +
-          '<td class="tabular">' + p.numero + '</td>' +
-          '<td>' + getLocatarioNome(p.locatarioId) + '</td>' +
+          '<td class="tabular">' + esc(p.numero) + '</td>' +
+          '<td>' + esc(getLocatarioNome(p.locatarioId)) + '</td>' +
           '<td class="tabular">' + formatDate(p.dataEmissao) + '</td>' +
           '<td class="tabular">' + propostaValidadeCell(p) + '</td>' +
           '<td class="tabular">' + formatBRL(p.valorTotal) + '</td>' +
@@ -4717,7 +4727,7 @@
     container.innerHTML = propostaObsPadrao.map(function(o, idx){
       return '<label class="radio-option" style="align-items:center; gap:8px;">' +
         '<input type="checkbox" class="proposta-obs-padrao-check" data-idx="' + idx + '"' + (o.marcado ? ' checked' : '') + '>' +
-        '<input type="text" class="proposta-obs-padrao-texto" data-idx="' + idx + '" value="' + (o.texto || '').replace(/"/g, '&quot;') + '" style="flex:1;">' +
+        '<input type="text" class="proposta-obs-padrao-texto" data-idx="' + idx + '" value="' + esc(o.texto || '') + '" style="flex:1;">' +
         '</label>';
     }).join('');
   }
@@ -4740,7 +4750,7 @@
     }
     container.innerHTML = propostaDadosAdicionais.map(function(texto, idx){
       return '<div style="display:flex; gap:8px; align-items:center;" data-idx="' + idx + '">' +
-        '<input type="text" class="dado-adicional-input" data-idx="' + idx + '" value="' + (texto || '').replace(/"/g, '&quot;') + '" placeholder="Digite uma observação adicional..." style="flex:1; height:40px; padding:0 12px; border-radius:var(--radius); border:1px solid var(--color-border); background:var(--color-canvas); font-size:13px; color:var(--color-text);">' +
+        '<input type="text" class="dado-adicional-input" data-idx="' + idx + '" value="' + esc(texto || '') + '" placeholder="Digite uma observação adicional..." style="flex:1; height:40px; padding:0 12px; border-radius:var(--radius); border:1px solid var(--color-border); background:var(--color-canvas); font-size:13px; color:var(--color-text);">' +
         '<button type="button" class="icon-btn remove-dado-adicional-btn" data-idx="' + idx + '" title="Remover"><span class="material-symbols-outlined">delete</span></button>' +
         '</div>';
     }).join('');
@@ -4765,7 +4775,7 @@
         var total = (item.qtde || 0) * (item.meses || 0) * (item.valorUnit || 0) + (item.mobDesob || 0);
         return '<tr data-idx="' + idx + '">' +
           '<td class="tabular">' + (idx + 1) + '</td>' +
-          '<td><input type="text" class="item-descricao" data-idx="' + idx + '" value="' + (item.descricao || '').replace(/"/g, '&quot;') + '" style="min-width:180px;"></td>' +
+          '<td><input type="text" class="item-descricao" data-idx="' + idx + '" value="' + esc(item.descricao || '') + '" style="min-width:180px;"></td>' +
           '<td><input type="number" class="item-qtde" data-idx="' + idx + '" min="1" value="' + (item.qtde || 1) + '" style="width:65px;"></td>' +
           '<td><input type="number" class="item-meses" data-idx="' + idx + '" min="1" value="' + (item.meses || 1) + '" style="width:75px;"></td>' +
           '<td><input type="number" class="item-valorUnit" data-idx="' + idx + '" min="0" step="0.01" value="' + (item.valorUnit || 0) + '" style="width:105px;"></td>' +
@@ -4973,8 +4983,8 @@
       tbody.innerHTML = pageInfo.items.map(function(n){
         var loc = db.locatarios.filter(function(x){ return x.id === n.locatarioId; })[0] || {};
         return '<tr data-id="' + n.id + '">' +
-          '<td class="tabular">' + n.numero + '</td>' +
-          '<td><div>' + (loc.razaoSocial || '—') + '</div><div class="tabular" style="font-size:11px;color:var(--color-text-secondary);">' + (loc.cnpj || '') + '</div></td>' +
+          '<td class="tabular">' + esc(n.numero) + '</td>' +
+          '<td><div>' + esc(loc.razaoSocial || '—') + '</div><div class="tabular" style="font-size:11px;color:var(--color-text-secondary);">' + esc(loc.cnpj || '') + '</div></td>' +
           '<td>' + notaReferenciaStr(n) + '</td>' +
           '<td class="tabular">' + formatDate(n.dataEmissao) + '</td>' +
           '<td class="tabular">' + notaVencimentoCell(n) + '</td>' +
@@ -5008,7 +5018,7 @@
       return;
     }
     select.innerHTML = '<option value="">Selecione...</option>' + contratos.map(function(c){
-      return '<option value="' + c.id + '">' + c.numero + '</option>';
+      return '<option value="' + c.id + '">' + esc(c.numero) + '</option>';
     }).join('');
   }
 
@@ -5052,7 +5062,7 @@
     var select = document.getElementById('nota-conta-bancaria-id');
     var contas = db.empresa.contasBancarias || [];
     select.innerHTML = contas.map(function(c){
-      return '<option value="' + c.id + '"' + (c.id === selectedId ? ' selected' : '') + '>' + (c.nome || c.banco || 'Conta') + '</option>';
+      return '<option value="' + c.id + '"' + (c.id === selectedId ? ' selected' : '') + '>' + esc(c.nome || c.banco || 'Conta') + '</option>';
     }).join('');
     atualizarDisplayContaBancaria();
   }
@@ -5137,11 +5147,11 @@
       tbody.innerHTML = notaFormItens.map(function(item, idx){
         var frotaOpcoes = db.frota.filter(function(f){ return f.status === 'alugado' || f.id === item.frotaId; });
         var opcoesFrota = '<option value="">—</option>' + frotaOpcoes.map(function(f){
-          return '<option value="' + f.id + '"' + (item.frotaId === f.id ? ' selected' : '') + '>' + f.patrimonio + ' — ' + f.descricao + '</option>';
+          return '<option value="' + f.id + '"' + (item.frotaId === f.id ? ' selected' : '') + '>' + esc(f.patrimonio) + ' — ' + esc(f.descricao) + '</option>';
         }).join('');
         return '<tr data-idx="' + idx + '">' +
-          '<td><input type="text" class="item-descricao" data-idx="' + idx + '" value="' + (item.descricao || '').replace(/"/g, '&quot;') + '" style="min-width:220px;"></td>' +
-          '<td><input type="text" class="item-periodo" data-idx="' + idx + '" value="' + (item.periodo || '').replace(/"/g, '&quot;') + '" placeholder="ex: 01/08 a 31/08/2024" style="min-width:180px;"></td>' +
+          '<td><input type="text" class="item-descricao" data-idx="' + idx + '" value="' + esc(item.descricao || '') + '" style="min-width:220px;"></td>' +
+          '<td><input type="text" class="item-periodo" data-idx="' + idx + '" value="' + esc(item.periodo || '') + '" placeholder="ex: 01/08 a 31/08/2024" style="min-width:180px;"></td>' +
           '<td><input type="number" class="item-valor" data-idx="' + idx + '" min="0" step="0.01" value="' + (item.valor || 0) + '" style="width:120px;"></td>' +
           '<td><select class="item-frota" data-idx="' + idx + '" style="min-width:200px;">' + opcoesFrota + '</select></td>' +
           '<td><button type="button" class="icon-btn remove-item-btn" data-idx="' + idx + '" title="Remover"><span class="material-symbols-outlined">delete</span></button></td>' +
@@ -5407,12 +5417,12 @@
       tbody.innerHTML = pageInfo.items.map(function(cr){
         var vencida = contaReceberStatusInfo(cr) === 'vencido';
         var nota = cr.notaId ? db.notas.filter(function(x){ return x.id === cr.notaId; })[0] : null;
-        var refCell = nota ? '<a href="#" class="link-ref" data-action="vernota" data-nota="' + nota.id + '">' + nota.numero + '</a>' : (cr.descricao || '—');
+        var refCell = nota ? '<a href="#" class="link-ref" data-action="vernota" data-nota="' + nota.id + '">' + esc(nota.numero) + '</a>' : esc(cr.descricao || '—');
         return '<tr data-id="' + cr.id + '">' +
           '<td class="tabular">' + cr.id + '</td>' +
-          '<td>' + getLocatarioNome(cr.locatarioId) + '</td>' +
+          '<td>' + esc(getLocatarioNome(cr.locatarioId)) + '</td>' +
           '<td>' + refCell + '</td>' +
-          '<td>' + (cr.categoria || '—') + '</td>' +
+          '<td>' + esc(cr.categoria || '—') + '</td>' +
           '<td class="tabular"' + (vencida ? ' style="font-weight:700;color:var(--color-danger);"' : '') + '>' + formatDate(cr.dataVencimento) + '</td>' +
           '<td class="tabular">' + formatBRL(cr.valor) + '</td>' +
           '<td class="tabular">' + (cr.dataPagamento ? formatDate(cr.dataPagamento) : '—') + '</td>' +
@@ -5433,7 +5443,7 @@
     var select = document.getElementById(selectId);
     var contas = db.empresa.contasBancarias || [];
     select.innerHTML = '<option value="">—</option>' + contas.map(function(c){
-      return '<option value="' + c.id + '"' + (c.id === selectedId ? ' selected' : '') + '>' + (c.nome || c.banco) + '</option>';
+      return '<option value="' + c.id + '"' + (c.id === selectedId ? ' selected' : '') + '>' + esc(c.nome || c.banco) + '</option>';
     }).join('');
   }
 
@@ -5441,11 +5451,11 @@
     var select = document.getElementById(selectId);
     var categorias = (db.planoDeContas || []).filter(function(c){ return c.tipo === tipo; });
     var options = categorias.map(function(c){
-      return '<option value="' + c.nome.replace(/"/g, '&quot;') + '"' + (c.nome === selectedNome ? ' selected' : '') + '>' + c.nome + '</option>';
+      return '<option value="' + esc(c.nome) + '"' + (c.nome === selectedNome ? ' selected' : '') + '>' + esc(c.nome) + '</option>';
     });
     var existe = categorias.some(function(c){ return c.nome === selectedNome; });
     if (selectedNome && !existe){
-      options.unshift('<option value="' + selectedNome.replace(/"/g, '&quot;') + '" selected>' + selectedNome + ' (categoria removida)</option>');
+      options.unshift('<option value="' + esc(selectedNome) + '" selected>' + esc(selectedNome) + ' (categoria removida)</option>');
     }
     select.innerHTML = options.join('');
   }
@@ -5546,7 +5556,7 @@
     var categoriaFilterSelect = document.getElementById('pagar-categoria-filter');
     categoriaFilterSelect.innerHTML = '<option value="">Todas as Categorias</option>' +
       (db.planoDeContas || []).filter(function(c){ return c.tipo === 'despesa'; }).map(function(c){
-        return '<option value="' + c.nome.replace(/"/g, '&quot;') + '"' + (pagarState.categoria === c.nome ? ' selected' : '') + '>' + c.nome + '</option>';
+        return '<option value="' + esc(c.nome) + '"' + (pagarState.categoria === c.nome ? ' selected' : '') + '>' + esc(c.nome) + '</option>';
       }).join('');
 
     var filtered = db.contasPagar.filter(function(cp){
@@ -5565,14 +5575,14 @@
     } else {
       tbody.innerHTML = pageInfo.items.map(function(cp){
         var forn = cp.fornecedorId ? db.clientes.filter(function(x){ return x.id === cp.fornecedorId; })[0] : null;
-        var descCell = forn ? '<div>' + forn.razaoSocial + '</div><div style="font-size:11px;color:var(--color-text-secondary);">' + cp.descricao + '</div>' : cp.descricao;
+        var descCell = forn ? '<div>' + esc(forn.razaoSocial) + '</div><div style="font-size:11px;color:var(--color-text-secondary);">' + esc(cp.descricao) + '</div>' : esc(cp.descricao);
         return '<tr data-id="' + cp.id + '">' +
           '<td class="tabular">' + cp.id + '</td>' +
           '<td>' + descCell + '</td>' +
-          '<td>' + cp.categoria + '</td>' +
+          '<td>' + esc(cp.categoria) + '</td>' +
           '<td class="tabular">' + formatDate(cp.dataVencimento) + '</td>' +
           '<td class="tabular">' + formatBRL(cp.valor) + '</td>' +
-          '<td>' + contaPagarStatusBadge(cp) + '</td>' +
+          '<td>' + contaPagarStatusBadge(cp) + (cp.historico && cp.historico.length ? ' <span class="material-symbols-outlined" style="font-size:15px; vertical-align:-3px; color:var(--color-orange);" title="Alterada após o pagamento (' + cp.historico.length + 'x) — ver histórico ao editar">history</span>' : '') + '</td>' +
           '<td class="text-right"><div class="actions-cell">' +
             (cp.status !== 'pago' ? '<button type="button" class="icon-btn" title="Pagar" data-action="pagar" data-id="' + cp.id + '"><span class="material-symbols-outlined">paid</span></button>' : '') +
             '<button type="button" class="icon-btn" title="Editar" data-action="editar" data-id="' + cp.id + '"><span class="material-symbols-outlined">edit</span></button>' +
@@ -5587,14 +5597,14 @@
   function populateFornecedoresDatalist(){
     var datalist = document.getElementById('pagar-fornecedores-datalist');
     var fornecedores = db.clientes.filter(function(c){ return c.tipo === 'fornecedor' || c.tipo === 'ambos'; });
-    datalist.innerHTML = fornecedores.map(function(f){ return '<option value="' + f.razaoSocial + '">'; }).join('');
+    datalist.innerHTML = fornecedores.map(function(f){ return '<option value="' + esc(f.razaoSocial) + '">'; }).join('');
   }
 
   function populateFrotaSelectPagar(selectedId){
     var select = document.getElementById('pagar-frotaId');
     select.innerHTML = '<option value="">Custo não ligado a um equipamento específico</option>' +
       db.frota.map(function(f){
-        return '<option value="' + f.id + '"' + (f.id === selectedId ? ' selected' : '') + '>' + f.patrimonio + ' — ' + f.descricao + '</option>';
+        return '<option value="' + f.id + '"' + (f.id === selectedId ? ' selected' : '') + '>' + esc(f.patrimonio) + ' — ' + esc(f.descricao) + '</option>';
       }).join('');
   }
 
@@ -5614,9 +5624,11 @@
       document.getElementById('pagar-dataVencimento').value = cp.dataVencimento || '';
       document.getElementById('pagar-obs').value = cp.obs || '';
       populateFrotaSelectPagar(cp.frotaId || '');
+      document.getElementById('pagar-aviso-pago').style.display = cp.status === 'pago' ? '' : 'none';
     } else {
       popularSelectPlanoContas('pagar-categoria', 'despesa');
       populateFrotaSelectPagar('');
+      document.getElementById('pagar-aviso-pago').style.display = 'none';
     }
     document.getElementById('modal-nova-pagar').showModal();
   }
@@ -5642,19 +5654,33 @@
     var id = editingPagarId;
     var existing = id ? db.contasPagar.filter(function(x){ return x.id === id; })[0] : null;
 
+    var novoValor = parseFloat(valorStr);
+    var novaCategoria = document.getElementById('pagar-categoria').value;
+
     var record = {
       id: existing ? existing.id : gerarId('CP', db.nextIds.contaPagar),
       descricao: descricao,
       fornecedorId: fornecedor ? fornecedor.id : null,
-      categoria: document.getElementById('pagar-categoria').value,
-      valor: parseFloat(valorStr),
+      categoria: novaCategoria,
+      valor: novoValor,
       frotaId: document.getElementById('pagar-frotaId').value || null,
       dataVencimento: dataVencimento,
       dataPagamento: existing ? existing.dataPagamento : null,
       formaPagamento: existing ? existing.formaPagamento : null,
+      bancoId: existing ? existing.bancoId : null,
       status: existing ? existing.status : 'pendente',
-      obs: document.getElementById('pagar-obs').value.trim()
+      obs: document.getElementById('pagar-obs').value.trim(),
+      historico: existing ? (existing.historico || []) : []
     };
+
+    if (existing && existing.status === 'pago' && (existing.valor !== novoValor || existing.categoria !== novaCategoria || existing.dataVencimento !== dataVencimento)){
+      record.historico.push({
+        data: new Date().toISOString(),
+        usuario: (currentUser && currentUser.email) || '—',
+        de: { valor: existing.valor, categoria: existing.categoria, dataVencimento: existing.dataVencimento },
+        para: { valor: novoValor, categoria: novaCategoria, dataVencimento: dataVencimento }
+      });
+    }
 
     if (existing){
       db.contasPagar[db.contasPagar.indexOf(existing)] = record;
@@ -5833,7 +5859,7 @@
     var select = document.getElementById('fluxo-banco-filter');
     var contas = db.empresa.contasBancarias || [];
     select.innerHTML = '<option value="">Todas as Contas Bancárias</option>' + contas.map(function(c){
-      return '<option value="' + c.id + '"' + (c.id === fluxoState.bancoId ? ' selected' : '') + '>' + (c.nome || c.banco) + '</option>';
+      return '<option value="' + c.id + '"' + (c.id === fluxoState.bancoId ? ' selected' : '') + '>' + esc(c.nome || c.banco) + '</option>';
     }).join('');
   }
 
@@ -5876,10 +5902,10 @@
         : '';
       return '<tr style="' + corLinha + '">' +
         '<td class="tabular">' + formatDate(m.data) + '</td>' +
-        '<td>' + m.descricao + '</td>' +
-        '<td>' + nomeContaBancaria(m.bancoId) + '</td>' +
+        '<td>' + esc(m.descricao) + '</td>' +
+        '<td>' + esc(nomeContaBancaria(m.bancoId)) + '</td>' +
         '<td>' + (m.tipo === 'entrada' ? '<span class="badge badge-success">Entrada</span>' : '<span class="badge badge-danger">Saída</span>') + '</td>' +
-        '<td>' + m.categoria + '</td>' +
+        '<td>' + esc(m.categoria) + '</td>' +
         '<td class="text-right tabular">' + formatBRL(m.valor) + '</td>' +
         '<td class="text-right tabular" style="font-weight:700; color:' + saldoColor + ';">' + formatBRL(saldo) + '</td>' +
         '<td>' + acoes + '</td>' +
@@ -5900,7 +5926,7 @@
     }
     cats.sort(function(a, b){ return totals[b] - totals[a]; });
     tbody.innerHTML = cats.map(function(c){
-      return '<tr><td>' + c + '</td><td class="text-right tabular">' + formatBRL(totals[c]) + '</td></tr>';
+      return '<tr><td>' + esc(c) + '</td><td class="text-right tabular">' + formatBRL(totals[c]) + '</td></tr>';
     }).join('');
   }
 
@@ -6225,7 +6251,7 @@
 
     legendEl.innerHTML = slices.map(function(s, i){
       var pct = (s.valor / total * 100).toFixed(1);
-      return '<div class="pizza-legend-item"><span class="pizza-legend-dot" style="background:' + PIZZA_CORES[i % PIZZA_CORES.length] + ';"></span><span>' + s.label + '</span><span class="pct">' + pct + '%</span></div>';
+      return '<div class="pizza-legend-item"><span class="pizza-legend-dot" style="background:' + PIZZA_CORES[i % PIZZA_CORES.length] + ';"></span><span>' + esc(s.label) + '</span><span class="pct">' + pct + '%</span></div>';
     }).join('');
 
     slices.forEach(function(s, i){
@@ -6267,7 +6293,7 @@
         var corLinha = a.resultado > 0 ? 'background:#F0FDF4;' : (a.resultado < 0 ? 'background:#FEF2F2;' : '');
         var pctText = a.pct === null ? '—' : a.pct.toFixed(1) + '%';
         return '<tr style="' + corLinha + '">' +
-          '<td>' + a.frota.descricao + ' <span class="patrimonio-tag" style="margin-left:4px;">' + a.frota.patrimonio + '</span></td>' +
+          '<td>' + esc(a.frota.descricao) + ' <span class="patrimonio-tag" style="margin-left:4px;">' + esc(a.frota.patrimonio) + '</span></td>' +
           '<td class="text-right tabular">' + a.mesesLocado + '</td>' +
           '<td class="text-right tabular">' + formatBRL(a.receita) + '</td>' +
           '<td class="text-right tabular">' + formatBRL(a.custo) + '</td>' +
@@ -6533,7 +6559,7 @@
       tbody.innerHTML = lista.map(function(u){
         var isSelf = u.id === currentUser.id;
         return '<tr>' +
-          '<td>' + u.email + (isSelf ? ' <span style="color:var(--color-text-secondary);">(você)</span>' : '') + '</td>' +
+          '<td>' + esc(u.email) + (isSelf ? ' <span style="color:var(--color-text-secondary);">(você)</span>' : '') + '</td>' +
           '<td><select data-user-id="' + u.id + '" class="usuario-role-select"' + (isSelf ? ' disabled title="Você não pode alterar seu próprio perfil"' : '') + '>' +
             '<option value="admin"' + (u.role === 'admin' ? ' selected' : '') + '>Admin</option>' +
             '<option value="operacional"' + (u.role === 'operacional' ? ' selected' : '') + '>Operacional</option>' +
@@ -6560,13 +6586,13 @@
     container.innerHTML = cfgContasBancarias.map(function(c, idx){
       return '<div class="card" data-idx="' + idx + '" style="padding:14px; background:var(--color-canvas);">' +
         '<div class="form-grid cols-4">' +
-          '<div class="form-field full" style="grid-column: span 2;"><label>Apelido/Identificação</label><input type="text" class="conta-nome" data-idx="' + idx + '" value="' + (c.nome || '').replace(/"/g, '&quot;') + '" placeholder="ex: Bradesco Principal"></div>' +
-          '<div class="form-field"><label>Banco</label><input type="text" class="conta-banco" data-idx="' + idx + '" value="' + (c.banco || '').replace(/"/g, '&quot;') + '"></div>' +
-          '<div class="form-field"><label>Agência</label><input type="text" class="conta-agencia" data-idx="' + idx + '" value="' + (c.agencia || '').replace(/"/g, '&quot;') + '"></div>' +
+          '<div class="form-field full" style="grid-column: span 2;"><label>Apelido/Identificação</label><input type="text" class="conta-nome" data-idx="' + idx + '" value="' + esc(c.nome || '') + '" placeholder="ex: Bradesco Principal"></div>' +
+          '<div class="form-field"><label>Banco</label><input type="text" class="conta-banco" data-idx="' + idx + '" value="' + esc(c.banco || '') + '"></div>' +
+          '<div class="form-field"><label>Agência</label><input type="text" class="conta-agencia" data-idx="' + idx + '" value="' + esc(c.agencia || '') + '"></div>' +
         '</div>' +
         '<div class="form-grid cols-4">' +
-          '<div class="form-field full" style="grid-column: span 2;"><label>Chave PIX</label><input type="text" class="conta-pix" data-idx="' + idx + '" value="' + (c.pix || '').replace(/"/g, '&quot;') + '"></div>' +
-          '<div class="form-field"><label>Conta</label><input type="text" class="conta-conta" data-idx="' + idx + '" value="' + (c.conta || '').replace(/"/g, '&quot;') + '"></div>' +
+          '<div class="form-field full" style="grid-column: span 2;"><label>Chave PIX</label><input type="text" class="conta-pix" data-idx="' + idx + '" value="' + esc(c.pix || '') + '"></div>' +
+          '<div class="form-field"><label>Conta</label><input type="text" class="conta-conta" data-idx="' + idx + '" value="' + esc(c.conta || '') + '"></div>' +
           '<div class="form-field" style="justify-content:flex-end;"><button type="button" class="btn btn-outline remove-conta-btn" data-idx="' + idx + '"' + (cfgContasBancarias.length <= 1 ? ' disabled title="Mantenha ao menos uma conta"' : '') + '><span class="material-symbols-outlined">delete</span><span>Remover</span></button></div>' +
         '</div>' +
       '</div>';
@@ -6590,7 +6616,7 @@
     var container = document.getElementById('cfg-plano-contas-list');
     container.innerHTML = cfgPlanoContas.map(function(c, idx){
       return '<div style="display:flex; gap:8px; align-items:center;" data-idx="' + idx + '">' +
-        '<input type="text" class="plano-conta-nome" data-idx="' + idx + '" value="' + (c.nome || '').replace(/"/g, '&quot;') + '" style="flex:1;" placeholder="Nome da categoria">' +
+        '<input type="text" class="plano-conta-nome" data-idx="' + idx + '" value="' + esc(c.nome || '') + '" style="flex:1;" placeholder="Nome da categoria">' +
         '<select class="plano-conta-tipo" data-idx="' + idx + '" style="width:120px;">' +
           '<option value="receita"' + (c.tipo === 'receita' ? ' selected' : '') + '>Receita</option>' +
           '<option value="despesa"' + (c.tipo === 'despesa' ? ' selected' : '') + '>Despesa</option>' +
