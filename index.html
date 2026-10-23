@@ -568,6 +568,7 @@
 </head>
 <body>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 <!-- ============ LOGIN PAGE ============ -->
 <section id="login-page">
@@ -1557,6 +1558,7 @@
       <div class="page-header">
         <h1>Fluxo de Caixa / Extrato Bancário</h1>
         <div class="page-header-actions" style="align-items:center;">
+          <button class="btn btn-outline" id="btn-importar-extrato"><span class="material-symbols-outlined">upload_file</span><span>Importar Extrato (OFX/PDF)</span></button>
           <button class="btn btn-primary" id="btn-novo-lancamento-bancario"><span class="material-symbols-outlined">add</span><span>Novo Lançamento</span></button>
           <select id="fluxo-banco-filter" style="height:42px; border-radius:var(--radius); border:1px solid var(--color-border); background:var(--color-surface); padding:0 12px; font-size:13px; color:var(--color-text);">
             <option value="">Todas as Contas Bancárias</option>
@@ -2350,6 +2352,53 @@
   </form>
 </dialog>
 
+<!-- ============ MODAL IMPORTAR EXTRATO (OFX/PDF) ============ -->
+<dialog id="modal-importar-extrato" class="app-dialog" style="width:900px; max-width:95vw;">
+  <form class="dialog-form" id="form-importar-extrato">
+    <header class="dialog-header">
+      <h2>Importar Extrato Bancário (OFX ou PDF)</h2>
+      <button type="button" class="dialog-close" data-close-importar-extrato aria-label="Fechar">&times;</button>
+    </header>
+    <div class="dialog-body">
+      <p style="font-size:12px; color:var(--color-text-secondary); margin:0 0 10px;">
+        Arquivos OFX são lidos com precisão. Arquivos PDF são interpretados por aproximação (o leiaute varia de banco para banco) — revise a lista antes de confirmar.
+      </p>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Arquivo do extrato (.ofx ou .pdf) <span class="required-mark">*</span></label>
+          <input type="file" id="extrato-file-input" accept=".ofx,.pdf">
+        </div>
+        <div class="form-field">
+          <label>Conta Bancária <span class="required-mark">*</span></label>
+          <select id="extrato-banco-select"></select>
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="form-field">
+          <label>Categoria padrão — Entradas <span class="required-mark">*</span></label>
+          <select id="extrato-categoria-entrada"></select>
+        </div>
+        <div class="form-field">
+          <label>Categoria padrão — Saídas <span class="required-mark">*</span></label>
+          <select id="extrato-categoria-saida"></select>
+        </div>
+      </div>
+      <p id="extrato-import-erro" style="display:none; background:#FEF2F2; border:1px solid var(--color-danger); color:var(--color-danger); border-radius:var(--radius); padding:10px 12px; font-size:13px; margin:8px 0;"></p>
+      <div id="extrato-import-resumo" style="display:none; font-size:13px; margin:8px 0; font-weight:600;"></div>
+      <div style="overflow:auto; max-height:360px;">
+        <table class="data-table">
+          <thead><tr><th></th><th>Data</th><th>Descrição</th><th>Tipo</th><th class="text-right">Valor</th></tr></thead>
+          <tbody id="extrato-import-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <footer class="dialog-footer">
+      <button type="button" class="btn btn-outline" data-close-importar-extrato>Cancelar</button>
+      <button type="button" class="btn btn-primary" id="btn-confirmar-importar-extrato" disabled><span class="material-symbols-outlined">save</span><span>Confirmar Importação</span></button>
+    </footer>
+  </form>
+</dialog>
+
 <div id="toast-container"></div>
 
 <script>
@@ -2360,6 +2409,7 @@
   var SUPABASE_URL = 'https://atpmcvprsjlilmrgsayd.supabase.co';
   var SUPABASE_KEY = 'sb_publishable_fetnXZ-AARltLdagoBrYzQ_DcupGxYC';
   var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  if (window.pdfjsLib) window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   var authMode = 'login';
 
   var BREADCRUMBS = {
@@ -6129,6 +6179,239 @@
     showToast('Lançamento excluído.', 'info');
   }
 
+  /* ---------------- Importação de Extrato Bancário (OFX/PDF) ---------------- */
+
+  var extratoImportState = { transacoes: [] };
+
+  function construirOptionsCategoria(tipo, selectedNome){
+    return '<option value="">Selecione...</option>' + (db.planoDeContas || []).filter(function(c){ return c.tipo === tipo; }).map(function(c){
+      return '<option value="' + esc(c.nome) + '"' + (c.nome === selectedNome ? ' selected' : '') + '>' + esc(c.nome) + '</option>';
+    }).join('');
+  }
+
+  function parseOFX(texto){
+    var blocos = texto.match(/<STMTTRN>[\s\S]*?<\/STMTTRN>/gi);
+    if (!blocos || !blocos.length){
+      var partes = texto.split(/<STMTTRN>/i);
+      blocos = partes.length > 1 ? partes.slice(1).map(function(b){ return b.split(/<\/STMTTRN>|<STMTTRN>/i)[0]; }) : [];
+    }
+    function campo(bloco, tag){
+      var m = bloco.match(new RegExp('<' + tag + '>([^<\\r\\n]*)', 'i'));
+      return m ? m[1].trim() : '';
+    }
+    function dataParaISO(d){
+      d = String(d || '').replace(/\[.*$/, '').trim();
+      if (d.length < 8) return '';
+      return d.slice(0, 4) + '-' + d.slice(4, 6) + '-' + d.slice(6, 8);
+    }
+    var transacoes = blocos.map(function(b){
+      var trnamt = parseFloat(campo(b, 'TRNAMT').replace(',', '.')) || 0;
+      var memo = campo(b, 'MEMO') || campo(b, 'NAME') || campo(b, 'TRNTYPE') || 'Transação';
+      return {
+        data: dataParaISO(campo(b, 'DTPOSTED')),
+        descricao: memo,
+        valor: Math.abs(trnamt),
+        tipo: trnamt >= 0 ? 'entrada' : 'saida',
+        origemId: campo(b, 'FITID') || null
+      };
+    }).filter(function(t){ return t.data && t.valor > 0; });
+    if (transacoes.length === 0) return { erro: 'Não foi possível encontrar transações no arquivo OFX (formato não reconhecido).' };
+    return { transacoes: transacoes };
+  }
+
+  function extrairTransacoesDeTexto(linhas){
+    var reData = /^(\d{2}\/\d{2}\/\d{4}|\d{2}\/\d{2})/;
+    var reValorGlobal = /-?\d{1,3}(?:\.\d{3})*,\d{2}\s*[DC]?/gi;
+    var transacoes = [];
+    linhas.forEach(function(linha){
+      if (/SALDO/i.test(linha)) return;
+      var mData = linha.match(reData);
+      if (!mData) return;
+      var valores = linha.match(reValorGlobal);
+      if (!valores || valores.length === 0) return;
+      var valorBrutoStr = valores.length >= 2 ? valores[valores.length - 2] : valores[0];
+      var marcador = (valorBrutoStr.match(/[DC]/i) || [''])[0].toUpperCase();
+      var valorNum = parseFloat(valorBrutoStr.replace(/[DC\s]/gi, '').replace(/\./g, '').replace(',', '.'));
+      if (!valorNum) return;
+      var valor = Math.abs(valorNum);
+      var tipo = marcador === 'D' ? 'saida' : (marcador === 'C' ? 'entrada' : (valorNum < 0 ? 'saida' : 'entrada'));
+      var dataPartes = mData[1].split('/');
+      var dia = dataPartes[0].padStart(2, '0');
+      var mes = dataPartes[1].padStart(2, '0');
+      var ano = dataPartes[2] ? (dataPartes[2].length === 2 ? '20' + dataPartes[2] : dataPartes[2]) : String(new Date().getFullYear());
+      var posValor = linha.indexOf(valorBrutoStr, mData[0].length);
+      var descricao = linha.slice(mData[0].length, posValor >= 0 ? posValor : undefined).replace(/^[\s\-:.]+|[\s\-:.]+$/g, '').trim();
+      transacoes.push({ data: ano + '-' + mes + '-' + dia, descricao: descricao || 'Lançamento do extrato', valor: valor, tipo: tipo, origemId: null });
+    });
+    if (transacoes.length === 0) return { erro: 'Não foi possível identificar lançamentos neste PDF. O leiaute deste banco pode não ser compatível com a leitura automática — se tiver o extrato em OFX, prefira esse formato.' };
+    return { transacoes: transacoes };
+  }
+
+  function parsePDFExtrato(arrayBuffer){
+    return window.pdfjsLib.getDocument({ data: arrayBuffer }).promise.then(function(pdf){
+      var paginas = [];
+      for (var i = 1; i <= pdf.numPages; i++) paginas.push(pdf.getPage(i).then(function(page){ return page.getTextContent(); }));
+      return Promise.all(paginas);
+    }).then(function(conteudos){
+      var linhas = [];
+      conteudos.forEach(function(conteudo){
+        var porY = {};
+        conteudo.items.forEach(function(item){
+          var y = Math.round(item.transform[5]);
+          if (!porY[y]) porY[y] = [];
+          porY[y].push({ x: item.transform[4], str: item.str });
+        });
+        var ys = Object.keys(porY).map(Number).sort(function(a, b){ return b - a; });
+        ys.forEach(function(y){
+          var linha = porY[y].sort(function(a, b){ return a.x - b.x; }).map(function(it){ return it.str; }).join(' ').replace(/\s+/g, ' ').trim();
+          if (linha) linhas.push(linha);
+        });
+      });
+      return extrairTransacoesDeTexto(linhas);
+    });
+  }
+
+  function abrirModalImportarExtrato(){
+    extratoImportState.transacoes = [];
+    document.getElementById('extrato-file-input').value = '';
+    document.getElementById('extrato-import-erro').style.display = 'none';
+    popularSelectBanco('extrato-banco-select', null);
+    document.getElementById('extrato-categoria-entrada').innerHTML = construirOptionsCategoria('receita', null);
+    document.getElementById('extrato-categoria-saida').innerHTML = construirOptionsCategoria('despesa', null);
+    renderExtratoImportPreview();
+    document.getElementById('modal-importar-extrato').showModal();
+  }
+
+  function closeModalImportarExtrato(){
+    document.getElementById('modal-importar-extrato').close();
+  }
+
+  function onExtratoFileSelected(file){
+    var erroEl = document.getElementById('extrato-import-erro');
+    erroEl.style.display = 'none';
+    extratoImportState.transacoes = [];
+    renderExtratoImportPreview();
+    var nome = file.name.toLowerCase();
+    if (nome.indexOf('.ofx') === nome.length - 4){
+      readFileAsText(file).then(function(texto){ handleExtratoParseResult(parseOFX(texto)); });
+    } else if (nome.indexOf('.pdf') === nome.length - 4){
+      file.arrayBuffer().then(function(buffer){ return parsePDFExtrato(buffer); }).then(handleExtratoParseResult).catch(function(err){
+        erroEl.textContent = 'Erro ao ler o PDF: ' + err.message;
+        erroEl.style.display = '';
+      });
+    } else {
+      erroEl.textContent = 'Formato não suportado. Selecione um arquivo .ofx ou .pdf.';
+      erroEl.style.display = '';
+    }
+  }
+
+  function handleExtratoParseResult(resultado){
+    var erroEl = document.getElementById('extrato-import-erro');
+    if (resultado.erro){
+      erroEl.textContent = resultado.erro;
+      erroEl.style.display = '';
+      extratoImportState.transacoes = [];
+    } else {
+      extratoImportState.transacoes = resultado.transacoes.map(function(t){
+        return { data: t.data, descricao: t.descricao, valor: t.valor, tipo: t.tipo, origemId: t.origemId || null, incluir: true, duplicada: false };
+      });
+      aplicarDeduplicacaoExtrato();
+    }
+    renderExtratoImportPreview();
+  }
+
+  function aplicarDeduplicacaoExtrato(){
+    var bancoId = document.getElementById('extrato-banco-select').value;
+    extratoImportState.transacoes.forEach(function(t){
+      var dupLanc = (db.lancamentosBancarios || []).some(function(l){
+        return l.bancoId === bancoId && l.data === t.data && l.tipo === t.tipo && Math.abs(l.valor - t.valor) < 0.01;
+      });
+      var dupCP = t.tipo === 'saida' && db.contasPagar.some(function(cp){
+        return cp.bancoId === bancoId && cp.status === 'pago' && cp.dataPagamento === t.data && Math.abs(cp.valor - t.valor) < 0.01;
+      });
+      var dupCR = t.tipo === 'entrada' && db.contasReceber.some(function(cr){
+        return cr.bancoId === bancoId && cr.status === 'pago' && cr.dataPagamento === t.data && Math.abs(cr.valor - t.valor) < 0.01;
+      });
+      t.duplicada = dupLanc || dupCP || dupCR;
+      t.incluir = !t.duplicada;
+    });
+  }
+
+  function renderExtratoImportPreview(){
+    var tbody = document.getElementById('extrato-import-tbody');
+    var resumo = document.getElementById('extrato-import-resumo');
+    var btnConfirmar = document.getElementById('btn-confirmar-importar-extrato');
+    var transacoes = extratoImportState.transacoes;
+    if (transacoes.length === 0){
+      tbody.innerHTML = '';
+      resumo.style.display = 'none';
+      btnConfirmar.disabled = true;
+      return;
+    }
+    tbody.innerHTML = transacoes.map(function(t, idx){
+      return '<tr' + (t.duplicada ? ' style="background:#FEF2F2;"' : '') + '>' +
+        '<td><input type="checkbox" class="extrato-incluir-check" data-idx="' + idx + '"' + (t.incluir ? ' checked' : '') + '></td>' +
+        '<td class="tabular">' + formatDate(t.data) + '</td>' +
+        '<td>' + esc(t.descricao) + (t.duplicada ? ' <span style="color:var(--color-danger); font-size:11px;">(possível duplicata)</span>' : '') + '</td>' +
+        '<td>' + (t.tipo === 'entrada' ? '<span class="badge badge-success">Entrada</span>' : '<span class="badge badge-danger">Saída</span>') + '</td>' +
+        '<td class="text-right tabular">' + formatBRL(t.valor) + '</td>' +
+        '</tr>';
+    }).join('');
+    btnConfirmar.disabled = false;
+    atualizarResumoExtrato();
+  }
+
+  function atualizarResumoExtrato(){
+    var transacoes = extratoImportState.transacoes;
+    var selecionadas = transacoes.filter(function(t){ return t.incluir; });
+    var entradas = sum(selecionadas.filter(function(t){ return t.tipo === 'entrada'; }).map(function(t){ return t.valor; }));
+    var saidas = sum(selecionadas.filter(function(t){ return t.tipo === 'saida'; }).map(function(t){ return t.valor; }));
+    var resumo = document.getElementById('extrato-import-resumo');
+    resumo.style.display = '';
+    resumo.textContent = selecionadas.length + ' de ' + transacoes.length + ' selecionada(s) — Entradas: ' + formatBRL(entradas) + ' · Saídas: ' + formatBRL(saidas);
+  }
+
+  function confirmarImportacaoExtrato(){
+    var erroEl = document.getElementById('extrato-import-erro');
+    var bancoId = document.getElementById('extrato-banco-select').value;
+    var categoriaEntrada = document.getElementById('extrato-categoria-entrada').value;
+    var categoriaSaida = document.getElementById('extrato-categoria-saida').value;
+    var selecionadas = extratoImportState.transacoes.filter(function(t){ return t.incluir; });
+
+    if (!bancoId || !categoriaEntrada || !categoriaSaida){
+      erroEl.textContent = 'Selecione a conta bancária e as categorias padrão de entrada e saída antes de confirmar.';
+      erroEl.style.display = '';
+      return;
+    }
+    if (selecionadas.length === 0){
+      erroEl.textContent = 'Nenhum lançamento selecionado para importar.';
+      erroEl.style.display = '';
+      return;
+    }
+    erroEl.style.display = 'none';
+
+    if (!db.lancamentosBancarios) db.lancamentosBancarios = [];
+    selecionadas.forEach(function(t){
+      db.lancamentosBancarios.push({
+        id: gerarId('LB', db.nextIds.lancamentoBancario),
+        bancoId: bancoId,
+        tipo: t.tipo,
+        categoria: t.tipo === 'entrada' ? categoriaEntrada : categoriaSaida,
+        descricao: t.descricao,
+        valor: t.valor,
+        data: t.data,
+        obs: t.origemId ? ('Importado do extrato (ref. ' + t.origemId + ')') : 'Importado do extrato.'
+      });
+      db.nextIds.lancamentoBancario++;
+    });
+
+    saveDB();
+    extratoImportState.transacoes = [];
+    closeModalImportarExtrato();
+    renderFluxoCaixa();
+    showToast(selecionadas.length + ' lançamento(s) importado(s) do extrato!', 'success');
+  }
+
   function renderFluxoBancoFilter(){
     var select = document.getElementById('fluxo-banco-filter');
     var contas = db.empresa.contasBancarias || [];
@@ -7504,6 +7787,32 @@
       if (btn) openModalLancamentoBancario(btn.getAttribute('data-id'));
     });
 
+    /* Importar Extrato (OFX/PDF) */
+    document.getElementById('btn-importar-extrato').addEventListener('click', abrirModalImportarExtrato);
+    document.getElementById('extrato-file-input').addEventListener('change', function(e){
+      if (e.target.files && e.target.files.length) onExtratoFileSelected(e.target.files[0]);
+    });
+    document.getElementById('extrato-banco-select').addEventListener('change', function(){
+      if (extratoImportState.transacoes.length){
+        aplicarDeduplicacaoExtrato();
+        renderExtratoImportPreview();
+      }
+    });
+    document.getElementById('btn-confirmar-importar-extrato').addEventListener('click', confirmarImportacaoExtrato);
+    var closeImportarExtratoEls = document.querySelectorAll('[data-close-importar-extrato]');
+    for (var cie = 0; cie < closeImportarExtratoEls.length; cie++){
+      closeImportarExtratoEls[cie].addEventListener('click', closeModalImportarExtrato);
+    }
+    document.getElementById('modal-importar-extrato').addEventListener('click', function(e){
+      if (e.target === this) closeModalImportarExtrato();
+    });
+    document.getElementById('extrato-import-tbody').addEventListener('change', function(e){
+      if (!e.target.classList.contains('extrato-incluir-check')) return;
+      var idx = parseInt(e.target.dataset.idx, 10);
+      extratoImportState.transacoes[idx].incluir = e.target.checked;
+      atualizarResumoExtrato();
+    });
+
     /* DRE */
     document.getElementById('dre-prev').addEventListener('click', function(){ navDRE(-1); });
     document.getElementById('dre-next').addEventListener('click', function(){ navDRE(1); });
@@ -7572,6 +7881,9 @@
     deletarLancamentoBancario: deletarLancamentoBancario, getFluxoMovimentos: getFluxoMovimentos,
     parseNFeXml: parseNFeXml, abrirModalImportarXml: abrirModalImportarXml,
     confirmarImportacaoXml: confirmarImportacaoXml, getXmlImportState: function(){ return xmlImportState; },
+    parseOFX: parseOFX, extrairTransacoesDeTexto: extrairTransacoesDeTexto, parsePDFExtrato: parsePDFExtrato,
+    abrirModalImportarExtrato: abrirModalImportarExtrato, confirmarImportacaoExtrato: confirmarImportacaoExtrato,
+    getExtratoImportState: function(){ return extratoImportState; },
     renderDRE: renderDRE, navDRE: navDRE, renderRelatorios: renderRelatorios,
     exportarCSV: exportarCSV, openRelatorioGerencial: openRelatorioGerencial
   };
