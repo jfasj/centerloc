@@ -2356,45 +2356,49 @@
 <dialog id="modal-importar-extrato" class="app-dialog" style="width:900px; max-width:95vw;">
   <form class="dialog-form" id="form-importar-extrato">
     <header class="dialog-header">
-      <h2>Importar Extrato Bancário (OFX ou PDF)</h2>
+      <h2>Conciliação Bancária — Importar Extrato (OFX ou PDF)</h2>
       <button type="button" class="dialog-close" data-close-importar-extrato aria-label="Fechar">&times;</button>
     </header>
     <div class="dialog-body">
-      <p style="font-size:12px; color:var(--color-text-secondary); margin:0 0 10px;">
-        Arquivos OFX são lidos com precisão. Arquivos PDF são interpretados por aproximação (o leiaute varia de banco para banco) — revise a lista antes de confirmar.
-      </p>
-      <div class="form-grid">
-        <div class="form-field">
-          <label>Arquivo do extrato (.ofx ou .pdf) <span class="required-mark">*</span></label>
-          <input type="file" id="extrato-file-input" accept=".ofx,.pdf">
+      <div id="extrato-import-form-area">
+        <p style="font-size:12px; color:var(--color-text-secondary); margin:0 0 10px;">
+          Arquivos OFX são lidos com precisão. Arquivos PDF são interpretados por aproximação (o leiaute varia de banco para banco) — revise a lista antes de confirmar. O que já existir no sistema (Lançamentos, Contas a Pagar/Receber pagas) com a mesma data e valor é automaticamente conciliado, em vez de duplicado.
+        </p>
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Arquivo do extrato (.ofx ou .pdf) <span class="required-mark">*</span></label>
+            <input type="file" id="extrato-file-input" accept=".ofx,.pdf">
+          </div>
+          <div class="form-field">
+            <label>Conta Bancária <span class="required-mark">*</span></label>
+            <select id="extrato-banco-select"></select>
+          </div>
         </div>
-        <div class="form-field">
-          <label>Conta Bancária <span class="required-mark">*</span></label>
-          <select id="extrato-banco-select"></select>
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Categoria padrão — Entradas <span class="required-mark">*</span></label>
+            <select id="extrato-categoria-entrada"></select>
+          </div>
+          <div class="form-field">
+            <label>Categoria padrão — Saídas <span class="required-mark">*</span></label>
+            <select id="extrato-categoria-saida"></select>
+          </div>
+        </div>
+        <p id="extrato-import-erro" style="display:none; background:#FEF2F2; border:1px solid var(--color-danger); color:var(--color-danger); border-radius:var(--radius); padding:10px 12px; font-size:13px; margin:8px 0;"></p>
+        <div id="extrato-import-resumo" style="display:none; font-size:13px; margin:8px 0; font-weight:600;"></div>
+        <div style="overflow:auto; max-height:360px;">
+          <table class="data-table">
+            <thead><tr><th></th><th>Data</th><th>Descrição</th><th>Tipo</th><th class="text-right">Valor</th></tr></thead>
+            <tbody id="extrato-import-tbody"></tbody>
+          </table>
         </div>
       </div>
-      <div class="form-grid">
-        <div class="form-field">
-          <label>Categoria padrão — Entradas <span class="required-mark">*</span></label>
-          <select id="extrato-categoria-entrada"></select>
-        </div>
-        <div class="form-field">
-          <label>Categoria padrão — Saídas <span class="required-mark">*</span></label>
-          <select id="extrato-categoria-saida"></select>
-        </div>
-      </div>
-      <p id="extrato-import-erro" style="display:none; background:#FEF2F2; border:1px solid var(--color-danger); color:var(--color-danger); border-radius:var(--radius); padding:10px 12px; font-size:13px; margin:8px 0;"></p>
-      <div id="extrato-import-resumo" style="display:none; font-size:13px; margin:8px 0; font-weight:600;"></div>
-      <div style="overflow:auto; max-height:360px;">
-        <table class="data-table">
-          <thead><tr><th></th><th>Data</th><th>Descrição</th><th>Tipo</th><th class="text-right">Valor</th></tr></thead>
-          <tbody id="extrato-import-tbody"></tbody>
-        </table>
-      </div>
+      <div id="extrato-conciliacao-resultado" style="display:none;"></div>
     </div>
     <footer class="dialog-footer">
       <button type="button" class="btn btn-outline" data-close-importar-extrato>Cancelar</button>
       <button type="button" class="btn btn-primary" id="btn-confirmar-importar-extrato" disabled><span class="material-symbols-outlined">save</span><span>Confirmar Importação</span></button>
+      <button type="button" class="btn btn-primary" id="btn-fechar-conciliacao" style="display:none;">Concluir</button>
     </footer>
   </form>
 </dialog>
@@ -6076,17 +6080,17 @@
     var entradas = db.contasReceber.filter(function(cr){
       return cr.status === 'pago' && cr.dataPagamento && cr.dataPagamento.slice(0, 7) === monthKey;
     }).map(function(cr){
-      return { data: cr.dataPagamento, descricao: cr.descricao || getLocatarioNome(cr.locatarioId), tipo: 'entrada', categoria: cr.categoria || '—', bancoId: cr.bancoId || null, valor: cr.valor, origem: 'contaReceber', refId: cr.id };
+      return { data: cr.dataPagamento, descricao: cr.descricao || getLocatarioNome(cr.locatarioId), tipo: 'entrada', categoria: cr.categoria || '—', bancoId: cr.bancoId || null, valor: cr.valor, origem: 'contaReceber', refId: cr.id, conciliado: !!cr.conciliado };
     });
     var saidas = db.contasPagar.filter(function(cp){
       return cp.status === 'pago' && cp.dataPagamento && cp.dataPagamento.slice(0, 7) === monthKey;
     }).map(function(cp){
-      return { data: cp.dataPagamento, descricao: cp.descricao, tipo: 'saida', categoria: cp.categoria, bancoId: cp.bancoId || null, valor: cp.valor, origem: 'contaPagar', refId: cp.id };
+      return { data: cp.dataPagamento, descricao: cp.descricao, tipo: 'saida', categoria: cp.categoria, bancoId: cp.bancoId || null, valor: cp.valor, origem: 'contaPagar', refId: cp.id, conciliado: !!cp.conciliado };
     });
     var manuais = (db.lancamentosBancarios || []).filter(function(l){
       return l.data && l.data.slice(0, 7) === monthKey;
     }).map(function(l){
-      return { data: l.data, descricao: l.descricao, tipo: l.tipo, categoria: l.categoria || '—', bancoId: l.bancoId || null, valor: l.valor, origem: 'manual', refId: l.id };
+      return { data: l.data, descricao: l.descricao, tipo: l.tipo, categoria: l.categoria || '—', bancoId: l.bancoId || null, valor: l.valor, origem: 'manual', refId: l.id, conciliado: !!l.conciliado };
     });
     var all = entradas.concat(saidas).concat(manuais);
     if (fluxoState.bancoId){
@@ -6278,6 +6282,10 @@
     popularSelectBanco('extrato-banco-select', null);
     document.getElementById('extrato-categoria-entrada').innerHTML = construirOptionsCategoria('receita', null);
     document.getElementById('extrato-categoria-saida').innerHTML = construirOptionsCategoria('despesa', null);
+    document.getElementById('extrato-import-form-area').style.display = '';
+    document.getElementById('extrato-conciliacao-resultado').style.display = 'none';
+    document.getElementById('btn-confirmar-importar-extrato').style.display = '';
+    document.getElementById('btn-fechar-conciliacao').style.display = 'none';
     renderExtratoImportPreview();
     document.getElementById('modal-importar-extrato').showModal();
   }
@@ -6313,27 +6321,37 @@
       extratoImportState.transacoes = [];
     } else {
       extratoImportState.transacoes = resultado.transacoes.map(function(t){
-        return { data: t.data, descricao: t.descricao, valor: t.valor, tipo: t.tipo, origemId: t.origemId || null, incluir: true, duplicada: false };
+        return { data: t.data, descricao: t.descricao, valor: t.valor, tipo: t.tipo, origemId: t.origemId || null, incluir: true, duplicada: false, matchTipo: null, matchId: null };
       });
       aplicarDeduplicacaoExtrato();
     }
     renderExtratoImportPreview();
   }
 
+  function encontrarRegistroPorTipoId(tipo, id){
+    if (tipo === 'lancamento') return (db.lancamentosBancarios || []).filter(function(x){ return x.id === id; })[0];
+    if (tipo === 'contaPagar') return db.contasPagar.filter(function(x){ return x.id === id; })[0];
+    if (tipo === 'contaReceber') return db.contasReceber.filter(function(x){ return x.id === id; })[0];
+    return null;
+  }
+
   function aplicarDeduplicacaoExtrato(){
     var bancoId = document.getElementById('extrato-banco-select').value;
     extratoImportState.transacoes.forEach(function(t){
-      var dupLanc = (db.lancamentosBancarios || []).some(function(l){
+      var matchLanc = (db.lancamentosBancarios || []).filter(function(l){
         return l.bancoId === bancoId && l.data === t.data && l.tipo === t.tipo && Math.abs(l.valor - t.valor) < 0.01;
-      });
-      var dupCP = t.tipo === 'saida' && db.contasPagar.some(function(cp){
+      })[0];
+      var matchCP = (!matchLanc && t.tipo === 'saida') ? db.contasPagar.filter(function(cp){
         return cp.bancoId === bancoId && cp.status === 'pago' && cp.dataPagamento === t.data && Math.abs(cp.valor - t.valor) < 0.01;
-      });
-      var dupCR = t.tipo === 'entrada' && db.contasReceber.some(function(cr){
+      })[0] : null;
+      var matchCR = (!matchLanc && !matchCP && t.tipo === 'entrada') ? db.contasReceber.filter(function(cr){
         return cr.bancoId === bancoId && cr.status === 'pago' && cr.dataPagamento === t.data && Math.abs(cr.valor - t.valor) < 0.01;
-      });
-      t.duplicada = dupLanc || dupCP || dupCR;
-      t.incluir = !t.duplicada;
+      })[0] : null;
+      var match = matchLanc || matchCP || matchCR;
+      t.matchTipo = matchLanc ? 'lancamento' : (matchCP ? 'contaPagar' : (matchCR ? 'contaReceber' : null));
+      t.matchId = match ? match.id : null;
+      t.duplicada = !!match;
+      t.incluir = !match;
     });
   }
 
@@ -6349,10 +6367,10 @@
       return;
     }
     tbody.innerHTML = transacoes.map(function(t, idx){
-      return '<tr' + (t.duplicada ? ' style="background:#FEF2F2;"' : '') + '>' +
+      return '<tr' + (t.duplicada ? ' style="background:#F0FDF4;"' : '') + '>' +
         '<td><input type="checkbox" class="extrato-incluir-check" data-idx="' + idx + '"' + (t.incluir ? ' checked' : '') + '></td>' +
         '<td class="tabular">' + formatDate(t.data) + '</td>' +
-        '<td>' + esc(t.descricao) + (t.duplicada ? ' <span style="color:var(--color-danger); font-size:11px;">(possível duplicata)</span>' : '') + '</td>' +
+        '<td>' + esc(t.descricao) + (t.duplicada ? ' <span style="color:var(--color-success); font-size:11px; font-weight:600;">(já conciliado com o sistema)</span>' : '') + '</td>' +
         '<td>' + (t.tipo === 'entrada' ? '<span class="badge badge-success">Entrada</span>' : '<span class="badge badge-danger">Saída</span>') + '</td>' +
         '<td class="text-right tabular">' + formatBRL(t.valor) + '</td>' +
         '</tr>';
@@ -6376,22 +6394,32 @@
     var bancoId = document.getElementById('extrato-banco-select').value;
     var categoriaEntrada = document.getElementById('extrato-categoria-entrada').value;
     var categoriaSaida = document.getElementById('extrato-categoria-saida').value;
-    var selecionadas = extratoImportState.transacoes.filter(function(t){ return t.incluir; });
+    var transacoes = extratoImportState.transacoes;
 
     if (!bancoId || !categoriaEntrada || !categoriaSaida){
       erroEl.textContent = 'Selecione a conta bancária e as categorias padrão de entrada e saída antes de confirmar.';
       erroEl.style.display = '';
       return;
     }
-    if (selecionadas.length === 0){
-      erroEl.textContent = 'Nenhum lançamento selecionado para importar.';
+    if (transacoes.length === 0){
+      erroEl.textContent = 'Nenhuma transação lida do arquivo.';
       erroEl.style.display = '';
       return;
     }
     erroEl.style.display = 'none';
 
+    var hoje = new Date().toISOString().slice(0, 10);
     if (!db.lancamentosBancarios) db.lancamentosBancarios = [];
-    selecionadas.forEach(function(t){
+    var totalCriados = 0, totalConciliados = 0;
+
+    transacoes.forEach(function(t){
+      if (!t.incluir){
+        if (t.matchId){
+          var alvo = encontrarRegistroPorTipoId(t.matchTipo, t.matchId);
+          if (alvo){ alvo.conciliado = true; alvo.conciliadoEm = hoje; totalConciliados++; }
+        }
+        return;
+      }
       db.lancamentosBancarios.push({
         id: gerarId('LB', db.nextIds.lancamentoBancario),
         bancoId: bancoId,
@@ -6400,16 +6428,68 @@
         descricao: t.descricao,
         valor: t.valor,
         data: t.data,
-        obs: t.origemId ? ('Importado do extrato (ref. ' + t.origemId + ')') : 'Importado do extrato.'
+        obs: t.origemId ? ('Importado do extrato (ref. ' + t.origemId + ')') : 'Importado do extrato.',
+        conciliado: true,
+        conciliadoEm: hoje
       });
       db.nextIds.lancamentoBancario++;
+      totalCriados++;
     });
 
+    var datas = transacoes.map(function(t){ return t.data; });
+    var minData = datas.reduce(function(a, b){ return a < b ? a : b; });
+    var maxData = datas.reduce(function(a, b){ return a > b ? a : b; });
+
+    var naoEncontrados = [];
+    (db.lancamentosBancarios || []).forEach(function(l){
+      if (l.bancoId === bancoId && l.data >= minData && l.data <= maxData && !l.conciliado){
+        naoEncontrados.push({ tipo: 'Lançamento Bancário', descricao: l.descricao, data: l.data, valor: l.valor });
+      }
+    });
+    db.contasPagar.forEach(function(cp){
+      if (cp.bancoId === bancoId && cp.status === 'pago' && cp.dataPagamento >= minData && cp.dataPagamento <= maxData && !cp.conciliado){
+        naoEncontrados.push({ tipo: 'Conta a Pagar', descricao: cp.descricao, data: cp.dataPagamento, valor: cp.valor });
+      }
+    });
+    db.contasReceber.forEach(function(cr){
+      if (cr.bancoId === bancoId && cr.status === 'pago' && cr.dataPagamento >= minData && cr.dataPagamento <= maxData && !cr.conciliado){
+        naoEncontrados.push({ tipo: 'Conta a Receber', descricao: cr.descricao || getLocatarioNome(cr.locatarioId), data: cr.dataPagamento, valor: cr.valor });
+      }
+    });
+    naoEncontrados.sort(function(a, b){ return new Date(a.data) - new Date(b.data); });
+
     saveDB();
+    renderFluxoCaixa();
+
+    if (naoEncontrados.length === 0){
+      extratoImportState.transacoes = [];
+      closeModalImportarExtrato();
+      showToast(totalCriados + ' novo(s) lançamento(s) importado(s), ' + totalConciliados + ' já conciliado(s) com o sistema.', 'success');
+    } else {
+      exibirResultadoConciliacao(totalCriados, totalConciliados, naoEncontrados);
+    }
+  }
+
+  function exibirResultadoConciliacao(totalCriados, totalConciliados, naoEncontrados){
+    document.getElementById('extrato-import-form-area').style.display = 'none';
+    document.getElementById('btn-confirmar-importar-extrato').style.display = 'none';
+    document.getElementById('btn-fechar-conciliacao').style.display = '';
+    var div = document.getElementById('extrato-conciliacao-resultado');
+    div.style.display = '';
+    div.innerHTML =
+      '<p style="font-size:13px;">' + totalCriados + ' novo(s) lançamento(s) importado(s). ' + totalConciliados + ' já estavam registrados no sistema e foram marcados como conciliados.</p>' +
+      '<p style="font-size:13px; font-weight:700; color:var(--color-danger);">Atenção: ' + naoEncontrados.length + ' lançamento(s) do sistema, dentro do período deste extrato e na mesma conta bancária, não aparecem no arquivo importado:</p>' +
+      '<div style="overflow:auto; max-height:260px;"><table class="data-table"><thead><tr><th>Origem</th><th>Descrição</th><th>Data</th><th class="text-right">Valor</th></tr></thead><tbody>' +
+        naoEncontrados.map(function(n){
+          return '<tr><td>' + esc(n.tipo) + '</td><td>' + esc(n.descricao || '—') + '</td><td class="tabular">' + formatDate(n.data) + '</td><td class="text-right tabular">' + formatBRL(n.valor) + '</td></tr>';
+        }).join('') +
+      '</tbody></table></div>' +
+      '<p style="font-size:12px; color:var(--color-text-secondary); margin-top:8px;">Isso pode indicar uma data ou valor divergente, a conta bancária errada no cadastro, ou algo que ainda não foi efetivado pelo banco. Vale checar cada um.</p>';
+  }
+
+  function fecharConciliacao(){
     extratoImportState.transacoes = [];
     closeModalImportarExtrato();
-    renderFluxoCaixa();
-    showToast(selecionadas.length + ' lançamento(s) importado(s) do extrato!', 'success');
   }
 
   function renderFluxoBancoFilter(){
@@ -6459,7 +6539,7 @@
         : '';
       return '<tr style="' + corLinha + '">' +
         '<td class="tabular">' + formatDate(m.data) + '</td>' +
-        '<td>' + esc(m.descricao) + '</td>' +
+        '<td>' + esc(m.descricao) + (m.conciliado ? ' <span class="material-symbols-outlined" style="font-size:14px; vertical-align:-2px; color:var(--color-success);" title="Conciliado com o extrato bancário">check_circle</span>' : '') + '</td>' +
         '<td>' + esc(nomeContaBancaria(m.bancoId)) + '</td>' +
         '<td>' + (m.tipo === 'entrada' ? '<span class="badge badge-success">Entrada</span>' : '<span class="badge badge-danger">Saída</span>') + '</td>' +
         '<td>' + esc(m.categoria) + '</td>' +
@@ -7799,6 +7879,7 @@
       }
     });
     document.getElementById('btn-confirmar-importar-extrato').addEventListener('click', confirmarImportacaoExtrato);
+    document.getElementById('btn-fechar-conciliacao').addEventListener('click', fecharConciliacao);
     var closeImportarExtratoEls = document.querySelectorAll('[data-close-importar-extrato]');
     for (var cie = 0; cie < closeImportarExtratoEls.length; cie++){
       closeImportarExtratoEls[cie].addEventListener('click', closeModalImportarExtrato);
