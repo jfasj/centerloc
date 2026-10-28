@@ -650,7 +650,7 @@
         <a href="#" class="sidebar-link" data-section="contratos"><span class="material-symbols-outlined">history_edu</span><span class="sidebar-label">Contratos</span></a>
 
         <div class="sidebar-group-label">Fiscal</div>
-        <a href="#" class="sidebar-link" data-section="notas"><span class="material-symbols-outlined">receipt_long</span><span class="sidebar-label">Notas de Débito</span></a>
+        <a href="#" class="sidebar-link" data-section="notas"><span class="material-symbols-outlined">receipt_long</span><span class="sidebar-label" id="sidebar-label-notas">Notas de Débito</span></a>
 
         <div class="sidebar-group-label">Financeiro</div>
         <a href="#" class="sidebar-link" data-section="contas-receber"><span class="material-symbols-outlined">arrow_circle_down</span><span class="sidebar-label">Contas a Receber</span></a>
@@ -814,10 +814,24 @@
 
             <div class="cfg-section">
               <h3><span class="material-symbols-outlined">account_balance</span>Dados Financeiros</h3>
-              <p style="margin:0; font-size:13px; color:var(--color-text-secondary);">Cadastre uma ou mais contas bancárias. Ao emitir uma Nota de Débito, você escolhe qual usar.</p>
+              <p style="margin:0; font-size:13px; color:var(--color-text-secondary);">Cadastre uma ou mais contas bancárias. Ao emitir um documento de cobrança, você escolhe qual usar.</p>
               <div id="cfg-contas-bancarias-list" style="display:flex; flex-direction:column; gap:14px;"></div>
               <div>
                 <button type="button" class="btn btn-outline" id="btn-add-conta-bancaria"><span class="material-symbols-outlined">add</span><span>Adicionar Conta Bancária</span></button>
+              </div>
+            </div>
+
+            <div class="cfg-section">
+              <h3><span class="material-symbols-outlined">description</span>Nomenclatura do Documento</h3>
+              <p style="margin:0; font-size:13px; color:var(--color-text-secondary);">Escolha como o documento de cobrança aparece para o cliente — no título impresso, nos menus e nas telas do sistema.</p>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label for="cfg-nomenclatura-nota">Nome do Documento</label>
+                  <select id="cfg-nomenclatura-nota">
+                    <option value="Nota de Débito">Nota de Débito</option>
+                    <option value="Fatura">Fatura</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -1309,7 +1323,7 @@
 
     <section id="sec-notas" class="section">
       <div class="page-header">
-        <h1>Notas de Débito</h1>
+        <h1 id="notas-page-title">Notas de Débito</h1>
         <div class="page-header-actions">
           <button class="btn btn-primary" id="btn-nova-nota"><span class="material-symbols-outlined">add</span><span>Nova Nota</span></button>
         </div>
@@ -2441,6 +2455,26 @@
     'configuracoes': ['Sistema', 'Configurações']
   };
 
+  function nomenclaturaNota(){
+    return (db && db.empresa && db.empresa.nomenclaturaNota) || 'Nota de Débito';
+  }
+
+  function nomenclaturaNotaPlural(){
+    return nomenclaturaNota() === 'Fatura' ? 'Faturas' : 'Notas de Débito';
+  }
+
+  function aplicarNomenclaturaNota(){
+    var singular = nomenclaturaNota();
+    var plural = nomenclaturaNotaPlural();
+    BREADCRUMBS.notas = ['Fiscal', plural];
+    BREADCRUMBS['nova-nota'] = ['Fiscal', 'Nova ' + singular];
+    BREADCRUMBS['nota-print'] = ['Fiscal', 'Impressão de ' + singular];
+    var sidebarLabel = document.getElementById('sidebar-label-notas');
+    if (sidebarLabel) sidebarLabel.textContent = plural;
+    var pageTitle = document.getElementById('notas-page-title');
+    if (pageTitle) pageTitle.textContent = plural;
+  }
+
   var STATUS_MAP = {
     'Ativo': 'success', 'Pago': 'success', 'Disponível': 'success',
     'Pendente': 'warning', 'Manutenção': 'warning',
@@ -2633,6 +2667,10 @@
       db.nextIds.lancamentoBancario = 1;
       changed = true;
     }
+    if (!db.empresa.nomenclaturaNota){
+      db.empresa.nomenclaturaNota = 'Nota de Débito';
+      changed = true;
+    }
     if (changed) saveDB();
   }
 
@@ -2684,7 +2722,8 @@
         agencia: '3214-5',
         conta: '00123456-7',
         contasBancarias: [{ id: 'BANK1', nome: 'Bradesco', pix: '12.299.005/0001-46', banco: 'Bradesco', agencia: '3214-5', conta: '00123456-7' }],
-        logomarca: getDefaultLogomarca()
+        logomarca: getDefaultLogomarca(),
+        nomenclaturaNota: 'Nota de Débito'
       },
       planoDeContas: [
         { id: 'PC1', nome: 'Locação de Equipamentos', tipo: 'receita' },
@@ -3256,6 +3295,7 @@
     currentUser = user;
     loadDB().then(function(){
       applyBrandLogo();
+      aplicarNomenclaturaNota();
       return fetchOrCreateProfile(user);
     }).then(function(role){
       currentUserRole = role;
@@ -4267,7 +4307,7 @@
         '<div class="kpi-card" style="--stripe-color:var(--color-navy);"><div class="kpi-label">Resultado</div><div class="kpi-value">' + formatBRL(receitaRecebida - despesaPaga) + '</div></div>' +
       '</div>' +
       '<div class="card">' +
-        '<h2>Notas de Débito Relacionadas</h2>' +
+        '<h2>' + esc(nomenclaturaNotaPlural()) + ' Relacionadas</h2>' +
         '<div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>Nº Nota</th><th>Locatário</th><th>Emissão</th><th>Valor Vinculado</th><th>Status</th></tr></thead><tbody>' + notasHtml + '</tbody></table></div>' +
       '</div>' +
       '<div class="card">' +
@@ -5101,7 +5141,7 @@
 
   function renderFormNota(id){
     clearFieldErrors('form-nota');
-    document.getElementById('nota-form-title').textContent = id ? 'Editar Nota de Débito' : 'Nova Nota de Débito';
+    document.getElementById('nota-form-title').textContent = (id ? 'Editar ' : 'Nova ') + nomenclaturaNota();
     document.getElementById('nota-locatario-dropdown').style.display = 'none';
 
     if (id){
@@ -5366,7 +5406,7 @@
           '<div class="a4-logo">' + (emp.logomarca ? '<img src="' + emp.logomarca + '" alt="Logo">' : '<div class="a4-logo-fallback">' + (emp.razaoSocial || 'C').charAt(0) + '</div>') + '</div>' +
           '<div class="a4-empresa-dados"><strong>' + emp.razaoSocial + '</strong><br>CNPJ: ' + emp.cnpj + '<br>' + emp.endereco + ' — ' + emp.cidade + '/' + emp.uf + '</div>' +
         '</div>' +
-        '<h1 class="a4-title">Nota de Débito Nº ' + n.numero.replace('ND-', '') + '</h1>' +
+        '<h1 class="a4-title">' + esc(nomenclaturaNota()) + ' Nº ' + n.numero.replace('ND-', '') + '</h1>' +
 
         '<div class="a4-section-title">Identificação</div>' +
         '<div class="a4-condicoes">' +
@@ -7286,6 +7326,7 @@
     document.getElementById('cfg-cep').value = e.cep || '';
     document.getElementById('cfg-telefone').value = e.telefone || '';
     document.getElementById('cfg-email').value = e.email || '';
+    document.getElementById('cfg-nomenclatura-nota').value = e.nomenclaturaNota || 'Nota de Débito';
     cfgContasBancarias = (e.contasBancarias || []).map(function(c){ return { id: c.id, nome: c.nome, pix: c.pix, banco: c.banco, agencia: c.agencia, conta: c.conta }; });
     renderContasBancariasConfig();
     cfgPlanoContas = (db.planoDeContas || []).map(function(c){ return { id: c.id, nome: c.nome, tipo: c.tipo }; });
@@ -7315,6 +7356,7 @@
     e.cep = document.getElementById('cfg-cep').value.trim();
     e.telefone = document.getElementById('cfg-telefone').value.trim();
     e.email = document.getElementById('cfg-email').value.trim();
+    e.nomenclaturaNota = document.getElementById('cfg-nomenclatura-nota').value;
     e.contasBancarias = cfgContasBancarias.map(function(c){
       return { id: c.id, nome: c.nome.trim(), pix: c.pix.trim(), banco: c.banco.trim(), agencia: c.agencia.trim(), conta: c.conta.trim() };
     });
@@ -7329,6 +7371,7 @@
     });
     saveDB();
     applyBrandLogo();
+    aplicarNomenclaturaNota();
     showToast('Configurações salvas com sucesso!', 'success');
   }
 
@@ -7965,6 +8008,8 @@
     parseOFX: parseOFX, extrairTransacoesDeTexto: extrairTransacoesDeTexto, parsePDFExtrato: parsePDFExtrato,
     abrirModalImportarExtrato: abrirModalImportarExtrato, confirmarImportacaoExtrato: confirmarImportacaoExtrato,
     getExtratoImportState: function(){ return extratoImportState; },
+    nomenclaturaNota: nomenclaturaNota, nomenclaturaNotaPlural: nomenclaturaNotaPlural,
+    aplicarNomenclaturaNota: aplicarNomenclaturaNota,
     renderDRE: renderDRE, navDRE: navDRE, renderRelatorios: renderRelatorios,
     exportarCSV: exportarCSV, openRelatorioGerencial: openRelatorioGerencial
   };
