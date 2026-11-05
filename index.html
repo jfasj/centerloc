@@ -1326,6 +1326,7 @@
       <div class="page-header">
         <h1 id="notas-page-title">Notas de Débito</h1>
         <div class="page-header-actions">
+          <button class="btn btn-outline" id="btn-importar-notas-lote"><span class="material-symbols-outlined">upload_file</span><span>Importar em Lote (Histórico)</span></button>
           <button class="btn btn-primary" id="btn-nova-nota"><span class="material-symbols-outlined">add</span><span>Nova Nota</span></button>
         </div>
       </div>
@@ -2526,6 +2527,42 @@
       <button type="button" class="btn btn-outline" data-close-importar-extrato>Cancelar</button>
       <button type="button" class="btn btn-primary" id="btn-confirmar-importar-extrato" disabled><span class="material-symbols-outlined">save</span><span>Confirmar Importação</span></button>
       <button type="button" class="btn btn-primary" id="btn-fechar-conciliacao" style="display:none;">Concluir</button>
+    </footer>
+  </form>
+</dialog>
+
+<!-- ============ MODAL IMPORTAR NOTAS HISTÓRICAS EM LOTE ============ -->
+<dialog id="modal-importar-notas-lote" class="app-dialog" style="width:900px; max-width:95vw;">
+  <form class="dialog-form" id="form-importar-notas-lote">
+    <header class="dialog-header">
+      <h2>Importar Notas Históricas em Lote</h2>
+      <button type="button" class="dialog-close" data-close-importar-notas-lote aria-label="Fechar">&times;</button>
+    </header>
+    <div class="dialog-body">
+      <div id="inl-form-area">
+        <p style="font-size:12px; color:var(--color-text-secondary); margin:0 0 10px;">
+          Cole abaixo os dados das notas (formato combinado com o assistente). Todas entram marcadas como "Nota histórica — não gera Contas a Receber". Revise a prévia antes de confirmar.
+        </p>
+        <div class="form-field">
+          <label>Dados colados</label>
+          <textarea id="inl-textarea" rows="8" style="font-family:monospace; font-size:12px;" placeholder="Cole aqui o texto fornecido..."></textarea>
+        </div>
+        <button type="button" class="btn btn-outline" id="btn-inl-processar"><span class="material-symbols-outlined">refresh</span><span>Processar</span></button>
+        <p id="inl-erro" style="display:none; background:#FEF2F2; border:1px solid var(--color-danger); color:var(--color-danger); border-radius:var(--radius); padding:10px 12px; font-size:13px; margin:8px 0;"></p>
+        <div id="inl-resumo" style="display:none; font-size:13px; margin:8px 0; font-weight:600;"></div>
+        <div style="overflow:auto; max-height:360px;">
+          <table class="data-table">
+            <thead><tr><th></th><th>Nº</th><th>Locatário</th><th>Emissão</th><th>Vencimento</th><th class="text-right">Valor</th><th>Status</th></tr></thead>
+            <tbody id="inl-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div id="inl-resultado" style="display:none;"></div>
+    </div>
+    <footer class="dialog-footer">
+      <button type="button" class="btn btn-outline" data-close-importar-notas-lote>Cancelar</button>
+      <button type="button" class="btn btn-primary" id="btn-confirmar-importar-notas-lote" disabled><span class="material-symbols-outlined">save</span><span>Confirmar Importação</span></button>
+      <button type="button" class="btn btn-primary" id="btn-fechar-importar-notas-lote" style="display:none;">Concluir</button>
     </footer>
   </form>
 </dialog>
@@ -5332,6 +5369,171 @@
     document.body.removeChild(a);
   }
 
+  /* ---------------- Importação de Notas Históricas em Lote ---------------- */
+
+  var inlState = { notas: [] };
+
+  function abrirModalImportarNotasLote(){
+    inlState.notas = [];
+    document.getElementById('inl-textarea').value = '';
+    document.getElementById('inl-erro').style.display = 'none';
+    document.getElementById('inl-form-area').style.display = '';
+    document.getElementById('inl-resultado').style.display = 'none';
+    document.getElementById('btn-confirmar-importar-notas-lote').style.display = '';
+    document.getElementById('btn-confirmar-importar-notas-lote').disabled = true;
+    document.getElementById('btn-fechar-importar-notas-lote').style.display = 'none';
+    renderInlPreview();
+    document.getElementById('modal-importar-notas-lote').showModal();
+  }
+
+  function closeModalImportarNotasLote(){
+    document.getElementById('modal-importar-notas-lote').close();
+  }
+
+  function fecharImportacaoNotasLote(){
+    inlState.notas = [];
+    closeModalImportarNotasLote();
+  }
+
+  function processarImportacaoNotasLote(){
+    var erroEl = document.getElementById('inl-erro');
+    erroEl.style.display = 'none';
+    var texto = document.getElementById('inl-textarea').value.trim();
+    if (!texto){ erroEl.textContent = 'Cole os dados antes de processar.'; erroEl.style.display = ''; return; }
+    var dados;
+    try {
+      dados = JSON.parse(texto);
+    } catch (e){
+      erroEl.textContent = 'Não foi possível interpretar os dados colados (JSON inválido). Verifique se copiou o texto completo.';
+      erroEl.style.display = '';
+      return;
+    }
+    if (!Array.isArray(dados) || dados.length === 0){
+      erroEl.textContent = 'Nenhuma nota encontrada nos dados colados.';
+      erroEl.style.display = '';
+      return;
+    }
+    inlState.notas = dados.map(function(d){
+      var cnpjNorm = normalizeCNPJ(d.locatarioCnpj);
+      var locatario = db.locatarios.filter(function(l){ return normalizeCNPJ(l.cnpj) === cnpjNorm; })[0];
+      var itens = (d.itens || []).map(function(it){ return { descricao: it.descricao, valor: it.valor || 0 }; });
+      var valorTotal = sum(itens.map(function(it){ return it.valor; }));
+      var jaExiste = db.notas.some(function(n){ return n.numero === d.numero; });
+      return {
+        numero: d.numero,
+        dataEmissao: d.dataEmissao,
+        dataVencimento: d.dataVencimento,
+        locatarioNome: d.locatarioNome,
+        locatarioCnpj: d.locatarioCnpj,
+        locatarioEndereco: d.locatarioEndereco || '',
+        locatarioCidade: d.locatarioCidade || '',
+        locatarioUf: d.locatarioUf || '',
+        locatarioId: locatario ? locatario.id : null,
+        itens: itens,
+        valorTotal: valorTotal,
+        status: d.status === 'aberta' ? 'aberta' : 'paga',
+        jaExiste: jaExiste,
+        incluir: !jaExiste
+      };
+    });
+    renderInlPreview();
+  }
+
+  function renderInlPreview(){
+    var tbody = document.getElementById('inl-tbody');
+    var resumo = document.getElementById('inl-resumo');
+    var btnConfirmar = document.getElementById('btn-confirmar-importar-notas-lote');
+    var notas = inlState.notas;
+    if (notas.length === 0){
+      tbody.innerHTML = '';
+      resumo.style.display = 'none';
+      btnConfirmar.disabled = true;
+      return;
+    }
+    tbody.innerHTML = notas.map(function(n, idx){
+      return '<tr' + (n.jaExiste ? ' style="background:#FEF2F2;"' : '') + '>' +
+        '<td><input type="checkbox" class="inl-incluir-check" data-idx="' + idx + '"' + (n.incluir ? ' checked' : '') + '></td>' +
+        '<td class="tabular">' + esc(n.numero) + (n.jaExiste ? ' <span style="color:var(--color-danger); font-size:11px;">(já existe)</span>' : '') + '</td>' +
+        '<td>' + esc(n.locatarioNome) + (n.locatarioId ? '' : ' <span style="color:var(--color-orange); font-size:11px;">(novo)</span>') + '</td>' +
+        '<td class="tabular">' + formatDate(n.dataEmissao) + '</td>' +
+        '<td class="tabular">' + formatDate(n.dataVencimento) + '</td>' +
+        '<td class="text-right tabular">' + formatBRL(n.valorTotal) + '</td>' +
+        '<td><select class="inl-status-select" data-idx="' + idx + '"><option value="paga"' + (n.status === 'paga' ? ' selected' : '') + '>Paga</option><option value="aberta"' + (n.status === 'aberta' ? ' selected' : '') + '>Aberta</option></select></td>' +
+        '</tr>';
+    }).join('');
+    var selecionadas = notas.filter(function(n){ return n.incluir; });
+    var total = sum(selecionadas.map(function(n){ return n.valorTotal; }));
+    resumo.style.display = '';
+    resumo.textContent = selecionadas.length + ' de ' + notas.length + ' selecionada(s) — Total: ' + formatBRL(total);
+    btnConfirmar.disabled = false;
+  }
+
+  function confirmarImportacaoNotasLote(){
+    var erroEl = document.getElementById('inl-erro');
+    var selecionadas = inlState.notas.filter(function(n){ return n.incluir; });
+    if (selecionadas.length === 0){
+      erroEl.textContent = 'Nenhuma nota selecionada para importar.';
+      erroEl.style.display = '';
+      return;
+    }
+    erroEl.style.display = 'none';
+
+    var criadas = 0;
+    selecionadas.forEach(function(n){
+      var locatarioId = n.locatarioId;
+      if (!locatarioId){
+        var novoLocatario = {
+          id: gerarId('L', db.nextIds.locatario),
+          razaoSocial: n.locatarioNome,
+          cnpj: n.locatarioCnpj,
+          inscricaoEstadual: '',
+          contato: '',
+          cargo: '',
+          email: '',
+          telefone: '',
+          endereco: { rua: n.locatarioEndereco, numero: '', bairro: '', cidade: n.locatarioCidade, uf: n.locatarioUf, cep: '' },
+          observacoes: 'Cadastrado automaticamente via importação de notas históricas em lote.',
+          ativo: true
+        };
+        db.locatarios.push(novoLocatario);
+        db.nextIds.locatario++;
+        locatarioId = novoLocatario.id;
+        inlState.notas.forEach(function(x){ if (normalizeCNPJ(x.locatarioCnpj) === normalizeCNPJ(n.locatarioCnpj)) x.locatarioId = locatarioId; });
+      }
+      db.notas.push({
+        id: gerarId('ND', db.nextIds.nota),
+        numero: n.numero,
+        locatarioId: locatarioId,
+        contratoId: '',
+        dataEmissao: n.dataEmissao,
+        dataVencimento: n.dataVencimento,
+        parcelas: [{ dataVencimento: n.dataVencimento, valor: n.valorTotal }],
+        contaBancariaId: '',
+        contaBancaria: null,
+        itens: n.itens,
+        valorTotal: n.valorTotal,
+        historica: true,
+        status: n.status,
+        pdfAnexo: null
+      });
+      db.nextIds.nota++;
+      criadas++;
+    });
+
+    saveDB();
+    renderNotas();
+    exibirResultadoImportacaoNotasLote(criadas);
+  }
+
+  function exibirResultadoImportacaoNotasLote(criadas){
+    document.getElementById('inl-form-area').style.display = 'none';
+    document.getElementById('btn-confirmar-importar-notas-lote').style.display = 'none';
+    document.getElementById('btn-fechar-importar-notas-lote').style.display = '';
+    var div = document.getElementById('inl-resultado');
+    div.style.display = '';
+    div.innerHTML = '<p style="font-size:14px;">' + criadas + ' nota(s) histórica(s) importada(s) com sucesso.</p>';
+  }
+
   function popularContaBancariaSelect(selectedId){
     var select = document.getElementById('nota-conta-bancaria-id');
     var contas = db.empresa.contasBancarias || [];
@@ -8076,6 +8278,27 @@
 
     /* Notas de Débito */
     document.getElementById('btn-nova-nota').addEventListener('click', function(){ openNovaNota(null); });
+    document.getElementById('btn-importar-notas-lote').addEventListener('click', abrirModalImportarNotasLote);
+    document.getElementById('btn-inl-processar').addEventListener('click', processarImportacaoNotasLote);
+    document.getElementById('btn-confirmar-importar-notas-lote').addEventListener('click', confirmarImportacaoNotasLote);
+    document.getElementById('btn-fechar-importar-notas-lote').addEventListener('click', fecharImportacaoNotasLote);
+    var closeImportarNotasLoteEls = document.querySelectorAll('[data-close-importar-notas-lote]');
+    for (var cinl = 0; cinl < closeImportarNotasLoteEls.length; cinl++){
+      closeImportarNotasLoteEls[cinl].addEventListener('click', fecharImportacaoNotasLote);
+    }
+    document.getElementById('modal-importar-notas-lote').addEventListener('click', function(e){
+      if (e.target === this) fecharImportacaoNotasLote();
+    });
+    document.getElementById('inl-tbody').addEventListener('change', function(e){
+      var idx = parseInt(e.target.dataset.idx, 10);
+      if (isNaN(idx)) return;
+      if (e.target.classList.contains('inl-incluir-check')){
+        inlState.notas[idx].incluir = e.target.checked;
+        renderInlPreview();
+      } else if (e.target.classList.contains('inl-status-select')){
+        inlState.notas[idx].status = e.target.value;
+      }
+    });
     document.getElementById('notas-search').addEventListener('input', function(e){ filtrarNotas(e.target.value); });
     document.getElementById('notas-status-tabs').addEventListener('click', function(e){
       var btn = e.target.closest('.tab-btn');
@@ -8413,6 +8636,8 @@
     rejeitarProposta: rejeitarProposta, converterEmContrato: converterEmContrato,
     renderNotas: renderNotas, openNovaNota: openNovaNota, viewNota: viewNota, notaStatusInfo: notaStatusInfo,
     sincronizarContasReceberDaNota: sincronizarContasReceberDaNota, baixarPdfAnexoNota: baixarPdfAnexoNota,
+    abrirModalImportarNotasLote: abrirModalImportarNotasLote, processarImportacaoNotasLote: processarImportacaoNotasLote,
+    confirmarImportacaoNotasLote: confirmarImportacaoNotasLote, getInlState: function(){ return inlState; },
     renderContasReceber: renderContasReceber, openModalBaixaReceber: openModalBaixaReceber,
     renderContasPagar: renderContasPagar, openModalNovaPagar: openModalNovaPagar,
     openModalPagarConta: openModalPagarConta, renderFluxoCaixa: renderFluxoCaixa, navFluxo: navFluxo,
