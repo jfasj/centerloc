@@ -651,6 +651,7 @@
 
         <div class="sidebar-group-label">Fiscal</div>
         <a href="#" class="sidebar-link" data-section="notas"><span class="material-symbols-outlined">receipt_long</span><span class="sidebar-label" id="sidebar-label-notas">Notas de Débito</span></a>
+        <a href="#" class="sidebar-link" data-section="declaracoes-faturamento"><span class="material-symbols-outlined">fact_check</span><span class="sidebar-label">Declaração de Faturamento</span></a>
 
         <div class="sidebar-group-label">Financeiro</div>
         <a href="#" class="sidebar-link" data-section="contas-receber"><span class="material-symbols-outlined">arrow_circle_down</span><span class="sidebar-label">Contas a Receber</span></a>
@@ -1451,6 +1452,101 @@
 
     <section id="sec-nota-print" class="section">
       <div id="nota-print-content"></div>
+    </section>
+
+    <section id="sec-declaracoes-faturamento" class="section">
+      <div class="page-header">
+        <h1>Declarações de Faturamento</h1>
+        <div class="page-header-actions">
+          <button class="btn btn-primary" id="btn-nova-declaracao"><span class="material-symbols-outlined">add</span><span>Nova Declaração</span></button>
+        </div>
+      </div>
+      <div class="card">
+        <div style="overflow-x:auto;">
+          <table class="data-table">
+            <thead><tr><th>Período</th><th>Faturamento Total</th><th>Emitida em</th><th class="text-right">Ações</th></tr></thead>
+            <tbody id="declaracoes-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="sec-nova-declaracao" class="section">
+      <div class="page-header"><h1 id="df-form-title">Nova Declaração de Faturamento</h1></div>
+
+      <div class="card">
+        <div class="dialog-section-title" style="margin-top:0; padding-top:0; border-top:none;">Período</div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Mês Final <span class="required-mark">*</span></label>
+            <input type="month" id="df-mes-final">
+          </div>
+          <div class="form-field" style="justify-content:flex-end;">
+            <button type="button" class="btn btn-outline" id="btn-df-carregar-notas"><span class="material-symbols-outlined">refresh</span><span>Carregar Faturamento das Notas</span></button>
+          </div>
+        </div>
+        <p style="font-size:12px; color:var(--color-text-secondary); margin:4px 0 0;">Carrega automaticamente a soma das Notas de Débito emitidas em cada um dos 12 meses anteriores ao mês final (inclusive). Os valores abaixo podem ser ajustados manualmente.</p>
+      </div>
+
+      <div class="card">
+        <div class="dialog-section-title" style="margin-top:0; padding-top:0; border-top:none;">Faturamento por Competência</div>
+        <div style="overflow-x:auto;">
+          <table class="data-table">
+            <thead><tr><th>Competência</th><th class="text-right">Faturamento</th></tr></thead>
+            <tbody id="df-meses-tbody"></tbody>
+          </table>
+        </div>
+        <div style="display:flex; justify-content:flex-end; margin-top:16px;">
+          <div style="min-width:280px; display:flex; flex-direction:column; gap:6px;">
+            <div class="detail-row"><span class="label">Faturamento Total</span><span class="value" id="df-total-display" style="font-weight:700;">R$ 0,00</span></div>
+            <div class="detail-row"><span class="label">Média Mensal</span><span class="value" id="df-media-display">R$ 0,00</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="dialog-section-title" style="margin-top:0; padding-top:0; border-top:none;">Assinaturas</div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Local</label>
+            <input type="text" id="df-local">
+          </div>
+        </div>
+        <div class="form-grid cols-4">
+          <div class="form-field full" style="grid-column: span 2;">
+            <label>Nome do Contador</label>
+            <input type="text" id="df-contador-nome">
+          </div>
+          <div class="form-field">
+            <label>CRC</label>
+            <input type="text" id="df-contador-crc">
+          </div>
+          <div class="form-field">
+            <label>CPF do Contador</label>
+            <input type="text" id="df-contador-cpf">
+          </div>
+        </div>
+        <div class="form-grid cols-4">
+          <div class="form-field full" style="grid-column: span 2;">
+            <label>Nome do Representante da Empresa</label>
+            <input type="text" id="df-representante-nome">
+          </div>
+          <div class="form-field">
+            <label>CPF do Representante</label>
+            <input type="text" id="df-representante-cpf">
+          </div>
+          <div class="form-field"></div>
+        </div>
+      </div>
+
+      <div class="cfg-footer" style="justify-content:space-between;">
+        <button type="button" class="btn btn-outline" id="btn-cancelar-df"><span class="material-symbols-outlined">close</span><span>Cancelar</span></button>
+        <button type="button" class="btn btn-primary" id="btn-salvar-df"><span class="material-symbols-outlined">save</span><span>Salvar e Gerar Declaração</span></button>
+      </div>
+    </section>
+
+    <section id="sec-declaracao-print" class="section">
+      <div id="declaracao-print-content"></div>
     </section>
 
     <section id="sec-contas-receber" class="section">
@@ -2443,6 +2539,9 @@
     'notas': ['Fiscal', 'Notas de Débito'],
     'nova-nota': ['Fiscal', 'Nova Nota de Débito'],
     'nota-print': ['Fiscal', 'Impressão de Nota de Débito'],
+    'declaracoes-faturamento': ['Fiscal', 'Declarações de Faturamento'],
+    'nova-declaracao': ['Fiscal', 'Nova Declaração de Faturamento'],
+    'declaracao-print': ['Fiscal', 'Impressão de Declaração de Faturamento'],
     'contas-receber': ['Financeiro', 'Contas a Receber'],
     'contas-pagar': ['Financeiro', 'Contas a Pagar'],
     'fluxo-caixa': ['Financeiro', 'Fluxo de Caixa / Extrato Bancário'],
@@ -2486,7 +2585,7 @@
   var db = null;
   var currentUser = null;
   var currentUserRole = null;
-  var RESTRICTED_SECTIONS_OPERACIONAL = ['clientes', 'notas', 'contas-receber', 'contas-pagar', 'fluxo-caixa', 'relatorios', 'dre', 'configuracoes'];
+  var RESTRICTED_SECTIONS_OPERACIONAL = ['clientes', 'notas', 'declaracoes-faturamento', 'contas-receber', 'contas-pagar', 'fluxo-caixa', 'relatorios', 'dre', 'configuracoes'];
   var currentSection = 'dashboard';
 
   var PAGE_SIZE = 15;
@@ -2536,6 +2635,9 @@
   var currentNotaPrintId = null;
   var notaFormItens = [];
   var notaFormParcelas = [];
+  var editingDeclaracaoId = null;
+  var currentDeclaracaoPrintId = null;
+  var declaracaoFormMeses = [];
 
   var receberState = { query: '', status: '', periodo: '', page: 1 };
   var baixaReceberTargetId = null;
@@ -2671,6 +2773,15 @@
       db.empresa.nomenclaturaNota = 'Nota de Débito';
       changed = true;
     }
+    if (!db.declaracoesFaturamento){
+      db.declaracoesFaturamento = [];
+      db.nextIds.declaracao = 1;
+      changed = true;
+    }
+    if (!db.empresa.representanteNome){
+      db.empresa.representanteNome = 'Antonio Pereira da Silva Neto';
+      changed = true;
+    }
     if (changed) saveDB();
   }
 
@@ -2723,7 +2834,8 @@
         conta: '00123456-7',
         contasBancarias: [{ id: 'BANK1', nome: 'Bradesco', pix: '12.299.005/0001-46', banco: 'Bradesco', agencia: '3214-5', conta: '00123456-7' }],
         logomarca: getDefaultLogomarca(),
-        nomenclaturaNota: 'Nota de Débito'
+        nomenclaturaNota: 'Nota de Débito',
+        representanteNome: 'Antonio Pereira da Silva Neto'
       },
       planoDeContas: [
         { id: 'PC1', nome: 'Locação de Equipamentos', tipo: 'receita' },
@@ -2750,6 +2862,7 @@
       contasReceber: buildSeedContasReceber(),
       contasPagar: buildSeedContasPagar(),
       lancamentosBancarios: [],
+      declaracoesFaturamento: [],
       notasDebito: [],
       locatarios: [
         { id: 'L0001', razaoSocial: 'ENGEMAN SERVIÇOS TÉCNICOS LTDA', cnpj: '08.769.549/0006-61', contato: 'Carlos Engenheiro', email: 'engeman@email.com', telefone: '(81) 9999-0001', ativo: true },
@@ -2761,7 +2874,7 @@
         { id: 'C0002', tipo: 'cliente', razaoSocial: 'PORTO DE SUAPE S.A.', cnpj: '44.555.666/0001-22', contato: 'Direção Operacional', email: 'porto@suape.com.br', telefone: '(81) 3527-5000', ativo: true },
         { id: 'C0003', tipo: 'ambos', categoria: 'Peças', razaoSocial: 'DISTRIBUIDORA NORDESTE LTDA', cnpj: '55.666.777/0001-33', contato: 'Marcos Distribuidora', email: 'nordeste@dist.com', telefone: '(81) 9777-0003', ativo: true }
       ],
-      nextIds: { contrato: 4, contaReceber: 18, locatario: 4, cliente: 4, frota: 5, proposta: 2, nota: 533, contaPagar: 7, lancamentoBancario: 1 }
+      nextIds: { contrato: 4, contaReceber: 18, locatario: 4, cliente: 4, frota: 5, proposta: 2, nota: 533, contaPagar: 7, lancamentoBancario: 1, declaracao: 1 }
     };
   }
 
@@ -3407,6 +3520,9 @@
     if (section === 'notas') renderNotas();
     if (section === 'nova-nota') renderFormNota(editingNotaId);
     if (section === 'nota-print') renderNotaA4(currentNotaPrintId);
+    if (section === 'declaracoes-faturamento') renderDeclaracoesFaturamento();
+    if (section === 'nova-declaracao') renderFormDeclaracao(editingDeclaracaoId);
+    if (section === 'declaracao-print') renderDeclaracaoA4(currentDeclaracaoPrintId);
     if (section === 'contas-receber') renderContasReceber();
     if (section === 'contas-pagar') renderContasPagar();
     if (section === 'fluxo-caixa') renderFluxoCaixa();
@@ -5478,6 +5594,216 @@
         if (idxRemover !== -1) db.contasReceber.splice(idxRemover, 1);
       }
     });
+  }
+
+  /* ---------------- Declaração de Faturamento ---------------- */
+
+  function dataExtensoCurta(iso){
+    var partes = iso.split('-');
+    return parseInt(partes[2], 10) + ' de ' + MESES_EXTENSO[parseInt(partes[1], 10) - 1] + ' de ' + partes[0];
+  }
+
+  function competenciaLabel(ym){
+    var partes = ym.split('-');
+    return capitalizeFirst(MESES_EXTENSO[parseInt(partes[1], 10) - 1]) + '/' + partes[0];
+  }
+
+  function mesAnterior(ym, n){
+    var partes = ym.split('-');
+    var d = new Date(parseInt(partes[0], 10), parseInt(partes[1], 10) - 1 - n, 1);
+    return d.getFullYear() + '-' + pad2(d.getMonth() + 1);
+  }
+
+  function calcularFaturamentoMes(ym){
+    return sum(db.notas.filter(function(n){ return n.dataEmissao && n.dataEmissao.slice(0, 7) === ym; }).map(function(n){ return n.valorTotal; }));
+  }
+
+  function gerarMesesDeclaracao(mesFinal){
+    var meses = [];
+    for (var i = 11; i >= 0; i--){
+      var ym = mesAnterior(mesFinal, i);
+      meses.push({ competencia: ym, valor: calcularFaturamentoMes(ym) });
+    }
+    return meses;
+  }
+
+  function renderDeclaracoesFaturamento(){
+    var tbody = document.getElementById('declaracoes-tbody');
+    var lista = (db.declaracoesFaturamento || []).slice().sort(function(a, b){ return b.mesFinal < a.mesFinal ? -1 : 1; });
+    if (lista.length === 0){
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="4">Nenhuma declaração emitida ainda.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = lista.map(function(d){
+      var total = sum(d.meses.map(function(m){ return m.valor; }));
+      var periodo = competenciaLabel(d.meses[0].competencia) + ' a ' + competenciaLabel(d.meses[d.meses.length - 1].competencia);
+      return '<tr>' +
+        '<td>' + esc(periodo) + '</td>' +
+        '<td class="tabular">' + formatBRL(total) + '</td>' +
+        '<td class="tabular">' + formatDate(d.dataEmissao) + '</td>' +
+        '<td class="text-right"><div class="actions-cell">' +
+          '<button type="button" class="icon-btn" title="Ver/Imprimir" data-action="ver" data-id="' + d.id + '"><span class="material-symbols-outlined">visibility</span></button>' +
+          '<button type="button" class="icon-btn" title="Editar" data-action="editar" data-id="' + d.id + '"><span class="material-symbols-outlined">edit</span></button>' +
+          '<button type="button" class="icon-btn" title="Excluir" data-action="excluir" data-id="' + d.id + '"><span class="material-symbols-outlined">delete</span></button>' +
+        '</div></td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  function openNovaDeclaracao(id){
+    editingDeclaracaoId = id || null;
+    goTo('nova-declaracao');
+  }
+
+  function renderFormDeclaracao(id){
+    var d = id ? (db.declaracoesFaturamento || []).filter(function(x){ return x.id === id; })[0] : null;
+    document.getElementById('df-form-title').textContent = d ? 'Editar Declaração de Faturamento' : 'Nova Declaração de Faturamento';
+    var hoje = new Date();
+    document.getElementById('df-mes-final').value = d ? d.mesFinal : (hoje.getFullYear() + '-' + pad2(hoje.getMonth() + 1));
+    declaracaoFormMeses = d ? d.meses.map(function(m){ return { competencia: m.competencia, valor: m.valor }; }) : gerarMesesDeclaracao(document.getElementById('df-mes-final').value);
+    document.getElementById('df-local').value = (d && d.local) || db.empresa.cidade || '';
+    document.getElementById('df-contador-nome').value = (d && d.contadorNome) || db.empresa.contadorNome || '';
+    document.getElementById('df-contador-crc').value = (d && d.contadorCRC) || db.empresa.contadorCRC || '';
+    document.getElementById('df-contador-cpf').value = (d && d.contadorCPF) || db.empresa.contadorCPF || '';
+    document.getElementById('df-representante-nome').value = (d && d.representanteNome) || db.empresa.representanteNome || '';
+    document.getElementById('df-representante-cpf').value = (d && d.representanteCPF) || db.empresa.representanteCPF || '';
+    renderDeclaracaoMesesTable();
+  }
+
+  function renderDeclaracaoMesesTable(){
+    var tbody = document.getElementById('df-meses-tbody');
+    tbody.innerHTML = declaracaoFormMeses.map(function(m, idx){
+      return '<tr>' +
+        '<td>' + esc(competenciaLabel(m.competencia)) + '</td>' +
+        '<td class="text-right"><input type="number" class="df-mes-valor" data-idx="' + idx + '" min="0" step="0.01" value="' + (m.valor || 0) + '" style="width:160px; text-align:right;"></td>' +
+        '</tr>';
+    }).join('');
+    atualizarTotaisDeclaracao();
+  }
+
+  function atualizarTotaisDeclaracao(){
+    var total = sum(declaracaoFormMeses.map(function(m){ return m.valor || 0; }));
+    var media = declaracaoFormMeses.length ? total / declaracaoFormMeses.length : 0;
+    document.getElementById('df-total-display').textContent = formatBRL(total);
+    document.getElementById('df-media-display').textContent = formatBRL(media);
+  }
+
+  function carregarFaturamentoDasNotas(){
+    var mesFinal = document.getElementById('df-mes-final').value;
+    if (!mesFinal){ showToast('Informe o mês final.', 'error'); return; }
+    declaracaoFormMeses = gerarMesesDeclaracao(mesFinal);
+    renderDeclaracaoMesesTable();
+    showToast('Faturamento recalculado a partir das Notas de Débito emitidas.', 'success');
+  }
+
+  function saveDeclaracao(){
+    var mesFinal = document.getElementById('df-mes-final').value;
+    if (!mesFinal){ showToast('Informe o mês final.', 'error'); return; }
+    if (!declaracaoFormMeses.length) declaracaoFormMeses = gerarMesesDeclaracao(mesFinal);
+
+    var local = document.getElementById('df-local').value.trim();
+    var contadorNome = document.getElementById('df-contador-nome').value.trim();
+    var contadorCRC = document.getElementById('df-contador-crc').value.trim();
+    var contadorCPF = document.getElementById('df-contador-cpf').value.trim();
+    var representanteNome = document.getElementById('df-representante-nome').value.trim();
+    var representanteCPF = document.getElementById('df-representante-cpf').value.trim();
+
+    var id = editingDeclaracaoId;
+    var existing = id ? db.declaracoesFaturamento.filter(function(x){ return x.id === id; })[0] : null;
+    var record = {
+      id: existing ? existing.id : gerarId('DF', db.nextIds.declaracao),
+      mesFinal: mesFinal,
+      meses: declaracaoFormMeses.map(function(m){ return { competencia: m.competencia, valor: m.valor || 0 }; }),
+      dataEmissao: existing ? existing.dataEmissao : new Date().toISOString().slice(0, 10),
+      local: local,
+      contadorNome: contadorNome,
+      contadorCRC: contadorCRC,
+      contadorCPF: contadorCPF,
+      representanteNome: representanteNome,
+      representanteCPF: representanteCPF
+    };
+
+    if (existing){
+      db.declaracoesFaturamento[db.declaracoesFaturamento.indexOf(existing)] = record;
+    } else {
+      db.declaracoesFaturamento.push(record);
+      db.nextIds.declaracao++;
+    }
+
+    db.empresa.contadorNome = contadorNome;
+    db.empresa.contadorCRC = contadorCRC;
+    db.empresa.contadorCPF = contadorCPF;
+    db.empresa.representanteNome = representanteNome;
+    db.empresa.representanteCPF = representanteCPF;
+
+    saveDB();
+    editingDeclaracaoId = null;
+    currentDeclaracaoPrintId = record.id;
+    goTo('declaracao-print');
+  }
+
+  function viewDeclaracao(id){
+    currentDeclaracaoPrintId = id;
+    goTo('declaracao-print');
+  }
+
+  function deletarDeclaracao(id){
+    if (!confirm('Deseja realmente excluir esta declaração?')) return;
+    var idx = db.declaracoesFaturamento.findIndex(function(x){ return x.id === id; });
+    if (idx === -1) return;
+    db.declaracoesFaturamento.splice(idx, 1);
+    saveDB();
+    renderDeclaracoesFaturamento();
+    showToast('Declaração excluída.', 'info');
+  }
+
+  function renderDeclaracaoA4(id){
+    var container = document.getElementById('declaracao-print-content');
+    var d = (db.declaracoesFaturamento || []).filter(function(x){ return x.id === id; })[0];
+    if (!d){
+      container.innerHTML = '<div class="placeholder-card"><span class="material-symbols-outlined">error</span><p>Declaração não encontrada.</p></div>';
+      return;
+    }
+    var emp = db.empresa;
+    var total = sum(d.meses.map(function(m){ return m.valor; }));
+    var media = d.meses.length ? total / d.meses.length : 0;
+    var periodo = competenciaLabel(d.meses[0].competencia) + ' A ' + competenciaLabel(d.meses[d.meses.length - 1].competencia);
+    var rows = d.meses.map(function(m){
+      return '<tr><td>' + esc(competenciaLabel(m.competencia)) + '</td><td class="text-right">' + formatBRL(m.valor) + '</td></tr>';
+    }).join('');
+
+    container.innerHTML =
+      '<div class="a4-actions no-print">' +
+        '<button type="button" class="btn btn-outline" id="btn-voltar-declaracoes"><span class="material-symbols-outlined">arrow_back</span><span>Voltar</span></button>' +
+        '<button type="button" class="btn btn-primary" id="btn-imprimir-declaracao"><span class="material-symbols-outlined">print</span><span>Imprimir</span></button>' +
+      '</div>' +
+      '<div class="a4-sheet">' +
+        '<div class="a4-header">' +
+          '<div class="a4-logo">' + (emp.logomarca ? '<img src="' + emp.logomarca + '" alt="Logo">' : '<div class="a4-logo-fallback">' + (emp.razaoSocial || 'C').charAt(0) + '</div>') + '</div>' +
+          '<div class="a4-empresa-dados"><strong>' + esc(emp.razaoSocial) + '</strong><br>CNPJ: ' + esc(emp.cnpj) + '<br>' + esc(emp.endereco) + ' — ' + esc(emp.cidade) + '/' + esc(emp.uf) + '</div>' +
+        '</div>' +
+        '<h1 class="a4-title">Declaração de Faturamento</h1>' +
+        '<div class="a4-section-title">' + esc(periodo) + '</div>' +
+        '<p style="font-size:12px; margin:0 0 8px;">Declaramos o faturamento apurado nas competências abaixo.</p>' +
+
+        '<table class="a4-table"><thead><tr><th>Competência</th><th class="text-right">Faturamento</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+
+        '<div class="a4-valores">' +
+          '<div class="detail-row" style="font-size:15px;"><span class="label" style="font-weight:700;">FATURAMENTO TOTAL</span><span class="value" style="font-weight:800;">' + formatBRL(total) + '</span></div>' +
+          '<div class="detail-row"><span class="label">MÉDIA MENSAL</span><span class="value">' + formatBRL(media) + '</span></div>' +
+          '<div class="a4-extenso">(' + capitalizeFirst(numExtenso(Math.round(total))) + ' reais)</div>' +
+        '</div>' +
+
+        '<p style="font-size:12px; margin:24px 0 0;">' + esc(d.local || emp.cidade || '—') + (emp.uf ? ' (' + esc(emp.uf) + ')' : '') + ', ' + dataExtensoCurta(d.dataEmissao) + '.</p>' +
+
+        '<div class="a4-assinaturas" style="margin-top:60px;">' +
+          '<div class="a4-assinatura-bloco"><div class="assinatura-nome"></div><div class="a4-linha"></div>' + esc(d.contadorNome || '—') + '<br><span>' + esc(d.contadorCRC || '') + (d.contadorCPF ? (d.contadorCRC ? ' · ' : '') + 'CPF ' + esc(d.contadorCPF) : '') + '</span></div>' +
+          '<div class="a4-assinatura-bloco"><div class="assinatura-nome">' + esc(d.representanteNome || '') + '</div><div class="a4-linha"></div>' + esc(emp.razaoSocial) + '<br><span>' + esc(d.representanteCPF ? 'CPF ' + d.representanteCPF : '') + '</span></div>' +
+        '</div>' +
+      '</div>';
+
+    document.getElementById('btn-voltar-declaracoes').addEventListener('click', function(){ goTo('declaracoes-faturamento'); });
+    document.getElementById('btn-imprimir-declaracao').addEventListener('click', function(){ window.print(); });
   }
 
   /* ---------------- Contas a Receber (T20/T21) ---------------- */
@@ -7768,6 +8094,26 @@
     document.getElementById('btn-cancelar-nota').addEventListener('click', function(){ goTo('notas'); });
     document.getElementById('btn-salvar-nota').addEventListener('click', saveNota);
 
+    /* Declaração de Faturamento */
+    document.getElementById('btn-nova-declaracao').addEventListener('click', function(){ openNovaDeclaracao(null); });
+    document.getElementById('declaracoes-tbody').addEventListener('click', function(e){
+      var btn = e.target.closest('[data-action]');
+      if (!btn) return;
+      var id = btn.dataset.id;
+      if (btn.dataset.action === 'ver') viewDeclaracao(id);
+      if (btn.dataset.action === 'editar') openNovaDeclaracao(id);
+      if (btn.dataset.action === 'excluir') deletarDeclaracao(id);
+    });
+    document.getElementById('btn-df-carregar-notas').addEventListener('click', carregarFaturamentoDasNotas);
+    document.getElementById('df-meses-tbody').addEventListener('input', function(e){
+      if (!e.target.classList.contains('df-mes-valor')) return;
+      var idx = parseInt(e.target.dataset.idx, 10);
+      declaracaoFormMeses[idx].valor = parseFloat(e.target.value) || 0;
+      atualizarTotaisDeclaracao();
+    });
+    document.getElementById('btn-cancelar-df').addEventListener('click', function(){ goTo('declaracoes-faturamento'); });
+    document.getElementById('btn-salvar-df').addEventListener('click', saveDeclaracao);
+
     /* Contas a Receber */
     document.getElementById('receber-search').addEventListener('input', function(e){ filtrarContasReceber(undefined, undefined, e.target.value); });
     document.getElementById('receber-periodo-filter').addEventListener('change', function(e){ filtrarContasReceber(undefined, e.target.value); });
@@ -8010,6 +8356,10 @@
     getExtratoImportState: function(){ return extratoImportState; },
     nomenclaturaNota: nomenclaturaNota, nomenclaturaNotaPlural: nomenclaturaNotaPlural,
     aplicarNomenclaturaNota: aplicarNomenclaturaNota,
+    renderDeclaracoesFaturamento: renderDeclaracoesFaturamento, openNovaDeclaracao: openNovaDeclaracao,
+    gerarMesesDeclaracao: gerarMesesDeclaracao, calcularFaturamentoMes: calcularFaturamentoMes,
+    competenciaLabel: competenciaLabel, saveDeclaracao: saveDeclaracao, viewDeclaracao: viewDeclaracao,
+    renderDeclaracaoA4: renderDeclaracaoA4,
     renderDRE: renderDRE, navDRE: navDRE, renderRelatorios: renderRelatorios,
     exportarCSV: exportarCSV, openRelatorioGerencial: openRelatorioGerencial
   };
