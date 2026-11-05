@@ -1362,6 +1362,23 @@
 
         <div class="card">
           <div class="dialog-section-title" style="margin-top:0; padding-top:0; border-top:none;">Identificação</div>
+          <div class="form-field">
+            <label class="radio-option"><input type="checkbox" id="nota-historica"> Nota histórica — apenas para registro, não gera Contas a Receber</label>
+          </div>
+          <div class="form-grid" id="nota-historica-campos" style="display:none;">
+            <div class="form-field">
+              <label>Status (apenas informativo)</label>
+              <select id="nota-historica-status">
+                <option value="paga">Paga</option>
+                <option value="aberta">Aberta / Pendente</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Anexar PDF da nota (opcional, até 3 MB)</label>
+              <input type="file" id="nota-historica-pdf-input" accept=".pdf">
+              <div id="nota-historica-pdf-info" style="font-size:12px; color:var(--color-text-secondary); margin-top:4px;"></div>
+            </div>
+          </div>
           <div class="form-grid cols-4">
             <div class="form-field">
               <label>Nº da Nota <span class="required-mark">*</span></label>
@@ -2635,6 +2652,7 @@
   var currentNotaPrintId = null;
   var notaFormItens = [];
   var notaFormParcelas = [];
+  var notaHistoricaPdfDataUrl = null;
   var editingDeclaracaoId = null;
   var currentDeclaracaoPrintId = null;
   var declaracaoFormMeses = [];
@@ -5216,7 +5234,7 @@
       tbody.innerHTML = pageInfo.items.map(function(n){
         var loc = db.locatarios.filter(function(x){ return x.id === n.locatarioId; })[0] || {};
         return '<tr data-id="' + n.id + '">' +
-          '<td class="tabular">' + esc(n.numero) + '</td>' +
+          '<td class="tabular">' + esc(n.numero) + (n.historica ? ' <span class="badge badge-neutral" style="font-size:10px;" title="Nota histórica — não gerou Contas a Receber">Histórica</span>' : '') + '</td>' +
           '<td><div>' + esc(loc.razaoSocial || '—') + '</div><div class="tabular" style="font-size:11px;color:var(--color-text-secondary);">' + esc(loc.cnpj || '') + '</div></td>' +
           '<td>' + notaReferenciaStr(n) + '</td>' +
           '<td class="tabular">' + formatDate(n.dataEmissao) + '</td>' +
@@ -5227,6 +5245,7 @@
             '<button type="button" class="icon-btn" title="Ver" data-action="view" data-id="' + n.id + '"><span class="material-symbols-outlined">visibility</span></button>' +
             '<button type="button" class="icon-btn" title="Editar" data-action="edit" data-id="' + n.id + '"><span class="material-symbols-outlined">edit</span></button>' +
             '<button type="button" class="icon-btn" title="Imprimir" data-action="print" data-id="' + n.id + '"><span class="material-symbols-outlined">print</span></button>' +
+            (n.pdfAnexo ? '<button type="button" class="icon-btn" title="Baixar PDF anexado" data-action="pdf" data-id="' + n.id + '"><span class="material-symbols-outlined">picture_as_pdf</span></button>' : '') +
           '</div></td>' +
           '</tr>';
       }).join('');
@@ -5275,6 +5294,12 @@
       notaFormParcelas = (n.parcelas && n.parcelas.length)
         ? n.parcelas.map(function(p){ return { dataVencimento: p.dataVencimento, valor: p.valor }; })
         : [{ dataVencimento: n.dataVencimento || '', valor: n.valorTotal || 0 }];
+      document.getElementById('nota-historica').checked = !!n.historica;
+      document.getElementById('nota-historica-campos').style.display = n.historica ? '' : 'none';
+      document.getElementById('nota-historica-status').value = n.status === 'paga' ? 'paga' : 'aberta';
+      notaHistoricaPdfDataUrl = n.pdfAnexo || null;
+      document.getElementById('nota-historica-pdf-info').textContent = n.pdfAnexo ? 'PDF já anexado — selecione outro arquivo para substituir.' : '';
+      document.getElementById('nota-historica-pdf-input').value = '';
     } else {
       document.getElementById('form-nota').reset();
       document.getElementById('nota-numero-display').value = gerarNumeroNota();
@@ -5286,9 +5311,25 @@
       notaFormItens = [];
       notaFormParcelas = [{ dataVencimento: '', valor: 0 }];
       popularContaBancariaSelect();
+      document.getElementById('nota-historica').checked = false;
+      document.getElementById('nota-historica-campos').style.display = 'none';
+      document.getElementById('nota-historica-status').value = 'paga';
+      notaHistoricaPdfDataUrl = null;
+      document.getElementById('nota-historica-pdf-info').textContent = '';
     }
     renderNotaItensTable();
     renderNotaParcelasTable();
+  }
+
+  function baixarPdfAnexoNota(id){
+    var n = db.notas.filter(function(x){ return x.id === id; })[0];
+    if (!n || !n.pdfAnexo) return;
+    var a = document.createElement('a');
+    a.href = n.pdfAnexo;
+    a.download = n.numero + '.pdf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 
   function popularContaBancariaSelect(selectedId){
@@ -5441,6 +5482,7 @@
 
     var contaBancariaId = document.getElementById('nota-conta-bancaria-id').value;
     var contaBancaria = (db.empresa.contasBancarias || []).filter(function(c){ return c.id === contaBancariaId; })[0] || null;
+    var historica = document.getElementById('nota-historica').checked;
 
     var record = {
       id: existing ? existing.id : gerarId('ND', seq),
@@ -5454,7 +5496,9 @@
       contaBancaria: contaBancaria,
       itens: itens,
       valorTotal: valorTotal,
-      status: existing ? existing.status : 'aberta'
+      historica: historica,
+      status: historica ? document.getElementById('nota-historica-status').value : (existing ? existing.status : 'aberta'),
+      pdfAnexo: historica ? (notaHistoricaPdfDataUrl || null) : (existing ? (existing.pdfAnexo || null) : null)
     };
 
     if (existing){
@@ -5464,11 +5508,11 @@
       db.nextIds.nota++;
     }
 
-    sincronizarContasReceberDaNota(record);
+    if (!historica) sincronizarContasReceberDaNota(record);
 
     saveDB();
     goTo('notas');
-    showToast('Nota de débito salva com sucesso! Lançamento criado em Contas a Receber.', 'success');
+    showToast(historica ? 'Nota histórica salva para registro.' : 'Nota de débito salva com sucesso! Lançamento criado em Contas a Receber.', 'success');
   }
 
   function viewNota(id){
@@ -8048,8 +8092,33 @@
       if (btn.dataset.action === 'view') viewNota(id);
       if (btn.dataset.action === 'edit') openNovaNota(id);
       if (btn.dataset.action === 'print') viewNota(id);
+      if (btn.dataset.action === 'pdf') baixarPdfAnexoNota(id);
     });
 
+    document.getElementById('nota-historica').addEventListener('change', function(e){
+      document.getElementById('nota-historica-campos').style.display = e.target.checked ? '' : 'none';
+    });
+    document.getElementById('nota-historica-pdf-input').addEventListener('change', function(e){
+      var file = e.target.files[0];
+      var infoEl = document.getElementById('nota-historica-pdf-info');
+      if (!file){ return; }
+      if (file.type !== 'application/pdf'){
+        infoEl.textContent = 'Selecione um arquivo PDF.';
+        e.target.value = '';
+        return;
+      }
+      if (file.size > 3 * 1024 * 1024){
+        infoEl.textContent = 'Arquivo muito grande (máx. 3 MB).';
+        e.target.value = '';
+        return;
+      }
+      var reader = new FileReader();
+      reader.onload = function(readEv){
+        notaHistoricaPdfDataUrl = readEv.target.result;
+        infoEl.textContent = 'Anexado: ' + file.name + ' (' + (file.size / 1024).toFixed(0) + ' KB)';
+      };
+      reader.readAsDataURL(file);
+    });
     document.getElementById('btn-add-item-nota').addEventListener('click', adicionarItemNota);
     document.getElementById('nota-itens-tbody').addEventListener('change', function(e){
       if (!e.target.classList.contains('item-frota')) return;
@@ -8343,7 +8412,7 @@
     renderPropostas: renderPropostas, openNovaProposta: openNovaProposta, viewProposta: viewProposta,
     rejeitarProposta: rejeitarProposta, converterEmContrato: converterEmContrato,
     renderNotas: renderNotas, openNovaNota: openNovaNota, viewNota: viewNota, notaStatusInfo: notaStatusInfo,
-    sincronizarContasReceberDaNota: sincronizarContasReceberDaNota,
+    sincronizarContasReceberDaNota: sincronizarContasReceberDaNota, baixarPdfAnexoNota: baixarPdfAnexoNota,
     renderContasReceber: renderContasReceber, openModalBaixaReceber: openModalBaixaReceber,
     renderContasPagar: renderContasPagar, openModalNovaPagar: openModalNovaPagar,
     openModalPagarConta: openModalPagarConta, renderFluxoCaixa: renderFluxoCaixa, navFluxo: navFluxo,
