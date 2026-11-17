@@ -310,6 +310,10 @@
     padding:11px 12px; border-bottom:1px solid var(--color-canvas); font-size:13px; color: var(--color-text);
   }
   table.data-table tbody tr:hover td{ background:#F1F5F9; }
+  table.data-table thead th.th-sortable{ cursor:pointer; user-select:none; white-space:nowrap; }
+  table.data-table thead th.th-sortable:hover{ color: var(--color-orange); }
+  .sort-arrow{ font-size:14px; vertical-align:-3px; opacity:0.5; }
+  table.data-table thead th.th-sortable.sort-active .sort-arrow{ opacity:1; color: var(--color-orange); }
 
   .badge{
     display:inline-block; padding:2px 10px; border-radius: var(--radius-full);
@@ -1348,7 +1352,16 @@
         <div style="overflow-x:auto;">
           <table class="data-table">
             <thead>
-              <tr><th>Nº Nota</th><th>Locatário</th><th>Referência</th><th>Data Emissão</th><th>Vencimento</th><th>Valor</th><th>Status</th><th class="text-right">Ações</th></tr>
+              <tr>
+                <th class="th-sortable" data-sort="numero">Nº Nota <span class="material-symbols-outlined sort-arrow" data-sort-icon="numero">unfold_more</span></th>
+                <th class="th-sortable" data-sort="locatario">Locatário <span class="material-symbols-outlined sort-arrow" data-sort-icon="locatario">unfold_more</span></th>
+                <th>Referência</th>
+                <th class="th-sortable" data-sort="dataEmissao">Data Emissão <span class="material-symbols-outlined sort-arrow" data-sort-icon="dataEmissao">unfold_more</span></th>
+                <th>Vencimento</th>
+                <th class="th-sortable" data-sort="valor">Valor <span class="material-symbols-outlined sort-arrow" data-sort-icon="valor">unfold_more</span></th>
+                <th>Status</th>
+                <th class="text-right">Ações</th>
+              </tr>
             </thead>
             <tbody id="notas-tbody"></tbody>
           </table>
@@ -2684,7 +2697,7 @@
   ];
   var propostaObsPadrao = [];
 
-  var notasState = { query: '', status: '', page: 1 };
+  var notasState = { query: '', status: '', page: 1, sortField: '', sortDir: 'asc' };
   var editingNotaId = null;
   var currentNotaPrintId = null;
   var notaFormItens = [];
@@ -5253,6 +5266,22 @@
     renderNotas();
   }
 
+  function atualizarIconesOrdenacaoNotas(){
+    var icons = document.querySelectorAll('#sec-notas .sort-arrow');
+    for (var i = 0; i < icons.length; i++){
+      var icon = icons[i];
+      var field = icon.getAttribute('data-sort-icon');
+      var th = icon.closest('th');
+      if (field === notasState.sortField){
+        th.classList.add('sort-active');
+        icon.textContent = notasState.sortDir === 'desc' ? 'arrow_downward' : 'arrow_upward';
+      } else {
+        th.classList.remove('sort-active');
+        icon.textContent = 'unfold_more';
+      }
+    }
+  }
+
   function renderNotas(){
     var q = normalizeText(notasState.query);
     var filtered = db.notas.filter(function(n){
@@ -5261,6 +5290,30 @@
       var matchStatus = !notasState.status || effectiveStatus === notasState.status;
       return matchQuery && matchStatus;
     });
+    if (notasState.sortField){
+      var dir = notasState.sortDir === 'desc' ? -1 : 1;
+      var campo = notasState.sortField;
+      filtered.sort(function(a, b){
+        var va, vb;
+        if (campo === 'numero'){
+          va = parseInt((a.numero || '').replace(/\D/g, ''), 10) || 0;
+          vb = parseInt((b.numero || '').replace(/\D/g, ''), 10) || 0;
+        } else if (campo === 'locatario'){
+          va = normalizeText(getLocatarioNome(a.locatarioId));
+          vb = normalizeText(getLocatarioNome(b.locatarioId));
+        } else if (campo === 'dataEmissao'){
+          va = a.dataEmissao || '';
+          vb = b.dataEmissao || '';
+        } else {
+          va = a.valorTotal || 0;
+          vb = b.valorTotal || 0;
+        }
+        if (va < vb) return -1 * dir;
+        if (va > vb) return 1 * dir;
+        return 0;
+      });
+    }
+    atualizarIconesOrdenacaoNotas();
     var pageInfo = paginate(filtered, notasState.page, PAGE_SIZE);
     notasState.page = pageInfo.page;
 
@@ -8308,6 +8361,19 @@
       btn.classList.add('active');
       filtrarNotas(undefined, btn.dataset.status);
     });
+    var notasSortHeaders = document.querySelectorAll('#sec-notas .th-sortable');
+    for (var nsh = 0; nsh < notasSortHeaders.length; nsh++){
+      notasSortHeaders[nsh].addEventListener('click', function(){
+        var field = this.dataset.sort;
+        if (notasState.sortField === field){
+          notasState.sortDir = notasState.sortDir === 'asc' ? 'desc' : 'asc';
+        } else {
+          notasState.sortField = field;
+          notasState.sortDir = 'asc';
+        }
+        renderNotas();
+      });
+    }
     document.getElementById('notas-tbody').addEventListener('click', function(e){
       var btn = e.target.closest('[data-action]');
       if (!btn) return;
