@@ -1355,7 +1355,7 @@
               <tr>
                 <th class="th-sortable" data-sort="numero">Nº Nota <span class="material-symbols-outlined sort-arrow" data-sort-icon="numero">unfold_more</span></th>
                 <th class="th-sortable" data-sort="locatario">Locatário <span class="material-symbols-outlined sort-arrow" data-sort-icon="locatario">unfold_more</span></th>
-                <th>Referência</th>
+                <th class="th-sortable" data-sort="referencia">Referência <span class="material-symbols-outlined sort-arrow" data-sort-icon="referencia">unfold_more</span></th>
                 <th class="th-sortable" data-sort="dataEmissao">Data Emissão <span class="material-symbols-outlined sort-arrow" data-sort-icon="dataEmissao">unfold_more</span></th>
                 <th>Vencimento</th>
                 <th class="th-sortable" data-sort="valor">Valor <span class="material-symbols-outlined sort-arrow" data-sort-icon="valor">unfold_more</span></th>
@@ -5301,7 +5301,7 @@
         } else if (campo === 'locatario'){
           va = normalizeText(getLocatarioNome(a.locatarioId));
           vb = normalizeText(getLocatarioNome(b.locatarioId));
-        } else if (campo === 'dataEmissao'){
+        } else if (campo === 'dataEmissao' || campo === 'referencia'){
           va = a.dataEmissao || '';
           vb = b.dataEmissao || '';
         } else {
