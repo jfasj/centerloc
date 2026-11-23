@@ -625,7 +625,7 @@
         <span class="material-symbols-outlined">arrow_forward</span>
       </button>
     </form>
-    <p class="login-hint" id="login-toggle-mode" style="cursor:pointer; text-decoration:underline;">Não tem conta? Criar conta</p>
+    <p class="login-hint">Acesso restrito. Solicite seu usuário ao administrador.</p>
   </div>
 </section>
 
@@ -2591,7 +2591,6 @@
   var SUPABASE_KEY = 'sb_publishable_fetnXZ-AARltLdagoBrYzQ_DcupGxYC';
   var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   if (window.pdfjsLib) window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-  var authMode = 'login';
 
   var BREADCRUMBS = {
     'dashboard': ['Principal', 'Dashboard'],
@@ -3439,13 +3438,6 @@
     return msg;
   }
 
-  function setAuthMode(mode){
-    authMode = mode;
-    document.getElementById('btn-login-submit-label').textContent = mode === 'signup' ? 'Criar Conta' : 'Entrar';
-    document.getElementById('login-toggle-mode').textContent = mode === 'signup' ? 'Já tem conta? Entrar' : 'Não tem conta? Criar conta';
-    hideLoginError();
-  }
-
   function login(ev){
     ev.preventDefault();
     var email = document.getElementById('login-email').value.trim().toLowerCase();
@@ -3453,18 +3445,10 @@
     hideLoginError();
     var btn = document.getElementById('btn-login-submit');
     btn.disabled = true;
-    var action = authMode === 'signup'
-      ? sb.auth.signUp({ email: email, password: senha })
-      : sb.auth.signInWithPassword({ email: email, password: senha });
-    action.then(function(res){
+    sb.auth.signInWithPassword({ email: email, password: senha }).then(function(res){
       btn.disabled = false;
       if (res.error){
         showLoginError(traduzErroAuth(res.error.message));
-        return;
-      }
-      if (authMode === 'signup' && !res.data.session){
-        showToast('Conta criada! Verifique seu e-mail para confirmar o acesso.', 'success');
-        setAuthMode('login');
         return;
       }
       onLoggedIn(res.data.user);
@@ -3520,7 +3504,6 @@
     sb.auth.signOut().then(function(){
       document.getElementById('login-form').reset();
       hideLoginError();
-      setAuthMode('login');
       currentUser = null;
       currentUserRole = null;
       RESTRICTED_SECTIONS_OPERACIONAL.forEach(function(section){
@@ -8019,9 +8002,6 @@
 
   function wireEvents(){
     document.getElementById('login-form').addEventListener('submit', login);
-    document.getElementById('login-toggle-mode').addEventListener('click', function(){
-      setAuthMode(authMode === 'signup' ? 'login' : 'signup');
-    });
 
     document.getElementById('toggle-senha-btn').addEventListener('click', function(){
       var input = document.getElementById('login-senha');
