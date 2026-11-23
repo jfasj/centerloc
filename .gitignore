@@ -2,3 +2,7 @@
 Thumbs.db
 *.lnk
 .claude/
+
+# Pesquisas com dados da frota - ficam no repo privado centerloc-pesquisas
+reports/
+research_notes/
